@@ -1,0 +1,76 @@
+{
+  "accepted": true,
+  "findings": [],
+  "variants": {
+    "A": {
+      "accepted": true,
+      "reason": "All intended BigFloat whole-metric/observation event counts decrease in every pair; supportive sparse/dense whole-call paired timings; numerical/ownership/context controls pass.",
+      "scopes": [
+        "BigFloat metric",
+        "complete primal observation",
+        "complete dual observation"
+      ],
+      "median_paired_ratios": [
+        0.9545539297383043,
+        0.9655746213826621,
+        0.9675314844598821
+      ]
+    },
+    "B": {
+      "accepted": true,
+      "reason": "BigFloat and Rational{BigInt} structural gates and whole cold initializers decrease bytes/events in every pair; preserved negative rounding and exact rational behavior; slack/native controls remain neutral in event counts.",
+      "scopes": [
+        "BigFloat unit gate",
+        "Rational{BigInt} unit gate",
+        "complete cold initializer"
+      ],
+      "bigfloat_init_median_paired_ratio": 0.9673022095509622
+    },
+    "C": {
+      "accepted": true,
+      "reason": "All BigFloat cold-initializer cells decrease bytes/events in every pair; preserved row ownership and exception ordering; initialized and generic controls retained.",
+      "bigfloat_init_median_paired_ratio": 0.916869918699187
+    },
+    "BC": {
+      "accepted": true,
+      "reason": "Explicit composed whole-initializer measurements decrease bytes/events in every BigFloat pair and every Rational{BigInt} structural pair; no inference by merely adding isolated effects.",
+      "bigfloat_init_median_paired_ratio": 0.865987545254064
+    }
+  },
+  "scope": "Independent scoped numerical/work-memory result acceptance for A,B,C and BC; production regression/RED/GREEN/integration still required",
+  "assertions": 105921,
+  "cells": 3415,
+  "windows": 61470,
+  "measured_compilation_seconds": 0,
+  "GC_affected_windows": 23,
+  "original_run_accepted": false,
+  "unnecessary_added_production_work_or_memory_found": false,
+  "limitations": [
+    "One A whole-primal-observation pair has extra bytes despite fewer events; byte variation cause unknown",
+    "Timing outliers and some slower cells retained; no universal speedup claim",
+    "Per-call allocations do not prove native retained memory",
+    "Full suite, x64, larger-dimension and public end-to-end coverage remain open",
+    "Runtime binary binding is scoped, not full loader/depot/cache closure"
+  ],
+  "bindings": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/RESULT-REVIEW.md": "14183cbf350e2f4b2305f8eea5faded72c7fdafb0a82e3c6cc70a1e5e81eff7c",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/comparison-2/independent-result-check.py": "52dd61e7c61e06dfb713c702af07a7581e36611fbe61f56b35babc218ad21570",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/comparison-2/independent-result-check.json": "baa1c70d45fdef32fa5395f94d366589a76054b09f54ba5048a7c773520eeade",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/comparison-2/independent-result-host.json": "4b6deed557d1745d7c6623f116195999f620e6a313c9303425944dec27c52ef5",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/comparison-2/output/results.toml": "60d5b2799970c61ff4f294aa25266d4d3275f85916a87a9a7ecae78dbc9eb291",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/comparison-2/output/run.log": "3e362d43fb77bd45c34fde63bec28128c1dd7f1ceaeafdbfa1ddc9b9bc5e70ac",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/comparison-2/output/process.json": "415fb8e474041eff319e5b807515c7c82b8148f81acbcaa4394d0d14bd810b09",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/comparison-2/summary.json": "fca7070907482fce8f864fb92245ff5b918b930d99ffcc1fb69cbad76b2fa203",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/comparison-2/audit.json": "9e6ad8127f79302428525fba7ef3c4e46dbffc0fe0517085cdb4ca1f9d087829",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/comparison-2/completed.json": "0544ba9cfaa2bd0df166ccde01d4270f01cf3b186563df6a5bb841ceecc7b3bd",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/comparison-2/pins-reviewed.json": "89febcf8a1f92f1d5251552fc61bb33ecb08d2a9d054612728f1a24946b8ef0e",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/comparison-2/contract-reviewed.json": "664d12aaeea413787268a23b2700a1b0376b03454a48b4ac45fa161da19d4d4c",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/comparison-2/driver-reviewed.jl": "e05f66fa9f7e1ceb12423f06d36279400666c1fd75580e13594fe848db7cc7d4",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/comparison-2/fixtures-reviewed.jl": "6fcc4d62da153db943bcba8520e8edd703d056b7789647dec0167918d7cfb6aa",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/comparison-2/extra-tests-reviewed.jl": "455b1e32a92196ee0522b0b880af16ca78533b62f14e3bce0b50c34dfcf81767",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/comparison-2/boundary-tests.jl": "23b00e9cb2e5cec37e8db3c63573b8ae6959e78d3d2219bdfc1b044c39a42e2d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/changes.json": "8b37b93c8328ff0cf2fabaef7920db5e0fb310d7da4b195598d92f50d2f73604",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/source-clones.json": "67271132aa2615ebb54d3fc9cb56528fccba0ac28a911d831dd63de32d1a5e91",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/source-review-independent-1.md": "70671ed0b5c5cd56ab4c0708c2f0d2102ef5ff99b959e92eb55138b9f22f646d"
+  }
+}

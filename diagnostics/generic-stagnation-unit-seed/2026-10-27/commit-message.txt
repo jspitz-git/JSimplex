@@ -1,0 +1,3 @@
+Reduce scalar work in stagnation and steepest initialization
+
+Reuse private BigFloat metric comparison zeros and conditional magnitudes without changing observation checks or callbacks. Specialize the multiprecision unit-basis predicate while preserving BigFloat rounding. Evaluate shared slack row-weight cacheability once per BigFloat initialization at its first original site. Preserve numerical safeguards, tolerances, arithmetic order, input/output owners, early-return and exception behavior. Add ordinary whole-function differential and allocation regressions.

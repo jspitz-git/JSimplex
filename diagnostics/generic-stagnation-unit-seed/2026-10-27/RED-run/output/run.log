@@ -1,0 +1,130 @@
+SSU_SOURCE /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/RED/src/JSimplex.jl
+INCLUDING generic_stagnation_unit_seed_tests.jl
+ERROR: LoadError: Some tests did not pass: 30806 passed, 5 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/RED-run/tests.jl:8
+
+Whole-call allocation BigFloat values: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/RED/test/generic_stagnation_unit_seed_tests.jl:567
+  Expression: all((new["events"] < old["events"] for (old, new) = pairs)) && (sort([new["bytes"] for (old, new) = pairs]))[2] < (sort([old["bytes"] for (old, new) = pairs]))[2]
+  Stacktrace:
+   [1] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+   [2] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/RED/test/generic_stagnation_unit_seed_tests.jl:567 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] (::Main.GenericStagnationUnitSeedTests.var"#41#42")()
+     @ Main.GenericStagnationUnitSeedTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/RED/test/generic_stagnation_unit_seed_tests.jl:557
+
+Whole-call allocation BigFloat observe: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/RED/test/generic_stagnation_unit_seed_tests.jl:567
+  Expression: all((new["events"] < old["events"] for (old, new) = pairs)) && (sort([new["bytes"] for (old, new) = pairs]))[2] < (sort([old["bytes"] for (old, new) = pairs]))[2]
+  Stacktrace:
+   [1] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+   [2] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/RED/test/generic_stagnation_unit_seed_tests.jl:567 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] (::Main.GenericStagnationUnitSeedTests.var"#41#42")()
+     @ Main.GenericStagnationUnitSeedTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/RED/test/generic_stagnation_unit_seed_tests.jl:557
+
+Whole-call allocation BigFloat unit: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/RED/test/generic_stagnation_unit_seed_tests.jl:567
+  Expression: all((new["events"] < old["events"] for (old, new) = pairs)) && (sort([new["bytes"] for (old, new) = pairs]))[2] < (sort([old["bytes"] for (old, new) = pairs]))[2]
+  Stacktrace:
+   [1] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+   [2] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/RED/test/generic_stagnation_unit_seed_tests.jl:567 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] (::Main.GenericStagnationUnitSeedTests.var"#41#42")()
+     @ Main.GenericStagnationUnitSeedTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/RED/test/generic_stagnation_unit_seed_tests.jl:557
+
+Whole-call allocation Rational{BigInt} unit: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/RED/test/generic_stagnation_unit_seed_tests.jl:567
+  Expression: all((new["events"] < old["events"] for (old, new) = pairs)) && (sort([new["bytes"] for (old, new) = pairs]))[2] < (sort([old["bytes"] for (old, new) = pairs]))[2]
+  Stacktrace:
+   [1] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+   [2] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/RED/test/generic_stagnation_unit_seed_tests.jl:567 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] (::Main.GenericStagnationUnitSeedTests.var"#41#42")()
+     @ Main.GenericStagnationUnitSeedTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/RED/test/generic_stagnation_unit_seed_tests.jl:557
+
+Whole-call allocation BigFloat init: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/RED/test/generic_stagnation_unit_seed_tests.jl:567
+  Expression: all((new["events"] < old["events"] for (old, new) = pairs)) && (sort([new["bytes"] for (old, new) = pairs]))[2] < (sort([old["bytes"] for (old, new) = pairs]))[2]
+  Stacktrace:
+   [1] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+   [2] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/RED/test/generic_stagnation_unit_seed_tests.jl:567 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] (::Main.GenericStagnationUnitSeedTests.var"#41#42")()
+     @ Main.GenericStagnationUnitSeedTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/RED/test/generic_stagnation_unit_seed_tests.jl:557
+Test Summary:                                                    |  Pass  Fail  Total   Time
+Stagnation unit seed RED                                         | 30806     5  30811  33.9s
+  Stagnation unit and shared row-weight regressions              | 30806     5  30811  33.7s
+    Stagnation unit and seed correctness BigFloat                |  1546         1546   2.1s
+    Stagnation invalidation and seed ownership BigFloat          |   121          121   0.9s
+    Cross-call owners and real dual cost rebase BigFloat         |    22           22   0.8s
+    Stagnation unit and seed correctness BigFloat                |  1546         1546   0.1s
+    Stagnation invalidation and seed ownership BigFloat          |   121          121   0.0s
+    Cross-call owners and real dual cost rebase BigFloat         |    22           22   0.0s
+    Stagnation unit and seed correctness BigFloat                |  1546         1546   0.1s
+    Stagnation invalidation and seed ownership BigFloat          |   121          121   0.0s
+    Cross-call owners and real dual cost rebase BigFloat         |    22           22   0.0s
+    Stagnation unit and seed correctness BigFloat                |  1546         1546   0.1s
+    Stagnation invalidation and seed ownership BigFloat          |   121          121   0.0s
+    Cross-call owners and real dual cost rebase BigFloat         |    22           22   0.0s
+    Stagnation unit and seed correctness BigFloat                |  1546         1546   0.1s
+    Stagnation invalidation and seed ownership BigFloat          |   121          121   0.0s
+    Cross-call owners and real dual cost rebase BigFloat         |    22           22   0.0s
+    Stagnation unit and seed correctness BigFloat                |  1546         1546   0.1s
+    Stagnation invalidation and seed ownership BigFloat          |   121          121   0.0s
+    Cross-call owners and real dual cost rebase BigFloat         |    22           22   0.0s
+    Stagnation unit and seed correctness BigFloat                |  1546         1546   0.1s
+    Stagnation invalidation and seed ownership BigFloat          |   121          121   0.0s
+    Cross-call owners and real dual cost rebase BigFloat         |    22           22   0.0s
+    Stagnation unit and seed correctness BigFloat                |  1546         1546   0.1s
+    Stagnation invalidation and seed ownership BigFloat          |   121          121   0.0s
+    Cross-call owners and real dual cost rebase BigFloat         |    22           22   0.0s
+    Stagnation unit and seed correctness BigFloat                |  1546         1546   0.1s
+    Stagnation invalidation and seed ownership BigFloat          |   121          121   0.0s
+    Cross-call owners and real dual cost rebase BigFloat         |    22           22   0.0s
+    Stagnation unit and seed correctness BigFloat                |  1546         1546   0.1s
+    Stagnation invalidation and seed ownership BigFloat          |   121          121   0.0s
+    Cross-call owners and real dual cost rebase BigFloat         |    22           22   0.0s
+    Stagnation unit and seed correctness BigFloat                |  1546         1546   0.1s
+    Stagnation invalidation and seed ownership BigFloat          |   121          121   0.0s
+    Cross-call owners and real dual cost rebase BigFloat         |    22           22   0.0s
+    Stagnation unit and seed correctness BigFloat                |  1546         1546   0.1s
+    Stagnation invalidation and seed ownership BigFloat          |   121          121   0.0s
+    Cross-call owners and real dual cost rebase BigFloat         |    22           22   0.0s
+    Stagnation unit and seed correctness BigFloat                |  1546         1546   0.1s
+    Stagnation invalidation and seed ownership BigFloat          |   121          121   0.0s
+    Cross-call owners and real dual cost rebase BigFloat         |    22           22   0.0s
+    Stagnation unit and seed correctness BigFloat                |  1546         1546   0.1s
+    Stagnation invalidation and seed ownership BigFloat          |   121          121   0.0s
+    Cross-call owners and real dual cost rebase BigFloat         |    22           22   0.0s
+    Stagnation unit and seed correctness BigFloat                |  1546         1546   0.1s
+    Stagnation invalidation and seed ownership BigFloat          |   121          121   0.0s
+    Cross-call owners and real dual cost rebase BigFloat         |    22           22   0.0s
+    Stagnation unit and seed correctness Float32                 |  1378         1378   1.4s
+    Stagnation invalidation and seed ownership Float32           |    68           68   0.0s
+    Cross-call owners and real dual cost rebase Float32          |     8            8   0.7s
+    Stagnation unit and seed correctness Float64                 |  1378         1378   1.4s
+    Stagnation invalidation and seed ownership Float64           |    68           68   0.0s
+    Cross-call owners and real dual cost rebase Float64          |     8            8   0.7s
+    Stagnation unit and seed correctness Rational{BigInt}        |  1426         1426   2.3s
+    Stagnation invalidation and seed ownership Rational{BigInt}  |    84           84   0.0s
+    Cross-call owners and real dual cost rebase Rational{BigInt} |    16           16   0.7s
+    Stagnation unit and seed correctness Rational{Int64}         |   946          946   2.0s
+    Stagnation invalidation and seed ownership Rational{Int64}   |    68           68   0.0s
+    Cross-call owners and real dual cost rebase Rational{Int64}  |     8            8   0.8s
+    Whole-call allocation BigFloat values                        |     3     1      4   0.7s
+    Whole-call allocation BigFloat observe                       |     3     1      4   0.1s
+    Whole-call allocation BigFloat unit                          |     3     1      4   0.0s
+    Whole-call allocation Rational{BigInt} unit                  |     3     1      4   0.0s
+    Whole-call allocation BigFloat init                          |     3     1      4   0.0s
+RNG of the outermost testset: Random.Xoshiro(0x63d917e35bfd39eb, 0x39b8ba49582f5df9, 0xf7241125fcb58763, 0x3081c2f3abdc9c89, 0x3843f127071f4084)

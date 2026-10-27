@@ -1,0 +1,19 @@
+from pathlib import Path
+import sys,json,shutil,re
+D=Path('/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27');sys.path.insert(0,str(D));import common_reviewed as c
+c.unchanged();p=c.read('output/process.json');c.need(p['returncode']==1 and p['pins_unchanged'] and p['reason']=='exit1','first failed unchanged')
+log=(D/'output/run.log').read_text();c.need('Test Failed at ' not in log and log.count('Stagnation invalidation and seed ownership ')==38,'only nineteen error summaries')
+c.need(log.count('reset!\n')==19 and log.count('at index [1:12]')==19,'nineteen same reset errors')
+h=c.host([p[k][v] for k in ['runner','child'] for v in ['pgid','sid']]);h['diagnostic_head']=c.git(['rev-parse','HEAD'],c.R);c.put('failure-host.json',h)
+Q=D/'comparison-2';Q.mkdir()
+for n in ['Reference.jl','A.jl','B.jl','C.jl','BC.jl','boundary-tests.jl','common_reviewed.py','launch-reviewed.py','environment.json','protected-before.json','runtime-readtime-pins.json']:shutil.copyfile(D/n,Q/n)
+s=(D/'fixtures-reviewed.jl').read_text();a='function checkpair(a,b,arm;protect=true)\n reset!(a);reset!(b);';b='function checkpair(a,b,arm;protect=true,reset_state=true)\n reset_state&&(reset!(a);reset!(b));';c.need(s.count(a)==1,'one checkpair reset boundary');s=s.replace(a,b);(Q/'fixtures-reviewed.jl').write_text(s)
+s=(D/'extra-tests-reviewed.jl').read_text();a='   z=checkpair(a,b,arm)\n   @test T===Rational{Int64}';b='   z=checkpair(a,b,arm;reset_state=false)\n   @test T===Rational{Int64}';c.need(s.count(a)==1,'one malformed-array reset exception');s=s.replace(a,b);(Q/'extra-tests-reviewed.jl').write_text(s)
+shutil.copyfile(D/'driver-reviewed.jl',Q/'driver-reviewed.jl');shutil.copyfile(D/'audit-reviewed.py',Q/'audit-reviewed.py')
+co=c.read('contract-reviewed.json');co['command']=[v.replace(str(D/'driver-reviewed.jl'),str(Q/'driver-reviewed.jl')).replace(str(D/'output/results.toml'),str(Q/'output/results.toml')) for v in co['command']];(Q/'contract-reviewed.json').write_text(json.dumps(co,indent=2)+'\n')
+for n in ['host-seed.json','host-before.json']:(Q/n).write_text(json.dumps(h,indent=2)+'\n')
+shutil.copytree(D/'guard',Q/'guard',ignore=shutil.ignore_patterns('__pycache__'));shutil.copyfile(__file__,Q/'prepare.py')
+(Q/'FIX.md').write_text('First comparison REJECTED: no candidate/reference assertion disagreement, nineteen errors in deliberately shortened-array test setup. checkpair unconditionally restored12seedvalues into9-element destination before captured whole function; allerrors stack reset/copyto, not candidate. Add optionalreset_state=true tocheckpair, skiponly thisreset foralready prepared malformed9-elementinitfixtures; default numerical/timing resets unchanged, all BoundsError/partial-output/value/context/owner assertions retained. Fixed RatInt64 earlyreturn expectation remains unchanged. Same candidates/grid/inputs/threewarm/ninepairs/scope/caps/pins. Originalscripts/raw/rejectedrun preserved; one separately reviewed diagnostic-only corrected600scomparison, no numerical/cost tuning.\n')
+c.put('failure-checks.json',dict(accepted=False,reason='nineteen setup reset errors, original remains rejected',errors=19,assertion_failures=0,raw_preserved=True))
+paths=set(c.read('pins-reviewed.json')['inventory']);paths.update(str(D/n) for n in ['pins-reviewed.json','admission.json','prelaunch-review-accepted-2.md','failure-host.json','failure-checks.json','output/process.json','output/run.log','output/results.toml','supervisor.json']);paths.update(str(p) for p in Q.rglob('*') if p.is_file());(Q/'pins-reviewed.json').write_text(json.dumps(dict(files=sorted(paths),trees=c.read('pins-reviewed.json')['trees'],inputs=[],inventory={n:dict(resolved=str(Path(n).resolve(strict=True)),sha256=c.sha(n)) for n in sorted(paths)}),indent=2,sort_keys=True)+'\n')
+print(len(paths),'pins; only captured malformed-fixture reset changed; noJulia')

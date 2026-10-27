@@ -1,0 +1,1154 @@
+CONTEXT BF64_RoundingMode{:Nearest}()
+
+Stagnation invalidation and seed ownership BigFloat: Error During Test at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:2
+  Got exception outside of a @test
+  BoundsError: attempt to access 9-element Vector{BigFloat} at index [1:12]
+  Stacktrace:
+    [1] throw_boundserror(A::Vector{BigFloat}, I::Tuple{UnitRange{Int64}})
+      @ Base ./essentials.jl:14
+    [2] checkbounds
+      @ ./abstractarray.jl:702 [inlined]
+    [3] _copyto_impl!
+      @ ./array.jl:296 [inlined]
+    [4] copyto!
+      @ ./array.jl:291 [inlined]
+    [5] _copyto2arg!
+      @ ./array.jl:311 [inlined]
+    [6] copyto!
+      @ ./array.jl:318 [inlined]
+    [7] reset!
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:68 [inlined]
+    [8] checkpair(a::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, b::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, arm::Symbol; protect::Bool)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:103
+    [9] checkpair(a::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, b::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, arm::Symbol)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:102
+   [10] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:30 [inlined]
+   [11] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [12] extra_correctness(::Type{BigFloat})
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:3
+   [13] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:31 [inlined]
+   [14] macro expansion
+      @ ./timing.jl:699 [inlined]
+   [15] context(::Type{BigFloat}, label::String)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:31
+   [16] #40
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:47 [inlined]
+   [17] setrounding_raw(f::var"#40#41"{RoundingMode{:Nearest}, Int64}, ::Type{BigFloat}, r::Base.MPFR.MPFRRoundingMode)
+      @ Base.MPFR ./mpfr.jl:250
+   [18] setrounding
+      @ ./mpfr.jl:255 [inlined]
+   [19] #38
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:47 [inlined]
+   [20] setprecision(f::var"#38#39"{RoundingMode{:Nearest}, Int64}, ::Type{BigFloat}, prec::Int64; base::Int64)
+      @ Base.MPFR ./mpfr.jl:1214
+   [21] setprecision(f::Function, ::Type{BigFloat}, prec::Int64)
+      @ Base.MPFR ./mpfr.jl:1213
+   [22] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:45
+   [23] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [24] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:46 [inlined]
+   [25] include(mod::Module, _path::String)
+      @ Base ./Base.jl:309
+   [26] exec_options(opts::Base.JLOptions)
+      @ Base ./client.jl:344
+   [27] _start()
+      @ Base ./client.jl:577
+CONTEXT BF64_RoundingMode{:Down}()
+
+Stagnation invalidation and seed ownership BigFloat: Error During Test at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:2
+  Got exception outside of a @test
+  BoundsError: attempt to access 9-element Vector{BigFloat} at index [1:12]
+  Stacktrace:
+    [1] throw_boundserror(A::Vector{BigFloat}, I::Tuple{UnitRange{Int64}})
+      @ Base ./essentials.jl:14
+    [2] checkbounds
+      @ ./abstractarray.jl:702 [inlined]
+    [3] _copyto_impl!
+      @ ./array.jl:296 [inlined]
+    [4] copyto!
+      @ ./array.jl:291 [inlined]
+    [5] _copyto2arg!
+      @ ./array.jl:311 [inlined]
+    [6] copyto!
+      @ ./array.jl:318 [inlined]
+    [7] reset!
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:68 [inlined]
+    [8] checkpair(a::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, b::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, arm::Symbol; protect::Bool)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:103
+    [9] checkpair(a::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, b::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, arm::Symbol)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:102
+   [10] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:30 [inlined]
+   [11] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [12] extra_correctness(::Type{BigFloat})
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:3
+   [13] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:31 [inlined]
+   [14] macro expansion
+      @ ./timing.jl:699 [inlined]
+   [15] context(::Type{BigFloat}, label::String)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:31
+   [16] #40
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:47 [inlined]
+   [17] setrounding_raw(f::var"#40#41"{RoundingMode{:Down}, Int64}, ::Type{BigFloat}, r::Base.MPFR.MPFRRoundingMode)
+      @ Base.MPFR ./mpfr.jl:250
+   [18] setrounding
+      @ ./mpfr.jl:255 [inlined]
+   [19] #38
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:47 [inlined]
+   [20] setprecision(f::var"#38#39"{RoundingMode{:Down}, Int64}, ::Type{BigFloat}, prec::Int64; base::Int64)
+      @ Base.MPFR ./mpfr.jl:1214
+   [21] setprecision(f::Function, ::Type{BigFloat}, prec::Int64)
+      @ Base.MPFR ./mpfr.jl:1213
+   [22] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:45
+   [23] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [24] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:46 [inlined]
+   [25] include(mod::Module, _path::String)
+      @ Base ./Base.jl:309
+   [26] exec_options(opts::Base.JLOptions)
+      @ Base ./client.jl:344
+   [27] _start()
+      @ Base ./client.jl:577
+CONTEXT BF64_RoundingMode{:Up}()
+
+Stagnation invalidation and seed ownership BigFloat: Error During Test at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:2
+  Got exception outside of a @test
+  BoundsError: attempt to access 9-element Vector{BigFloat} at index [1:12]
+  Stacktrace:
+    [1] throw_boundserror(A::Vector{BigFloat}, I::Tuple{UnitRange{Int64}})
+      @ Base ./essentials.jl:14
+    [2] checkbounds
+      @ ./abstractarray.jl:702 [inlined]
+    [3] _copyto_impl!
+      @ ./array.jl:296 [inlined]
+    [4] copyto!
+      @ ./array.jl:291 [inlined]
+    [5] _copyto2arg!
+      @ ./array.jl:311 [inlined]
+    [6] copyto!
+      @ ./array.jl:318 [inlined]
+    [7] reset!
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:68 [inlined]
+    [8] checkpair(a::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, b::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, arm::Symbol; protect::Bool)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:103
+    [9] checkpair(a::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, b::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, arm::Symbol)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:102
+   [10] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:30 [inlined]
+   [11] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [12] extra_correctness(::Type{BigFloat})
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:3
+   [13] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:31 [inlined]
+   [14] macro expansion
+      @ ./timing.jl:699 [inlined]
+   [15] context(::Type{BigFloat}, label::String)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:31
+   [16] #40
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:47 [inlined]
+   [17] setrounding_raw(f::var"#40#41"{RoundingMode{:Up}, Int64}, ::Type{BigFloat}, r::Base.MPFR.MPFRRoundingMode)
+      @ Base.MPFR ./mpfr.jl:250
+   [18] setrounding
+      @ ./mpfr.jl:255 [inlined]
+   [19] #38
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:47 [inlined]
+   [20] setprecision(f::var"#38#39"{RoundingMode{:Up}, Int64}, ::Type{BigFloat}, prec::Int64; base::Int64)
+      @ Base.MPFR ./mpfr.jl:1214
+   [21] setprecision(f::Function, ::Type{BigFloat}, prec::Int64)
+      @ Base.MPFR ./mpfr.jl:1213
+   [22] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:45
+   [23] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [24] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:46 [inlined]
+   [25] include(mod::Module, _path::String)
+      @ Base ./Base.jl:309
+   [26] exec_options(opts::Base.JLOptions)
+      @ Base ./client.jl:344
+   [27] _start()
+      @ Base ./client.jl:577
+CONTEXT BF64_RoundingMode{:ToZero}()
+
+Stagnation invalidation and seed ownership BigFloat: Error During Test at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:2
+  Got exception outside of a @test
+  BoundsError: attempt to access 9-element Vector{BigFloat} at index [1:12]
+  Stacktrace:
+    [1] throw_boundserror(A::Vector{BigFloat}, I::Tuple{UnitRange{Int64}})
+      @ Base ./essentials.jl:14
+    [2] checkbounds
+      @ ./abstractarray.jl:702 [inlined]
+    [3] _copyto_impl!
+      @ ./array.jl:296 [inlined]
+    [4] copyto!
+      @ ./array.jl:291 [inlined]
+    [5] _copyto2arg!
+      @ ./array.jl:311 [inlined]
+    [6] copyto!
+      @ ./array.jl:318 [inlined]
+    [7] reset!
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:68 [inlined]
+    [8] checkpair(a::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, b::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, arm::Symbol; protect::Bool)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:103
+    [9] checkpair(a::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, b::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, arm::Symbol)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:102
+   [10] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:30 [inlined]
+   [11] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [12] extra_correctness(::Type{BigFloat})
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:3
+   [13] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:31 [inlined]
+   [14] macro expansion
+      @ ./timing.jl:699 [inlined]
+   [15] context(::Type{BigFloat}, label::String)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:31
+   [16] #40
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:47 [inlined]
+   [17] setrounding_raw(f::var"#40#41"{RoundingMode{:ToZero}, Int64}, ::Type{BigFloat}, r::Base.MPFR.MPFRRoundingMode)
+      @ Base.MPFR ./mpfr.jl:250
+   [18] setrounding
+      @ ./mpfr.jl:255 [inlined]
+   [19] #38
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:47 [inlined]
+   [20] setprecision(f::var"#38#39"{RoundingMode{:ToZero}, Int64}, ::Type{BigFloat}, prec::Int64; base::Int64)
+      @ Base.MPFR ./mpfr.jl:1214
+   [21] setprecision(f::Function, ::Type{BigFloat}, prec::Int64)
+      @ Base.MPFR ./mpfr.jl:1213
+   [22] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:45
+   [23] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [24] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:46 [inlined]
+   [25] include(mod::Module, _path::String)
+      @ Base ./Base.jl:309
+   [26] exec_options(opts::Base.JLOptions)
+      @ Base ./client.jl:344
+   [27] _start()
+      @ Base ./client.jl:577
+CONTEXT BF64_RoundingMode{:FromZero}()
+
+Stagnation invalidation and seed ownership BigFloat: Error During Test at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:2
+  Got exception outside of a @test
+  BoundsError: attempt to access 9-element Vector{BigFloat} at index [1:12]
+  Stacktrace:
+    [1] throw_boundserror(A::Vector{BigFloat}, I::Tuple{UnitRange{Int64}})
+      @ Base ./essentials.jl:14
+    [2] checkbounds
+      @ ./abstractarray.jl:702 [inlined]
+    [3] _copyto_impl!
+      @ ./array.jl:296 [inlined]
+    [4] copyto!
+      @ ./array.jl:291 [inlined]
+    [5] _copyto2arg!
+      @ ./array.jl:311 [inlined]
+    [6] copyto!
+      @ ./array.jl:318 [inlined]
+    [7] reset!
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:68 [inlined]
+    [8] checkpair(a::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, b::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, arm::Symbol; protect::Bool)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:103
+    [9] checkpair(a::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, b::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, arm::Symbol)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:102
+   [10] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:30 [inlined]
+   [11] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [12] extra_correctness(::Type{BigFloat})
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:3
+   [13] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:31 [inlined]
+   [14] macro expansion
+      @ ./timing.jl:699 [inlined]
+   [15] context(::Type{BigFloat}, label::String)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:31
+   [16] #40
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:47 [inlined]
+   [17] setrounding_raw(f::var"#40#41"{RoundingMode{:FromZero}, Int64}, ::Type{BigFloat}, r::Base.MPFR.MPFRRoundingMode)
+      @ Base.MPFR ./mpfr.jl:250
+   [18] setrounding
+      @ ./mpfr.jl:255 [inlined]
+   [19] #38
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:47 [inlined]
+   [20] setprecision(f::var"#38#39"{RoundingMode{:FromZero}, Int64}, ::Type{BigFloat}, prec::Int64; base::Int64)
+      @ Base.MPFR ./mpfr.jl:1214
+   [21] setprecision(f::Function, ::Type{BigFloat}, prec::Int64)
+      @ Base.MPFR ./mpfr.jl:1213
+   [22] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:45
+   [23] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [24] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:46 [inlined]
+   [25] include(mod::Module, _path::String)
+      @ Base ./Base.jl:309
+   [26] exec_options(opts::Base.JLOptions)
+      @ Base ./client.jl:344
+   [27] _start()
+      @ Base ./client.jl:577
+CONTEXT BF128_RoundingMode{:Nearest}()
+
+Stagnation invalidation and seed ownership BigFloat: Error During Test at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:2
+  Got exception outside of a @test
+  BoundsError: attempt to access 9-element Vector{BigFloat} at index [1:12]
+  Stacktrace:
+    [1] throw_boundserror(A::Vector{BigFloat}, I::Tuple{UnitRange{Int64}})
+      @ Base ./essentials.jl:14
+    [2] checkbounds
+      @ ./abstractarray.jl:702 [inlined]
+    [3] _copyto_impl!
+      @ ./array.jl:296 [inlined]
+    [4] copyto!
+      @ ./array.jl:291 [inlined]
+    [5] _copyto2arg!
+      @ ./array.jl:311 [inlined]
+    [6] copyto!
+      @ ./array.jl:318 [inlined]
+    [7] reset!
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:68 [inlined]
+    [8] checkpair(a::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, b::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, arm::Symbol; protect::Bool)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:103
+    [9] checkpair(a::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, b::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, arm::Symbol)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:102
+   [10] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:30 [inlined]
+   [11] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [12] extra_correctness(::Type{BigFloat})
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:3
+   [13] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:31 [inlined]
+   [14] macro expansion
+      @ ./timing.jl:699 [inlined]
+   [15] context(::Type{BigFloat}, label::String)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:31
+   [16] #40
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:47 [inlined]
+   [17] setrounding_raw(f::var"#40#41"{RoundingMode{:Nearest}, Int64}, ::Type{BigFloat}, r::Base.MPFR.MPFRRoundingMode)
+      @ Base.MPFR ./mpfr.jl:250
+   [18] setrounding
+      @ ./mpfr.jl:255 [inlined]
+   [19] #38
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:47 [inlined]
+   [20] setprecision(f::var"#38#39"{RoundingMode{:Nearest}, Int64}, ::Type{BigFloat}, prec::Int64; base::Int64)
+      @ Base.MPFR ./mpfr.jl:1214
+   [21] setprecision(f::Function, ::Type{BigFloat}, prec::Int64)
+      @ Base.MPFR ./mpfr.jl:1213
+   [22] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:45
+   [23] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [24] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:46 [inlined]
+   [25] include(mod::Module, _path::String)
+      @ Base ./Base.jl:309
+   [26] exec_options(opts::Base.JLOptions)
+      @ Base ./client.jl:344
+   [27] _start()
+      @ Base ./client.jl:577
+CONTEXT BF128_RoundingMode{:Down}()
+
+Stagnation invalidation and seed ownership BigFloat: Error During Test at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:2
+  Got exception outside of a @test
+  BoundsError: attempt to access 9-element Vector{BigFloat} at index [1:12]
+  Stacktrace:
+    [1] throw_boundserror(A::Vector{BigFloat}, I::Tuple{UnitRange{Int64}})
+      @ Base ./essentials.jl:14
+    [2] checkbounds
+      @ ./abstractarray.jl:702 [inlined]
+    [3] _copyto_impl!
+      @ ./array.jl:296 [inlined]
+    [4] copyto!
+      @ ./array.jl:291 [inlined]
+    [5] _copyto2arg!
+      @ ./array.jl:311 [inlined]
+    [6] copyto!
+      @ ./array.jl:318 [inlined]
+    [7] reset!
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:68 [inlined]
+    [8] checkpair(a::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, b::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, arm::Symbol; protect::Bool)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:103
+    [9] checkpair(a::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, b::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, arm::Symbol)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:102
+   [10] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:30 [inlined]
+   [11] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [12] extra_correctness(::Type{BigFloat})
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:3
+   [13] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:31 [inlined]
+   [14] macro expansion
+      @ ./timing.jl:699 [inlined]
+   [15] context(::Type{BigFloat}, label::String)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:31
+   [16] #40
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:47 [inlined]
+   [17] setrounding_raw(f::var"#40#41"{RoundingMode{:Down}, Int64}, ::Type{BigFloat}, r::Base.MPFR.MPFRRoundingMode)
+      @ Base.MPFR ./mpfr.jl:250
+   [18] setrounding
+      @ ./mpfr.jl:255 [inlined]
+   [19] #38
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:47 [inlined]
+   [20] setprecision(f::var"#38#39"{RoundingMode{:Down}, Int64}, ::Type{BigFloat}, prec::Int64; base::Int64)
+      @ Base.MPFR ./mpfr.jl:1214
+   [21] setprecision(f::Function, ::Type{BigFloat}, prec::Int64)
+      @ Base.MPFR ./mpfr.jl:1213
+   [22] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:45
+   [23] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [24] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:46 [inlined]
+   [25] include(mod::Module, _path::String)
+      @ Base ./Base.jl:309
+   [26] exec_options(opts::Base.JLOptions)
+      @ Base ./client.jl:344
+   [27] _start()
+      @ Base ./client.jl:577
+CONTEXT BF128_RoundingMode{:Up}()
+
+Stagnation invalidation and seed ownership BigFloat: Error During Test at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:2
+  Got exception outside of a @test
+  BoundsError: attempt to access 9-element Vector{BigFloat} at index [1:12]
+  Stacktrace:
+    [1] throw_boundserror(A::Vector{BigFloat}, I::Tuple{UnitRange{Int64}})
+      @ Base ./essentials.jl:14
+    [2] checkbounds
+      @ ./abstractarray.jl:702 [inlined]
+    [3] _copyto_impl!
+      @ ./array.jl:296 [inlined]
+    [4] copyto!
+      @ ./array.jl:291 [inlined]
+    [5] _copyto2arg!
+      @ ./array.jl:311 [inlined]
+    [6] copyto!
+      @ ./array.jl:318 [inlined]
+    [7] reset!
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:68 [inlined]
+    [8] checkpair(a::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, b::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, arm::Symbol; protect::Bool)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:103
+    [9] checkpair(a::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, b::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, arm::Symbol)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:102
+   [10] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:30 [inlined]
+   [11] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [12] extra_correctness(::Type{BigFloat})
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:3
+   [13] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:31 [inlined]
+   [14] macro expansion
+      @ ./timing.jl:699 [inlined]
+   [15] context(::Type{BigFloat}, label::String)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:31
+   [16] #40
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:47 [inlined]
+   [17] setrounding_raw(f::var"#40#41"{RoundingMode{:Up}, Int64}, ::Type{BigFloat}, r::Base.MPFR.MPFRRoundingMode)
+      @ Base.MPFR ./mpfr.jl:250
+   [18] setrounding
+      @ ./mpfr.jl:255 [inlined]
+   [19] #38
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:47 [inlined]
+   [20] setprecision(f::var"#38#39"{RoundingMode{:Up}, Int64}, ::Type{BigFloat}, prec::Int64; base::Int64)
+      @ Base.MPFR ./mpfr.jl:1214
+   [21] setprecision(f::Function, ::Type{BigFloat}, prec::Int64)
+      @ Base.MPFR ./mpfr.jl:1213
+   [22] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:45
+   [23] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [24] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:46 [inlined]
+   [25] include(mod::Module, _path::String)
+      @ Base ./Base.jl:309
+   [26] exec_options(opts::Base.JLOptions)
+      @ Base ./client.jl:344
+   [27] _start()
+      @ Base ./client.jl:577
+CONTEXT BF128_RoundingMode{:ToZero}()
+
+Stagnation invalidation and seed ownership BigFloat: Error During Test at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:2
+  Got exception outside of a @test
+  BoundsError: attempt to access 9-element Vector{BigFloat} at index [1:12]
+  Stacktrace:
+    [1] throw_boundserror(A::Vector{BigFloat}, I::Tuple{UnitRange{Int64}})
+      @ Base ./essentials.jl:14
+    [2] checkbounds
+      @ ./abstractarray.jl:702 [inlined]
+    [3] _copyto_impl!
+      @ ./array.jl:296 [inlined]
+    [4] copyto!
+      @ ./array.jl:291 [inlined]
+    [5] _copyto2arg!
+      @ ./array.jl:311 [inlined]
+    [6] copyto!
+      @ ./array.jl:318 [inlined]
+    [7] reset!
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:68 [inlined]
+    [8] checkpair(a::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, b::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, arm::Symbol; protect::Bool)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:103
+    [9] checkpair(a::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, b::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, arm::Symbol)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:102
+   [10] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:30 [inlined]
+   [11] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [12] extra_correctness(::Type{BigFloat})
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:3
+   [13] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:31 [inlined]
+   [14] macro expansion
+      @ ./timing.jl:699 [inlined]
+   [15] context(::Type{BigFloat}, label::String)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:31
+   [16] #40
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:47 [inlined]
+   [17] setrounding_raw(f::var"#40#41"{RoundingMode{:ToZero}, Int64}, ::Type{BigFloat}, r::Base.MPFR.MPFRRoundingMode)
+      @ Base.MPFR ./mpfr.jl:250
+   [18] setrounding
+      @ ./mpfr.jl:255 [inlined]
+   [19] #38
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:47 [inlined]
+   [20] setprecision(f::var"#38#39"{RoundingMode{:ToZero}, Int64}, ::Type{BigFloat}, prec::Int64; base::Int64)
+      @ Base.MPFR ./mpfr.jl:1214
+   [21] setprecision(f::Function, ::Type{BigFloat}, prec::Int64)
+      @ Base.MPFR ./mpfr.jl:1213
+   [22] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:45
+   [23] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [24] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:46 [inlined]
+   [25] include(mod::Module, _path::String)
+      @ Base ./Base.jl:309
+   [26] exec_options(opts::Base.JLOptions)
+      @ Base ./client.jl:344
+   [27] _start()
+      @ Base ./client.jl:577
+CONTEXT BF128_RoundingMode{:FromZero}()
+
+Stagnation invalidation and seed ownership BigFloat: Error During Test at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:2
+  Got exception outside of a @test
+  BoundsError: attempt to access 9-element Vector{BigFloat} at index [1:12]
+  Stacktrace:
+    [1] throw_boundserror(A::Vector{BigFloat}, I::Tuple{UnitRange{Int64}})
+      @ Base ./essentials.jl:14
+    [2] checkbounds
+      @ ./abstractarray.jl:702 [inlined]
+    [3] _copyto_impl!
+      @ ./array.jl:296 [inlined]
+    [4] copyto!
+      @ ./array.jl:291 [inlined]
+    [5] _copyto2arg!
+      @ ./array.jl:311 [inlined]
+    [6] copyto!
+      @ ./array.jl:318 [inlined]
+    [7] reset!
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:68 [inlined]
+    [8] checkpair(a::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, b::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, arm::Symbol; protect::Bool)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:103
+    [9] checkpair(a::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, b::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, arm::Symbol)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:102
+   [10] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:30 [inlined]
+   [11] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [12] extra_correctness(::Type{BigFloat})
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:3
+   [13] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:31 [inlined]
+   [14] macro expansion
+      @ ./timing.jl:699 [inlined]
+   [15] context(::Type{BigFloat}, label::String)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:31
+   [16] #40
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:47 [inlined]
+   [17] setrounding_raw(f::var"#40#41"{RoundingMode{:FromZero}, Int64}, ::Type{BigFloat}, r::Base.MPFR.MPFRRoundingMode)
+      @ Base.MPFR ./mpfr.jl:250
+   [18] setrounding
+      @ ./mpfr.jl:255 [inlined]
+   [19] #38
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:47 [inlined]
+   [20] setprecision(f::var"#38#39"{RoundingMode{:FromZero}, Int64}, ::Type{BigFloat}, prec::Int64; base::Int64)
+      @ Base.MPFR ./mpfr.jl:1214
+   [21] setprecision(f::Function, ::Type{BigFloat}, prec::Int64)
+      @ Base.MPFR ./mpfr.jl:1213
+   [22] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:45
+   [23] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [24] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:46 [inlined]
+   [25] include(mod::Module, _path::String)
+      @ Base ./Base.jl:309
+   [26] exec_options(opts::Base.JLOptions)
+      @ Base ./client.jl:344
+   [27] _start()
+      @ Base ./client.jl:577
+CONTEXT BF256_RoundingMode{:Nearest}()
+
+Stagnation invalidation and seed ownership BigFloat: Error During Test at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:2
+  Got exception outside of a @test
+  BoundsError: attempt to access 9-element Vector{BigFloat} at index [1:12]
+  Stacktrace:
+    [1] throw_boundserror(A::Vector{BigFloat}, I::Tuple{UnitRange{Int64}})
+      @ Base ./essentials.jl:14
+    [2] checkbounds
+      @ ./abstractarray.jl:702 [inlined]
+    [3] _copyto_impl!
+      @ ./array.jl:296 [inlined]
+    [4] copyto!
+      @ ./array.jl:291 [inlined]
+    [5] _copyto2arg!
+      @ ./array.jl:311 [inlined]
+    [6] copyto!
+      @ ./array.jl:318 [inlined]
+    [7] reset!
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:68 [inlined]
+    [8] checkpair(a::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, b::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, arm::Symbol; protect::Bool)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:103
+    [9] checkpair(a::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, b::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, arm::Symbol)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:102
+   [10] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:30 [inlined]
+   [11] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [12] extra_correctness(::Type{BigFloat})
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:3
+   [13] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:31 [inlined]
+   [14] macro expansion
+      @ ./timing.jl:699 [inlined]
+   [15] context(::Type{BigFloat}, label::String)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:31
+   [16] #40
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:47 [inlined]
+   [17] setrounding_raw(f::var"#40#41"{RoundingMode{:Nearest}, Int64}, ::Type{BigFloat}, r::Base.MPFR.MPFRRoundingMode)
+      @ Base.MPFR ./mpfr.jl:250
+   [18] setrounding
+      @ ./mpfr.jl:255 [inlined]
+   [19] #38
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:47 [inlined]
+   [20] setprecision(f::var"#38#39"{RoundingMode{:Nearest}, Int64}, ::Type{BigFloat}, prec::Int64; base::Int64)
+      @ Base.MPFR ./mpfr.jl:1214
+   [21] setprecision(f::Function, ::Type{BigFloat}, prec::Int64)
+      @ Base.MPFR ./mpfr.jl:1213
+   [22] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:45
+   [23] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [24] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:46 [inlined]
+   [25] include(mod::Module, _path::String)
+      @ Base ./Base.jl:309
+   [26] exec_options(opts::Base.JLOptions)
+      @ Base ./client.jl:344
+   [27] _start()
+      @ Base ./client.jl:577
+CONTEXT BF256_RoundingMode{:Down}()
+
+Stagnation invalidation and seed ownership BigFloat: Error During Test at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:2
+  Got exception outside of a @test
+  BoundsError: attempt to access 9-element Vector{BigFloat} at index [1:12]
+  Stacktrace:
+    [1] throw_boundserror(A::Vector{BigFloat}, I::Tuple{UnitRange{Int64}})
+      @ Base ./essentials.jl:14
+    [2] checkbounds
+      @ ./abstractarray.jl:702 [inlined]
+    [3] _copyto_impl!
+      @ ./array.jl:296 [inlined]
+    [4] copyto!
+      @ ./array.jl:291 [inlined]
+    [5] _copyto2arg!
+      @ ./array.jl:311 [inlined]
+    [6] copyto!
+      @ ./array.jl:318 [inlined]
+    [7] reset!
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:68 [inlined]
+    [8] checkpair(a::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, b::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, arm::Symbol; protect::Bool)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:103
+    [9] checkpair(a::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, b::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, arm::Symbol)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:102
+   [10] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:30 [inlined]
+   [11] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [12] extra_correctness(::Type{BigFloat})
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:3
+   [13] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:31 [inlined]
+   [14] macro expansion
+      @ ./timing.jl:699 [inlined]
+   [15] context(::Type{BigFloat}, label::String)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:31
+   [16] #40
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:47 [inlined]
+   [17] setrounding_raw(f::var"#40#41"{RoundingMode{:Down}, Int64}, ::Type{BigFloat}, r::Base.MPFR.MPFRRoundingMode)
+      @ Base.MPFR ./mpfr.jl:250
+   [18] setrounding
+      @ ./mpfr.jl:255 [inlined]
+   [19] #38
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:47 [inlined]
+   [20] setprecision(f::var"#38#39"{RoundingMode{:Down}, Int64}, ::Type{BigFloat}, prec::Int64; base::Int64)
+      @ Base.MPFR ./mpfr.jl:1214
+   [21] setprecision(f::Function, ::Type{BigFloat}, prec::Int64)
+      @ Base.MPFR ./mpfr.jl:1213
+   [22] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:45
+   [23] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [24] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:46 [inlined]
+   [25] include(mod::Module, _path::String)
+      @ Base ./Base.jl:309
+   [26] exec_options(opts::Base.JLOptions)
+      @ Base ./client.jl:344
+   [27] _start()
+      @ Base ./client.jl:577
+CONTEXT BF256_RoundingMode{:Up}()
+
+Stagnation invalidation and seed ownership BigFloat: Error During Test at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:2
+  Got exception outside of a @test
+  BoundsError: attempt to access 9-element Vector{BigFloat} at index [1:12]
+  Stacktrace:
+    [1] throw_boundserror(A::Vector{BigFloat}, I::Tuple{UnitRange{Int64}})
+      @ Base ./essentials.jl:14
+    [2] checkbounds
+      @ ./abstractarray.jl:702 [inlined]
+    [3] _copyto_impl!
+      @ ./array.jl:296 [inlined]
+    [4] copyto!
+      @ ./array.jl:291 [inlined]
+    [5] _copyto2arg!
+      @ ./array.jl:311 [inlined]
+    [6] copyto!
+      @ ./array.jl:318 [inlined]
+    [7] reset!
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:68 [inlined]
+    [8] checkpair(a::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, b::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, arm::Symbol; protect::Bool)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:103
+    [9] checkpair(a::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, b::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, arm::Symbol)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:102
+   [10] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:30 [inlined]
+   [11] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [12] extra_correctness(::Type{BigFloat})
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:3
+   [13] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:31 [inlined]
+   [14] macro expansion
+      @ ./timing.jl:699 [inlined]
+   [15] context(::Type{BigFloat}, label::String)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:31
+   [16] #40
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:47 [inlined]
+   [17] setrounding_raw(f::var"#40#41"{RoundingMode{:Up}, Int64}, ::Type{BigFloat}, r::Base.MPFR.MPFRRoundingMode)
+      @ Base.MPFR ./mpfr.jl:250
+   [18] setrounding
+      @ ./mpfr.jl:255 [inlined]
+   [19] #38
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:47 [inlined]
+   [20] setprecision(f::var"#38#39"{RoundingMode{:Up}, Int64}, ::Type{BigFloat}, prec::Int64; base::Int64)
+      @ Base.MPFR ./mpfr.jl:1214
+   [21] setprecision(f::Function, ::Type{BigFloat}, prec::Int64)
+      @ Base.MPFR ./mpfr.jl:1213
+   [22] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:45
+   [23] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [24] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:46 [inlined]
+   [25] include(mod::Module, _path::String)
+      @ Base ./Base.jl:309
+   [26] exec_options(opts::Base.JLOptions)
+      @ Base ./client.jl:344
+   [27] _start()
+      @ Base ./client.jl:577
+CONTEXT BF256_RoundingMode{:ToZero}()
+
+Stagnation invalidation and seed ownership BigFloat: Error During Test at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:2
+  Got exception outside of a @test
+  BoundsError: attempt to access 9-element Vector{BigFloat} at index [1:12]
+  Stacktrace:
+    [1] throw_boundserror(A::Vector{BigFloat}, I::Tuple{UnitRange{Int64}})
+      @ Base ./essentials.jl:14
+    [2] checkbounds
+      @ ./abstractarray.jl:702 [inlined]
+    [3] _copyto_impl!
+      @ ./array.jl:296 [inlined]
+    [4] copyto!
+      @ ./array.jl:291 [inlined]
+    [5] _copyto2arg!
+      @ ./array.jl:311 [inlined]
+    [6] copyto!
+      @ ./array.jl:318 [inlined]
+    [7] reset!
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:68 [inlined]
+    [8] checkpair(a::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, b::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, arm::Symbol; protect::Bool)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:103
+    [9] checkpair(a::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, b::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, arm::Symbol)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:102
+   [10] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:30 [inlined]
+   [11] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [12] extra_correctness(::Type{BigFloat})
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:3
+   [13] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:31 [inlined]
+   [14] macro expansion
+      @ ./timing.jl:699 [inlined]
+   [15] context(::Type{BigFloat}, label::String)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:31
+   [16] #40
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:47 [inlined]
+   [17] setrounding_raw(f::var"#40#41"{RoundingMode{:ToZero}, Int64}, ::Type{BigFloat}, r::Base.MPFR.MPFRRoundingMode)
+      @ Base.MPFR ./mpfr.jl:250
+   [18] setrounding
+      @ ./mpfr.jl:255 [inlined]
+   [19] #38
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:47 [inlined]
+   [20] setprecision(f::var"#38#39"{RoundingMode{:ToZero}, Int64}, ::Type{BigFloat}, prec::Int64; base::Int64)
+      @ Base.MPFR ./mpfr.jl:1214
+   [21] setprecision(f::Function, ::Type{BigFloat}, prec::Int64)
+      @ Base.MPFR ./mpfr.jl:1213
+   [22] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:45
+   [23] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [24] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:46 [inlined]
+   [25] include(mod::Module, _path::String)
+      @ Base ./Base.jl:309
+   [26] exec_options(opts::Base.JLOptions)
+      @ Base ./client.jl:344
+   [27] _start()
+      @ Base ./client.jl:577
+CONTEXT BF256_RoundingMode{:FromZero}()
+
+Stagnation invalidation and seed ownership BigFloat: Error During Test at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:2
+  Got exception outside of a @test
+  BoundsError: attempt to access 9-element Vector{BigFloat} at index [1:12]
+  Stacktrace:
+    [1] throw_boundserror(A::Vector{BigFloat}, I::Tuple{UnitRange{Int64}})
+      @ Base ./essentials.jl:14
+    [2] checkbounds
+      @ ./abstractarray.jl:702 [inlined]
+    [3] _copyto_impl!
+      @ ./array.jl:296 [inlined]
+    [4] copyto!
+      @ ./array.jl:291 [inlined]
+    [5] _copyto2arg!
+      @ ./array.jl:311 [inlined]
+    [6] copyto!
+      @ ./array.jl:318 [inlined]
+    [7] reset!
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:68 [inlined]
+    [8] checkpair(a::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, b::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, arm::Symbol; protect::Bool)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:103
+    [9] checkpair(a::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, b::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{BigFloat, JSimplex.PFIFactorization{BigFloat, JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{BigFloat}, flags::BitVector, shape::Symbol, steps::Vector{BigFloat}}, arm::Symbol)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:102
+   [10] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:30 [inlined]
+   [11] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [12] extra_correctness(::Type{BigFloat})
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:3
+   [13] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:31 [inlined]
+   [14] macro expansion
+      @ ./timing.jl:699 [inlined]
+   [15] context(::Type{BigFloat}, label::String)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:31
+   [16] #40
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:47 [inlined]
+   [17] setrounding_raw(f::var"#40#41"{RoundingMode{:FromZero}, Int64}, ::Type{BigFloat}, r::Base.MPFR.MPFRRoundingMode)
+      @ Base.MPFR ./mpfr.jl:250
+   [18] setrounding
+      @ ./mpfr.jl:255 [inlined]
+   [19] #38
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:47 [inlined]
+   [20] setprecision(f::var"#38#39"{RoundingMode{:FromZero}, Int64}, ::Type{BigFloat}, prec::Int64; base::Int64)
+      @ Base.MPFR ./mpfr.jl:1214
+   [21] setprecision(f::Function, ::Type{BigFloat}, prec::Int64)
+      @ Base.MPFR ./mpfr.jl:1213
+   [22] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:45
+   [23] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [24] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:46 [inlined]
+   [25] include(mod::Module, _path::String)
+      @ Base ./Base.jl:309
+   [26] exec_options(opts::Base.JLOptions)
+      @ Base ./client.jl:344
+   [27] _start()
+      @ Base ./client.jl:577
+CONTEXT Float32
+
+Stagnation invalidation and seed ownership Float32: Error During Test at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:2
+  Got exception outside of a @test
+  BoundsError: attempt to access 9-element Vector{Float32} at index [1:12]
+  Stacktrace:
+    [1] throw_boundserror(A::Vector{Float32}, I::Tuple{UnitRange{Int64}})
+      @ Base ./essentials.jl:14
+    [2] checkbounds
+      @ ./abstractarray.jl:702 [inlined]
+    [3] _copyto_impl!
+      @ ./array.jl:296 [inlined]
+    [4] copyto!
+      @ ./array.jl:291 [inlined]
+    [5] _copyto2arg!
+      @ ./array.jl:311 [inlined]
+    [6] copyto!
+      @ ./array.jl:318 [inlined]
+    [7] reset!
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:68 [inlined]
+    [8] checkpair(a::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{Float32, JSimplex.PFIFactorization{Float32, JSimplex.Float32LUBackend{LU{Float32, Matrix{Float32}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{Float32}, flags::BitVector, shape::Symbol, steps::Vector{Float32}}, b::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{Float32, JSimplex.PFIFactorization{Float32, JSimplex.Float32LUBackend{LU{Float32, Matrix{Float32}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{Float32}, flags::BitVector, shape::Symbol, steps::Vector{Float32}}, arm::Symbol; protect::Bool)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:103
+    [9] checkpair(a::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{Float32, JSimplex.PFIFactorization{Float32, JSimplex.Float32LUBackend{LU{Float32, Matrix{Float32}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{Float32}, flags::BitVector, shape::Symbol, steps::Vector{Float32}}, b::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{Float32, JSimplex.PFIFactorization{Float32, JSimplex.Float32LUBackend{LU{Float32, Matrix{Float32}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{Float32}, flags::BitVector, shape::Symbol, steps::Vector{Float32}}, arm::Symbol)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:102
+   [10] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:30 [inlined]
+   [11] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [12] extra_correctness(::Type{Float32})
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:3
+   [13] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:31 [inlined]
+   [14] macro expansion
+      @ ./timing.jl:699 [inlined]
+   [15] context(::Type{Float32}, label::String)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:31
+   [16] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:45
+   [17] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [18] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:50 [inlined]
+   [19] include(mod::Module, _path::String)
+      @ Base ./Base.jl:309
+   [20] exec_options(opts::Base.JLOptions)
+      @ Base ./client.jl:344
+   [21] _start()
+      @ Base ./client.jl:577
+CONTEXT Float64
+
+Stagnation invalidation and seed ownership Float64: Error During Test at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:2
+  Got exception outside of a @test
+  BoundsError: attempt to access 9-element Vector{Float64} at index [1:12]
+  Stacktrace:
+    [1] throw_boundserror(A::Vector{Float64}, I::Tuple{UnitRange{Int64}})
+      @ Base ./essentials.jl:14
+    [2] checkbounds
+      @ ./abstractarray.jl:702 [inlined]
+    [3] _copyto_impl!
+      @ ./array.jl:296 [inlined]
+    [4] copyto!
+      @ ./array.jl:291 [inlined]
+    [5] _copyto2arg!
+      @ ./array.jl:311 [inlined]
+    [6] copyto!
+      @ ./array.jl:318 [inlined]
+    [7] reset!
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:68 [inlined]
+    [8] checkpair(a::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{Float64, JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{Float64}, flags::BitVector, shape::Symbol, steps::Vector{Float64}}, b::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{Float64, JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{Float64}, flags::BitVector, shape::Symbol, steps::Vector{Float64}}, arm::Symbol; protect::Bool)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:103
+    [9] checkpair(a::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{Float64, JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{Float64}, flags::BitVector, shape::Symbol, steps::Vector{Float64}}, b::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{Float64, JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{Float64}, flags::BitVector, shape::Symbol, steps::Vector{Float64}}, arm::Symbol)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:102
+   [10] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:30 [inlined]
+   [11] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [12] extra_correctness(::Type{Float64})
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:3
+   [13] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:31 [inlined]
+   [14] macro expansion
+      @ ./timing.jl:699 [inlined]
+   [15] context(::Type{Float64}, label::String)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:31
+   [16] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:45
+   [17] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [18] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:50 [inlined]
+   [19] include(mod::Module, _path::String)
+      @ Base ./Base.jl:309
+   [20] exec_options(opts::Base.JLOptions)
+      @ Base ./client.jl:344
+   [21] _start()
+      @ Base ./client.jl:577
+CONTEXT Rational{BigInt}
+
+Stagnation invalidation and seed ownership Rational{BigInt}: Error During Test at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:2
+  Got exception outside of a @test
+  BoundsError: attempt to access 9-element Vector{Rational{BigInt}} at index [1:12]
+  Stacktrace:
+    [1] throw_boundserror(A::Vector{Rational{BigInt}}, I::Tuple{UnitRange{Int64}})
+      @ Base ./essentials.jl:14
+    [2] checkbounds
+      @ ./abstractarray.jl:702 [inlined]
+    [3] _copyto_impl!
+      @ ./array.jl:296 [inlined]
+    [4] copyto!
+      @ ./array.jl:291 [inlined]
+    [5] _copyto2arg!
+      @ ./array.jl:311 [inlined]
+    [6] copyto!
+      @ ./array.jl:318 [inlined]
+    [7] reset!
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:68 [inlined]
+    [8] checkpair(a::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{Rational{BigInt}, JSimplex.PFIFactorization{Rational{BigInt}, JSimplex.DenseLUBackend{Rational{BigInt}, LU{Rational{BigInt}, Matrix{Rational{BigInt}}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{Rational{BigInt}}, flags::BitVector, shape::Symbol, steps::Vector{Rational{BigInt}}}, b::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{Rational{BigInt}, JSimplex.PFIFactorization{Rational{BigInt}, JSimplex.DenseLUBackend{Rational{BigInt}, LU{Rational{BigInt}, Matrix{Rational{BigInt}}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{Rational{BigInt}}, flags::BitVector, shape::Symbol, steps::Vector{Rational{BigInt}}}, arm::Symbol; protect::Bool)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:103
+    [9] checkpair(a::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{Rational{BigInt}, JSimplex.PFIFactorization{Rational{BigInt}, JSimplex.DenseLUBackend{Rational{BigInt}, LU{Rational{BigInt}, Matrix{Rational{BigInt}}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{Rational{BigInt}}, flags::BitVector, shape::Symbol, steps::Vector{Rational{BigInt}}}, b::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{Rational{BigInt}, JSimplex.PFIFactorization{Rational{BigInt}, JSimplex.DenseLUBackend{Rational{BigInt}, LU{Rational{BigInt}, Matrix{Rational{BigInt}}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{Rational{BigInt}}, flags::BitVector, shape::Symbol, steps::Vector{Rational{BigInt}}}, arm::Symbol)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:102
+   [10] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:30 [inlined]
+   [11] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [12] extra_correctness(::Type{Rational{BigInt}})
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:3
+   [13] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:31 [inlined]
+   [14] macro expansion
+      @ ./timing.jl:699 [inlined]
+   [15] context(::Type{Rational{BigInt}}, label::String)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:31
+   [16] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:45
+   [17] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [18] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:50 [inlined]
+   [19] include(mod::Module, _path::String)
+      @ Base ./Base.jl:309
+   [20] exec_options(opts::Base.JLOptions)
+      @ Base ./client.jl:344
+   [21] _start()
+      @ Base ./client.jl:577
+CONTEXT Rational{Int64}
+ERROR: LoadError: Some tests did not pass: 104540 passed, 0 failed, 19 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:43
+
+Stagnation invalidation and seed ownership Rational{Int64}: Error During Test at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:2
+  Got exception outside of a @test
+  BoundsError: attempt to access 9-element Vector{Rational{Int64}} at index [1:12]
+  Stacktrace:
+    [1] throw_boundserror(A::Vector{Rational{Int64}}, I::Tuple{UnitRange{Int64}})
+      @ Base ./essentials.jl:14
+    [2] checkbounds
+      @ ./abstractarray.jl:702 [inlined]
+    [3] _copyto_impl!
+      @ ./array.jl:296 [inlined]
+    [4] copyto!
+      @ ./array.jl:291 [inlined]
+    [5] _copyto2arg!
+      @ ./array.jl:311 [inlined]
+    [6] copyto!
+      @ ./array.jl:318 [inlined]
+    [7] reset!
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:68 [inlined]
+    [8] checkpair(a::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{Rational{Int64}, JSimplex.PFIFactorization{Rational{Int64}, JSimplex.DenseLUBackend{Rational{Int64}, LU{Rational{Int64}, Matrix{Rational{Int64}}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{Rational{Int64}}, flags::BitVector, shape::Symbol, steps::Vector{Rational{Int64}}}, b::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{Rational{Int64}, JSimplex.PFIFactorization{Rational{Int64}, JSimplex.DenseLUBackend{Rational{Int64}, LU{Rational{Int64}, Matrix{Rational{Int64}}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{Rational{Int64}}, flags::BitVector, shape::Symbol, steps::Vector{Rational{Int64}}}, arm::Symbol; protect::Bool)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:103
+    [9] checkpair(a::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{Rational{Int64}, JSimplex.PFIFactorization{Rational{Int64}, JSimplex.DenseLUBackend{Rational{Int64}, LU{Rational{Int64}, Matrix{Rational{Int64}}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{Rational{Int64}}, flags::BitVector, shape::Symbol, steps::Vector{Rational{Int64}}}, b::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{Rational{Int64}, JSimplex.PFIFactorization{Rational{Int64}, JSimplex.DenseLUBackend{Rational{Int64}, LU{Rational{Int64}, Matrix{Rational{Int64}}, Vector{Int64}}}}, :pfi, :native, Nothing}, state::Nothing, seed::Nothing, weights::Vector{Rational{Int64}}, flags::BitVector, shape::Symbol, steps::Vector{Rational{Int64}}}, arm::Symbol)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures-reviewed.jl:102
+   [10] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:30 [inlined]
+   [11] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [12] extra_correctness(::Type{Rational{Int64}})
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests-reviewed.jl:3
+   [13] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:31 [inlined]
+   [14] macro expansion
+      @ ./timing.jl:699 [inlined]
+   [15] context(::Type{Rational{Int64}}, label::String)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:31
+   [16] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:45
+   [17] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [18] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver-reviewed.jl:50 [inlined]
+   [19] include(mod::Module, _path::String)
+      @ Base ./Base.jl:309
+   [20] exec_options(opts::Base.JLOptions)
+      @ Base ./client.jl:344
+   [21] _start()
+      @ Base ./client.jl:577
+Test Summary:                                                  |   Pass  Error   Total     Time
+Stagnation unit seed whole-function comparison                 | 104540     19  104559  1m06.6s
+  Stagnation unit and seed correctness BigFloat                |   1546           1546     2.4s
+  Stagnation invalidation and seed ownership BigFloat          |     38      1      39     0.6s
+  Cross-call owners and real dual cost rebase BigFloat         |     22             22     0.9s
+  Stagnation unit and seed correctness BigFloat                |   1546           1546     0.1s
+  Stagnation invalidation and seed ownership BigFloat          |     38      1      39     0.0s
+  Cross-call owners and real dual cost rebase BigFloat         |     22             22     0.0s
+  Stagnation unit and seed correctness BigFloat                |   1546           1546     0.1s
+  Stagnation invalidation and seed ownership BigFloat          |     38      1      39     0.0s
+  Cross-call owners and real dual cost rebase BigFloat         |     22             22     0.0s
+  Stagnation unit and seed correctness BigFloat                |   1546           1546     0.1s
+  Stagnation invalidation and seed ownership BigFloat          |     38      1      39     0.0s
+  Cross-call owners and real dual cost rebase BigFloat         |     22             22     0.0s
+  Stagnation unit and seed correctness BigFloat                |   1546           1546     0.1s
+  Stagnation invalidation and seed ownership BigFloat          |     38      1      39     0.0s
+  Cross-call owners and real dual cost rebase BigFloat         |     22             22     0.0s
+  Stagnation unit and seed correctness BigFloat                |   1546           1546     0.1s
+  Stagnation invalidation and seed ownership BigFloat          |     38      1      39     0.0s
+  Cross-call owners and real dual cost rebase BigFloat         |     22             22     0.0s
+  Stagnation unit and seed correctness BigFloat                |   1546           1546     0.1s
+  Stagnation invalidation and seed ownership BigFloat          |     38      1      39     0.0s
+  Cross-call owners and real dual cost rebase BigFloat         |     22             22     0.0s
+  Stagnation unit and seed correctness BigFloat                |   1546           1546     0.1s
+  Stagnation invalidation and seed ownership BigFloat          |     38      1      39     0.0s
+  Cross-call owners and real dual cost rebase BigFloat         |     22             22     0.0s
+  Stagnation unit and seed correctness BigFloat                |   1546           1546     0.1s
+  Stagnation invalidation and seed ownership BigFloat          |     38      1      39     0.0s
+  Cross-call owners and real dual cost rebase BigFloat         |     22             22     0.0s
+  Stagnation unit and seed correctness BigFloat                |   1546           1546     0.1s
+  Stagnation invalidation and seed ownership BigFloat          |     38      1      39     0.0s
+  Cross-call owners and real dual cost rebase BigFloat         |     22             22     0.0s
+  Stagnation unit and seed correctness BigFloat                |   1546           1546     0.1s
+  Stagnation invalidation and seed ownership BigFloat          |     38      1      39     0.0s
+  Cross-call owners and real dual cost rebase BigFloat         |     22             22     0.0s
+  Stagnation unit and seed correctness BigFloat                |   1546           1546     0.1s
+  Stagnation invalidation and seed ownership BigFloat          |     38      1      39     0.0s
+  Cross-call owners and real dual cost rebase BigFloat         |     22             22     0.0s
+  Stagnation unit and seed correctness BigFloat                |   1546           1546     0.1s
+  Stagnation invalidation and seed ownership BigFloat          |     38      1      39     0.0s
+  Cross-call owners and real dual cost rebase BigFloat         |     22             22     0.0s
+  Stagnation unit and seed correctness BigFloat                |   1546           1546     0.1s
+  Stagnation invalidation and seed ownership BigFloat          |     38      1      39     0.0s
+  Cross-call owners and real dual cost rebase BigFloat         |     22             22     0.0s
+  Stagnation unit and seed correctness BigFloat                |   1546           1546     0.1s
+  Stagnation invalidation and seed ownership BigFloat          |     38      1      39     0.0s
+  Cross-call owners and real dual cost rebase BigFloat         |     22             22     0.0s
+  Stagnation unit and seed correctness Float32                 |   1378           1378     1.5s
+  Stagnation invalidation and seed ownership Float32           |     38      1      39     0.1s
+  Cross-call owners and real dual cost rebase Float32          |      8              8     0.9s
+  Stagnation unit and seed correctness Float64                 |   1378           1378     1.6s
+  Stagnation invalidation and seed ownership Float64           |     38      1      39     0.1s
+  Cross-call owners and real dual cost rebase Float64          |      8              8     0.8s
+  Stagnation unit and seed correctness Rational{BigInt}        |   1426           1426     2.4s
+  Stagnation invalidation and seed ownership Rational{BigInt}  |     38      1      39     0.1s
+  Cross-call owners and real dual cost rebase Rational{BigInt} |     16             16     0.7s
+  Stagnation unit and seed correctness Rational{Int64}         |    946            946     2.2s
+  Stagnation invalidation and seed ownership Rational{Int64}   |     38      1      39     0.1s
+  Cross-call owners and real dual cost rebase Rational{Int64}  |      8              8     0.9s
+RNG of the outermost testset: Random.Xoshiro(0x04529a32ae6fef75, 0x5a2f174f2f37c117, 0x5e896ce027559bc5, 0x8310bddb3c862c83, 0x8104317fa86e7528)

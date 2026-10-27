@@ -1,0 +1,11 @@
+# Publication helper source review
+
+No outstanding actionable findings. Accepted the unexecuted commit/integrate/push helper and publication_checks.py under exact absolute SHA bindings. This is prospective source review; it does not claim any future numerical result, commit, integration or publication succeeded.
+
+Commit requires accepted corrected production and GREEN-2 result reviews, the complete exact staged tree and protected actual files/indexes. A temporary private index starts from authoritative master and stages exactly four explicit byte streams; tree membership and diff whitespace are checked before commit-tree. A new codex ref uses zero-old-ref creation. Actual committed blobs are compared to staged bytes. Real indexes are preserved.
+
+Integration separately requires actual commit review, unchanged candidate/user files, baseline local/tracking/remote refs, sole expected parent and clean target paths. It saves exact main index and source-before mappings before ff-only merge with hooks disabled, then checks actual target bytes, unrelated index entries/staged data, diagnostic index and unchanged production tree. No reset, force, discard or unrelated staging is introduced.
+
+Push separately requires accepted fresh actual-master result review and equal GREEN-2/master counts. It checks approved read/push endpoints, local exact target and acceptable remote ref, complete actual/tested/pinned src/test trees, every MASTER pin, exact baseline/source/index before maps and original bytes. Push is normal nonforce with an explicit commit/refspec and remote/tracking verification; errors fail fast. The later MASTER preparation/result review must bind the exact same 45 ordered files and frozen GREEN count; this helper does not substitute for that admission.
+
+New offline synthetic checks exercised matching complete trees and rejection of source drift, extra membership and changed resolution, plus exact historical maps and rejection of wrong baseline, wrong before path and changed original index bytes. No original validator, Julia, host sweep during active GREEN, Git write or helper action was executed. No unsupported runtime/performance claim is made for these cold diagnostic paths.

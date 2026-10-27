@@ -1,0 +1,7 @@
+# Concrete GREEN-2 admission
+
+Accepted one exact prepared GREEN-2 attempt: 45 frozen ordered whole files; expected exit 0, no failures/errors/broken tests, total frozen for subsequent actual master. Verified all 1249 current pins/resolutions and four tree memberships, protected actual user files/indexes, master/tracking/remote baseline, diagnostic ref, empty inherited overrides, and all 615 historical process groups AND sessions with boot/start ticks/commands and no Julia. Only the exact previously pinned unrelated WSL identity exception is allowed.
+
+Read the actual launch, common, ordinary Test driver, audit, entry gate, guard and supervisor. Exclusive attempt/output creation and admission/pin binding precede launch. Absolute inner deadline is 2392 seconds and inclusive supervisor/launch limit 2400; one Julia and BLAS thread, GC1,0, 2 GiB heap hint, 8 GiB AS cap, minimum available RAM6 GiB and swap at most1 GiB. Entry handshake and parent-death signal, unreaped leader/pidfd identity checks, whole-session cleanup and terminal resources remain intact. Runtime scope is exactly thirteen installed binary readtime pins, not loader/cache/import closure. Test driver checks actual source/project and uses ordinary Test only; auditor rejects errors, skips/broken counts, wrong order, unexpected fails and changed pins. No Julia or old auditor/validator was run for this review.
+
+No actionable admission findings. This prospective admission does not certify a future result; launch repeats fresh checks and independent result review remains required.

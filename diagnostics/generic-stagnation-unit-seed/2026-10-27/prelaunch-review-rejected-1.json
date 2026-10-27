@@ -1,0 +1,39 @@
+{
+  "accepted": false,
+  "scope": "Prelaunch review of original comparison; no Julia executed",
+  "findings": [
+    {
+      "id": "R1",
+      "file": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests.jl",
+      "detail": "The cost-change checkpair path always calls primal via fixtures.jl whole(); it never exercises the stated dual cost-rebase path. Require explicit dual seeding, cost-only observation, rebase event hits and history preservation assertions."
+    },
+    {
+      "id": "R2",
+      "file": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests.jl",
+      "detail": "Existing input snapshots and within-call slack sharing do not verify the affected cross-call ownership contract: fresh nonaliasing metric output zeros and fresh shared slack-weight owner on subsequent initialization. Require direct identity assertions for these cases."
+    }
+  ],
+  "runtime_library_scope": "All 1233 listed pins verified, but inventory has no sys.so/libjulia/MPFR/GMP/BLAS or depot content; existing governing runtime-library evidence requested from parent, without old validator reruns.",
+  "positive_evidence": [
+    "Exact 3023 matrix cells, 54414 windows; 19 contexts; fixed 3 warmups and 9 alternating pairs",
+    "Whole-call measurement includes complete observation finite/context/history and unit/cold-initialization work",
+    "Hand-derived metric and dyadic sqrt-weight independent oracles inspected",
+    "Mixed stored precision, signed zero, nonfinite, malformed gate/array and observer mutation/throw controls inspected",
+    "Sink uses full result and raw typed fields preserve bytes/events integer types; measured compile/recompile must be zero; all samples retained",
+    "Plain finally serializes accumulated data; audit checks ordered exact matrix, costs, resets, warm/cold records and completion/ordinary Test summary",
+    "1233 path resolutions/hashes and all three frozen tree memberships match",
+    "Guard/supervisor/entry gate: owned single child, PIDFD identity checks, parent-death handshake, 592/600-second deadlines, 8GiB AS and memory/swap guard",
+    "Fresh independent full 607 PGID/session and boot/startticks/command sweep passed; no Julia and zero swap"
+  ],
+  "bindings": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/driver.jl": "995c6edfbd11485061d1985778fb564e3b53d443e4678b7f7ed3c1e7eb7daac7",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/fixtures.jl": "b1873a4a2039cd8199ffa7734a70e1da09f39d815f04b4176bdff6b96c58dcf9",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/extra-tests.jl": "96216713315b0b119e8d629f17eb9f7aad9543f64294a102a8407435f5583550",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/audit.py": "34ebbe2c031ecaf31fb36b145bcbe08c261f57be006f077857fe489d13ecc41a",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/contract.json": "2b2da6611094efbd2e42180ad4c489afb551677aaa6aee38a1e955ded3182ebd",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/launch.py": "a9868953ad67984c1ddf2ce7795d6f1f3b476c31151016c31ba3d91c66d2f334",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/common.py": "d3968fa56c8d5ee1d26d42cee3a2ed8142aa4cc73c97f1ccd170eda422deb783",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/pins.json": "b59753751eb9ae9e9013c546aef10a3cf7dade0b0289581922c788cc5325bd4d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27/independent-host-1.json": "bdd9d9accd924fef2107bc50835ea7afd13d0a37119db1b7c325f7211f1104dd"
+  }
+}

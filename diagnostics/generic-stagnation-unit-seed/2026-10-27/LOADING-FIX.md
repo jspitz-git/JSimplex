@@ -1,0 +1,5 @@
+# Concrete-workspace method loading-order correction
+
+Original GREEN child exited1 after3.253s before any tests: simplex_stalling.jl is included before simplex.jl defines SimplexWorkspace. Private measurement namespaces were loaded after real JSimplex, so did not expose this production loading boundary. Preserve original accepted-prelaunch reviews as insufficient for this missed boundary and original run as REJECTED, no audit or numerical rerun on its output.
+
+Move only the added concrete A method, byte-exact, from simplex_stalling.jl to the end of simplex.jl after the concrete type definition. Original stalling file restored byte-exact; B/C and every test/check/threshold/fixture unchanged. Fixed actual changed names remain four: simplex.jl,primal_simplex.jl,new ordinary test,runtests. No arithmetic/dispatch/owner change once loaded; no new scan/solve/copy/conversion/persistent cache. Source-derived loader-order REDfalse/GREENtrue proves the definition boundary; the fresh ordinary full GREEN will verify actual module load. New source-inverse-reviewed and GREEN-2stage preserve old source/stage/pins/reviews.

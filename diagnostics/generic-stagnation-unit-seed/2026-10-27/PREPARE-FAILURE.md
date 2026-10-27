@@ -1,0 +1,1 @@
+Offline preparation selector refused before writing any candidate: end marker function _primal_updated_weight( matches three overloads. New prepare-2.py uses exact generic-overload signature. No Julia/candidate execution or production change. Original failed source preserved.
