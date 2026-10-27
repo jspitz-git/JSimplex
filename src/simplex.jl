@@ -740,3 +740,39 @@ _lower_violation(bound::Bound{T}, value::T) where {T} =
     isfinite(bound) ? bound_value(bound) - value : zero(T)
 _upper_violation(bound::Bound{T}, value::T) where {T} =
     isfinite(bound) ? value - bound_value(bound) : zero(T)
+
+function _workspace_stagnation_values(ws::SimplexWorkspace{BigFloat},state::WorkspaceStagnation{BigFloat,BigFloat},algorithm)
+    S = BigFloat
+    m = state.monitor
+    objective, primal, dual = zero(S),zero(S),zero(S)
+    comparison_zero = primal
+    dual_threshold = nothing
+    primal_threshold = nothing
+    for j in eachindex(ws.costs)
+        objective += ((S(ws.costs[j])/state.cost_scale)*
+            (S(ws.primal[j])/state.value_scale))*m.objective_scale
+        status = ws.basis.states[j]
+        (status == BASIC || _is_fixed(ws.lower[j],ws.upper[j])) && continue
+        price = S(ws.reduced_costs[j])/state.cost_scale
+        violation = status == AT_LOWER ? -price : status == AT_UPPER ? price : _primal_direction_magnitude(price)
+        if isnothing(dual_threshold)
+            dual_threshold = S(ws.options.dual_tolerance)/state.cost_scale
+        end
+        violation > dual_threshold &&
+            (dual += violation*m.dual_scale)
+    end
+    for j in ws.basis.basic_indices
+        value = S(ws.primal[j])/state.value_scale
+        lower = isfinite(ws.lower[j]) ? S(bound_value(ws.lower[j]))/state.value_scale-value : comparison_zero
+        upper = isfinite(ws.upper[j]) ? value-S(bound_value(ws.upper[j]))/state.value_scale : comparison_zero
+        violation = max(comparison_zero,lower,upper)
+        if isnothing(primal_threshold)
+            primal_threshold = S(ws.options.primal_tolerance)/state.value_scale
+        end
+        violation > primal_threshold &&
+            (primal += violation*m.primal_scale)
+    end
+    # The primal minimizes its working objective; the dual improves its lower
+    # bound upward. Both orientations are decreases to the progress monitor.
+    return algorithm == :dual ? -objective : objective, primal, dual
+end

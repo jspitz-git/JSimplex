@@ -139,6 +139,41 @@ function _primal_unit_basis(workspace::SimplexWorkspace{T}) where {T}
     return true
 end
 
+
+function _primal_unit_basis(workspace::SimplexWorkspace{BigFloat})
+    A = workspace.problem.A
+    column_count = size(A, 2)
+    for (row, index) in enumerate(workspace.basis.basic_indices)
+        if index > column_count
+            index - column_count == row || return false
+        else
+            start = A.colptr[index]
+            A.colptr[index + 1] == start + 1 || return false
+            A.rowval[start] == row || return false
+            _primal_direction_magnitude(A.nzval[start]) == Clong(1) || return false
+        end
+    end
+    return true
+end
+
+
+function _primal_unit_basis(workspace::SimplexWorkspace{Rational{BigInt}})
+    A = workspace.problem.A
+    column_count = size(A, 2)
+    for (row, index) in enumerate(workspace.basis.basic_indices)
+        if index > column_count
+            index - column_count == row || return false
+        else
+            start = A.colptr[index]
+            A.colptr[index + 1] == start + 1 || return false
+            A.rowval[start] == row || return false
+            value = A.nzval[start]
+            (value == 1 || value == -1) || return false
+        end
+    end
+    return true
+end
+
 function _primal_initialize_steepest!(workspace::SimplexWorkspace{T}) where {T}
     scratch = workspace.scratch
     scratch.steepest_initialized && return nothing
@@ -157,6 +192,36 @@ function _primal_initialize_steepest!(workspace::SimplexWorkspace{T}) where {T}
     for index in (column_count + 1):(column_count + row_count)
         workspace.pricing_weights[index] = row_weight
         scratch.steepest_valid[index] = _primal_cacheable_weight(row_weight)
+    end
+    return nothing
+end
+
+
+function _primal_initialize_steepest!(workspace::SimplexWorkspace{BigFloat})
+    T = BigFloat
+    scratch = workspace.scratch
+    scratch.steepest_initialized && return nothing
+    scratch.steepest_initialized = true
+    T <: Rational && T !== Rational{BigInt} && return nothing
+    _primal_unit_basis(workspace) || return nothing
+    A = workspace.problem.A
+    row_count, column_count = size(A)
+    for index in 1:column_count
+        direction = @view A.nzval[A.colptr[index]:(A.colptr[index + 1] - 1)]
+        _, weight = _primal_direction_weight(direction)
+        workspace.pricing_weights[index] = weight
+        scratch.steepest_valid[index] = _primal_cacheable_weight(weight)
+    end
+    _, row_weight = _primal_direction_weight(T[one(T)])
+    row_cacheable = false
+    row_ready = false
+    for index in (column_count + 1):(column_count + row_count)
+        workspace.pricing_weights[index] = row_weight
+        if !row_ready
+            row_cacheable = _primal_cacheable_weight(row_weight)
+            row_ready = true
+        end
+        scratch.steepest_valid[index] = row_cacheable
     end
     return nothing
 end
