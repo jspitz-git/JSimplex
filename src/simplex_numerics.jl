@@ -320,6 +320,50 @@ function _quality_components!(r::AbstractVector{W}, scale, terms, B, x, rhs, tra
     return unsafe_range
 end
 
+# A call-local comparison limit is shared only across ordinary array accesses.
+@inline function _bigfloat_quality_term!(r, scale, terms, x, a, row, column,
+                                         transposed, limit::Union{Nothing,BigFloat})
+    target, source = transposed ? (column,row) : (row,column)
+    product = BigFloat(a)*BigFloat(x[source])
+    r[target] -= product
+    scale[target] += _primal_direction_magnitude(product)
+    terms[target] += 2
+    if !iszero(a) && !iszero(x[source])
+        if limit === nothing
+            limit = floatmin(BigFloat)
+        end
+        return _primal_direction_magnitude(product) < limit, limit
+    end
+    return false, limit
+end
+
+function _quality_components!(r::Vector{BigFloat}, scale::Vector{BigFloat},
+                              terms::Vector{Int},
+                              B::Union{Matrix{BigFloat},SparseMatrixCSC{BigFloat}},
+                              x::Vector{BigFloat}, rhs::Vector{BigFloat}, transposed)
+    for i in eachindex(rhs)
+        r[i] = BigFloat(rhs[i])
+        scale[i] = _primal_direction_magnitude(r[i])
+        terms[i] = 1
+    end
+    unsafe_range = false
+    limit::Union{Nothing,BigFloat} = nothing
+    if B isa SparseMatrixCSC
+        for column in axes(B,2), p in nzrange(B,column)
+            unsafe, limit = _bigfloat_quality_term!(r,scale,terms,x,B.nzval[p],
+                B.rowval[p],column,transposed,limit)
+            unsafe_range |= unsafe
+        end
+    else
+        for column in axes(B,2), row in axes(B,1)
+            unsafe, limit = _bigfloat_quality_term!(r,scale,terms,x,B[row,column],
+                row,column,transposed,limit)
+            unsafe_range |= unsafe
+        end
+    end
+    return unsafe_range
+end
+
 function _quality_roundoff(::Type{W}, terms) where {W<:AbstractFloat}
     k = maximum(terms; init=0)
     product = W(k)*eps(W)

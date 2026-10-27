@@ -93,8 +93,10 @@ _primal_devex_candidate_weight(coefficient::T, leaving_weight::T) where {T<:Abst
 _primal_devex_candidate_weight(coefficient::T, leaving_weight::T) where {T<:Rational} =
     _primal_store_rational_weight(T, big(coefficient)^2 * big(leaving_weight))
 
-_primal_devex_candidate_weight(coefficient::BigFloat,leaving_weight::BigFloat) =
-    min(floatmax(BigFloat),_primal_direction_magnitude(coefficient) * leaving_weight)
+_primal_devex_candidate_weight(coefficient::BigFloat,leaving_weight::BigFloat) = begin
+    product = _primal_direction_magnitude(coefficient) * leaving_weight
+    isinf(product) && !signbit(product) ? floatmax(BigFloat) : product
+end
 function _primal_steepest_weight!(workspace::SimplexWorkspace{T}, index::Int) where {T}
     column = _pipeline_column_rhs!(workspace,index)
     direction = _checked_basis_solve!(workspace.scratch.row_solution,workspace,column;

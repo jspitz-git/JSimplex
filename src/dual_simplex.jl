@@ -1186,7 +1186,7 @@ function _dual_direction_residual_ok!(workspace::SimplexWorkspace{T},
     @inbounds for row in eachindex(residual)
         rhs = scale[row]
         residual[row] = -rhs
-        scale[row] = abs(rhs)
+        scale[row] = _primal_direction_magnitude(rhs)
     end
     for (basis_row, index) in enumerate(workspace.basis.basic_indices)
         1 <= index <= column_count + row_count || throw(BoundsError(workspace.primal, index))
@@ -1196,21 +1196,21 @@ function _dual_direction_residual_ok!(workspace::SimplexWorkspace{T},
                 row = A.rowval[position]
                 term = A.nzval[position] * value
                 residual[row] += term
-                scale[row] += abs(term)
+                scale[row] += _primal_direction_magnitude(term)
             end
         else
             row = index - column_count
             @inbounds residual[row] -= value
-            @inbounds scale[row] += abs(value)
+            @inbounds scale[row] += _primal_direction_magnitude(value)
         end
     end
     roundoff = T(256) * eps(one(T))
-    pivot_tolerance = sqrt(eps(one(T))) * abs(pivot)
+    pivot_tolerance = sqrt(eps(one(T))) * _primal_direction_magnitude(pivot)
     @inbounds for row in eachindex(residual)
         isfinite(residual[row]) && isfinite(scale[row]) || return false
         tolerance = max(workspace.options.zero_tolerance, pivot_tolerance,
                         roundoff * (scale[row] + Clong(1)))
-        abs(residual[row]) <= tolerance || return false
+        _primal_direction_magnitude(residual[row]) <= tolerance || return false
     end
     return true
 end
@@ -1268,18 +1268,18 @@ function _dual_row_residual_ratio(workspace::SimplexWorkspace{T},
             @inbounds for position in A.colptr[index]:(A.colptr[index + 1] - 1)
                 term = A.nzval[position] * rho[A.rowval[position]]
                 residual += term
-                scale += abs(term)
+                scale += _primal_direction_magnitude(term)
             end
         else
             term = @inbounds -rho[index - column_count]
             residual += term
-            scale += abs(term)
+            scale += _primal_direction_magnitude(term)
         end
         isfinite(residual) && isfinite(scale) || return T(Inf)
         tolerance = max(workspace.options.zero_tolerance,
                         roundoff * (scale + Clong(1)))
         isfinite(tolerance) || return T(Inf)
-        worst_ratio = max(worst_ratio, abs(residual) / tolerance)
+        worst_ratio = max(worst_ratio, _primal_direction_magnitude(residual) / tolerance)
     end
     return worst_ratio
 end
