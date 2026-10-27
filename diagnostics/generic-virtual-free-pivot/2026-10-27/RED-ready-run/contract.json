@@ -1,0 +1,47 @@
+{
+  "arm": "RED",
+  "attempts": 1,
+  "command": [
+    "/bin/bash",
+    "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+    "--compiled-modules=existing",
+    "--threads=1",
+    "--gcthreads=1,0",
+    "--heap-size-hint=2G",
+    "--history-file=no",
+    "--project=/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/RED",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/RED-ready-run/tests.jl"
+  ],
+  "expected_exit": 1,
+  "expected_failure_locations": [
+    [
+      "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/new-test-reviewed.jl",
+      933
+    ],
+    [
+      "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/new-test-reviewed.jl",
+      933
+    ],
+    [
+      "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/new-test-reviewed.jl",
+      933
+    ],
+    [
+      "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/new-test-reviewed.jl",
+      933
+    ],
+    [
+      "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/new-test-reviewed.jl",
+      933
+    ]
+  ],
+  "expected_failures": 5,
+  "expected_total": null,
+  "files": [
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/new-test-reviewed.jl"
+  ],
+  "guard_limit_seconds": 2392,
+  "minimum_total": 1000,
+  "shared_limit_seconds": 2400,
+  "source_root": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/RED"
+}

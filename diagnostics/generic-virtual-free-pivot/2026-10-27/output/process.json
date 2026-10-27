@@ -1,0 +1,64 @@
+{
+  "command": [
+    "/bin/bash",
+    "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+    "--compiled-modules=existing",
+    "--threads=1",
+    "--gcthreads=1,0",
+    "--heap-size-hint=2G",
+    "--history-file=no",
+    "--project=/home/jspitz/JSimplex.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/driver-ready.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/output/results.toml"
+  ],
+  "cwd": "/home/jspitz/JSimplex.jl",
+  "started": 1793103180.1274173,
+  "runner": {
+    "pid": 91655,
+    "pgid": 91655,
+    "sid": 91655,
+    "start_ticks": 7284123,
+    "boot_id": "781795f4-f7af-4c3b-9ce9-45c7cae76ecb",
+    "command": "/usr/bin/python3 -B /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/guard/guard_reviewed.py run /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/pins-ready.json /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/output --expected-exit 0 --seconds 591.7848980090057 --deadline 73433.019181005 -- /bin/bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --compiled-modules=existing --threads=1 --gcthreads=1,0 --heap-size-hint=2G --history-file=no --project=/home/jspitz/JSimplex.jl /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/driver-ready.jl /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/output/results.toml "
+  },
+  "pins_sha256": "962197f648962175d33c96070ad24046bb75fe18e544db5b55ddf0c4189aad37",
+  "reason": "exit1",
+  "returncode": 1,
+  "gate_command": [
+    "/usr/bin/python3",
+    "-B",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/guard/entry_gate.py",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/output",
+    "91655",
+    "7284123",
+    "781795f4-f7af-4c3b-9ce9-45c7cae76ecb",
+    "73433.019181005",
+    "--",
+    "/bin/bash",
+    "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+    "--compiled-modules=existing",
+    "--threads=1",
+    "--gcthreads=1,0",
+    "--heap-size-hint=2G",
+    "--history-file=no",
+    "--project=/home/jspitz/JSimplex.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/driver-ready.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/output/results.toml"
+  ],
+  "child": {
+    "pid": 91656,
+    "pgid": 91656,
+    "sid": 91656,
+    "start_ticks": 7284131,
+    "boot_id": "781795f4-f7af-4c3b-9ce9-45c7cae76ecb",
+    "command": "/usr/bin/python3 -B /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/guard/entry_gate.py /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/output 91655 7284123 781795f4-f7af-4c3b-9ce9-45c7cae76ecb 73433.019181005 -- /bin/bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --compiled-modules=existing --threads=1 --gcthreads=1,0 --heap-size-hint=2G --history-file=no --project=/home/jspitz/JSimplex.jl /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/driver-ready.jl /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/output/results.toml "
+  },
+  "elapsed_including_launch": 14.071569589999854,
+  "child_maxrss_kib": 971704,
+  "terminal_memory": {
+    "available_kib": 22991272,
+    "swap_used_kib": 0
+  },
+  "ended": 1793103194.145004,
+  "pins_unchanged": true
+}

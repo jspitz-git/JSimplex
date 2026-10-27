@@ -1,0 +1,126 @@
+CONTEXT BF64_RoundingMode{:Nearest}()
+CONTEXT BF64_RoundingMode{:Down}()
+CONTEXT BF64_RoundingMode{:Up}()
+CONTEXT BF64_RoundingMode{:ToZero}()
+CONTEXT BF64_RoundingMode{:FromZero}()
+CONTEXT BF128_RoundingMode{:Nearest}()
+CONTEXT BF128_RoundingMode{:Down}()
+CONTEXT BF128_RoundingMode{:Up}()
+CONTEXT BF128_RoundingMode{:ToZero}()
+CONTEXT BF128_RoundingMode{:FromZero}()
+CONTEXT BF256_RoundingMode{:Nearest}()
+CONTEXT BF256_RoundingMode{:Down}()
+CONTEXT BF256_RoundingMode{:Up}()
+CONTEXT BF256_RoundingMode{:ToZero}()
+CONTEXT BF256_RoundingMode{:FromZero}()
+CONTEXT Float32
+CONTEXT Float64
+
+Virtual/free/pivot correctness Float64: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/comparison-2/fixtures.jl:171
+  Expression: if pattern === :zero
+    all(iszero, a.proposal.column) && all(iszero, b.proposal.column)
+else
+    same(a.proposal.column, a.wanted) && same(b.proposal.column, b.wanted)
+end
+  Stacktrace:
+   [1] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+   [2] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/comparison-2/fixtures.jl:171 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] correctness(::Type{Float64})
+     @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/comparison-2/fixtures.jl:163
+
+Virtual/free/pivot correctness Float64: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/comparison-2/fixtures.jl:171
+  Expression: if pattern === :zero
+    all(iszero, a.proposal.column) && all(iszero, b.proposal.column)
+else
+    same(a.proposal.column, a.wanted) && same(b.proposal.column, b.wanted)
+end
+  Stacktrace:
+   [1] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+   [2] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/comparison-2/fixtures.jl:171 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] correctness(::Type{Float64})
+     @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/comparison-2/fixtures.jl:163
+
+Virtual/free/pivot correctness Float64: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/comparison-2/fixtures.jl:171
+  Expression: if pattern === :zero
+    all(iszero, a.proposal.column) && all(iszero, b.proposal.column)
+else
+    same(a.proposal.column, a.wanted) && same(b.proposal.column, b.wanted)
+end
+  Stacktrace:
+   [1] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+   [2] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/comparison-2/fixtures.jl:171 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] correctness(::Type{Float64})
+     @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/comparison-2/fixtures.jl:163
+
+Virtual/free/pivot correctness Float64: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/comparison-2/fixtures.jl:171
+  Expression: if pattern === :zero
+    all(iszero, a.proposal.column) && all(iszero, b.proposal.column)
+else
+    same(a.proposal.column, a.wanted) && same(b.proposal.column, b.wanted)
+end
+  Stacktrace:
+   [1] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+   [2] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/comparison-2/fixtures.jl:171 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] correctness(::Type{Float64})
+     @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/comparison-2/fixtures.jl:163
+CONTEXT Rational{BigInt}
+CONTEXT Rational{Int64}
+ERROR: LoadError: Some tests did not pass: 120716 passed, 4 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/comparison-2/driver-ready.jl:41
+Test Summary:                                             |   Pass  Fail   Total     Time
+Virtual free pivot whole-function comparison              | 120716     4  120720  1m21.2s
+  Virtual/free/pivot correctness BigFloat                 |    552           552     2.3s
+  Explicit free/virtual/pivot boundaries BigFloat         |    290           290     0.0s
+  Virtual/free/pivot correctness BigFloat                 |    552           552     0.1s
+  Explicit free/virtual/pivot boundaries BigFloat         |    287           287     0.0s
+  Virtual/free/pivot correctness BigFloat                 |    552           552     0.1s
+  Explicit free/virtual/pivot boundaries BigFloat         |    288           288     0.0s
+  Virtual/free/pivot correctness BigFloat                 |    552           552     0.1s
+  Explicit free/virtual/pivot boundaries BigFloat         |    287           287     0.0s
+  Virtual/free/pivot correctness BigFloat                 |    552           552     0.1s
+  Explicit free/virtual/pivot boundaries BigFloat         |    288           288     0.0s
+  Virtual/free/pivot correctness BigFloat                 |    552           552     0.1s
+  Explicit free/virtual/pivot boundaries BigFloat         |    290           290     0.0s
+  Virtual/free/pivot correctness BigFloat                 |    552           552     0.1s
+  Explicit free/virtual/pivot boundaries BigFloat         |    287           287     0.0s
+  Virtual/free/pivot correctness BigFloat                 |    552           552     0.1s
+  Explicit free/virtual/pivot boundaries BigFloat         |    288           288     0.0s
+  Virtual/free/pivot correctness BigFloat                 |    552           552     0.1s
+  Explicit free/virtual/pivot boundaries BigFloat         |    287           287     0.0s
+  Virtual/free/pivot correctness BigFloat                 |    552           552     0.1s
+  Explicit free/virtual/pivot boundaries BigFloat         |    288           288     0.0s
+  Virtual/free/pivot correctness BigFloat                 |    552           552     0.1s
+  Explicit free/virtual/pivot boundaries BigFloat         |    290           290     0.0s
+  Virtual/free/pivot correctness BigFloat                 |    552           552     0.1s
+  Explicit free/virtual/pivot boundaries BigFloat         |    287           287     0.0s
+  Virtual/free/pivot correctness BigFloat                 |    552           552     0.1s
+  Explicit free/virtual/pivot boundaries BigFloat         |    288           288     0.0s
+  Virtual/free/pivot correctness BigFloat                 |    552           552     0.1s
+  Explicit free/virtual/pivot boundaries BigFloat         |    287           287     0.0s
+  Virtual/free/pivot correctness BigFloat                 |    552           552     0.1s
+  Explicit free/virtual/pivot boundaries BigFloat         |    288           288     0.0s
+  Virtual/free/pivot correctness Float32                  |    552           552     2.5s
+  Explicit free/virtual/pivot boundaries Float32          |    116           116     0.0s
+  Virtual/free/pivot correctness Float64                  |    548     4     552     3.1s
+  Explicit free/virtual/pivot boundaries Float64          |    116           116     0.0s
+  Virtual/free/pivot correctness Rational{BigInt}         |    552           552     2.0s
+  Explicit free/virtual/pivot boundaries Rational{BigInt} |    104           104     0.0s
+  Virtual/free/pivot correctness Rational{Int64}          |    552           552     2.3s
+  Explicit free/virtual/pivot boundaries Rational{Int64}  |    104           104     0.0s
+RNG of the outermost testset: Random.Xoshiro(0x02bc20b7c454e99c, 0x2bbc07eb0f89c9b8, 0x4b4b07911d55c8a1, 0xc5b04ac25bacfcca, 0x6639699f075a1b6f)

@@ -1,0 +1,15 @@
+{
+  "source_threshold": "partial_pricing && number_of_states > 128",
+  "sizes": [
+    32,
+    128
+  ],
+  "basis_rows": [
+    4,
+    16
+  ],
+  "small_partial_request": "full fallback control",
+  "large_partial_request": "actual hit/rebuild",
+  "reason": "Exercise genuine candidate-pool routes rather than label a small full scan as partial",
+  "Julia_runs": 0
+}

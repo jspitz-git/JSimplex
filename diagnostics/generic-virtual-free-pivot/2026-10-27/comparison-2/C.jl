@@ -1,0 +1,613 @@
+module VFPC
+using JSimplex,SparseArrays,LinearAlgebra
+using JSimplex: SimplexWorkspace,SolveQualityScratch,NumericalPolicy,SolveQuality,
+    PivotCandidate,CandidatePool,VariableState,AT_LOWER,AT_UPPER,FREE_NONBASIC,BASIC,
+    _is_exact,_compensated_solve_quality!,_compensated_quality_term!,_primal_direction_magnitude,_PriceAuditMatrix,
+    _prepare_auto_pricing!,_partial_pricing_enabled,_effective_pricing,
+    _primal_initialize_steepest!,_primal_steepest_weight!,_primal_dantzig_score,
+    _primal_weighted_score,_record_full_pricing!,_is_fixed,_pricing_pool!,
+    _record_pricing_work!,_select_pool!,_pool_primal_score,_select_dual_pool!,
+    _pivot_quality_buffers,_pivot_column!,_basis_matrix!,_sync_recovery_rejections!
+
+function _componentwise_backward_error(residual::AbstractVector{T}, scale) where {T<:AbstractFloat}
+    axes(residual) == axes(scale) || throw(DimensionMismatch("Residual and scale dimensions differ"))
+    error = zero(T)
+    for i in eachindex(residual,scale)
+        r, s = abs(residual[i]), scale[i]
+        isfinite(r) && isfinite(s) && s >= zero(s) || return T(Inf)
+        ratio = iszero(s) ? (iszero(r) ? zero(T) : T(Inf)) : r/s
+        error = max(error,ratio)
+    end
+    return error
+end
+
+_quality_values(B::AbstractMatrix) = B
+_quality_values(B::SparseMatrixCSC) = nonzeros(B)
+
+@inline function _accumulate_quality_term!(r::AbstractVector{W}, scale, terms,
+                                          x, a, row, column, transposed) where {W}
+    target, source = transposed ? (column,row) : (row,column)
+    product = W(a)*W(x[source])
+    r[target] -= product
+    scale[target] += abs(product)
+    terms[target] += 2
+    return W <: AbstractFloat && !iszero(a) && !iszero(x[source]) &&
+           abs(product) < floatmin(W)
+end
+
+function _quality_components!(r::AbstractVector{W}, scale, terms, B, x, rhs, transposed) where {W}
+    for i in eachindex(rhs)
+        r[i] = W(rhs[i])
+        scale[i] = abs(r[i])
+        terms[i] = 1
+    end
+    unsafe_range = false
+    if B isa SparseMatrixCSC
+        for column in axes(B,2), p in nzrange(B,column)
+            unsafe_range |= _accumulate_quality_term!(r,scale,terms,x,B.nzval[p],B.rowval[p],column,transposed)
+        end
+    else
+        for column in axes(B,2), row in axes(B,1)
+            unsafe_range |= _accumulate_quality_term!(r,scale,terms,x,B[row,column],row,column,transposed)
+        end
+    end
+    return unsafe_range
+end
+
+# A call-local comparison limit is shared only across ordinary array accesses.
+@inline function _bigfloat_quality_term!(r, scale, terms, x, a, row, column,
+                                         transposed, limit::Union{Nothing,BigFloat})
+    target, source = transposed ? (column,row) : (row,column)
+    product = BigFloat(a)*BigFloat(x[source])
+    r[target] -= product
+    magnitude = _primal_direction_magnitude(product)
+    scale[target] += magnitude
+    terms[target] += 2
+    if !iszero(a) && !iszero(x[source])
+        if limit === nothing
+            limit = floatmin(BigFloat)
+        end
+        return magnitude < limit, limit
+    end
+    return false, limit
+end
+
+function _quality_components!(r::Vector{BigFloat}, scale::Vector{BigFloat},
+                              terms::Vector{Int},
+                              B::Union{Matrix{BigFloat},SparseMatrixCSC{BigFloat}},
+                              x::Vector{BigFloat}, rhs::Vector{BigFloat}, transposed)
+    for i in eachindex(rhs)
+        r[i] = BigFloat(rhs[i])
+        scale[i] = _primal_direction_magnitude(r[i])
+        terms[i] = 1
+    end
+    unsafe_range = false
+    limit::Union{Nothing,BigFloat} = nothing
+    if B isa SparseMatrixCSC
+        for column in axes(B,2), p in nzrange(B,column)
+            unsafe, limit = _bigfloat_quality_term!(r,scale,terms,x,B.nzval[p],
+                B.rowval[p],column,transposed,limit)
+            unsafe_range |= unsafe
+        end
+    else
+        for column in axes(B,2), row in axes(B,1)
+            unsafe, limit = _bigfloat_quality_term!(r,scale,terms,x,B[row,column],
+                row,column,transposed,limit)
+            unsafe_range |= unsafe
+        end
+    end
+    return unsafe_range
+end
+
+function _quality_roundoff(::Type{W}, terms) where {W<:AbstractFloat}
+    k = maximum(terms; init=0)
+    product = W(k)*eps(W)
+    return isfinite(product) && product < one(W) ? product/(one(W)-product) : W(Inf)
+end
+
+function _floating_quality!(scratch::SolveQualityScratch{T}, r, scale, terms, policy) where {T}
+    ratio = _componentwise_backward_error(r,scale)
+    absolute = maximum(abs,r; init=zero(eltype(r)))
+    for i in eachindex(r)
+        scratch.residual[i] = convert(T,r[i])
+    end
+    absolute_T, ratio_T = convert(T,absolute), convert(T,ratio)
+    iszero(absolute_T) && absolute > 0 && (absolute_T = nextfloat(zero(T)))
+    finite = isfinite(absolute_T) && isfinite(ratio_T) && all(isfinite,scratch.residual)
+    roundoff = _quality_roundoff(eltype(r),terms)
+    reliable = finite && isfinite(roundoff) && roundoff < 1 &&
+        (ratio + roundoff)/(1-roundoff) <= policy.solve_tolerance
+    return SolveQuality{T}(absolute_T,ratio_T,finite,reliable)
+end
+
+function _componentwise_backward_error(residual::Vector{BigFloat}, scale::Vector{BigFloat})
+    T = BigFloat
+    axes(residual) == axes(scale) || throw(DimensionMismatch("Residual and scale dimensions differ"))
+    error = zero(T)
+    for i in eachindex(residual,scale)
+        r, s = _primal_direction_magnitude(residual[i]), scale[i]
+        isfinite(r) && isfinite(s) && s >= Clong(0) || return T(Inf)
+        ratio = iszero(s) ? (iszero(r) ? zero(T) : T(Inf)) : r/s
+        error = max(error,ratio)
+    end
+    return error
+end
+
+function _quality_roundoff(::Type{BigFloat}, terms)
+    W = BigFloat
+    k = maximum(terms; init=0)
+    product = W(k)*eps(W)
+    return isfinite(product) && product < Clong(1) ? product/(Clong(1)-product) : W(Inf)
+end
+
+function _floating_quality!(scratch::SolveQualityScratch{T}, r::Vector{BigFloat},
+                            scale::Vector{BigFloat}, terms::Vector{Int}, policy) where {T}
+    ratio = _componentwise_backward_error(r,scale)
+    absolute = maximum(_primal_direction_magnitude,r; init=zero(eltype(r)))
+    for i in eachindex(r)
+        scratch.residual[i] = convert(T,r[i])
+    end
+    absolute_T, ratio_T = convert(T,absolute), convert(T,ratio)
+    iszero(absolute_T) && absolute > 0 && (absolute_T = nextfloat(zero(T)))
+    finite = isfinite(absolute_T) && isfinite(ratio_T) && all(isfinite,scratch.residual)
+    roundoff = _quality_roundoff(eltype(r),terms)
+    reliable = finite && isfinite(roundoff) && roundoff < 1 &&
+        (ratio + roundoff)/(1-roundoff) <= policy.solve_tolerance
+    return SolveQuality{T}(absolute_T,ratio_T,finite,reliable)
+end
+
+_stored_quality_bits(::Type{T}, B, x, rhs, policy) where {T<:AbstractFloat} = precision(T)
+function _stored_quality_bits(::Type{BigFloat}, B, x, rhs, policy)
+    return max(precision(BigFloat), precision(policy.solve_tolerance),
+        maximum(precision,_quality_values(B);init=2), maximum(precision,x;init=2),
+        maximum(precision,rhs;init=2))
+end
+
+function _wide_solve_quality!(scratch::SolveQualityScratch{T}, B, x, rhs, policy, transposed) where {T}
+    input_bits = _stored_quality_bits(T,B,x,rhs,policy)
+    term_count = max(size(B,1),size(B,2),1)
+    # Additional bits keep residual-evaluation uncertainty below the policy's
+    # solve tolerance; this does not change the basis working precision.
+    bits = max(128, 2*input_bits + ndigits(term_count; base=2) + 16)
+    return setprecision(BigFloat,bits) do
+        r, scale = zeros(BigFloat,length(rhs)), zeros(BigFloat,length(rhs))
+        unsafe_range = _quality_components!(r,scale,scratch.terms,B,x,rhs,transposed)
+        quality = _floating_quality!(scratch,r,scale,scratch.terms,policy)
+        unsafe_range ? SolveQuality{T}(quality.absolute_error,quality.relative_error,false,false) : quality
+    end
+end
+
+"""Evaluate an absolute residual and a componentwise backward error.
+
+Scratch is owned separately from live tableau vectors. Float32 and Float64 use
+native compensated accumulation before a local BigFloat evaluation is needed
+for unsafe range or an inconclusive rounding-error enclosure. Stored
+BigFloat precision is respected. Small backward error is not a forward-error
+or pivot-safety certificate. Exact rationals require an exactly zero residual.
+"""
+function solve_quality!(scratch::SolveQualityScratch{T}, B::AbstractMatrix{T},
+                        x::AbstractVector{T}, rhs::AbstractVector{T},
+                        policy::NumericalPolicy{T}; transposed::Bool=false) where {T}
+    rows, columns = transposed ? reverse(size(B)) : size(B)
+    length(rhs) == rows && length(x) == columns && length(scratch.residual) == rows ||
+        throw(DimensionMismatch("Incompatible basis residual dimensions"))
+    any(array -> Base.mightalias(array,rhs) || Base.mightalias(array,x) ||
+        Base.mightalias(array,_quality_values(B)),
+        (scratch.residual,scratch.work_residual,scratch.work_scale,
+         scratch.compensation,scratch.error_sum)) &&
+        throw(ArgumentError("Quality scratch must not alias basis, solution, or RHS"))
+    if _is_exact(T) === Val(true)
+        _quality_components!(scratch.work_residual,scratch.work_scale,scratch.terms,B,x,rhs,transposed)
+        copyto!(scratch.residual,scratch.work_residual)
+        absolute = maximum(abs,scratch.residual;init=zero(T))
+        return SolveQuality{T}(absolute,nothing,true,iszero(absolute))
+    end
+    if !all(isfinite,_quality_values(B)) || !all(isfinite,x) || !all(isfinite,rhs)
+        fill!(scratch.residual,T(Inf))
+        return SolveQuality{T}(T(Inf),T(Inf),false,false)
+    end
+    T === BigFloat && return _wide_solve_quality!(scratch,B,x,rhs,policy,transposed)
+    unsafe_range = _quality_components!(scratch.work_residual,scratch.work_scale,scratch.terms,B,x,rhs,transposed)
+    roundoff = _quality_roundoff(eltype(scratch.work_residual),scratch.terms)
+    if unsafe_range || !all(isfinite,scratch.work_residual) || !all(isfinite,scratch.work_scale) ||
+       roundoff > policy.solve_tolerance/4
+        if !unsafe_range
+            native = _compensated_solve_quality!(scratch,B,x,rhs,policy,transposed)
+            isnothing(native) || return native
+        end
+        return _wide_solve_quality!(scratch,B,x,rhs,policy,transposed)
+    end
+    return _floating_quality!(scratch,scratch.work_residual,scratch.work_scale,scratch.terms,policy)
+end
+
+_quality_values(B::_PriceAuditMatrix) = nonzeros(B.matrix)
+
+function _compensated_quality_components!(scratch,B::_PriceAuditMatrix{T},x,transposed) where T
+    A = B.matrix
+    m,n = size(A)
+    for j in axes(A,2), p in nzrange(A,j)
+        target,source = transposed ? (A.rowval[p],j) : (j,A.rowval[p])
+        _compensated_quality_term!(scratch,A.nzval[p],x[source],target)
+    end
+    for i in 1:m
+        target,source = transposed ? (i,n+i) : (n+i,i)
+        _compensated_quality_term!(scratch,-one(T),x[source],target)
+    end
+    for i in 1:n+m
+        target,source = transposed ? (m+i,i) : (i,m+i)
+        _compensated_quality_term!(scratch,one(T),x[source],target)
+    end
+    return nothing
+end
+
+function _quality_components!(r::AbstractVector{W},scale,terms,B::_PriceAuditMatrix{T},
+                               x,rhs,transposed) where {W,T}
+    for i in eachindex(rhs)
+        r[i] = W(rhs[i])
+        scale[i] = abs(r[i])
+        terms[i] = 1
+    end
+    A = B.matrix
+    m,n = size(A)
+    unsafe = false
+    for j in axes(A,2), p in nzrange(A,j)
+        unsafe |= _accumulate_quality_term!(r,scale,terms,x,A.nzval[p],j,A.rowval[p],transposed)
+    end
+    for i in 1:m
+        unsafe |= _accumulate_quality_term!(r,scale,terms,x,-one(T),n+i,i,transposed)
+    end
+    for i in 1:n+m
+        unsafe |= _accumulate_quality_term!(r,scale,terms,x,one(T),i,m+i,transposed)
+    end
+    return unsafe
+end
+
+
+function _primal_price_prediction_reliable(ws::SimplexWorkspace{T},predicted) where T
+    all(i -> iszero(predicted[i]),ws.basis.basic_indices) || return false
+    B = _PriceAuditMatrix(ws.problem.A)
+    values = vcat(ws.scratch.rho,predicted)
+    scratch = SolveQualityScratch(T,length(ws.costs))
+    return solve_quality!(scratch,B,values,ws.costs,ws.progress.numerical_policy).reliable
+end
+
+function _primal_entering(workspace::SimplexWorkspace{T}, tolerance::T) where {T}
+    _prepare_auto_pricing!(workspace,:primal)
+    state = workspace.scratch.pricing
+    isnothing(state) || (state.pricing_passes += 1)
+    if _partial_pricing_enabled(workspace,:primal)
+        entering = _select_workspace_pool!(workspace,:primal;tolerance)
+        direction = entering == 0 ? zero(T) :
+            (workspace.reduced_costs[entering] < zero(T) ? one(T) : -one(T))
+        return entering,direction
+    end
+    pricing = _effective_pricing(workspace,:primal)
+    pricing == :steepest_edge && _primal_initialize_steepest!(workspace)
+    entering = 0
+    scored = 0
+    direction = zero(T)
+    best_score = _primal_dantzig_score(one(T))
+    for index in eachindex(workspace.basis.states)
+        state = workspace.basis.states[index]
+        state == BASIC && continue
+        index in workspace.scratch.rejected_entering && continue
+        _is_fixed(workspace.lower[index], workspace.upper[index]) && continue
+        reduced_cost = workspace.reduced_costs[index]
+        improving = (state == AT_LOWER && reduced_cost < -tolerance) ||
+                    (state == AT_UPPER && reduced_cost > tolerance) ||
+                    (state == FREE_NONBASIC && abs(reduced_cost) > tolerance)
+        improving || continue
+        scored += 1
+        score = if pricing == :dantzig
+            _primal_dantzig_score(reduced_cost)
+        else
+            weight = pricing == :steepest_edge && !workspace.scratch.steepest_valid[index] ?
+                _primal_steepest_weight!(workspace, index) : workspace.pricing_weights[index]
+            _primal_weighted_score(reduced_cost, weight)
+        end
+        if entering == 0 || score > best_score
+            entering = index
+            direction = reduced_cost < zero(T) ? one(T) : -one(T)
+            best_score = score
+        end
+    end
+    _record_full_pricing!(workspace.progress.diagnostics,length(workspace.basis.states),scored)
+    return entering, direction
+end
+
+function _primal_entering(workspace::SimplexWorkspace{T}, tolerance::T) where {T<:Union{BigFloat,Rational{BigInt}}}
+    _prepare_auto_pricing!(workspace,:primal)
+    state = workspace.scratch.pricing
+    isnothing(state) || (state.pricing_passes += 1)
+    if _partial_pricing_enabled(workspace,:primal)
+        entering = _select_workspace_pool!(workspace,:primal;tolerance)
+        direction = entering == 0 ? zero(T) :
+            (workspace.reduced_costs[entering] < 0 ? one(T) : -one(T))
+        return entering,direction
+    end
+    pricing = _effective_pricing(workspace,:primal)
+    pricing == :steepest_edge && _primal_initialize_steepest!(workspace)
+    entering = 0
+    scored = 0
+    direction = zero(T)
+    best_score = _primal_dantzig_score(one(T))
+    negative_tolerance = tolerance
+    negative_ready = false
+    reuse_negative = pricing === :dantzig || pricing === :devex
+    for index in eachindex(workspace.basis.states)
+        state = workspace.basis.states[index]
+        state == BASIC && continue
+        index in workspace.scratch.rejected_entering && continue
+        _is_fixed(workspace.lower[index], workspace.upper[index]) && continue
+        reduced_cost = workspace.reduced_costs[index]
+        improving = if state == AT_LOWER
+            if reuse_negative
+                if !negative_ready
+                    negative_tolerance = -tolerance
+                    negative_ready = true
+                end
+                reduced_cost < negative_tolerance
+            else
+                reduced_cost < -tolerance
+            end
+        else
+            (state == AT_UPPER && reduced_cost > tolerance) ||
+            (state == FREE_NONBASIC && abs(reduced_cost) > tolerance)
+        end
+        improving || continue
+        scored += 1
+        score = if pricing == :dantzig
+            _primal_dantzig_score(reduced_cost)
+        else
+            weight = pricing == :steepest_edge && !workspace.scratch.steepest_valid[index] ?
+                _primal_steepest_weight!(workspace, index) : workspace.pricing_weights[index]
+            _primal_weighted_score(reduced_cost, weight)
+        end
+        if entering == 0 || score > best_score
+            entering = index
+            direction = reduced_cost < 0 ? one(T) : -one(T)
+            best_score = score
+        end
+    end
+    _record_full_pricing!(workspace.progress.diagnostics,length(workspace.basis.states),scored)
+    return entering, direction
+end
+
+function _pool_primal_eligible(ws,index,tolerance)
+    state = ws.basis.states[index]
+    state == BASIC && return false
+    index in ws.scratch.rejected_entering && return false
+    _is_fixed(ws.lower[index],ws.upper[index]) && return false
+    value = ws.reduced_costs[index]
+    return (state == AT_LOWER && value < -tolerance) ||
+           (state == AT_UPPER && value > tolerance) ||
+           (state == FREE_NONBASIC && abs(value) > tolerance)
+end
+
+function select_pricing_candidate!(ws,pool::CandidatePool,policy;
+                                   force_full::Bool=false,
+                                   tolerance=ws.options.dual_tolerance)::Int
+    force_full = force_full || !policy.partial_pricing
+    T = eltype(ws.costs)
+    _prepare_auto_pricing!(ws,pool.algorithm)
+    if pool.algorithm == :primal
+        pricing = _effective_pricing(ws,:primal)
+        pricing == :steepest_edge && _primal_initialize_steepest!(ws)
+        eligible = index -> _pool_primal_eligible(ws,index,tolerance)
+        score = index -> _pool_primal_score(ws,index,pricing)
+        return _select_pool!(pool,length(ws.basis.states),eligible,score,
+                             _primal_dantzig_score(one(T)),true;force_full)
+    end
+    if ws.options.pricing == :auto && T <: Rational
+        return _select_dual_pool!(ws,pool,Val(Rational{BigInt});force_full)
+    elseif ws.options.pricing == :auto
+        return _select_dual_pool!(ws,pool,Val(:scaled);force_full)
+    end
+    return _select_dual_pool!(ws,pool,Val(T);force_full)
+end
+
+function _select_workspace_pool!(ws,algorithm;force_full=false,
+                                 tolerance=ws.options.dual_tolerance)
+    pool = _pricing_pool!(ws,algorithm)
+    previous = (pool.scanned_entries,pool.scored_entries,pool.full_scans,pool.block_scans)
+    result = select_pricing_candidate!(ws,pool,ws.progress.numerical_policy;force_full,tolerance)
+    _record_pricing_work!(ws.progress.diagnostics,pool,previous,result)
+    return result
+end
+
+function dual_infeasibility_summary(workspace::SimplexWorkspace{T}) where {T}
+    infeasibility = zero(T)
+    count = 0
+    tolerance = workspace.options.dual_tolerance
+    for index in eachindex(workspace.basis.states)
+        state = workspace.basis.states[index]
+        state == BASIC && continue
+        _is_fixed(workspace.lower[index], workspace.upper[index]) && continue
+
+        reduced_cost = workspace.reduced_costs[index]
+        if state == AT_LOWER && reduced_cost < -tolerance
+            infeasibility -= reduced_cost
+            count += 1
+        elseif state == AT_UPPER && reduced_cost > tolerance
+            infeasibility += reduced_cost
+            count += 1
+        elseif state == FREE_NONBASIC && abs(reduced_cost) > tolerance
+            infeasibility += abs(reduced_cost)
+            count += 1
+        end
+    end
+    return infeasibility, count
+end
+
+function dual_infeasibility_summary(workspace::SimplexWorkspace{T}) where {T<:Union{BigFloat,Rational{BigInt}}}
+    infeasibility = zero(T)
+    count = 0
+    tolerance = workspace.options.dual_tolerance
+    negative_tolerance = tolerance
+    negative_ready = false
+    for index in eachindex(workspace.basis.states)
+        state = workspace.basis.states[index]
+        state == BASIC && continue
+        _is_fixed(workspace.lower[index], workspace.upper[index]) && continue
+
+        reduced_cost = workspace.reduced_costs[index]
+        if state == AT_LOWER
+            if !negative_ready
+                negative_tolerance = -tolerance
+                negative_ready = true
+            end
+            if reduced_cost < negative_tolerance
+                infeasibility -= reduced_cost
+                count += 1
+            end
+        elseif state == AT_UPPER && reduced_cost > tolerance
+            infeasibility += reduced_cost
+            count += 1
+        elseif state == FREE_NONBASIC
+            magnitude = abs(reduced_cost)
+            if magnitude > tolerance
+                infeasibility += magnitude
+                count += 1
+            end
+        end
+    end
+    return infeasibility, count
+end
+
+function _pivot_agrees(row_pivot, column_pivot, error_bound)::Bool
+    all(isfinite, (row_pivot,column_pivot,error_bound)) || return false
+    error_bound >= zero(error_bound) || return false
+    sign(row_pivot) == sign(column_pivot) || return false
+    min(abs(row_pivot),abs(column_pivot)) > error_bound || return false
+    return abs(row_pivot-column_pivot) <= error_bound
+end
+
+function _pivot_agrees(row_pivot::BigFloat, column_pivot::BigFloat, error_bound::BigFloat)::Bool
+    all(isfinite, (row_pivot,column_pivot,error_bound)) || return false
+    error_bound >= Clong(0) || return false
+    sign(row_pivot) == sign(column_pivot) || return false
+    min(_primal_direction_magnitude(row_pivot),_primal_direction_magnitude(column_pivot)) > error_bound || return false
+    return _primal_direction_magnitude(row_pivot-column_pivot) <= error_bound
+end
+
+function validate_pivot!(ws::SimplexWorkspace{T}, proposal::PivotCandidate{T},
+                         policy::NumericalPolicy{T})::Symbol where {T}
+    if policy.recovery && !isempty(ws.scratch.recovery_rejections)
+        _sync_recovery_rejections!(ws)
+        (proposal.leaving_row,proposal.entering) in ws.scratch.recovery_rejections &&
+            return :reject_candidate
+    end
+    B = _basis_matrix!(ws)
+    m = size(B,1)
+    length(proposal.column) == length(proposal.rho) == m ||
+        throw(DimensionMismatch("pivot solve dimensions"))
+    checkbounds(proposal.column,proposal.leaving_row)
+    checkbounds(ws.basis.states,proposal.entering)
+    buffers = _pivot_quality_buffers(ws)
+    rhs = _pivot_column!(buffers.rhs,ws,proposal.entering)
+    unit = fill!(buffers.unit,zero(T))
+    unit[proposal.leaving_row] = one(T)
+    column_quality = buffers.column
+    row_quality = buffers.row
+    cq = solve_quality!(column_quality,B,proposal.column,rhs,policy)
+    rq = solve_quality!(row_quality,B,proposal.rho,unit,policy;transposed=true)
+    cq.reliable && rq.reliable || return :refresh
+    row_pivot = proposal.row_pivot
+    column_pivot = proposal.column[proposal.leaving_row]
+    independently_priced = dot(proposal.rho,rhs)
+    all(isfinite,(row_pivot,column_pivot,independently_priced)) || return :reject_candidate
+    sign(row_pivot) == sign(column_pivot) || return :reject_candidate
+    iszero(column_pivot) && return :reject_candidate
+    isfinite(inv(column_pivot)) || return :reject_candidate
+    all(value -> isfinite(value/column_pivot),proposal.column) || return :reject_candidate
+    if _is_exact(T) === Val(true)
+        return row_pivot == independently_priced &&
+               _pivot_agrees(row_pivot,column_pivot,zero(T)) ? :accept : :reject_candidate
+    end
+    # e_r = B' * rho + row_residual and rhs = B * column + column_residual.
+    # Their contractions bound disagreement, not forward error in an arbitrary
+    # ill-conditioned basis. Cap the allowed error separately and require an
+    # independently accumulated row estimate to agree as well.
+    contraction = zero(T)
+    dot_scale = zero(T)
+    for i in eachindex(rhs)
+        contraction += abs(row_quality.residual[i]*proposal.column[i]) +
+                       abs(column_quality.residual[i]*proposal.rho[i])
+        dot_scale += abs(proposal.rho[i]*rhs[i])
+    end
+    gamma = T(4m+8)*eps(T)
+    gamma < one(T) || return :refresh
+    roundoff = gamma/(one(T)-gamma) *
+        (dot_scale+abs(row_pivot)+abs(column_pivot))
+    error_bound = contraction + roundoff
+    isfinite(error_bound) || return :refresh
+    error_bound <= policy.pivot_error_tolerance *
+                   min(abs(row_pivot),abs(column_pivot)) || return :refresh
+    return _pivot_agrees(row_pivot,column_pivot,error_bound) &&
+           _pivot_agrees(row_pivot,independently_priced,error_bound) ?
+           :accept : :reject_candidate
+end
+
+function validate_pivot!(ws::SimplexWorkspace{BigFloat}, proposal::PivotCandidate{BigFloat},
+                         policy::NumericalPolicy{BigFloat})::Symbol
+    T = BigFloat
+    if policy.recovery && !isempty(ws.scratch.recovery_rejections)
+        _sync_recovery_rejections!(ws)
+        (proposal.leaving_row,proposal.entering) in ws.scratch.recovery_rejections &&
+            return :reject_candidate
+    end
+    B = _basis_matrix!(ws)
+    m = size(B,1)
+    length(proposal.column) == length(proposal.rho) == m ||
+        throw(DimensionMismatch("pivot solve dimensions"))
+    checkbounds(proposal.column,proposal.leaving_row)
+    checkbounds(ws.basis.states,proposal.entering)
+    buffers = _pivot_quality_buffers(ws)
+    rhs = _pivot_column!(buffers.rhs,ws,proposal.entering)
+    unit = fill!(buffers.unit,zero(T))
+    unit[proposal.leaving_row] = one(T)
+    column_quality = buffers.column
+    row_quality = buffers.row
+    cq = solve_quality!(column_quality,B,proposal.column,rhs,policy)
+    rq = solve_quality!(row_quality,B,proposal.rho,unit,policy;transposed=true)
+    cq.reliable && rq.reliable || return :refresh
+    row_pivot = proposal.row_pivot
+    column_pivot = proposal.column[proposal.leaving_row]
+    independently_priced = dot(proposal.rho,rhs)
+    all(isfinite,(row_pivot,column_pivot,independently_priced)) || return :reject_candidate
+    sign(row_pivot) == sign(column_pivot) || return :reject_candidate
+    iszero(column_pivot) && return :reject_candidate
+    isfinite(inv(column_pivot)) || return :reject_candidate
+    all(value -> isfinite(value/column_pivot),proposal.column) || return :reject_candidate
+    if _is_exact(T) === Val(true)
+        return row_pivot == independently_priced &&
+               _pivot_agrees(row_pivot,column_pivot,zero(T)) ? :accept : :reject_candidate
+    end
+    # e_r = B' * rho + row_residual and rhs = B * column + column_residual.
+    # Their contractions bound disagreement, not forward error in an arbitrary
+    # ill-conditioned basis. Cap the allowed error separately and require an
+    # independently accumulated row estimate to agree as well.
+    contraction = zero(T)
+    dot_scale = zero(T)
+    for i in eachindex(rhs)
+        contraction += _primal_direction_magnitude(row_quality.residual[i]*proposal.column[i]) +
+                       _primal_direction_magnitude(column_quality.residual[i]*proposal.rho[i])
+        dot_scale += _primal_direction_magnitude(proposal.rho[i]*rhs[i])
+    end
+    gamma = T(4m+8)*eps(T)
+    gamma < Clong(1) || return :refresh
+    roundoff_factor = gamma/(Clong(1)-gamma)
+    row_magnitude = _primal_direction_magnitude(row_pivot)
+    partial_scale = dot_scale+row_magnitude
+    column_magnitude = _primal_direction_magnitude(column_pivot)
+    roundoff = roundoff_factor*(partial_scale+column_magnitude)
+    error_bound = contraction + roundoff
+    isfinite(error_bound) || return :refresh
+    error_bound <= policy.pivot_error_tolerance *
+                   min(row_magnitude,column_magnitude) || return :refresh
+    return _pivot_agrees(row_pivot,column_pivot,error_bound) &&
+           _pivot_agrees(row_pivot,independently_priced,error_bound) ?
+           :accept : :reject_candidate
+end
+
+end

@@ -1,0 +1,116 @@
+VFP_SOURCE /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/RED/src/JSimplex.jl
+INCLUDING /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/new-test-reviewed.jl
+ERROR: LoadError: Some tests did not pass: 15415 passed, 5 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/RED-ready-run/tests.jl:8
+
+Whole-call allocation audit: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/new-test-reviewed.jl:933
+  Expression: all((new["bytes"] < old["bytes"] && new["events"] < old["events"] for (old, new) = pairs))
+   Evaluated: all(Base.Generator{Vector{Tuple{Dict{String, Any}, Dict{String, Any}}}, Main.GenericVirtualFreePivotTests.var"#34#35"}(Main.GenericVirtualFreePivotTests.var"#34#35"(), Tuple{Dict{String, Any}, Dict{String, Any}}[(Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 0.0023662, "bytes" => 2640800, "events" => 70119, "compile_seconds" => 0.0, "sink" => 1), Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 0.001850501, "bytes" => 2640800, "events" => 70119, "compile_seconds" => 0.0, "sink" => 1)), (Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 0.0023059, "bytes" => 2640800, "events" => 70119, "compile_seconds" => 0.0, "sink" => 1), Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 0.0022003, "bytes" => 2640800, "events" => 70119, "compile_seconds" => 0.0, "sink" => 1)), (Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 0.0018642, "bytes" => 2640800, "events" => 70119, "compile_seconds" => 0.0, "sink" => 1), Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 0.0021247, "bytes" => 2640800, "events" => 70119, "compile_seconds" => 0.0, "sink" => 1))]))
+  Stacktrace:
+   [1] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+   [2] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/new-test-reviewed.jl:933 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] (::Main.GenericVirtualFreePivotTests.var"#32#33")()
+     @ Main.GenericVirtualFreePivotTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/new-test-reviewed.jl:923
+
+Whole-call allocation virtual: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/new-test-reviewed.jl:933
+  Expression: all((new["bytes"] < old["bytes"] && new["events"] < old["events"] for (old, new) = pairs))
+   Evaluated: all(Base.Generator{Vector{Tuple{Dict{String, Any}, Dict{String, Any}}}, Main.GenericVirtualFreePivotTests.var"#34#35"}(Main.GenericVirtualFreePivotTests.var"#34#35"(), Tuple{Dict{String, Any}, Dict{String, Any}}[(Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 0.0030576, "bytes" => 2633840, "events" => 70095, "compile_seconds" => 0.0, "sink" => 4), Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 0.0029749, "bytes" => 2633840, "events" => 70095, "compile_seconds" => 0.0, "sink" => 4)), (Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 0.0030339, "bytes" => 2633840, "events" => 70095, "compile_seconds" => 0.0, "sink" => 4), Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 0.0029687, "bytes" => 2633840, "events" => 70095, "compile_seconds" => 0.0, "sink" => 4)), (Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 0.0029868, "bytes" => 2633840, "events" => 70095, "compile_seconds" => 0.0, "sink" => 4), Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 0.0030127, "bytes" => 2633840, "events" => 70095, "compile_seconds" => 0.0, "sink" => 4))]))
+  Stacktrace:
+   [1] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+   [2] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/new-test-reviewed.jl:933 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] (::Main.GenericVirtualFreePivotTests.var"#32#33")()
+     @ Main.GenericVirtualFreePivotTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/new-test-reviewed.jl:923
+
+Whole-call allocation enter_dantzig: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/new-test-reviewed.jl:933
+  Expression: all((new["bytes"] < old["bytes"] && new["events"] < old["events"] for (old, new) = pairs))
+   Evaluated: all(Base.Generator{Vector{Tuple{Dict{String, Any}, Dict{String, Any}}}, Main.GenericVirtualFreePivotTests.var"#34#35"}(Main.GenericVirtualFreePivotTests.var"#34#35"(), Tuple{Dict{String, Any}, Dict{String, Any}}[(Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 3.1e-5, "bytes" => 33408, "events" => 1044, "compile_seconds" => 0.0, "sink" => 18), Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 3.09e-5, "bytes" => 33408, "events" => 1044, "compile_seconds" => 0.0, "sink" => 18)), (Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 3.56e-5, "bytes" => 33408, "events" => 1044, "compile_seconds" => 0.0, "sink" => 18), Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 3.06e-5, "bytes" => 33408, "events" => 1044, "compile_seconds" => 0.0, "sink" => 18)), (Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 4.82e-5, "bytes" => 33408, "events" => 1044, "compile_seconds" => 0.0, "sink" => 18), Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 3.48e-5, "bytes" => 33408, "events" => 1044, "compile_seconds" => 0.0, "sink" => 18))]))
+  Stacktrace:
+   [1] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+   [2] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/new-test-reviewed.jl:933 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] (::Main.GenericVirtualFreePivotTests.var"#32#33")()
+     @ Main.GenericVirtualFreePivotTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/new-test-reviewed.jl:923
+
+Whole-call allocation summary: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/new-test-reviewed.jl:933
+  Expression: all((new["bytes"] < old["bytes"] && new["events"] < old["events"] for (old, new) = pairs))
+   Evaluated: all(Base.Generator{Vector{Tuple{Dict{String, Any}, Dict{String, Any}}}, Main.GenericVirtualFreePivotTests.var"#34#35"}(Main.GenericVirtualFreePivotTests.var"#34#35"(), Tuple{Dict{String, Any}, Dict{String, Any}}[(Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 2.79e-5, "bytes" => 32896, "events" => 1028, "compile_seconds" => 0.0, "sink" => 128), Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 2.84e-5, "bytes" => 32896, "events" => 1028, "compile_seconds" => 0.0, "sink" => 128)), (Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 2.8e-5, "bytes" => 32896, "events" => 1028, "compile_seconds" => 0.0, "sink" => 128), Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 2.79e-5, "bytes" => 32896, "events" => 1028, "compile_seconds" => 0.0, "sink" => 128)), (Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 2.79e-5, "bytes" => 32896, "events" => 1028, "compile_seconds" => 0.0, "sink" => 128), Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 2.81e-5, "bytes" => 32896, "events" => 1028, "compile_seconds" => 0.0, "sink" => 128))]))
+  Stacktrace:
+   [1] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+   [2] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/new-test-reviewed.jl:933 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] (::Main.GenericVirtualFreePivotTests.var"#32#33")()
+     @ Main.GenericVirtualFreePivotTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/new-test-reviewed.jl:923
+
+Whole-call allocation pivot: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/new-test-reviewed.jl:933
+  Expression: all((new["bytes"] < old["bytes"] && new["events"] < old["events"] for (old, new) = pairs))
+   Evaluated: all(Base.Generator{Vector{Tuple{Dict{String, Any}, Dict{String, Any}}}, Main.GenericVirtualFreePivotTests.var"#34#35"}(Main.GenericVirtualFreePivotTests.var"#34#35"(), Tuple{Dict{String, Any}, Dict{String, Any}}[(Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 0.0002078, "bytes" => 262704, "events" => 7535, "compile_seconds" => 0.0, "sink" => 1), Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 0.0002163, "bytes" => 262704, "events" => 7535, "compile_seconds" => 0.0, "sink" => 1)), (Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 0.0002076, "bytes" => 262704, "events" => 7535, "compile_seconds" => 0.0, "sink" => 1), Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 0.0002071, "bytes" => 262704, "events" => 7535, "compile_seconds" => 0.0, "sink" => 1)), (Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 0.000206, "bytes" => 262704, "events" => 7535, "compile_seconds" => 0.0, "sink" => 1), Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 0.0002051, "bytes" => 262704, "events" => 7535, "compile_seconds" => 0.0, "sink" => 1))]))
+  Stacktrace:
+   [1] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+   [2] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/new-test-reviewed.jl:933 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] (::Main.GenericVirtualFreePivotTests.var"#32#33")()
+     @ Main.GenericVirtualFreePivotTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/new-test-reviewed.jl:923
+Test Summary:                                               |  Pass  Fail  Total   Time
+Virtual free pivot RED                                      | 15415     5  15420  37.2s
+  BigFloat virtual audit free pricing and checked pivots    | 15415     5  15420  36.9s
+    Virtual/free/pivot correctness BigFloat                 |   560          560   2.4s
+    Explicit free/virtual/pivot boundaries BigFloat         |   290          290   0.0s
+    Virtual/free/pivot correctness BigFloat                 |   560          560   0.1s
+    Explicit free/virtual/pivot boundaries BigFloat         |   287          287   0.0s
+    Virtual/free/pivot correctness BigFloat                 |   560          560   0.1s
+    Explicit free/virtual/pivot boundaries BigFloat         |   288          288   0.0s
+    Virtual/free/pivot correctness BigFloat                 |   560          560   0.1s
+    Explicit free/virtual/pivot boundaries BigFloat         |   287          287   0.0s
+    Virtual/free/pivot correctness BigFloat                 |   560          560   0.1s
+    Explicit free/virtual/pivot boundaries BigFloat         |   288          288   0.0s
+    Virtual/free/pivot correctness BigFloat                 |   560          560   0.1s
+    Explicit free/virtual/pivot boundaries BigFloat         |   290          290   0.0s
+    Virtual/free/pivot correctness BigFloat                 |   560          560   0.1s
+    Explicit free/virtual/pivot boundaries BigFloat         |   287          287   0.0s
+    Virtual/free/pivot correctness BigFloat                 |   560          560   0.1s
+    Explicit free/virtual/pivot boundaries BigFloat         |   288          288   0.0s
+    Virtual/free/pivot correctness BigFloat                 |   560          560   0.1s
+    Explicit free/virtual/pivot boundaries BigFloat         |   287          287   0.0s
+    Virtual/free/pivot correctness BigFloat                 |   560          560   0.1s
+    Explicit free/virtual/pivot boundaries BigFloat         |   288          288   0.0s
+    Virtual/free/pivot correctness BigFloat                 |   560          560   0.1s
+    Explicit free/virtual/pivot boundaries BigFloat         |   290          290   0.0s
+    Virtual/free/pivot correctness BigFloat                 |   560          560   0.1s
+    Explicit free/virtual/pivot boundaries BigFloat         |   287          287   0.0s
+    Virtual/free/pivot correctness BigFloat                 |   560          560   0.1s
+    Explicit free/virtual/pivot boundaries BigFloat         |   288          288   0.0s
+    Virtual/free/pivot correctness BigFloat                 |   560          560   0.1s
+    Explicit free/virtual/pivot boundaries BigFloat         |   287          287   0.0s
+    Virtual/free/pivot correctness BigFloat                 |   560          560   0.1s
+    Explicit free/virtual/pivot boundaries BigFloat         |   288          288   0.0s
+    Virtual/free/pivot correctness Float32                  |   560          560   2.6s
+    Explicit free/virtual/pivot boundaries Float32          |   116          116   0.0s
+    Virtual/free/pivot correctness Float64                  |   560          560   2.8s
+    Explicit free/virtual/pivot boundaries Float64          |   116          116   0.0s
+    Virtual/free/pivot correctness Rational{BigInt}         |   560          560   2.2s
+    Explicit free/virtual/pivot boundaries Rational{BigInt} |   104          104   0.0s
+    Virtual/free/pivot correctness Rational{Int64}          |   560          560   2.3s
+    Explicit free/virtual/pivot boundaries Rational{Int64}  |   104          104   0.0s
+    Whole-call allocation audit                             |     3     1      4   0.9s
+    Whole-call allocation virtual                           |     3     1      4   0.1s
+    Whole-call allocation enter_dantzig                     |     3     1      4   0.1s
+    Whole-call allocation summary                           |     3     1      4   0.0s
+    Whole-call allocation pivot                             |     3     1      4   0.0s
+RNG of the outermost testset: Random.Xoshiro(0xa8ec243f6993f944, 0xa8bf8b03f2379a51, 0x8b3dce3790e6d3f6, 0x501cb15789a3609f, 0x8c28a5c5d834905e)

@@ -1,0 +1,13 @@
+Independent actual MASTER result — PASS
+
+Actual /home/jspitz/JSimplex.jl at c01900c2dff3de465846ae44333903889c867626 passes218625/218625ordinary tests over the same36wholefiles in exactly the frozenGREEN order and total. Root schema is Pass/Total/Time with no fail/error/broken/skipped columns; there are no Test Failed/Error During Test entries and exactly one VFP_COMPLETED MASTER. Driver output identifies actualM/src/JSimplex.jl. No old7e exception or any tolerance/test relaxation was used.
+
+Exit0/reasonexit0 and supervisor/completed records accept. Command, pinned manifest, runner/child/gate/current/permit hashes and inherited parent-death signal match the admitted chain. Inclusive elapsed1716.221363382seconds<2400;1715resource samples,minavailable19574020KiB,swap0,childmaxRSS3525512KiB. Heap2GiB remains a hint; address-space8GiB and host-memory safeguards remain. Fresh607historical PGIDs/SIDs including this run are closed/noJulia with full boot/start/command identity checks; no Julia or old auditor was rerun by this reviewer.
+
+All701pins,currentactualsource,protected files/indexes and environment pass. HEAD/master equal the reviewed commit, its sole parent is baseline1a6b9d81, and origin/master remains that baseline before push. The actual commit diff contains exactly seven reviewed paths:five production files,new permanenttest and runtests registration. Every changed actual byte equals its commit blob and GREEN; all537stage files match the source-inverse manifest and actualM. The previously reviewed exact inversion tobaseline therefore still applies.
+
+The original protected-user-file map is identical after fast-forward. Saved before-master/master.index matches an original protected-index hash. Independent git ls-files stage-map comparison shows only the exact seven intended paths changed in the real index; unrelated staged entries are unchanged. Current post-fast-forward protected index hashes pass. No user environment/file/index changes are hidden in this acceptance.
+
+No new source or work/memory issue was found: production remains exactly acceptedA/B/C, preserving scans/solves/arithmetic order/safeguards while reducing redundant scalar allocations. There is no new retained numeric cache or update-chain dependence. Allocation/performance conclusions remain those in comparison3's result review; regression duration is not speedup evidence, and C's timing gain remains nonuniform.
+
+This satisfies the actualMASTER prerequisite for the already-authorized normal non-force push and subsequent remote verification. It does not claim a push or publication has occurred. Broaderfullsuite/x64 remainOPEN; CI/automation/HH restrictions remain unchanged. All previous failed and rejected diagnostic evidence remains preserved.

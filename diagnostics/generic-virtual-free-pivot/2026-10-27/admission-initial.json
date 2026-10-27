@@ -1,0 +1,59 @@
+{
+  "accepted": false,
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "blocking",
+      "file": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/fixtures.jl",
+      "finding": "No explicit BigFloat signed-zero, floatmin underflow/underflow-to-zero, or floatmax overflow cases despite PLAN. NaN/Inf input cases do not exercise intermediate underflow/overflow, and zero patterns do not cover negative zero. A changes lazy floatmin and magnitude handling at precisely these sites.",
+      "required": "Add deterministic full solve_quality cases in both virtual orientations for nonzero coefficient/source product underflow (including to signed zero), ordinary finite near-range product and overflow; test expected finite/reliable flags and reference parity, terms and residual snapshots. Include signed-zero scalars and context/owner parity. Run in planned precisions/modes where valid."
+    },
+    {
+      "id": "F2",
+      "severity": "blocking",
+      "file": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/fixtures.jl",
+      "finding": "C boundary guards are preserved by source review but not exercised concretely: _pivot_agrees has no direct negative/nonfinite error, sign, equality/separation boundary controls, and checked pivot lacks inverse/range failure and recovery rejection route controls. Current alias case shares proposal column/rho rather than a quality-buffer alias.",
+      "required": "Add direct agreement boundary oracles (negative error, NaN/Inf, signs, error-bound equality and just-separated values), and feasible complete-call rejection/refresh/exception fixtures, including quality-buffer alias and recovery early rejection if the stated exception/early-return parity is retained as a claim. Preserve original buffer/state effects and compare after failure."
+    },
+    {
+      "id": "F3",
+      "severity": "blocking",
+      "file": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/fixtures.jl",
+      "finding": "B correctness primarily compares the two cloned arms; there is no independent expected free-variable cutoff/tie/direction/summary oracle and no negative-free-tolerance probe.",
+      "required": "Add a small hand-constructed candidate set with expected entering index/direction, ties, at/below/above cutoff, negative tolerance and signed zero; verify expected infeasibility/count and full versus genuine partial route results. Explicitly verify input identity and state side effects."
+    },
+    {
+      "id": "F4",
+      "severity": "recordkeeping",
+      "file": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/driver.jl",
+      "finding": "Cold/warm reset! calls are outside their @timed calls and have no preparation cost records, while only 18 measured-window resets are recorded. Import/include/initialization is bounded by total launch time but not separately recorded.",
+      "required": "Either record the omitted reset/initialization costs or narrow the claim that all preparation is separately measured. Keep all timed windows, GC and compile-zero checks unchanged."
+    }
+  ],
+  "checks_passed": [
+    "common.unchanged() including all 1231 pins, tree membership, protected files/indexes and refs",
+    "fresh common.host(): 595 historical PGIDs and SIDs; same boot; no Julia; full-tuple-only WSL exemption; 23089892 KiB available and zero swap",
+    "source provenance and exact candidate inverse checks previously passed",
+    "whole-call scopes include A predicate vcat/new scratch, both virtual solve orientations, B entering/summary, C basis assembly and both complete quality calls",
+    "fixed 3328 cells and 59904 measured windows; 3 warm calls per arm and 9 alternating pairs; per-window compilation/recompilation rejection and GC retention",
+    "genuine partial route assertions plus small-size full fallback; pool seeds restored before measured calls",
+    "600s inclusive launch limit, 592s guard deadline, single-owner lock, owned session/process identities, parent-death handshake, 8GiB AS/2GiB heap, thread limits and resource guards inspected"
+  ],
+  "bindings": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/fixtures.jl": "9caffa9e224bc2eb68cd8358b7ea46fcb380306a428ac9c2c72ff53cc3f7128c",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/driver.jl": "1aa91568b9506bb2a4b7615d4624571e96e416ca2be32b9289c8f5c5019f355c",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/audit.py": "ea22d7d1ee7876e7037f99db574d01b76c22f16d6ed3fb9beefcd34ad732eb43",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/contract.json": "b91ed89f955f3ce185ad9f6c877863fa3abb6fd86ed3d153fc1eae48783eb676",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/launch.py": "a9868953ad67984c1ddf2ce7795d6f1f3b476c31151016c31ba3d91c66d2f334",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/common.py": "7902d6efe872d3a5c2f6a116e7aeac15627234a724d4067fd90227a3f2d40121",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/pins.json": "35c3f731f34cb54019d9389ca5c781e50d7e38584a7e5d0df233bc9b1f84385f",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/PLAN.md": "5be495f9560de7f816b082af1a64f401be1ae061dff051c7a1fe8c8894726059",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/source-clones-current.json": "c2e83ab73d810d2c3b09cfb315e3cbe2c6d51dd76ecedaab323cecb6798992e3",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/changes.json": "a379416d0226f70e4a4d79e624800b108640c5079c920f3cd7322ca88ef404d9",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/guard/guard_reviewed.py": "92f1c19ded9615f8a1f8cab70bf5209d8dc9db734e9592c3bbf3f5852ee9aa67",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/guard/supervisor_reviewed.py": "f983198c245079eafa712d1b4752a6ac56456aa91058fc469245fa77759bf0ec",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-virtual-free-pivot/2026-10-27/guard/entry_gate.py": "6b1f569959d53c2d37faa0e8f6a8ebda6887ef8b6e5602db8e0b15ae5f530ff9"
+  },
+  "host_evidence": "/tmp/vfp-admission-host-review-20261027.json",
+  "no_Julia_executed": true
+}
