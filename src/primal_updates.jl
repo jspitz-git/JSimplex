@@ -70,6 +70,35 @@ function _audit_primal_values!(ws::SimplexWorkspace{T})::Symbol where T
     end
 end
 
+function _audit_primal_values!(ws::SimplexWorkspace{BigFloat})::Symbol
+    T = BigFloat
+    return _with_recovery_precision(ws, ws) do
+        predicted = copy(ws.primal)
+        predicted_costs = copy(ws.reduced_costs)
+        recompute!(ws)
+        _finite_workspace(ws) && _recomputed_basis_reliable(ws) || return :unreliable
+        tolerance = ws.progress.numerical_policy.solve_tolerance
+        unit = tolerance
+        unit_ready = false
+        for i in eachindex(predicted)
+            old, current = predicted[i], ws.primal[i]
+            isfinite(old) || return :corrected
+            if T <: Rational
+                old == current || return :corrected
+            else
+                if !unit_ready
+                    unit = one(T)
+                    unit_ready = true
+                end
+                scale = max(unit, _primal_direction_magnitude(old), _primal_direction_magnitude(current))
+                _primal_direction_magnitude(old / scale - current / scale) <= tolerance || return :corrected
+            end
+        end
+        return _primal_price_prediction_reliable(ws,predicted_costs) ? :accurate : :corrected
+    end
+end
+
+
 # Validate all predicted prices before publishing any of them.
 function _primal_price_multiplier(costs, row, entering, leaving, pivot)
     axes(costs) == axes(row) || throw(DimensionMismatch("primal pricing row dimensions"))

@@ -326,13 +326,14 @@ end
     target, source = transposed ? (column,row) : (row,column)
     product = BigFloat(a)*BigFloat(x[source])
     r[target] -= product
-    scale[target] += _primal_direction_magnitude(product)
+    magnitude = _primal_direction_magnitude(product)
+    scale[target] += magnitude
     terms[target] += 2
     if !iszero(a) && !iszero(x[source])
         if limit === nothing
             limit = floatmin(BigFloat)
         end
-        return _primal_direction_magnitude(product) < limit, limit
+        return magnitude < limit, limit
     end
     return false, limit
 end
@@ -373,6 +374,42 @@ end
 function _floating_quality!(scratch::SolveQualityScratch{T}, r, scale, terms, policy) where {T}
     ratio = _componentwise_backward_error(r,scale)
     absolute = maximum(abs,r; init=zero(eltype(r)))
+    for i in eachindex(r)
+        scratch.residual[i] = convert(T,r[i])
+    end
+    absolute_T, ratio_T = convert(T,absolute), convert(T,ratio)
+    iszero(absolute_T) && absolute > 0 && (absolute_T = nextfloat(zero(T)))
+    finite = isfinite(absolute_T) && isfinite(ratio_T) && all(isfinite,scratch.residual)
+    roundoff = _quality_roundoff(eltype(r),terms)
+    reliable = finite && isfinite(roundoff) && roundoff < 1 &&
+        (ratio + roundoff)/(1-roundoff) <= policy.solve_tolerance
+    return SolveQuality{T}(absolute_T,ratio_T,finite,reliable)
+end
+
+function _componentwise_backward_error(residual::Vector{BigFloat}, scale::Vector{BigFloat})
+    T = BigFloat
+    axes(residual) == axes(scale) || throw(DimensionMismatch("Residual and scale dimensions differ"))
+    error = zero(T)
+    for i in eachindex(residual,scale)
+        r, s = _primal_direction_magnitude(residual[i]), scale[i]
+        isfinite(r) && isfinite(s) && s >= Clong(0) || return T(Inf)
+        ratio = iszero(s) ? (iszero(r) ? zero(T) : T(Inf)) : r/s
+        error = max(error,ratio)
+    end
+    return error
+end
+
+function _quality_roundoff(::Type{BigFloat}, terms)
+    W = BigFloat
+    k = maximum(terms; init=0)
+    product = W(k)*eps(W)
+    return isfinite(product) && product < Clong(1) ? product/(Clong(1)-product) : W(Inf)
+end
+
+function _floating_quality!(scratch::SolveQualityScratch{T}, r::Vector{BigFloat},
+                            scale::Vector{BigFloat}, terms::Vector{Int}, policy) where {T}
+    ratio = _componentwise_backward_error(r,scale)
+    absolute = maximum(_primal_direction_magnitude,r; init=zero(eltype(r)))
     for i in eachindex(r)
         scratch.residual[i] = convert(T,r[i])
     end
