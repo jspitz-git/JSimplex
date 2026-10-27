@@ -1,0 +1,249 @@
+{
+  "B_timing_regressions": [
+    {
+      "all_pairs_lower_bytes": true,
+      "all_pairs_lower_events": true,
+      "candidate": {
+        "bytes": 15045392,
+        "events": 478292,
+        "seconds": 0.017115304
+      },
+      "context": "BF64_RoundingMode{:Nearest}()",
+      "density": "dense",
+      "n": 128,
+      "original": {
+        "bytes": 18190912,
+        "events": 543823,
+        "seconds": 0.015372104
+      },
+      "paired_ratio": 1.1113799534182514,
+      "pattern": "negative",
+      "ratio_MAD": 0.11773592642762942,
+      "ratio_max": 1.2291158798458808,
+      "ratio_min": 0.8156350454034522,
+      "scope": "quality_transposed",
+      "type": "BigFloat"
+    },
+    {
+      "all_pairs_lower_bytes": true,
+      "all_pairs_lower_events": true,
+      "candidate": {
+        "bytes": 15045392,
+        "events": 478292,
+        "seconds": 0.016862304
+      },
+      "context": "BF64_RoundingMode{:Down}()",
+      "density": "dense",
+      "n": 128,
+      "original": {
+        "bytes": 18190912,
+        "events": 543823,
+        "seconds": 0.014771603
+      },
+      "paired_ratio": 1.1344057894873647,
+      "pattern": "negative",
+      "ratio_MAD": 0.07679645883125463,
+      "ratio_max": 1.2112022483186193,
+      "ratio_min": 0.873243172181469,
+      "scope": "quality",
+      "type": "BigFloat"
+    },
+    {
+      "all_pairs_lower_bytes": true,
+      "all_pairs_lower_events": true,
+      "candidate": {
+        "bytes": 186880,
+        "events": 5260,
+        "seconds": 0.0001636
+      },
+      "context": "BF128_RoundingMode{:Nearest}()",
+      "density": "sparse",
+      "n": 32,
+      "original": {
+        "bytes": 220688,
+        "events": 5863,
+        "seconds": 0.0001557
+      },
+      "paired_ratio": 1.0122029543994864,
+      "pattern": "negative",
+      "ratio_MAD": 0.19356456154234358,
+      "ratio_max": 2.4513217279174726,
+      "ratio_min": 0.6732171156893819,
+      "scope": "quality_transposed",
+      "type": "BigFloat"
+    }
+  ],
+  "GC_affected_windows": 490,
+  "RED_changed_files": [
+    "test/runtests.jl",
+    "test/generic_quality_devex_tests.jl"
+  ],
+  "accepted": true,
+  "aggregates": {
+    "devex_shared": {
+      "all_pairs_lower_bytes_events": 180,
+      "bytes_saved_percent_range": [
+        42.25526641883519,
+        61.6504854368932
+      ],
+      "cell_ratio_range": [
+        0.4250614250614251,
+        0.7037037037037037
+      ],
+      "cells": 180,
+      "median_paired_ratio": 0.5633802816901409
+    },
+    "devex_solved": {
+      "all_pairs_lower_bytes_events": 180,
+      "bytes_saved_percent_range": [
+        12.648367952522255,
+        29.6037296037296
+      ],
+      "cell_ratio_range": [
+        0.7160000000000001,
+        0.9316239316239316
+      ],
+      "cells": 180,
+      "median_paired_ratio": 0.8765620207771373
+    },
+    "direction": {
+      "all_pairs_lower_bytes_events": 180,
+      "bytes_saved_percent_range": [
+        0.002974272542510814,
+        26.39791937581274
+      ],
+      "cell_ratio_range": [
+        0.6934647233882648,
+        1.0196366958305856
+      ],
+      "cells": 180,
+      "median_paired_ratio": 0.9536717145077367
+    },
+    "quality": {
+      "all_pairs_lower_bytes_events": 180,
+      "bytes_saved_percent_range": [
+        14.824819908316966,
+        41.20356320819462
+      ],
+      "cell_ratio_range": [
+        0.5646522224043737,
+        1.1344057894873647
+      ],
+      "cells": 180,
+      "median_paired_ratio": 0.7557479260072362
+    },
+    "quality_transposed": {
+      "all_pairs_lower_bytes_events": 180,
+      "bytes_saved_percent_range": [
+        14.824819908316966,
+        41.20356320819462
+      ],
+      "cell_ratio_range": [
+        0.4967162711443197,
+        1.1113799534182514
+      ],
+      "cells": 180,
+      "median_paired_ratio": 0.7580194026244387
+    },
+    "row": {
+      "all_pairs_lower_bytes_events": 150,
+      "bytes_saved_percent_range": [
+        0.0,
+        24.423764485128174
+      ],
+      "cell_ratio_range": [
+        0.7452424151469408,
+        1.056814653834213
+      ],
+      "cells": 180,
+      "median_paired_ratio": 0.916315807160739
+    }
+  },
+  "assertions": 33807,
+  "bindings": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-devex/2026-10-27/ADMISSION-REVIEW.md": "96361cad54b60b91768f365f2a05c29818073ebfb1af2296862e6db7b1fb9756",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-devex/2026-10-27/MEASUREMENT-REPORT.md": "62c9667090b1bca692a702da40a4fe46f5e04322a54b267da48a6c814f20d54d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-devex/2026-10-27/PLAN.md": "a38d1ea614323db30aa1aa1741767b4b5929df14b2a1133d7cbd4503150a8f6f",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-devex/2026-10-27/RESULT-REVIEW.md": "a2ab589aaf1d524496bbe2d7d06360a650a25093a16a29f2b7c3fc01198fa98f",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-devex/2026-10-27/WORK-MEMORY.md": "8149c151f302269c5dfd2efc806554674a2aefff4fb8fbde7a7d847173e0bd35",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-devex/2026-10-27/audit.json": "993cdee383158e81fc71f400bbf4f71069c62ae743f6408a1047651863b12574",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-devex/2026-10-27/audit.py": "33fb0a77b677dac677d44d8ac1579aec6a37c86c0feb141d8368d4c8cc2c7e22",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-devex/2026-10-27/baseline-tree.json": "61648f8a8532c5061ef5675e3da4021da33186f7ff24f0a02de8a98611063d02",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-devex/2026-10-27/candidate.jl": "8ff5eff78bb083860bf53e81ef20b2afc6b3b75d4d50528c8edc5d41c142497d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-devex/2026-10-27/changes.json": "b6c2646e9055410ad478776bea34ebc76999589287c7e637e6ede6519d75c63d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-devex/2026-10-27/completed.json": "23541f8ec316b9f060fc18d8a947b7ad5f6e1cf49e2ec639e4aea6159cd5044c",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-devex/2026-10-27/driver.jl": "e80abbbd224bd137a3dea40a5b4521aed40d8acd88b01f95edadd7dad39a19a4",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-devex/2026-10-27/fixtures.jl": "59c23cdf9bdf86932bf184c8dc3bf3197674e8b5d672d621ed97abd782b5a6dd",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-devex/2026-10-27/independent-result-check.py": "572f5adfdb52cc727c2f2e084aabc2ca5095456c75611d227e605ed798b7ee25",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-devex/2026-10-27/independent-result-host.json": "06674bd6826f6b4a9446d402c065a9f887e946474f0f8669c6491000ce92be79",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-devex/2026-10-27/new-test.jl": "b1f5e682b0269fd54f4adbc96d4018c7df586034b340f3a76407f51038a0812f",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-devex/2026-10-27/output/current.json": "aaa010d17805b9ad8f43fbaa6022a3aa9e68ec321016714c56d455bf2f4e86ee",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-devex/2026-10-27/output/gate.json": "425b259db65f741f67c2e26d252cdfa675fc6f11fc7ddc2c0e8aa01c57ad0536",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-devex/2026-10-27/output/permit.json": "74a4199821b6da6c7bf509686b51c7058306b3c545f06c0bf0d3cf7ee3c2917d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-devex/2026-10-27/output/process.json": "9926145c6553dca5c4ec96b2e1e2d765610ced90293d53d13c6ec534f81e6134",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-devex/2026-10-27/output/resources.jsonl": "e77ff0ffb43207509a8e601f7d494c2365168f4f266ea286951fe53181a9d495",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-devex/2026-10-27/output/results.toml": "db26f80e3f20e388dc937262edd336a3910d518ce95636ac65588e399af36b0c",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-devex/2026-10-27/output/run.log": "c7633833091638c23023bdbfdf1335805014fc1d5920bba112680b838ba8de75",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-devex/2026-10-27/pins.json": "c92346bf0e4f31514e93d88bb47e9c381dbd4cf3b24c0dc5af0a6245b5d5a8c7",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-devex/2026-10-27/reference.jl": "f817b83ea01802f3671e10001ffab5c5d33269d96d76b61999036f658f3b200a",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-devex/2026-10-27/reservation.json": "da786c2f6589c4d87660d16f80f94d198b618a9021aab720c15d33aab8364593",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-devex/2026-10-27/summary.json": "9bd9054a9c5ed367fcaa746febff38c974cc809d4375ca51f970d3ddd6b481e2",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-devex/2026-10-27/supervisor.json": "f2c28077af82945ea27d84d300547611833f0c0cffec907d1416430db7fb9427",
+    "/home/jspitz/JSimplex.jl/src/dual_simplex.jl": "6c0ccb94c291cd90c1add1820d314ca849acb81ca04e1b6b1092ec87fc0ca8ce",
+    "/home/jspitz/JSimplex.jl/src/primal_simplex.jl": "2f755dbb0d39900440129223d5a08383ad036ad043aa39ac178dd4c0d0dea329",
+    "/home/jspitz/JSimplex.jl/src/simplex_numerics.jl": "7173dbdfcd020c61819008d5ff1ad7a647d00711fbd50eefcfacf15ff852a8cd"
+  },
+  "cells": 1160,
+  "elapsed_seconds": 170.6140586520014,
+  "findings": [],
+  "gates": [
+    {
+      "max_byte_ratio": 0.7453347969264544,
+      "max_event_ratio": 0.7451669595782073,
+      "pairs": 9,
+      "scope": "direction"
+    },
+    {
+      "max_byte_ratio": 0.7723787927869561,
+      "max_event_ratio": 0.7723050334845539,
+      "pairs": 9,
+      "scope": "row"
+    },
+    {
+      "max_byte_ratio": 0.5961202312703981,
+      "max_event_ratio": 0.6417044371950691,
+      "pairs": 9,
+      "scope": "quality"
+    },
+    {
+      "max_byte_ratio": 0.5961202312703981,
+      "max_event_ratio": 0.6417044371950691,
+      "pairs": 9,
+      "scope": "quality_transposed"
+    },
+    {
+      "max_byte_ratio": 0.41424418604651164,
+      "max_event_ratio": 0.47635135135135137,
+      "pairs": 9,
+      "scope": "devex_shared"
+    },
+    {
+      "max_byte_ratio": 0.8583977512297962,
+      "max_event_ratio": 0.8875181422351234,
+      "pairs": 9,
+      "scope": "devex_solved"
+    }
+  ],
+  "inventory_counts": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-devex/2026-10-27": 1213,
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-devex/2026-10-27/RED-run": 1217
+  },
+  "native_exact_controls": 80,
+  "rational_medianbyte_variations": 15,
+  "variants": {
+    "A": "accepted for local whole-function work/allocation reduction; no universal time claim",
+    "B": "accepted for local whole-function work/allocation reduction; no universal time claim",
+    "C": "accepted for local whole-function work/allocation reduction; no universal time claim"
+  },
+  "windows": 20880
+}

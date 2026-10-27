@@ -1,0 +1,627 @@
+--- a/src/dual_simplex.jl
++++ b/src/dual_simplex.jl
+@@ -1186,7 +1186,7 @@
+     @inbounds for row in eachindex(residual)
+         rhs = scale[row]
+         residual[row] = -rhs
+-        scale[row] = abs(rhs)
++        scale[row] = _primal_direction_magnitude(rhs)
+     end
+     for (basis_row, index) in enumerate(workspace.basis.basic_indices)
+         1 <= index <= column_count + row_count || throw(BoundsError(workspace.primal, index))
+@@ -1196,21 +1196,21 @@
+                 row = A.rowval[position]
+                 term = A.nzval[position] * value
+                 residual[row] += term
+-                scale[row] += abs(term)
++                scale[row] += _primal_direction_magnitude(term)
+             end
+         else
+             row = index - column_count
+             @inbounds residual[row] -= value
+-            @inbounds scale[row] += abs(value)
++            @inbounds scale[row] += _primal_direction_magnitude(value)
+         end
+     end
+     roundoff = T(256) * eps(one(T))
+-    pivot_tolerance = sqrt(eps(one(T))) * abs(pivot)
++    pivot_tolerance = sqrt(eps(one(T))) * _primal_direction_magnitude(pivot)
+     @inbounds for row in eachindex(residual)
+         isfinite(residual[row]) && isfinite(scale[row]) || return false
+         tolerance = max(workspace.options.zero_tolerance, pivot_tolerance,
+                         roundoff * (scale[row] + Clong(1)))
+-        abs(residual[row]) <= tolerance || return false
++        _primal_direction_magnitude(residual[row]) <= tolerance || return false
+     end
+     return true
+ end
+@@ -1268,18 +1268,18 @@
+             @inbounds for position in A.colptr[index]:(A.colptr[index + 1] - 1)
+                 term = A.nzval[position] * rho[A.rowval[position]]
+                 residual += term
+-                scale += abs(term)
++                scale += _primal_direction_magnitude(term)
+             end
+         else
+             term = @inbounds -rho[index - column_count]
+             residual += term
+-            scale += abs(term)
++            scale += _primal_direction_magnitude(term)
+         end
+         isfinite(residual) && isfinite(scale) || return T(Inf)
+         tolerance = max(workspace.options.zero_tolerance,
+                         roundoff * (scale + Clong(1)))
+         isfinite(tolerance) || return T(Inf)
+-        worst_ratio = max(worst_ratio, abs(residual) / tolerance)
++        worst_ratio = max(worst_ratio, _primal_direction_magnitude(residual) / tolerance)
+     end
+     return worst_ratio
+ end
+--- a/src/primal_simplex.jl
++++ b/src/primal_simplex.jl
+@@ -93,8 +93,10 @@
+ _primal_devex_candidate_weight(coefficient::T, leaving_weight::T) where {T<:Rational} =
+     _primal_store_rational_weight(T, big(coefficient)^2 * big(leaving_weight))
+ 
+-_primal_devex_candidate_weight(coefficient::BigFloat,leaving_weight::BigFloat) =
+-    min(floatmax(BigFloat),_primal_direction_magnitude(coefficient) * leaving_weight)
++_primal_devex_candidate_weight(coefficient::BigFloat,leaving_weight::BigFloat) = begin
++    product = _primal_direction_magnitude(coefficient) * leaving_weight
++    isinf(product) && !signbit(product) ? floatmax(BigFloat) : product
++end
+ function _primal_steepest_weight!(workspace::SimplexWorkspace{T}, index::Int) where {T}
+     column = _pipeline_column_rhs!(workspace,index)
+     direction = _checked_basis_solve!(workspace.scratch.row_solution,workspace,column;
+--- a/src/simplex_numerics.jl
++++ b/src/simplex_numerics.jl
+@@ -320,6 +320,50 @@
+     return unsafe_range
+ end
+ 
++# A call-local comparison limit is shared only across ordinary array accesses.
++@inline function _bigfloat_quality_term!(r, scale, terms, x, a, row, column,
++                                         transposed, limit::Union{Nothing,BigFloat})
++    target, source = transposed ? (column,row) : (row,column)
++    product = BigFloat(a)*BigFloat(x[source])
++    r[target] -= product
++    scale[target] += _primal_direction_magnitude(product)
++    terms[target] += 2
++    if !iszero(a) && !iszero(x[source])
++        if limit === nothing
++            limit = floatmin(BigFloat)
++        end
++        return _primal_direction_magnitude(product) < limit, limit
++    end
++    return false, limit
++end
++
++function _quality_components!(r::Vector{BigFloat}, scale::Vector{BigFloat},
++                              terms::Vector{Int},
++                              B::Union{Matrix{BigFloat},SparseMatrixCSC{BigFloat}},
++                              x::Vector{BigFloat}, rhs::Vector{BigFloat}, transposed)
++    for i in eachindex(rhs)
++        r[i] = BigFloat(rhs[i])
++        scale[i] = _primal_direction_magnitude(r[i])
++        terms[i] = 1
++    end
++    unsafe_range = false
++    limit::Union{Nothing,BigFloat} = nothing
++    if B isa SparseMatrixCSC
++        for column in axes(B,2), p in nzrange(B,column)
++            unsafe, limit = _bigfloat_quality_term!(r,scale,terms,x,B.nzval[p],
++                B.rowval[p],column,transposed,limit)
++            unsafe_range |= unsafe
++        end
++    else
++        for column in axes(B,2), row in axes(B,1)
++            unsafe, limit = _bigfloat_quality_term!(r,scale,terms,x,B[row,column],
++                row,column,transposed,limit)
++            unsafe_range |= unsafe
++        end
++    end
++    return unsafe_range
++end
++
+ function _quality_roundoff(::Type{W}, terms) where {W<:AbstractFloat}
+     k = maximum(terms; init=0)
+     product = W(k)*eps(W)
+--- a/test/generic_quality_devex_tests.jl
++++ b/test/generic_quality_devex_tests.jl
+@@ -0,0 +1,487 @@
++module GenericQualityDevexTests
++using Test,JSimplex,SparseArrays,LinearAlgebra
++module SavingsReference
++using JSimplex,SparseArrays
++using JSimplex: SimplexWorkspace,_pipeline_changed!,_primal_direction_magnitude,
++    SolveQualityScratch,NumericalPolicy,SolveQuality,_stored_quality_bits,
++    _quality_roundoff,_quality_values,_is_exact,_compensated_solve_quality!,
++    _floating_quality!,_primal_store_rational_weight,_primal_devex_leaving_weight,
++    _pipeline_unit_rhs!,_checked_basis_solve!,price!,BASIC
++function _dual_direction_residual_ok!(workspace::SimplexWorkspace{T},
++                                      direction::Vector{T}, pivot::T) where {T<:AbstractFloat}
++    A = workspace.problem.A
++    row_count, column_count = size(A)
++    length(direction) == length(workspace.basis.basic_indices) == row_count &&
++        length(workspace.scratch.tau) == length(workspace.scratch.row_rhs) == row_count ||
++        throw(DimensionMismatch("direction residual vectors must match the row count"))
++    residual = workspace.scratch.tau
++    scale = workspace.scratch.row_rhs
++    _pipeline_changed!(workspace,residual)
++    _pipeline_changed!(workspace,scale)
++    @inbounds for row in eachindex(residual)
++        rhs = scale[row]
++        residual[row] = -rhs
++        scale[row] = abs(rhs)
++    end
++    for (basis_row, index) in enumerate(workspace.basis.basic_indices)
++        1 <= index <= column_count + row_count || throw(BoundsError(workspace.primal, index))
++        value = @inbounds direction[basis_row]
++        if index <= column_count
++            @inbounds for position in A.colptr[index]:(A.colptr[index + 1] - 1)
++                row = A.rowval[position]
++                term = A.nzval[position] * value
++                residual[row] += term
++                scale[row] += abs(term)
++            end
++        else
++            row = index - column_count
++            @inbounds residual[row] -= value
++            @inbounds scale[row] += abs(value)
++        end
++    end
++    roundoff = T(256) * eps(one(T))
++    pivot_tolerance = sqrt(eps(one(T))) * abs(pivot)
++    @inbounds for row in eachindex(residual)
++        isfinite(residual[row]) && isfinite(scale[row]) || return false
++        tolerance = max(workspace.options.zero_tolerance, pivot_tolerance,
++                        roundoff * (scale[row] + one(T)))
++        abs(residual[row]) <= tolerance || return false
++    end
++    return true
++end
++
++function _dual_direction_residual_ok!(workspace::SimplexWorkspace{T},
++                                      direction::Vector{T}, pivot::T) where {T<:BigFloat}
++    A = workspace.problem.A
++    row_count, column_count = size(A)
++    length(direction) == length(workspace.basis.basic_indices) == row_count &&
++        length(workspace.scratch.tau) == length(workspace.scratch.row_rhs) == row_count ||
++        throw(DimensionMismatch("direction residual vectors must match the row count"))
++    residual = workspace.scratch.tau
++    scale = workspace.scratch.row_rhs
++    _pipeline_changed!(workspace,residual)
++    _pipeline_changed!(workspace,scale)
++    @inbounds for row in eachindex(residual)
++        rhs = scale[row]
++        residual[row] = -rhs
++        scale[row] = abs(rhs)
++    end
++    for (basis_row, index) in enumerate(workspace.basis.basic_indices)
++        1 <= index <= column_count + row_count || throw(BoundsError(workspace.primal, index))
++        value = @inbounds direction[basis_row]
++        if index <= column_count
++            @inbounds for position in A.colptr[index]:(A.colptr[index + 1] - 1)
++                row = A.rowval[position]
++                term = A.nzval[position] * value
++                residual[row] += term
++                scale[row] += abs(term)
++            end
++        else
++            row = index - column_count
++            @inbounds residual[row] -= value
++            @inbounds scale[row] += abs(value)
++        end
++    end
++    roundoff = T(256) * eps(one(T))
++    pivot_tolerance = sqrt(eps(one(T))) * abs(pivot)
++    @inbounds for row in eachindex(residual)
++        isfinite(residual[row]) && isfinite(scale[row]) || return false
++        tolerance = max(workspace.options.zero_tolerance, pivot_tolerance,
++                        roundoff * (scale[row] + Clong(1)))
++        abs(residual[row]) <= tolerance || return false
++    end
++    return true
++end
++
++function _dual_row_residual_ratio(workspace::SimplexWorkspace{T},
++                                  rho::Vector{T}, leaving_row::Int) where {T<:AbstractFloat}
++    A = workspace.problem.A
++    row_count, column_count = size(A)
++    length(rho) == length(workspace.basis.basic_indices) == row_count ||
++        throw(DimensionMismatch("tableau residual vectors must match the row count"))
++    roundoff = T(256) * eps(one(T))
++    worst_ratio = zero(T)
++    for (basis_row, index) in enumerate(workspace.basis.basic_indices)
++        1 <= index <= column_count + row_count || throw(BoundsError(workspace.primal, index))
++        expected = basis_row == leaving_row ? one(T) : zero(T)
++        residual = -expected
++        scale = expected
++        if index <= column_count
++            @inbounds for position in A.colptr[index]:(A.colptr[index + 1] - 1)
++                term = A.nzval[position] * rho[A.rowval[position]]
++                residual += term
++                scale += abs(term)
++            end
++        else
++            term = @inbounds -rho[index - column_count]
++            residual += term
++            scale += abs(term)
++        end
++        isfinite(residual) && isfinite(scale) || return T(Inf)
++        tolerance = max(workspace.options.zero_tolerance,
++                        roundoff * (scale + one(T)))
++        isfinite(tolerance) || return T(Inf)
++        worst_ratio = max(worst_ratio, abs(residual) / tolerance)
++    end
++    return worst_ratio
++end
++
++function _dual_row_residual_ratio(workspace::SimplexWorkspace{T},
++                                  rho::Vector{T}, leaving_row::Int) where {T<:BigFloat}
++    A = workspace.problem.A
++    row_count, column_count = size(A)
++    length(rho) == length(workspace.basis.basic_indices) == row_count ||
++        throw(DimensionMismatch("tableau residual vectors must match the row count"))
++    roundoff = T(256) * eps(one(T))
++    worst_ratio = zero(T)
++    for (basis_row, index) in enumerate(workspace.basis.basic_indices)
++        1 <= index <= column_count + row_count || throw(BoundsError(workspace.primal, index))
++        expected = basis_row == leaving_row ? one(T) : zero(T)
++        residual = -expected
++        scale = expected
++        if index <= column_count
++            @inbounds for position in A.colptr[index]:(A.colptr[index + 1] - 1)
++                term = A.nzval[position] * rho[A.rowval[position]]
++                residual += term
++                scale += abs(term)
++            end
++        else
++            term = @inbounds -rho[index - column_count]
++            residual += term
++            scale += abs(term)
++        end
++        isfinite(residual) && isfinite(scale) || return T(Inf)
++        tolerance = max(workspace.options.zero_tolerance,
++                        roundoff * (scale + Clong(1)))
++        isfinite(tolerance) || return T(Inf)
++        worst_ratio = max(worst_ratio, abs(residual) / tolerance)
++    end
++    return worst_ratio
++end
++
++@inline function _accumulate_quality_term!(r::AbstractVector{W}, scale, terms,
++                                          x, a, row, column, transposed) where {W}
++    target, source = transposed ? (column,row) : (row,column)
++    product = W(a)*W(x[source])
++    r[target] -= product
++    scale[target] += abs(product)
++    terms[target] += 2
++    return W <: AbstractFloat && !iszero(a) && !iszero(x[source]) &&
++           abs(product) < floatmin(W)
++end
++
++function _quality_components!(r::AbstractVector{W}, scale, terms, B, x, rhs, transposed) where {W}
++    for i in eachindex(rhs)
++        r[i] = W(rhs[i])
++        scale[i] = abs(r[i])
++        terms[i] = 1
++    end
++    unsafe_range = false
++    if B isa SparseMatrixCSC
++        for column in axes(B,2), p in nzrange(B,column)
++            unsafe_range |= _accumulate_quality_term!(r,scale,terms,x,B.nzval[p],B.rowval[p],column,transposed)
++        end
++    else
++        for column in axes(B,2), row in axes(B,1)
++            unsafe_range |= _accumulate_quality_term!(r,scale,terms,x,B[row,column],row,column,transposed)
++        end
++    end
++    return unsafe_range
++end
++
++function _wide_solve_quality!(scratch::SolveQualityScratch{T}, B, x, rhs, policy, transposed) where {T}
++    input_bits = _stored_quality_bits(T,B,x,rhs,policy)
++    term_count = max(size(B,1),size(B,2),1)
++    # Additional bits keep residual-evaluation uncertainty below the policy's
++    # solve tolerance; this does not change the basis working precision.
++    bits = max(128, 2*input_bits + ndigits(term_count; base=2) + 16)
++    return setprecision(BigFloat,bits) do
++        r, scale = zeros(BigFloat,length(rhs)), zeros(BigFloat,length(rhs))
++        unsafe_range = _quality_components!(r,scale,scratch.terms,B,x,rhs,transposed)
++        quality = _floating_quality!(scratch,r,scale,scratch.terms,policy)
++        unsafe_range ? SolveQuality{T}(quality.absolute_error,quality.relative_error,false,false) : quality
++    end
++end
++
++function solve_quality!(scratch::SolveQualityScratch{T}, B::AbstractMatrix{T},
++                        x::AbstractVector{T}, rhs::AbstractVector{T},
++                        policy::NumericalPolicy{T}; transposed::Bool=false) where {T}
++    rows, columns = transposed ? reverse(size(B)) : size(B)
++    length(rhs) == rows && length(x) == columns && length(scratch.residual) == rows ||
++        throw(DimensionMismatch("Incompatible basis residual dimensions"))
++    any(array -> Base.mightalias(array,rhs) || Base.mightalias(array,x) ||
++        Base.mightalias(array,_quality_values(B)),
++        (scratch.residual,scratch.work_residual,scratch.work_scale,
++         scratch.compensation,scratch.error_sum)) &&
++        throw(ArgumentError("Quality scratch must not alias basis, solution, or RHS"))
++    if _is_exact(T) === Val(true)
++        _quality_components!(scratch.work_residual,scratch.work_scale,scratch.terms,B,x,rhs,transposed)
++        copyto!(scratch.residual,scratch.work_residual)
++        absolute = maximum(abs,scratch.residual;init=zero(T))
++        return SolveQuality{T}(absolute,nothing,true,iszero(absolute))
++    end
++    if !all(isfinite,_quality_values(B)) || !all(isfinite,x) || !all(isfinite,rhs)
++        fill!(scratch.residual,T(Inf))
++        return SolveQuality{T}(T(Inf),T(Inf),false,false)
++    end
++    T === BigFloat && return _wide_solve_quality!(scratch,B,x,rhs,policy,transposed)
++    unsafe_range = _quality_components!(scratch.work_residual,scratch.work_scale,scratch.terms,B,x,rhs,transposed)
++    roundoff = _quality_roundoff(eltype(scratch.work_residual),scratch.terms)
++    if unsafe_range || !all(isfinite,scratch.work_residual) || !all(isfinite,scratch.work_scale) ||
++       roundoff > policy.solve_tolerance/4
++        if !unsafe_range
++            native = _compensated_solve_quality!(scratch,B,x,rhs,policy,transposed)
++            isnothing(native) || return native
++        end
++        return _wide_solve_quality!(scratch,B,x,rhs,policy,transposed)
++    end
++    return _floating_quality!(scratch,scratch.work_residual,scratch.work_scale,scratch.terms,policy)
++end
++
++
++_primal_devex_candidate_weight(coefficient::T, leaving_weight::T) where {T<:AbstractFloat} =
++    min(floatmax(T), abs(coefficient) * leaving_weight)
++_primal_devex_candidate_weight(coefficient::T, leaving_weight::T) where {T<:Rational} =
++    _primal_store_rational_weight(T, big(coefficient)^2 * big(leaving_weight))
++
++_primal_devex_candidate_weight(coefficient::BigFloat,leaving_weight::BigFloat) =
++    min(floatmax(BigFloat),_primal_direction_magnitude(coefficient) * leaving_weight)
++function _primal_update_devex!(workspace::SimplexWorkspace{T}, entering::Int,
++                               leaving_row::Int, pivot::T; shared_row::Bool=false) where {T}
++    tableau_row = workspace.scratch.tableau_row
++    if !shared_row
++        unit = _pipeline_unit_rhs!(workspace,leaving_row)
++        rho = _checked_basis_solve!(workspace.scratch.rho,workspace,unit;
++                                    transposed=true,operation=:weight_btran,unit_row=leaving_row)
++        price!(tableau_row, workspace, rho)
++    end
++    leaving = workspace.basis.basic_indices[leaving_row]
++    leaving_weight = _primal_devex_leaving_weight(
++        workspace.pricing_weights[entering], pivot,
++    )
++    for index in eachindex(workspace.basis.states)
++        (index == entering || workspace.basis.states[index] == BASIC) && continue
++        workspace.pricing_weights[index] = max(
++            workspace.pricing_weights[index],
++            _primal_devex_candidate_weight(tableau_row[index], leaving_weight),
++        )
++    end
++    workspace.pricing_weights[leaving] = leaving_weight
++    return nothing
++end
++
++end
++const SavingsCandidate=JSimplex
++using Test,JSimplex,SparseArrays,LinearAlgebra
++const J=JSimplex
++const MODES=(RoundNearest,RoundDown,RoundUp,RoundToZero,RoundFromZero)
++same(a,b)=isequal(a,b)
++same(a::BigFloat,b::BigFloat)=isequal(a,b)&&precision(a)==precision(b)&&signbit(a)==signbit(b)
++same(a::Tuple,b::Tuple)=length(a)==length(b)&&all(same(x,y) for (x,y) in zip(a,b))
++same(a::AbstractArray,b::AbstractArray)=axes(a)==axes(b)&&all(same(a[i],b[i]) for i in eachindex(a,b))
++same(a::J.SolveQuality,b::J.SolveQuality)=same(a.absolute_error,b.absolute_error)&&same(a.relative_error,b.relative_error)&&a.finite==b.finite&&a.reliable==b.reliable
++capture(f)=try;(:value,f());catch e;(:error,typeof(e),sprint(showerror,e));end
++cost(t)=Dict("seconds"=>t.time,"bytes"=>t.bytes,"events"=>Base.gc_alloc_count(t.gcstats),"gc_seconds"=>t.gctime,"compile_seconds"=>t.compile_time,"recompile_seconds"=>t.recompile_time)
++struct PlainWrapper{T} <: AbstractMatrix{T}; data::Matrix{T}; end
++Base.size(B::PlainWrapper)=size(B.data)
++Base.getindex(B::PlainWrapper,i::Int,j::Int)=B.data[i,j]
++isquality(s)=s in (:quality,:quality_transposed)
++isdevex(s)=s in (:devex_shared,:devex_solved)
++scopes(::Type{T}) where T=T<:AbstractFloat ? (:direction,:row,:quality,:quality_transposed,:devex_shared,:devex_solved) : (:quality,:quality_transposed,:devex_shared,:devex_solved)
++function fixture(::Type{T},n,scope,density,pattern) where T
++ if isquality(scope)
++  B=zeros(T,n,n)
++  for j in 1:n,i in 1:n
++   if i==j;B[i,j]=T(2)
++   elseif density===:dense||(i+j)%8==0;B[i,j]=T(1//32);end
++  end
++  density===:sparse&&(B=sparse(B))
++  x=T[(pattern===:negative||pattern===:mixed&&isodd(i) ? -1 : 1)*((i%5+1)//8) for i in 1:n]
++  rhs=scope===:quality ? B*x : transpose(B)*x
++  return (scope=scope,B=B,x=x,rhs=rhs,scratch=J.SolveQualityScratch(T,n),policy=J.NumericalPolicy(T))
++ end
++ m=isdevex(scope) ? 4 : n;columns=n;A=zeros(T,m,columns)
++ for j in 1:columns,i in 1:m
++  if isdevex(scope)
++   if j==1;A[i,j]=i==1 ? one(T) : zero(T)
++   elseif density===:dense||j%4==0
++    neg=pattern===:negative||pattern===:mixed&&isodd(j)
++    A[i,j]=i==1 ? T((neg ? 1 : -1)*((i+j)%5+1)//2) : T(((i+j)%3)//8)
++   end
++  elseif i==j;A[i,j]=T(2)
++  elseif density===:dense||(i+j)%8==0;A[i,j]=T(1//32)
++  end
++ end
++ p=LinearProblem(sparse(A),zeros(T,columns);row_lower=fill(-T(8),m),row_upper=fill(T(8),m),column_lower=fill(-T(8),columns),column_upper=fill(T(8),columns))
++ opt=SolverOptions(T;algorithm=isdevex(scope) ? :primal : :dual,pricing=:devex,verbose=false)
++ pol=J.NumericalPolicy(T;refactor_timing=false)
++ w=isdevex(scope) ? J.initialize_workspace(p,opt;progress=J.SimplexProgressContext(p;numerical_policy=pol)) : J._initialize_workspace_state(p,opt;progress=J.SimplexProgressContext(p;numerical_policy=pol))
++ vector=T[(pattern===:negative||pattern===:mixed&&isodd(i) ? -1 : 1)*((i%5+1)//8) for i in 1:m];rhs=zeros(T,m)
++ if isdevex(scope)
++  fill!(w.pricing_weights,T(4));fill!(w.scratch.rho,zero(T));w.scratch.rho[1]=-one(T)
++  J.price!(w.scratch.tableau_row,w,w.scratch.rho)
++ else
++  for i in 1:m;w.basis.basic_indices[i]=isodd(i) ? i : columns+i;end
++  for (j,k) in enumerate(w.basis.basic_indices)
++   if k<=columns
++    for q in nzrange(w.problem.A,k);rhs[w.problem.A.rowval[q]]+=w.problem.A.nzval[q]*vector[j];end
++   else;rhs[k-columns]-=vector[j];end
++  end
++  scope===:direction&&J._hypersparse_workspace!(w)
++ end
++ (scope=scope,w=w,vector=vector,rhs=rhs,pivot=one(T),weights=copy(w.pricing_weights))
++end
++function reset!(v)
++ if v.scope===:direction
++  copyto!(v.w.scratch.row_rhs,v.rhs);fill!(v.w.scratch.hypersparse.valid,true)
++ elseif isdevex(v.scope);copyto!(v.w.pricing_weights,v.weights)
++ end
++ nothing
++end
++function inputs(v)
++ if isquality(v.scope)
++  B=v.B
++  return B isa SparseMatrixCSC ? (B.nzval,B.rowval,B.colptr,v.x,v.rhs) : (B,v.x,v.rhs)
++ end
++ w=v.w
++ (w.problem.A.nzval,w.problem.A.rowval,w.problem.A.colptr,w.problem.objective,w.primal,w.costs,w.lower,w.upper,w.basis.basic_indices,w.basis.states,v.vector,v.rhs)
++end
++function outputs(v)
++ if isquality(v.scope);s=v.scratch;return (s.residual,s.work_residual,s.work_scale,s.terms,s.compensation,s.error_sum);end
++ w=v.w
++ isdevex(v.scope) ? (w.pricing_weights,w.scratch.rho,w.scratch.tableau_row) : (w.scratch.tau,w.scratch.row_rhs,isnothing(w.scratch.hypersparse) ? () : w.scratch.hypersparse.valid)
++end
++snapshot(v)=(inputs(v),map(copy,inputs(v)),deepcopy(inputs(v)))
++function intact(v,s)
++ all(inputs(v)[i]===s[1][i]&&same(inputs(v)[i],s[3][i])&&all(inputs(v)[i][j]===s[2][i][j] for j in eachindex(s[2][i])) for i in eachindex(s[1]))
++end
++for (method,module_) in [(:original,:SavingsReference),(:candidate,:SavingsCandidate)]
++ @eval begin
++  @noinline whole(::Val{$(QuoteNode(method))},::Val{:direction},v)=$module_._dual_direction_residual_ok!(v.w,v.vector,v.pivot)
++  @noinline whole(::Val{$(QuoteNode(method))},::Val{:row},v)=$module_._dual_row_residual_ratio(v.w,v.vector,1)
++  @noinline whole(::Val{$(QuoteNode(method))},::Val{:quality},v)=$module_.solve_quality!(v.scratch,v.B,v.x,v.rhs,v.policy)
++  @noinline whole(::Val{$(QuoteNode(method))},::Val{:quality_transposed},v)=$module_.solve_quality!(v.scratch,v.B,v.x,v.rhs,v.policy;transposed=true)
++  @noinline whole(::Val{$(QuoteNode(method))},::Val{:devex_shared},v)=$module_._primal_update_devex!(v.w,1,1,v.pivot;shared_row=true)
++  @noinline whole(::Val{$(QuoteNode(method))},::Val{:devex_solved},v)=$module_._primal_update_devex!(v.w,1,1,v.pivot;shared_row=false)
++ end
++end
++sink(x::Bool)=Int(x)
++sink(x::Nothing)=0
++sink(x::J.SolveQuality)=Int(x.finite)+2Int(x.reliable)+Int(iszero(x.absolute_error))
++sink(x::AbstractFloat)=isfinite(x) ? (x>1 ? 2 : iszero(x) ? 0 : 1) : -1
++@noinline runwhole(m,s,v)=sink(whole(m,s,v))
++function timed(m::M,s::S,v::V) where {M,S,V}
++ t=@timed runwhole(m,s,v);merge(cost(t),Dict("sink"=>t.value))
++end
++function checkpair(a,b;protect=true)
++ reset!(a);reset!(b);sa=snapshot(a);sb=snapshot(b)
++ x=capture(()->whole(Val(:original),Val(a.scope),a));y=capture(()->whole(Val(:candidate),Val(b.scope),b))
++ @test same(x,y)
++ @test same(outputs(a),outputs(b))
++ if protect;@test intact(a,sa)&&intact(b,sb);end
++ x
++end
++function correctness(::Type{T}) where T
++ @testset "Whole-function correctness $T" begin
++  for scope in scopes(T),density in (:sparse,:dense),pattern in (:positive,:negative,:mixed)
++   a=fixture(T,8,scope,density,pattern);b=fixture(T,8,scope,density,pattern);checkpair(a,b)
++  end
++  for scope in scopes(T)
++   if !isdevex(scope)
++    a=fixture(T,0,scope,:dense,:positive);b=fixture(T,0,scope,:dense,:positive)
++    z=checkpair(a,b);@test z[1]===:value
++   else
++    a=fixture(T,8,scope,:dense,:positive);b=fixture(T,8,scope,:dense,:positive)
++    for v in (a,b);fill!(v.w.basis.states,J.BASIC);end
++    checkpair(a,b)
++   end
++  end
++  for scope in scopes(T),edge in (:zero,:short,:nonfinite,:mixed_precision,:alias,:bad_basis,:view)
++   a=fixture(T,8,scope,:dense,:mixed);b=fixture(T,8,scope,:dense,:mixed)
++   for side in (:a,:b)
++    v=side===:a ? a : b
++    if isquality(scope)
++     if edge===:zero;fill!(v.B,zero(T));fill!(v.x,zero(T));fill!(v.rhs,zero(T))
++     elseif edge===:short;v=merge(v,(x=v.x[1:end-1],))
++     elseif edge===:nonfinite&&T<:AbstractFloat;v.x[1]=T(Inf)
++     elseif edge===:mixed_precision&&T===BigFloat;v.x[1]=setprecision(()->BigFloat(3//7),BigFloat,512)
++     elseif edge===:alias
++      s=v.scratch;v=merge(v,(scratch=J.SolveQualityScratch(v.x,s.work_residual,s.work_scale,s.terms,s.compensation,s.error_sum),))
++     elseif edge===:bad_basis;v=merge(v,(B=PlainWrapper(Matrix(v.B)),))
++     elseif edge===:view;v=merge(v,(x=view(v.x,:),))
++     end
++    else
++     if edge===:zero;fill!(v.vector,zero(T));isdevex(scope)&&fill!(v.w.scratch.tableau_row,zero(T))
++     elseif edge===:short&&!isdevex(scope);v=merge(v,(vector=T[],))
++     elseif edge===:nonfinite&&T<:AbstractFloat
++      if isdevex(scope);v.w.scratch.tableau_row[2]=T(Inf);else;v.vector[1]=T(Inf);end
++     elseif edge===:mixed_precision&&T===BigFloat
++      v.vector[1]=setprecision(()->BigFloat(3//7),BigFloat,512)
++      if isdevex(scope)
++       v.w.scratch.tableau_row[2]=setprecision(()->BigFloat(3//7),BigFloat,512)
++       v.w.pricing_weights[1]=setprecision(()->BigFloat(7//3),BigFloat,512)
++       v=merge(v,(weights=copy(v.w.pricing_weights),pivot=setprecision(()->BigFloat(3//7),BigFloat,512)))
++      end
++     elseif edge===:alias&&scope===:direction;v.w.scratch.tau=v.w.scratch.row_rhs
++     elseif edge===:bad_basis&&!isdevex(scope);v.w.basis.basic_indices[end]=length(v.w.primal)+1
++     end
++    end
++    side===:a ? (a=v) : (b=v)
++   end
++   x=checkpair(a,b;protect=edge!==:alias)
++   edge===:short&&!isdevex(scope)&&@test x[1]===:error&&x[2]===DimensionMismatch
++   edge===:alias&&isquality(scope)&&@test x[1]===:error&&x[2]===ArgumentError
++  end
++  if T===BigFloat
++   vals=BigFloat[0,-0.0,1,-1,Inf,-Inf,NaN,floatmax(BigFloat),floatmin(BigFloat)]
++   push!(vals,setprecision(()->BigFloat(3//7),BigFloat,512))
++   for x in vals,y in vals
++    before=deepcopy((x,y));u=SavingsReference._primal_devex_candidate_weight(x,y);v=SavingsCandidate._primal_devex_candidate_weight(x,y)
++    @test same(u,v);@test same((x,y),before)
++    @test v!==x&&v!==y
++   end
++   a=SavingsCandidate._primal_devex_candidate_weight(BigFloat(Inf),BigFloat(1));b=SavingsCandidate._primal_devex_candidate_weight(BigFloat(Inf),BigFloat(1));@test a!==b&&same(a,b)
++   for tr in (false,true),dense in (false,true)
++    s=tr ? :quality_transposed : :quality;a=fixture(T,2,s,dense ? :dense : :sparse,:positive);b=fixture(T,2,s,dense ? :dense : :sparse,:positive)
++    for v in (a,b);fill!(v.B,BigFloat(0));v.B[1,1]=floatmin(BigFloat);v.x[1]=BigFloat(1//2);fill!(v.rhs,BigFloat(0));end
++    z=checkpair(a,b)
++    unsafe_expected=setprecision(BigFloat,2*precision(BigFloat)+18) do
++     floatmin(BigFloat)*BigFloat(1//2)<floatmin(BigFloat)
++    end
++    @test z[1]===:value&&z[2].finite===!unsafe_expected
++   end
++  end
++ end
++end
++
++@testset "BigFloat residual, quality and Devex regressions" begin
++ for bits in (64,128,256),mode in MODES
++  setprecision(BigFloat,bits) do
++   setrounding(BigFloat,mode) do;correctness(BigFloat);end
++  end
++ end
++ for T in (Float32,Float64,Rational{BigInt},Rational{Int64});correctness(T);end
++ # A missing accepted optimization makes these whole-function gates fail.
++ # No timing threshold, no GC tuning, no adaptive reruns; fixed three pairs.
++ setprecision(BigFloat,128) do
++  setrounding(BigFloat,RoundNearest) do
++   for scope in (:direction,:row,:quality,:quality_transposed,:devex_shared,:devex_solved)
++    @testset "Whole-call allocation $scope" begin
++     a=fixture(BigFloat,32,scope,:dense,:positive);b=fixture(BigFloat,32,scope,:dense,:positive)
++     m=Val(scope)
++     for k in 1:3,(arm,v) in ((Val(:original),a),(Val(:candidate),b));reset!(v);timed(arm,m,v);end
++     pairs=Tuple{Dict{String,Any},Dict{String,Any}}[]
++     for k in 1:3
++      if isodd(k);reset!(a);old=timed(Val(:original),m,a);reset!(b);new=timed(Val(:candidate),m,b)
++      else;reset!(b);new=timed(Val(:candidate),m,b);reset!(a);old=timed(Val(:original),m,a)
++      end
++      @test old["compile_seconds"]==old["recompile_seconds"]==new["compile_seconds"]==new["recompile_seconds"]==0
++      push!(pairs,(old,new))
++     end
++     @test all(new["bytes"]<0.97old["bytes"]&&new["events"]<0.97old["events"] for (old,new) in pairs) # RED whole-call cost gate
++    end
++   end
++  end
++ end
++end
++end
+--- a/test/runtests.jl
++++ b/test/runtests.jl
+@@ -2,6 +2,7 @@
+ using Test
+ 
+ @testset "JSimplex" begin
++    include("generic_quality_devex_tests.jl")
+     include("numeric_tests.jl")
+     include("compensated_transpose_work_tests.jl")
+     include("unit_transpose_rhs_tests.jl")

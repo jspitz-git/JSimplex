@@ -1,0 +1,1 @@
+Independent reviewer identified missing empty coverage before any Julia. Added empty whole direction/row/quality plus allbasic Devex, view-input generic fallback and actual Devex mixed512 operands; no expectation weakened, no source change, no numerical rerun. Final pinned fixtures updated.

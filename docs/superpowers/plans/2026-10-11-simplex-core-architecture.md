@@ -1,3 +1,216 @@
+# Current continuation — BigFloat residual, quality and Devex savings integrated, 2026-10-27
+
+Master/origin/master ca64312f7f74b1d7bec047718399f229674b3e1d normally pushed and remotely verified. Exact five paths: three source files, new ordinary regression, runtests inclusion. BF residual checks use the already-qualified conditional magnitude at original sites; ordinary BF matrix/vector quality accumulation lazily reuses one private comparison-only floatmin within a call; BF Devex candidate constructs a distinct floatmax cap only for positive overflow. All tolerances, safeguards, ordered numerical arithmetic, precision/rounding, input/output ownership, callbacks and generic/native/exact/custom-array fallback paths retained. No new matrix/vector scan, basis solve, copy, conversion, invariant pass or persistent numerical cache/root; local branches/tuple work and cold method metadata accounted. Independent source/work-memory reviews found no unnecessary new production work/retention.
+
+One short comparison:33807 ordinary PASS,1160cells20880windows,170.614s inclusive; all measuredcompile/recompile0,all490GCwindows/outliers retained. BF64/128/256x5modes,sparse/dense32/128 plus native/exact controls. Across-cell paired medians direction.9537,row.9163,quality.7557/.7580,Devexshared.5634/actual4rowBTRAN+price.8766. Sign-dependent residual gains; all3 slower B cells preserved1.1344/1.1114/1.0122. No universal/end-to-end speedup/nativefree/fullsuite/x64 claim. All80controls equal events;15Ratcontrol medianbytes vary without changed code, exactcause unproven.
+
+Ordinary RED9465PASS+6expectedallocationfailures; GREEN and actualMASTER each186622PASS across34wholefiles, no errors/broken/skips/customrecorder/manualTeststack. Six whole-call gates use fixed3pairs,>3percent fewer BOTHbytes/events, no timingassertion/GCtuning/adaptive retry. Prior tests/thresholds remain byte-identical. Independent measurement/RED/source/GREEN/actualcommit/MASTER review and separate PASS closure required and retained.
+
+The earlier7e306e24 exception-qualified release remains historical and unchanged; its rejected MASTER and original Rational byte gate are not reinterpreted as PASS or proved fixed by current successful qualification. Its exact allocator cause and measurement-contract followup remain OPEN. New all-pass qualification grants no future exception. Fullsuite/broaderS2/S3/S4/S5/S6/x64 remain OPEN, CIoff/automationpaused/HHreuse disabled/allolderrejections retained.
+
+Evidence diagnostics/generic-quality-devex/2026-10-27/FINAL-REPORT.md and independent reviews. All completed scripts/raw/pins/reviews FROZEN NEVER RERUN/rewrite. Current old continuation hashes map ONLY to this step's continuation-before/STATUS.md and roadmap.md; all older source/index/continuation mappings preserved. Current master old-source/index bindings map to baseline/before-master with exact hashes, not retroactive launch pins. Userfiles/env/unrelated indexes preserved; fresh full historical/current groups ANDsessions/boot/startticks/command/noJulia closed. No automatic new experiment or automation resume.
+
+## Previous continuation — preserved verbatim below
+
+# Current continuation — BigFloat savings released with explicit human exception
+
+Commit/master/origin 7e306e24f064a8aa214bc88379e059def77661ab published by normal nonforce push only after a NEW human approval of the named older MASTER allocation failure. This is an exception-qualified release, NOT an all-pass MASTER. Preserve the original all-pass ruling and its evidence below. The original threepercent byte/event test is unchanged; original MASTER remains REJECTED:176776PASS/1oldbyteFAIL/176777total in31files, zeroerrors, all7826newchecksPASS. Exact unchanged test generic_dual_comparisons_tests.jl:709; Ratupdate/free inferred from event signature, failed caller did not label pattern. Bytes pairwise3.8791/0.6313/3.7593percent, all events4.6095percent. Historical exact allocator cause UNPROVEN.
+
+Independent source/fullbranch review accepted all3BF allocation/work reductions, no unnecessary production work/retained numericmemory. Single179.689s comparison51109PASS/1032cells18576windows, allcompilezero/25GCwindows retained; GREEN176777PASS/31files. Subsequent observational fixed8diagnostic3212PASS/28.389s,8cells48windows,1GCwindow retained, noGCmanipulation/hooks/thresholdchange; samebody byte variation2.853741percent observed withoutGC, exacteventparity. Standalone recordedlimbmetadata is post-call outputcapacity, not fullrequestedtraffic. No retry-until-pass, no reinterpretation of failedMASTER asPASS, no new numerical run for thisrelease. Local A/B times small/noisy,Cpositive/tied~12percent/mixed~6percent,negativenogain; notuniversal/end-to-end/nativefree/fullsuite/x64proof. Allnumericalguards/tolerances/precision/rounding/order/owners/pivotrules retained.
+
+Exactfourfiles andallcurrentMsrc/test stillmatchfailedMASTER/acceptedGREEN/actualcommit; onlyBFsites changed. Source/index beforeimages underbaseline/before-master, oldcontinuations ONLYcontinuation-before-exception; alloldermaps andverbatimtexts retained. Directhumanapproval and preciseexceptionrecords arein diagnostics/generic-residual-magnitudes/2026-10-26. Fullsuite/broader/x64/olderRatallocationregression remainOPEN, CIoff/automationpaused/HHdisabled. Allcompletedraw/scripts/reviews FROZEN NEVER RERUN/rewrite. Futurefix of oldtest'smeasurementcontract requiresitsownexplicitreview, noautomaticpermissionfromthisexception.
+
+## Previous continuation — preserved verbatim below
+
+# Current continuation — generic pivot scalar savings integrated, 2026-10-26
+
+Master/origin/master 9bdcd64f3ecb8d1b929906c6d5b24e0e9127cfed normally pushed and remotely verified. Exact5production/testpaths, 2modified+1addedmethods: A ordinaryBigFloatHarris reuses call-localcomparison-only negativecutoff/tolerance; B existingBigFloat/RationalBigInt primal entering uses integer0comparison preservingfreshreturned0/±1owners; C ordinaryBigFloatBFRT gain uses qualifiedconditionalmagnitude. All numericalsafeguards/tolerances/rounding/precision/arithmeticorder/pivots/ties/inputowners/callbacks/partialexceptions preserved. Native/fixed-rational/genericHarris/stableBFRT unchanged. No newscan/solve/copy/conversion/index/persistentnumericowner; A readinesschecks/O(1)typedlocals and Ccoldmethodmetadata included. Independentreview found no unnecessaryproductionwork/memory.
+
+Single admitted comparison 530.813s, 107440ordinarychecks, 1748exactorderedcells/31464measuredcalls/19contexts. BF64/128/256x5modes,RatBigInt/Float32/64/RatInt64,N32/128,sparse/dense; actualpartialpoolhit+invalidation/fullscan, BFRTprefix/exhaust. All measuredcompile/recompilezero; 0GCwindows and all outliers retained. Fixture/snapshot/cold/warm/reset/contextGC separate. TimedprimalDantzigonly; no universal/end-to-end/actualsolver/fullbackend/nativefree/fullsuite/x64claim. See measurementreport and pervariantindependentreview.
+
+OrdinaryRED 6157PASS/6expectedallocationfailures; Precommitcomposite 168951PASS =162263source-matchedsuccessfulchecksfrom29unchangedfiles inrejectedinitialGREEN +6688freshchecksintargetedmodifiedfile, NOTfresh30fileGREEN2. ActualMASTER freshlypasses 168951checks acrossall30wholefiles, no errors/broken/skips/customrecorder/manualTeststack. 6 focusedwholecallallocationgates supported by alloriginalpaireddata; no timingassertions. Exactprivateindexcommitreview/ff-onlymaster/actualmasterindependentacceptance/fulltestedtrees+historicalbeforemaps verified before normalnonforcepush.
+
+Initial GREEN rejected/frozen:168180pass/1oldunchangedRatBigIntupdate/freebytegatefail/168181total, no errors. Installedruntime countsGMPusablecapacity ratherthanrequestedpayload; precisefailedallocationtraceabsent. Separatelyadmitted fixed8protocol qualification1595/1595 in27.4744s,4cells24batchwindows192calls,oneGCwindowretained; all3positivepairs retainstrict>3percentBOTHbytes/events andoriginal-v-originalnegativecontrolsreject. OnlytwoexistingRatupdateallocationgatesusefixed8ownedfixtures, noGCtuning oradaptiveattempts; allnumericalcases/oracles/thresholds unchanged. Testonly+168wholecalls/+28fixtures; nogenericproductionwork/memorychange. TargetedGREEN2andactualMASTER additionallyexerciseprotocolinindependentprocesses, notuniversalallocatorstabilityproof. OriginalfailedGREEN/auditorrefusal/dispatchpermissiontimeout andunexecuteddrafts remainpreserved.
+
+Evidence diagnostics/generic-pivot-scalars/2026-10-26/REPORT.md and measure/REPORT.md. Allcompleted artifacts FROZEN NEVER RERUN/rewrite. Newbeforemap resolves oldsource/index to baseline/before-master and currentcontinuationoldhashes ONLYcontinuation-before; alloldermaps/verbatimtexts retained. Protecteduserfiles/env/unrelatedindexes preserved; final full567groups ANDsessions/boot/startticks/command/noJulia. CIoff/automationpaused/HHreuse disabled; allolderrejections and broaderS2/S3/S4/S5/S6/fullsuite/x64OPEN.
+
+## Previous continuation — preserved verbatim below
+
+# Current continuation — generic dual comparisons integrated, 2026-10-26
+
+Master/origin/master 1d2a31d29d45a242a529aff09e73ba67f39cd227 normally pushed and remotely verified. Exact4files: BigFloat/RationalBigInt typedlazy comparison-only negative tolerance in wholeupdate_duals!, finiteBigFloatDantzig conditionalmagnitude withbothfallbacks, BigFloat tied-stepordinaryBFRT strength conditionalmagnitudes; newordinarypermanenttest/inclusion. Allarithmetic/tolerances/precision/rounding/pivot/tie/owners/partialexceptions/callbacks,zero-step/zero-rowwrites, costshifts/perturbed/poolinvalidation retained. Generic/native/fixed-rational/stableBFRT unchanged. No newscan/solve/copy/conversion/index/persistentnumericalowner; O(1)transienttypedcache+Bool/control counted, coldspecializedmetadata additional. Independentreview found no unnecessaryproductionwork/memory.
+
+Sole shortcomparison75.485s/64286ordinarypasses/1008source-definedcells/18144windows/19contexts; BF64/128/256x5rounding,RatBigInt/native/fixedrational,N32/128,sparse/dense. Measuredcompile/recompilezero; FIVEGCwindows/alloutliersretained. A all120BF+8Ratlower/freecells reducebytes/events; B all180BFprimal+120BFautoactiveDantzigcells reducebytes/events(negativeprimal onlyinitialpositiveone-score); C all120BFtiedpositive/mixedcells savecosts.140native/fixedcontrols exactallocationcosts; ordinarydualDantzig/negative-or-uniqueBFRT controlsunchanged. Ratbyte noise notsavings. OneBF64Up128sparseUPPERupdatecontrol pairedmedian1.483871/MAD.132223/noGC retained,causeUNKNOWN; other59upper<=~1.08. No timing-equivalence/universal/endtoend/largerbasis/nativefreeclaim. TimedBFRTexhaustsflips; prefix/success/fallbackcorrectnessonly, dense128nonemptytailsort/sparse12832activeemptytail.
+
+Originalcontract/admission incorrectlydeclared1064cells/19152windows. Originalonceauditor countrefusal/exit1 BEFOREpublishing preserved. Driver+originalauditor expectedgenerator enumerateexact1008=17floatingcontexts*56+2rational*28; independentpostexitcount-onlysupplementchecks ALLorderedcells/19contexts/alloriginalothergates andretainsoriginal1064/19152literal. No raw/launchpins rewritten, no numericalrerun/retroactiveacceptance. OfflinePythonselectorfailure andimportRED4/GREEN2fix/beforecopies preserved.
+
+ValidRED5911PASS/7expectedallocationfailures/5918total, noerrors. GREEN andactualMASTER each162018ordinarypasses across29wholefiles(new+prior28), noerrors/broken/skipped/customrecorder/manualTeststack. Sevenwhole-callgates require>3percent fewerbytes ANDevents ineachof3pairs; every63priorpair supports,min3.7414percent; no timingassertion. Exactprivateindexcommit/actualcommitreview/ff-onlymaster/fulltree+beforemapprepushchecks/actualMASTERindependentacceptance before normalpush.
+
+Evidence diagnostics/generic-dual-comparisons/2026-10-26, report/measure/REPORT.md/reviews. Allcompletedraw/scripts/pins/reviews FROZEN NEVER RERUN/rewrite. Newboot781795f4 rebaselinedatfresh547groups ANDsessions/boot/startticks/command/noJulia; oldbootrecords remainhistorical. Baselinechangedsource/index hashes mapONLYnewbaseline/before-master; continuationoldhashes mapONLYcontinuation-before, alloldermapsretained. Protecteduserfiles/env/unrelatedindexes preserved; finalnoJulia/fullPGIDs ANDsessionsclosed. CIoff/automationpaused/HHreuse disabled; broaderS2/S3/S4/S5/S6/fullsuite/x64OPEN/alloldrejectionsunchanged.
+
+## Previous continuation — preserved verbatim below
+
+# Current continuation — generic weight constants integrated, 2026-10-26
+
+Master/origin/master 5622b94c76f6bc69cd1aff2679215cef4f8bfaf3 normally pushed and remotely verified. Exact four source/test files. BigFloat whole steepest update lazily reuses a typed call-local floatmax comparison limit after solves/price, never publishes it. BigFloat Devex uses the previously qualified conditional direction magnitude, retaining fresh per-candidate floatmax/min clamp owners. Ordinary BigFloat/RationalBigInt BFRT lazily reuses its negative cutoff and compares finite steps against integer zero. Generic/native/fixed-rational and stable BFRT remain unchanged. All arithmetic, numerical safeguards, tolerances, owners, partial state/exceptions, callbacks, pivots and ties retained. No new full scans/solves/copies/conversions/invariant passes/persistent cache/retained scalar. Local readiness/control/tuple work and cold method metadata counted; independent review found no unnecessary production work/memory.
+
+One short comparison70.357s/59546ordinary checks/772cells/13896windows; measured compile/recompilezero, TWO measured original-side GCwindows retained. BF64/128/256 x5rounding plus RatBigInt/native/fixed-rational controls,N32/128,sparse/dense. Complete steepest and Devex include shared and actual BTRAN/price routes. BFsteepest120cells lower bytes/events and both paired/side medians; paired ratios.8841-.9788. Devex300/360cells save costs, paired ratios.6514-.9820;60dense-negative controls unchanged costs/no gain claim. BFRT180BF+12RatBigIntcells lower bytes/events/paired medians; BF.6350-.9574,Rat.8072-.9350. Two BFRT side medians not lower; timing uncertainty explicit.100native/fixed controls exact allocationcosts. Basis dimension4 for weight/1 for BFRT; not large-basis/publicsolver/endtoend/nativefree/fullsuite/x64 proof.
+
+Valid RED6200PASS/8expected allocationfailures/6208total/noerrors. GREEN and actualMASTER each 156100 ordinary assertions across28wholefiles, no errors/broken/skipped/custom recorder/manual Test-stack. Eight permanent whole-call allocation gates require >3percent fewer bytes AND events in each of three alternating pairs; no timing assertion. All numerical/owner/context expectations retained. One initial measurement admission rejected BEFOREJulia, separate anchored Python-selector fix after preserved offline failure, original sources/reviews retained. Only one measurement and one each RED/GREEN/actualMASTER; no numerical failure or old rerun.
+
+Evidence diagnostics/generic-weight-constants/2026-10-25 and measure-final/REPORT.md. Completed scripts/pins/raw/reviews FROZEN NEVER RERUN/rewrite. Baseline source/index/continuations map ONLY to exact baseline/before-master/continuation-before bytes; all older maps preserved. User/env/unrelated realindex preserved; noJulia/full historical-current PGIDs ANDsessions closed. Broader S2/S3/S4/S5/S6/fullsuite/x64 OPEN; CIoff/automationpaused/HHreusedisabled/all older rejections unchanged.
+
+## Previous continuation — preserved verbatim below
+
+# Current continuation — generic primal thresholds integrated, 2026-10-25
+
+Master/origin/master 042de41cfd76736cd9a030c08be1119d257f4a99 normally pushed and remotely verified. Exact four files: BigFloat primal ratio/bound-snap zero comparisons; typed call-local lazy negative tolerance ONLY for full BigFloat/RationalBigInt Dantzig/Devex pricing; BigFloat squared-weight comparison against integer one and validation against exact half; permanent tests/runtests inclusion. Partial/steepest paths and all safeguards/tolerances/precision/rounding/owners/exceptions/callbacks/pivots/ties retained. New mode/ready scalar tests counted; no additional scans/solves/copies/conversions/invariant passes or persistent cache/retained scalar. Independent review found no unnecessary production work/memory.
+
+Short comparison88.329s/62631ordinary checks/540cells/9720windows; measured compile/recompile/GCzero, all outliers retained. BF64/128/256 x5rounding, RatBigInt/native controls, N32/128. Whole ratio pairedmedians.823-.984; reached lower/mixed BFpricing.781-.975, Rat.910-.985. BFupdated-weight128-call batches.885-.920; scalar-validation batches.588-.777. Whole dual validation.970-1.007 saves8events/call but no uniform timegain. Upper-only unchanged controls do not establish speedup. Update batch NOT full steepest maintenance/backend budget; no universal/end-to-end/nativefree claim.
+
+Valid RED3:29560PASS/9expectedcostfailures/29569total/noerrors. Initial RED rejected offline before Julia (immutable diagnostic-context fixture). RED2 was supervised tuple-loop ParseError before module execution, no test predicates executed, original onceaudit refusal preserved. Separate fixture/syntax/format-only fixes and explicit canonical final test/inverse preserve all original expectations. All raw/source/reviews remain frozen, no silent acceptance or old numerical rerun.
+
+GREEN and actualMASTER each 149892 ordinary assertions across27wholefiles, exact RED3-identical newtest +previous26regressions; no errors/broken/skipped/custom recorder/manual Test-stack. Mixed512 tolerance/independent expected index and actual callback replacing prices/options covered. No new injected arithmetic-context mutation inside steepest solve claimed; original per-candidate arithmetic retained. Broader S2/S3/S4/S5/S6/fullsuite/x64 OPEN; CIoff/automationpaused/HHreusedisabled/all old rejections unchanged.
+
+Evidence diagnostics/generic-primal-thresholds/2026-10-25. Completed scripts/pins/raw/reviews FROZEN NEVER RERUN/rewrite. Baseline source/index and continuation hashes map ONLY to exact baseline/before-master/continuation-before bytes; older maps retained. User/env/unrelated realindex state preserved; noJulia/full historical-current PGIDs ANDsessions closed.
+
+## Previous continuation — preserved verbatim below
+
+# Current continuation — generic scalar branches integrated, 2026-10-25
+
+Master/origin/master 612eee04637b59813e2e0a14d6d50385c91e7b88 normally pushed and remotely verified. Exact five production files: BF interval residual signs and legacy ratio sign compare against integer zero; BF weighted score uses existing conditional magnitude; BF/RationalBigInt primal summary computes upper violation only when the lower branch is not taken. Generic/native/fixed-rational paths, all safeguards/tolerances/rounding/precision/alias/exception/pivot/tie/callback behavior retained. Same scans/solves/copies/conversions/invariant checks, O(1) locals and no cache/retained owner. Independent source/work-memory review found no unnecessary new production work/memory.
+
+One short comparison148.596s/123024 ordinary checks,1008cells18144windows; all compile/recompilezero, one GC/outliers retained. Measured window sum4.334s; fixture19.155s/postwarmGC95.102s are preparation, not a benchmark total. All36BFNearest wholefeasibility pairedmedians.809-.863; BFlegacyratio90cells.876-.974; weighteddual60cells.847-.926. Positive weightedprimal improves, negative controls unchanged allocations; BF/Rat summary saves only reached lower-bad branches, upper/feasible controls unchanged. No universal/end-to-end/native-free claim.
+
+Focused baseline RED58008PASS/8expectedcostfailures/58016total. Original onceauditor exit1 for empty first /proc supervisor command remains preserved. Separate complete normal-observed-run-only postexit supplement accepted; no RED numerical rerun or retroactive timeout qualification. Future supervisor captures two actual consistent nonempty exec commands under startup AND shareddeadline and performs owned bounded cleanup on capture failure; source finding late confirmation demonstrated RED1/GREEN1, full9Python tests including five real owned Python child cleanup cases pass. Every completed draft/source/raw/review retained with explicit before copies.
+
+GREEN and actualMASTER each 120323 ordinary assertions across26wholefiles; exact newtest identical to RED, all numerical/ownership/NaNtolerance/tie/partialpool/RationalInt64 checks retained, no broken/skipped/error tests or custom recorder/manual Test-stack. Scoped GREEN/master complete prior16file include closure+new+9affectedpricing files. This is not fullsuite/x64; broader S2/S3/S4/S5/S6 gates OPEN, CIoff/automationpaused/HHreusedisabled and every old rejection unchanged.
+
+Evidence diagnostics/generic-scalar-branches/2026-10-25, all completed scripts/pins/raw/reviews frozen NEVER RERUN/rewrite. Baseline source/index and continuation hashes map ONLY to exact saved baseline/before-master/continuation-before bytes, older maps unchanged. User/env/unrelated realindex state preserved. NoJulia, whole historical/current PGIDs ANDsessions closed.
+
+## Previous continuation — preserved verbatim below
+
+# Current continuation — generic local scalar reuse integrated, 2026-10-25
+
+Master/origin/master a3bf61b2714dfbacfee39b40ed3a298ad8f8ed56 verified after normal nonforce push. Minimal fourfile production: BF interval sum reuses guarded magnitudes, BF legacy ratio reuses record-pivot magnitude; BF/RationalBigInt dual infeasibility uses T-typed invocation-local tolerance+Bool readiness and one free-variable abs. Other scalar paths/stable ratio and every finite/precision/rounding/underflow/residual/interval/alias/exception/tie/safeguard/tolerance unchanged. Same scans/solves/copies/conversions, no persistent cache/scratch. Exact production/source/work-memory and numerical/result reviews accepted, no unnecessary new work/memory found.
+
+Initial short measurement57.508s/78417checks/612cells11016windows8GC kept; original Nothing/T summary deferred for residual16B/event per lower term. Separate typed26.537s/40617checks/180cells3240windows0GC resolves finding, constant256B/8events in BF128lower-feasibleN32/N128. Do not rewrite initial finding or infer paired timing across processes. Rational ratio excluded for no established useful benefit. BF wholefeasibilityNearest36cells pairedratios.837-.915, lower bytes/events; BF ratio increasing-record30cells.848-.910, decreasing/tied near-neutral/noise. No end-to-end/universal speedup/native-free proof.
+
+RED29404PASS/6expectedallocationfailures/29410total; unchanged tests on GREEN and complete actualMASTER53942PASS. Future initial15file manifest was rejected beforeexecution for missing solver_tests prerequisite; separate16file closure retains every assertion and includes workspace logger dependency before public solver/numeric tests. No custom recorder/manual Test-stack, no weakened check. Fullsuite/x64/broaderS2-S6 OPEN; unrelated long driver/precision-state scopes not rerun, precise exclusion reviewed. CIoff/automationpaused/HHreuse disabled; no closed-route reopening.
+
+Evidence diagnostics/generic-local-reuse/2026-10-25; all completed scripts/raw/pins/reviews frozen NEVER RERUN/rewrite. Old source/index and continuation bindings resolve only via exact saved baseline/before-master/continuation-before maps; prior maps retained. Real indexes/unrelated staged/user/environment files preserved. NoJulia; all historical/current groups ANDsessions closed.
+
+## Previous continuation — preserved verbatim below
+
+# Current continuation — generic scalar temporary savings integrated, 2026-10-25
+
+Master/origin/master ac42f7da71f1509486847ac58d59cd701707b292, normal nonforce push remotely verified. Accepted narrow production changes: BigFloat legacy dual-ratio tolerance is lazy; BigFloat interval-product unit comparisons use exact integer +/-1; original-cost slack checks use iszero only for BigFloat and RationalBigInt. Generic/native/stable-ratio behavior, operation order, stored-precision guards, tolerances, finite/residual/interval/alias/exception checks and pivot policy remain. Rational lazy tolerance excluded because timing was inconclusive.
+
+One new short measurement42.397s/39462ordinarychecks/432cells/7776windows accepted; nine GC-affected windows kept, all measuredcompile/recompilezero. Whole BigFloat feasibility cell paired-ratio median0.684953 (all180cells faster/lowerbytes/events); unit product0.282752 across90cells. Slack cost checks remove allocation traffic for BF/Rat, but this predicate is setup/recovery/terminal work, not every pivot. These are local whole-helper results, no end-to-end solver or native-free claim. Prior accepted lazy ratio evidence49575checks preserved.
+
+Controlled RED15969total/4expectedallocationfailures; independently source-qualified34135priorpasses plus repaired perturbation tests, and complete actualMASTER34373passed ordinary permanent/regression assertions. Independent numerical admission, source/work/memory review, actual commit/master results and publication verified. No unnecessary new scan/solve/copy/conversion/cache/retainedscratch found. Exactfourfile production commit; dirty userfiles/environment/unrelated realindex entries preserved. Reports/evidence diagnostics/generic-unit-cost/2026-10-25. Initial three prelaunch diagnostic findings and original audit rounding-schema failure preserved; separate corrections accepted without repeating numerics.
+
+Original wholeGREEN34230pass/1downstreamfailure/6missing-helper errors remains failed and preserved. Scoped repair adds the existing prerequisite; complete actualMASTER16files is required. All new raw/scripts/pins/reviews/audits now FROZEN NEVER RERUN/rewrite. Historical continuation/current source/index hashes resolve only through this package's exact continuation-map and integration-historical-path-map before copies; older maps and failures unchanged. CIoff, automationpaused, HHreuse disabled. Broader S2/S3/S4/S5/S6/fullsuite/x64 gates remain OPEN. No old HH/DSE/controller/import/isolation/cleanup-omission reopening.
+
+## Previous continuation — preserved verbatim below
+
+# Current continuation — completed backend-corrected A/B cost experiment, 2026-10-24
+
+Broader performance plan remains OPEN. Task3-terminal-primal-cost-v2-run/cost-1 completed once: four phases, controller143.522891659seconds/exit0 under shared1800seconds;96diagnostic+432warm+1152measured=1680constructors,576measured pairs, all24cells. Numerical/input/options/work/graph predicates pass, measured compile/recompile/GC zero. Allocation events and preparation bytes/events match, but strict body-byte gate fails9/9/12cells forA/B/AB and time-gain gate passes0eligible cells. All three cost gates REJECTED; no production promotion or speedup claim. REPORT.md, audit.json, independent RESULT-REVIEW and closure in cost-1-result are authoritative within their scopes.
+
+Fresh independent admission preceded this exact run. Actual master/origin-master861fdf085840701c80e627afc188dc2448f77e20 unchanged. All430 historic/current groups AND sessions absent after run, noJulia. CIoff/automationpaused/HHreuse disabled; user edits preserved. No further numerical run, tuning, integration or equivalent retry is authorized by this result. Existing broader plan/gates and older rejections remain open/unchanged.
+
+All v2 harness, raw cost-1, admission and canonical audit records are FROZEN NEVER RERUN/rewrite. Historical v2 launch/phase/external STATUS/roadmap bindings resolve ONLY to exact matching continuation-before copies under cost-1-result; no retroactive launch pins. Older mappings remain unchanged. Any concrete future work must follow its own accepted scope and fresh host/source admission.
+
+## Previous continuation — preserved below
+
+# Current continuation — v2 backend-corrected A/B cost preparation, 2026-10-24
+
+Broader performance plan remains OPEN. New OFFLINE driver/conditions: diagnostics/dual-finite-validity/Task3-terminal-primal-cost-v2-harness; actual master861fdf085840701c80e627afc188dc2448f77e20 unchanged. It integrates accepted backend-type policy/fixtures and real-record regressions, with all other numerical/control checks unchanged. Exact148staged files/74actualmaster-env files; common repaired certificate and terminal primal correction remain in allO/A/B/AB constructors.
+
+Future measurement keeps all24cells/1680constructors/48fixture preparations/24postwarmGCs and shared1800seconds across four sequential phases300/300/900/remaining. All421historic groups AND sessions and noJulia/currentboot/fullcommands/startticks/source/env/runtime/resource guards must be rechecked in future concrete admission. No Julia, execution authorization, seal, admission, reservation or output exists now. Package REVIEW/closure determine completed offline acceptance; this text grants no launch authority.
+
+Previous terminal-primal cost-1 remains consumed and frozen:96diagnosticreturnsOPTIMAL, no clean timing, original Python backend-type failure and canonical audit rejection preserved. Separate accepted type correction does not retroactively accept that run. The older outer-postprocessor-failure envelope limitation remains fail-closed and documented; no silent additional fix or numerical retry. No speedup or production promotion claimed. Actualsrc/test/env/CI/master and user changes untouched; CIoff/automationpaused/HHreuse disabled.
+
+Previous current continuation bytes are preserved in this v2 package's continuation-before with exact matching hash mapping in continuation-map.json. All older mappings, rejections, scripts/raw/reviews and consumed allowances remain unchanged.
+
+## Previous continuation — preserved below
+
+# Current continuation — isolated backend-type auditor correction, 2026-10-24
+
+Broader performance plan remains OPEN. Actual master/origin-master861fdf085840701c80e627afc188dc2448f77e20 unchanged. New OFFLINE candidate: diagnostics/dual-finite-validity/Task3-terminal-primal-backend-type-fix. It replaces only the alias-substring backend predicate with exact source-bound native Float32/Float64 HH type representations; two synthetic type strings are corrected. All other numerical/input/work/graph/cost/process/admission predicates remain byte-identical.
+
+Original-predicate RED: one expected failure, zero errors on the real Float64 record. Candidate GREEN:32/32 ordinary Python tests, including all25 copied originals and7 real-data/negative-type tests; all24storedcases/96sides accepted, malformed types and corrupted data rejected. Source/evidence offline80checksPASS. Independent review and exact closure artifacts in that package determine final offline acceptance. No Julia/query/parser/import/compile/numerics or launch/resume occurred; no production/src/test/env/CI/master change or speedup claim.
+
+The preceding Task3-terminal-primal-cost-run/cost-1 remains consumed and frozen: all96diagnosticreturnsOPTIMAL, clean timing NEVER STARTED, controller and canonical auditor failures preserved. This correction does not retroactively accept it. Copied launcher/binding/config files are inert test support; no new driver or numerical admission exists. Any future measurement requires separately prepared complete conditions and fresh independent concrete admission. No old attempt is repeated.
+
+Previous current STATUS/roadmap bytes are saved in the new correction's continuation-before, with exact mappings in continuation-plan.json. All older before mappings, raw evidence, reviews, rejections, CI-off/paused automation and disabled HH symbolic reuse remain unchanged.
+
+## Previous continuation — preserved below
+
+# Current continuation — A/B cost attempt stopped at backend-type text gate, 2026-10-24
+
+Broader performance plan remains OPEN. Actual master/origin-master is861fdf085840701c80e627afc188dc2448f77e20. New attempt Task3-terminal-primal-cost-run/cost-1 is consumed and frozen. Fresh independent concrete admission accepted the 1800-second cap; controller stopped after75.2s at Python policy `real manager/backend`, after three normal exit0 Julia processes. Serializer/capture191 assertions passed; diagnostic24cells/96returnsOPTIMAL completed. Clean timed phase NEVER STARTED: no warm/measured pairs, no allocation/speedup conclusion.
+
+Actual native Float64 HH prints the expanded SparseArrays.UMFPACK.UmfpackLU{Float64,Int64} type; the auditor searched for alias text Float64UMFPACK. Source proves that alias. A separate offline98-check supplement verifies all saved numerical/input/work/graph/process obligations with one exact expanded-type predicate and negative type checks; original controller/auditor rejections remain unchanged. No new numerical run, candidate, tolerance or safeguard change.
+
+Decision report: diagnostics/dual-finite-validity/Task3-terminal-primal-cost-run/cost-1-result/REPORT.md. All421 historical/new process groups AND sessions absent, noJulia. No new production work/memory or master change. CI/automation and all older rejections remain unchanged. No automatic retry/resume of this consumed attempt. Any future timed attempt needs separately accepted corrected audit conditions and a fresh concrete admission. Do not rerun old raw/auditors.
+
+Previous STATUS/roadmap bytes are preserved in that result directory's continuation-before; exact matching live-path bindings map only as recorded in continuation-plan.json. All older exact before mappings remain. The old closed preparation/source/runtime pins are historical launch evidence, not updated or retroactively accepted.
+
+## Previous continuation — preserved below
+
+# Current continuation — new A/B cost preparation on master861fdf08, 2026-10-24
+
+Broader performance plan remains OPEN. Current preparation: diagnostics/dual-finite-validity/Task3-terminal-primal-cost-harness. Source base is actual master861fdf085840701c80e627afc188dc2448f77e20. Both corrected certificate and terminal primal repair are common to O/A/B/AB. All 24 cells, fixed 1680 constructors and original safeguards/checks remain required. No result or speedup claimed.
+
+This is OFFLINE preparation only: no Julia, authorization, seal, admission, reservation or output. Accepted closure and independent review are required before a future separate fresh concrete-run admission. Common future cap1800s; four sequential processes, no overlap. See package LAUNCH.md, WORK-MEMORY.md and closure.json for authoritative completed-preparation state; presence of this section alone grants no launch authority.
+
+Previous current STATUS/roadmap bytes are preserved in that package's continuation-before directory with exact-only mapping in continuation-map.json. Earlier mappings, rejected attempts, raw evidence, source contracts, user changes, CI off and paused automation remain unchanged. Master and production/test/env are unchanged in this preparation.
+
+## Previous continuation — preserved below
+
+# Current continuation — terminal primal repair,2026-10-24
+
+This section supersedes the historical continuation below. The broader performance plan remains OPEN.
+
+Actual production checkout `/home/jspitz/JSimplex.jl`: master and origin/master
+`861fdf085840701c80e627afc188dc2448f77e20`, pushed and remotely verified.
+This native terminal primal repair builds on corrected certificate masterb943cdd;
+no tolerance,precision,pivot policy,CI setting or HH symbolic-reuse change.
+
+The original Float32/dense/factor/steepest_edge O point violates exact original
+rows both before and after final recompute; certificate rejection was correct.
+One bounded private working-type primal correction is now followed by the full
+original feasibility/optimality checks; failed and zero-budget cases still reject.
+No HH algorithm defect or performance gain is claimed.
+
+Candidate GREEN6192/6192; actual-master permanent/regression tests6185/6185 plus2
+source/runtime assertions; exact original private O smoke10/10. All independently
+reviewed,normal exits,pins/resources/whole process groups AND sessions closed.
+Last full history414 identifiers,boot4fde10f2-2f29-46ee-ab86-d02434bd6447,noJulia.
+A later numerical run still requires fresh host conditions,source binding and
+independent concrete admission; this is not a reusable launch attestation.
+
+Current diagnostic decision record:
+`diagnostics/dual-finite-validity/terminal-primal-repair/REPORT.md`.
+Source plan: `docs/superpowers/plans/2026-10-24-terminal-primal-capture-repair.md`.
+Diagnostic artifacts remain local in the existing worktree; no unrelated older
+untracked diagnostic work was staged or published. Automation/CI controls and
+all earlier rejections/consumed attempts remain unchanged.
+
+The finite-validity A/B cost comparison remains open. Do not rerun the consumed
+old attempt or claim a speedup. Any new comparison needs a newly bound driver
+and concrete admission. All old raw/scripts/reviews/checks remain frozen.
+
+Current historical STATUS/roadmap bytes are preserved in
+`diagnostics/dual-finite-validity/terminal-primal-repair/continuation-before/`.
+Only old live-path hashes matching those exact before-copy hashes map there;
+all older named mappings remain unchanged. Changed live-master source pins map
+only as recorded in `production-preparation/historical-master-bindings.json`.
+
+## Historical progress record — superseded by the section above
+
 # Simplex Core Architecture Implementation Plan
 
 ## 2026-10-14 missing-zero candidate decision
@@ -3903,3 +4116,19 @@ Canonical controls: seal_reviewed.py/launch_reviewed.py with control_reviewed/ev
 Whole paired time ratios0.7881–0.9721, but bytes rise6/8cells and all4dense graph gates fail (1.70x/2.02x). Onlysparse96/native passesallfirstgates. Five measuredGCwindows/outliers preserved; oneprocess/no reversedorder/publicsolver/nativepeak proof. No secondprocess/ordinarycomparison/tuning/integration authorized; fixedcandidate stopped, futuredifferentdesign separate. Reports results/DIRECT-BG-DYNAMIC-COST-1/REPORT.md and independent reviews. Master26e2291745999f485a74f643298ca997d65c7205 unchanged,CIoff/HHdisabled/automationpaused,broaderplanOPEN.
 
 Cost-preparation current closure/publication STATUS/roadmap bindings map ONLY to COST-1/STATUS.md.before-COST1 and roadmap.md.before-COST1. Alloldermapsunchanged. ALLfrozenraw/scripts/reviews/controls/pins/stages preservedNEVERRERUN/rewrite. Before any newly admitted work obtain freshhostrefs/boot/start_ticks/command/full234groupsANDsessions/noJulia. This costattemptisconsumed; neither tick nor diagnostic supplement authorizes retry.
+
+## 2026-10-25 — generic pricing scalar savings integrated
+
+Production `f2137e78ecfd70d906e7f13ea035a7422daa1c9f` is verified and pushed to origin/master: BigFloat finite/nonzero Dantzig frexp simplification with original exceptional fallback; automatic and DSE weight checks reuse finite/sign/zero predicates only for Vector{BigFloat}/Vector{Rational{BigInt}}. Generic paths, callbacks, reset/recovery order, tolerances and safeguards remain. No residual fusion, added scan/solve/cache/scratch or retained mutable owner.
+
+RED 7,025 PASS + five exact cost FAIL / 7,030 total; GREEN and actual MASTER 12,955/12,955 PASS across 20ordinary test files. Independent production/result/actualcommit/master reviews accepted without unresolved findings. Exact five-file tree committed through a private index; ff-only local integration and normal exact-SHA push/remote verification complete. See diagnostics/pricing-scalar-integration/2026-10-25/FINAL-REPORT.md and phase evidence. Prior accepted comparison measurements reused without rerun; guard durations are not speedup measurements.
+
+All current phase scripts/raw/pins/reviews are frozen. Previous current-master source/test tree maps to this task's baseline/ only for matching old hashes; old real master index is before-master/master.index. These current continuation bytes before this update are continuation-before/STATUS.md and roadmap.md, never retroactive pin replacements. All older before maps/rejections/allowance limits remain. Broader S2/S3/S4/S5/S6 and full suite/x64 remain OPEN, CI off / HH reuse disabled. Current task is complete; no old numerical route or exhausted allowance is reopened.
+
+## 2026-10-25 — multiprecision direction/bound/pool savings integrated
+
+Production `4f9cfb56eedebc9ddf360b8ab4a878824ea55f26` verified/pushedorigin/master: conditionalBigFloat magnitude in directionnorm firstpass; onefreshownedzero forBigFloat/RationalBigInt unboundedbounds; immediatedualpoolviolation reuseforthesetypes withscorecallablespecialization. Allgenericpaths, scalar/arrayowners, poolorder/counters/exceptionboundaries, tolerances/safeguards remain. No newscan/solve/cache/retainedmutablezero.
+
+Measurementsaccepted independently: abs41880;initialpool+bound41993(boundaccepted,initialpoolREJECTEDnativeallocationregression);repairedpool29736/288cells5184windows(allMPsavings/nativeallocationequal, shortnativetimeuncertain). InitialRED5331pass8fail5339/exact9auditorrefusalpreserved; strongerRED2costgates5330PASS+9expectedFAIL. GREEN/MASTER18294/18294 across21ordinaryfiles. Exact5fileprivateindexcommit,ffintegration,reviewedMASTER,normalexactSHApush/remoteverify. See diagnostics/generic-pool-bound/2026-10-25/FINAL-REPORT.md and reviews.
+
+AllcurrentcompletedartifactsFROZENNEVERRERUN/rewrite. BeforecontinuationbytesmapONLYthis taskcontinuation-before/STATUS.md androadmap.md byexacthash; oldmastersource/test/configmembershipmapbaseline/, oldrealindexbefore-master/master.index. Alloldermaps/rejectionsremain. BroaderS2/S3/S4/S5/S6/fullsuite/x64OPEN,CIoffHHdisabled. Narrowtaskcomplete; nooldroute/allowancereopened.

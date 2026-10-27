@@ -1,0 +1,111 @@
+QUALITY_DEVEX_SOURCE /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-devex/2026-10-27/RED/src/JSimplex.jl
+INCLUDING generic_quality_devex_tests.jl
+ERROR: LoadError: Some tests did not pass: 9465 passed, 6 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-devex/2026-10-27/RED-run/tests.jl:8
+
+Whole-call allocation direction: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-devex/2026-10-27/RED/test/generic_quality_devex_tests.jl:481
+  Expression: all((new["bytes"] < 0.97 * old["bytes"] && new["events"] < 0.97 * old["events"] for (old, new) = pairs))
+   Evaluated: all(Base.Generator{Vector{Tuple{Dict{String, Any}, Dict{String, Any}}}, Main.GenericQualityDevexTests.var"#32#33"}(Main.GenericQualityDevexTests.var"#32#33"(), Tuple{Dict{String, Any}, Dict{String, Any}}[(Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 0.000345, "bytes" => 291520, "events" => 9104, "compile_seconds" => 0.0, "sink" => 1), Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 0.000476, "bytes" => 291520, "events" => 9104, "compile_seconds" => 0.0, "sink" => 1)), (Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 0.0002587, "bytes" => 291520, "events" => 9104, "compile_seconds" => 0.0, "sink" => 1), Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 0.0002685, "bytes" => 291520, "events" => 9104, "compile_seconds" => 0.0, "sink" => 1)), (Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 0.0002389, "bytes" => 291520, "events" => 9104, "compile_seconds" => 0.0, "sink" => 1), Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 0.0002407, "bytes" => 291520, "events" => 9104, "compile_seconds" => 0.0, "sink" => 1))]))
+  Stacktrace:
+   [1] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+   [2] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-devex/2026-10-27/RED/test/generic_quality_devex_tests.jl:481 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] (::Main.GenericQualityDevexTests.var"#30#31")()
+     @ Main.GenericQualityDevexTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-devex/2026-10-27/RED/test/generic_quality_devex_tests.jl:470
+
+Whole-call allocation row: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-devex/2026-10-27/RED/test/generic_quality_devex_tests.jl:481
+  Expression: all((new["bytes"] < 0.97 * old["bytes"] && new["events"] < 0.97 * old["events"] for (old, new) = pairs))
+   Evaluated: all(Base.Generator{Vector{Tuple{Dict{String, Any}, Dict{String, Any}}}, Main.GenericQualityDevexTests.var"#32#33"}(Main.GenericQualityDevexTests.var"#32#33"(), Tuple{Dict{String, Any}, Dict{String, Any}}[(Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 0.000242, "bytes" => 296352, "events" => 9258, "compile_seconds" => 0.0, "sink" => 2), Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 0.0002419, "bytes" => 296352, "events" => 9258, "compile_seconds" => 0.0, "sink" => 2)), (Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 0.0002391, "bytes" => 296352, "events" => 9258, "compile_seconds" => 0.0, "sink" => 2), Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 0.0002413, "bytes" => 296352, "events" => 9258, "compile_seconds" => 0.0, "sink" => 2)), (Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 0.000371901, "bytes" => 296352, "events" => 9258, "compile_seconds" => 0.0, "sink" => 2), Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 0.0002805, "bytes" => 296352, "events" => 9258, "compile_seconds" => 0.0, "sink" => 2))]))
+  Stacktrace:
+   [1] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+   [2] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-devex/2026-10-27/RED/test/generic_quality_devex_tests.jl:481 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] (::Main.GenericQualityDevexTests.var"#30#31")()
+     @ Main.GenericQualityDevexTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-devex/2026-10-27/RED/test/generic_quality_devex_tests.jl:470
+
+Whole-call allocation quality: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-devex/2026-10-27/RED/test/generic_quality_devex_tests.jl:481
+  Expression: all((new["bytes"] < 0.97 * old["bytes"] && new["events"] < 0.97 * old["events"] for (old, new) = pairs))
+   Evaluated: all(Base.Generator{Vector{Tuple{Dict{String, Any}, Dict{String, Any}}}, Main.GenericQualityDevexTests.var"#32#33"}(Main.GenericQualityDevexTests.var"#32#33"(), Tuple{Dict{String, Any}, Dict{String, Any}}[(Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 0.001403101, "bytes" => 1308944, "events" => 34639, "compile_seconds" => 0.0, "sink" => 4), Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 0.0014642, "bytes" => 1308944, "events" => 34639, "compile_seconds" => 0.0, "sink" => 4)), (Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 0.001495801, "bytes" => 1308944, "events" => 34639, "compile_seconds" => 0.0, "sink" => 4), Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 0.001474001, "bytes" => 1308944, "events" => 34639, "compile_seconds" => 0.0, "sink" => 4)), (Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 0.0014252, "bytes" => 1308944, "events" => 34639, "compile_seconds" => 0.0, "sink" => 4), Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 0.001401301, "bytes" => 1308944, "events" => 34639, "compile_seconds" => 0.0, "sink" => 4))]))
+  Stacktrace:
+   [1] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+   [2] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-devex/2026-10-27/RED/test/generic_quality_devex_tests.jl:481 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] (::Main.GenericQualityDevexTests.var"#30#31")()
+     @ Main.GenericQualityDevexTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-devex/2026-10-27/RED/test/generic_quality_devex_tests.jl:470
+
+Whole-call allocation quality_transposed: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-devex/2026-10-27/RED/test/generic_quality_devex_tests.jl:481
+  Expression: all((new["bytes"] < 0.97 * old["bytes"] && new["events"] < 0.97 * old["events"] for (old, new) = pairs))
+   Evaluated: all(Base.Generator{Vector{Tuple{Dict{String, Any}, Dict{String, Any}}}, Main.GenericQualityDevexTests.var"#32#33"}(Main.GenericQualityDevexTests.var"#32#33"(), Tuple{Dict{String, Any}, Dict{String, Any}}[(Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 0.0008963, "bytes" => 1308944, "events" => 34639, "compile_seconds" => 0.0, "sink" => 4), Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 0.0009165, "bytes" => 1308944, "events" => 34639, "compile_seconds" => 0.0, "sink" => 4)), (Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 0.0008925, "bytes" => 1308944, "events" => 34639, "compile_seconds" => 0.0, "sink" => 4), Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 0.000996901, "bytes" => 1308944, "events" => 34639, "compile_seconds" => 0.0, "sink" => 4)), (Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 0.000878201, "bytes" => 1308944, "events" => 34639, "compile_seconds" => 0.0, "sink" => 4), Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 0.0008963, "bytes" => 1308944, "events" => 34639, "compile_seconds" => 0.0, "sink" => 4))]))
+  Stacktrace:
+   [1] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+   [2] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-devex/2026-10-27/RED/test/generic_quality_devex_tests.jl:481 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] (::Main.GenericQualityDevexTests.var"#30#31")()
+     @ Main.GenericQualityDevexTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-devex/2026-10-27/RED/test/generic_quality_devex_tests.jl:470
+
+Whole-call allocation devex_shared: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-devex/2026-10-27/RED/test/generic_quality_devex_tests.jl:481
+  Expression: all((new["bytes"] < 0.97 * old["bytes"] && new["events"] < 0.97 * old["events"] for (old, new) = pairs))
+   Evaluated: all(Base.Generator{Vector{Tuple{Dict{String, Any}, Dict{String, Any}}}, Main.GenericQualityDevexTests.var"#32#33"}(Main.GenericQualityDevexTests.var"#32#33"(), Tuple{Dict{String, Any}, Dict{String, Any}}[(Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 7.5e-6, "bytes" => 11008, "events" => 296, "compile_seconds" => 0.0, "sink" => 0), Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 7.8e-6, "bytes" => 11008, "events" => 296, "compile_seconds" => 0.0, "sink" => 0)), (Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 8.1e-6, "bytes" => 11008, "events" => 296, "compile_seconds" => 0.0, "sink" => 0), Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 7.8e-6, "bytes" => 11008, "events" => 296, "compile_seconds" => 0.0, "sink" => 0)), (Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 7.6e-6, "bytes" => 11008, "events" => 296, "compile_seconds" => 0.0, "sink" => 0), Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 8.0e-6, "bytes" => 11008, "events" => 296, "compile_seconds" => 0.0, "sink" => 0))]))
+  Stacktrace:
+   [1] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+   [2] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-devex/2026-10-27/RED/test/generic_quality_devex_tests.jl:481 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] (::Main.GenericQualityDevexTests.var"#30#31")()
+     @ Main.GenericQualityDevexTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-devex/2026-10-27/RED/test/generic_quality_devex_tests.jl:470
+
+Whole-call allocation devex_solved: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-devex/2026-10-27/RED/test/generic_quality_devex_tests.jl:481
+  Expression: all((new["bytes"] < 0.97 * old["bytes"] && new["events"] < 0.97 * old["events"] for (old, new) = pairs))
+   Evaluated: all(Base.Generator{Vector{Tuple{Dict{String, Any}, Dict{String, Any}}}, Main.GenericQualityDevexTests.var"#32#33"}(Main.GenericQualityDevexTests.var"#32#33"(), Tuple{Dict{String, Any}, Dict{String, Any}}[(Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 3.64e-5, "bytes" => 45536, "events" => 1378, "compile_seconds" => 0.0, "sink" => 0), Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 3.57e-5, "bytes" => 45536, "events" => 1378, "compile_seconds" => 0.0, "sink" => 0)), (Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 3.67e-5, "bytes" => 45536, "events" => 1378, "compile_seconds" => 0.0, "sink" => 0), Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 3.53e-5, "bytes" => 45536, "events" => 1378, "compile_seconds" => 0.0, "sink" => 0)), (Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 3.57e-5, "bytes" => 45536, "events" => 1378, "compile_seconds" => 0.0, "sink" => 0), Dict("gc_seconds" => 0.0, "recompile_seconds" => 0.0, "seconds" => 3.57e-5, "bytes" => 45536, "events" => 1378, "compile_seconds" => 0.0, "sink" => 0))]))
+  Stacktrace:
+   [1] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+   [2] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-devex/2026-10-27/RED/test/generic_quality_devex_tests.jl:481 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] (::Main.GenericQualityDevexTests.var"#30#31")()
+     @ Main.GenericQualityDevexTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-devex/2026-10-27/RED/test/generic_quality_devex_tests.jl:470
+Test Summary:                                      | Pass  Fail  Total   Time
+Quality Devex RED                                  | 9465     6   9471  26.0s
+  BigFloat residual, quality and Devex regressions | 9465     6   9471  25.8s
+    Whole-function correctness BigFloat            |  573          573   2.2s
+    Whole-function correctness BigFloat            |  573          573   0.0s
+    Whole-function correctness BigFloat            |  573          573   0.0s
+    Whole-function correctness BigFloat            |  573          573   0.0s
+    Whole-function correctness BigFloat            |  573          573   0.1s
+    Whole-function correctness BigFloat            |  573          573   0.0s
+    Whole-function correctness BigFloat            |  573          573   0.0s
+    Whole-function correctness BigFloat            |  573          573   0.1s
+    Whole-function correctness BigFloat            |  573          573   0.0s
+    Whole-function correctness BigFloat            |  573          573   0.1s
+    Whole-function correctness BigFloat            |  573          573   0.0s
+    Whole-function correctness BigFloat            |  573          573   0.0s
+    Whole-function correctness BigFloat            |  573          573   0.0s
+    Whole-function correctness BigFloat            |  573          573   0.0s
+    Whole-function correctness BigFloat            |  573          573   0.0s
+    Whole-function correctness Float32             |  256          256   1.9s
+    Whole-function correctness Float64             |  256          256   1.8s
+    Whole-function correctness Rational{BigInt}    |  170          170   1.5s
+    Whole-function correctness Rational{Int64}     |  170          170   1.4s
+    Whole-call allocation direction                |    3     1      4   0.9s
+    Whole-call allocation row                      |    3     1      4   0.0s
+    Whole-call allocation quality                  |    3     1      4   0.1s
+    Whole-call allocation quality_transposed       |    3     1      4   0.1s
+    Whole-call allocation devex_shared             |    3     1      4   0.0s
+    Whole-call allocation devex_solved             |    3     1      4   0.0s
+RNG of the outermost testset: Random.Xoshiro(0x615881a62a4114a2, 0x0e657bbcb30107de, 0xdb40531aeff0ea6b, 0x914b672e6f227ab1, 0xcdda66a7fcea1b2a)

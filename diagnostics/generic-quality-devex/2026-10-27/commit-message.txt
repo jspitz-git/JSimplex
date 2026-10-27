@@ -1,0 +1,3 @@
+Reduce BigFloat temporary work in residual, quality and Devex checks
+
+Use the qualified conditional magnitude in ordinary dual residual checks. Reuse one private comparison-only underflow limit within ordinary BigFloat matrix/vector quality accumulation. Construct each fresh Devex upper cap only for positive overflow. Preserve numerical safeguards, tolerances, precision and rounding, arithmetic order, input owners, callback boundaries and generic/native fallbacks. Add ordinary whole-function differential and allocation regressions.
