@@ -254,6 +254,18 @@ function _stagnation_improvement(anchor::T,current::T,scale::T) where {T<:Abstra
     return change*(reference/scale)
 end
 
+function _stagnation_improvement(anchor::BigFloat,current::BigFloat,scale::BigFloat)
+    anchor == current && return zero(BigFloat)
+    # Normalize before subtracting, including opposite near-maximum values.
+    reference = max(_primal_direction_magnitude(anchor),_primal_direction_magnitude(current),scale)
+    change = anchor/reference-current/reference
+    iszero(change) && return zero(BigFloat)
+    return change*(reference/scale)
+end
+
+_stagnation_step_magnitude(value) = abs(value)
+_stagnation_step_magnitude(value::BigFloat) = _primal_direction_magnitude(value)
+
 function observe_progress!(m::StagnationMonitor{T,S};objective,primal_violation,
                            dual_violation,primal_step,dual_step,
                            algorithm::Symbol=:all)::Symbol where {T,S}
@@ -285,7 +297,7 @@ function observe_progress!(m::StagnationMonitor{T,S};objective,primal_violation,
     m.observations = min(typemax(Int)-1,m.observations)+1
     m.window_count += 1
     insignificant = T <: Rational ? iszero(ps) && iszero(ds) :
-        abs(ps)/m.primal_scale <= m.tolerance && abs(ds)/m.dual_scale <= m.tolerance
+        _stagnation_step_magnitude(ps)/m.primal_scale <= m.tolerance && _stagnation_step_magnitude(ds)/m.dual_scale <= m.tolerance
     m.insignificant_steps += insignificant
     if m.window_count == m.window
         # A return to a previous low point is oscillation, not renewed progress.

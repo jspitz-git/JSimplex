@@ -677,6 +677,9 @@ function _primal_ratio(workspace::SimplexWorkspace{T}, entering::Int, direction:
     return leaving_step, leaving_row, leaving_state
 end
 
+# Keep a fresh zero, NaN handling and signed-zero selection on the fallback path.
+_primal_nonnegative_step(value::BigFloat) = value > 0 ? value : max(zero(BigFloat),value)
+
 function _primal_ratio(workspace::SimplexWorkspace{BigFloat}, entering::Int, direction::BigFloat,
                        tableau_column::Vector{BigFloat})
     T = BigFloat
@@ -704,7 +707,7 @@ function _primal_ratio(workspace::SimplexWorkspace{BigFloat}, entering::Int, dir
                 _lower_violation(bound, workspace.primal[index])
             violation > tolerance && return nothing, -1, BASIC
         end
-        candidate = max(zero(T), raw_step)
+        candidate = _primal_nonnegative_step(raw_step)
         if !has_step || candidate < strict_step ||
            (candidate == strict_step && strict_row == 0)
             strict_step = candidate
@@ -714,7 +717,7 @@ function _primal_ratio(workspace::SimplexWorkspace{BigFloat}, entering::Int, dir
         end
         relaxed = _primal_relaxed_step(raw_step, tolerance, movement)
         if isfinite(relaxed) && (!has_relaxed_limit || relaxed < relaxed_limit)
-            relaxed_limit = max(zero(T), relaxed)
+            relaxed_limit = _primal_nonnegative_step(relaxed)
             has_relaxed_limit = true
         end
     end
@@ -736,7 +739,7 @@ function _primal_ratio(workspace::SimplexWorkspace{BigFloat}, entering::Int, dir
         iszero(movement) && continue
         bound = movement > 0 ? workspace.upper[index] : workspace.lower[index]
         isfinite(bound) || continue
-        candidate = max(zero(T),
+        candidate = _primal_nonnegative_step(
                         (bound_value(bound) - workspace.primal[index]) / movement)
         candidate <= relaxed_limit || continue
         pivot = _primal_direction_magnitude(tableau_column[row])
