@@ -651,7 +651,7 @@ function dual_infeasibility_summary(workspace::SimplexWorkspace{T}) where {T<:Un
             infeasibility += reduced_cost
             count += 1
         elseif state == FREE_NONBASIC
-            magnitude = abs(reduced_cost)
+            magnitude = _primal_direction_magnitude(reduced_cost)
             if magnitude > tolerance
                 infeasibility += magnitude
                 count += 1

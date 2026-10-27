@@ -384,7 +384,7 @@ function _primal_entering(workspace::SimplexWorkspace{T}, tolerance::T) where {T
             end
         else
             (state == AT_UPPER && reduced_cost > tolerance) ||
-            (state == FREE_NONBASIC && abs(reduced_cost) > tolerance)
+            (state == FREE_NONBASIC && _primal_direction_magnitude(reduced_cost) > tolerance)
         end
         improving || continue
         scored += 1

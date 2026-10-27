@@ -442,7 +442,7 @@ function _pool_primal_eligible(ws,index,tolerance)
     value = ws.reduced_costs[index]
     return (state == AT_LOWER && value < -tolerance) ||
            (state == AT_UPPER && value > tolerance) ||
-           (state == FREE_NONBASIC && abs(value) > tolerance)
+           (state == FREE_NONBASIC && _primal_direction_magnitude(value) > tolerance)
 end
 
 function _pool_primal_score(ws,index,pricing)

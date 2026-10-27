@@ -445,3 +445,5 @@ include("generic_pivot_scalars_tests.jl")
 include("generic_residual_magnitudes_tests.jl")
 
 include("generic_quality_local_tests.jl")
+
+include("generic_virtual_free_pivot_tests.jl")

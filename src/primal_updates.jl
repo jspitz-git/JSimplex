@@ -241,6 +241,39 @@ function _quality_components!(r::AbstractVector{W},scale,terms,B::_PriceAuditMat
     return unsafe
 end
 
+function _quality_components!(r::Vector{BigFloat},scale::Vector{BigFloat},
+                               terms::Vector{Int},B::_PriceAuditMatrix{BigFloat},
+                               x::Vector{BigFloat},rhs::Vector{BigFloat},transposed)
+    for i in eachindex(rhs)
+        r[i] = BigFloat(rhs[i])
+        scale[i] = _primal_direction_magnitude(r[i])
+        terms[i] = 1
+    end
+    A = B.matrix
+    m,n = size(A)
+    unsafe = false
+    limit = nothing
+    for j in axes(A,2), p in nzrange(A,j)
+        term_unsafe,limit = _bigfloat_quality_term!(r,scale,terms,x,A.nzval[p],j,A.rowval[p],transposed,limit)
+        unsafe |= term_unsafe
+    end
+    if m > 0
+        negative_unit = -one(BigFloat)
+        for i in 1:m
+            term_unsafe,limit = _bigfloat_quality_term!(r,scale,terms,x,negative_unit,n+i,i,transposed,limit)
+            unsafe |= term_unsafe
+        end
+    end
+    if n+m > 0
+        positive_unit = one(BigFloat)
+        for i in 1:n+m
+            term_unsafe,limit = _bigfloat_quality_term!(r,scale,terms,x,positive_unit,i,m+i,transposed,limit)
+            unsafe |= term_unsafe
+        end
+    end
+    return unsafe
+end
+
 function _primal_price_prediction_reliable(ws::SimplexWorkspace{T},predicted) where T
     all(i -> iszero(predicted[i]),ws.basis.basic_indices) || return false
     B = _PriceAuditMatrix(ws.problem.A)

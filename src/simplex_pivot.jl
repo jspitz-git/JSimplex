@@ -7,6 +7,14 @@ function _pivot_agrees(row_pivot, column_pivot, error_bound)::Bool
     return abs(row_pivot-column_pivot) <= error_bound
 end
 
+function _pivot_agrees(row_pivot::BigFloat, column_pivot::BigFloat, error_bound::BigFloat)::Bool
+    all(isfinite, (row_pivot,column_pivot,error_bound)) || return false
+    error_bound >= Clong(0) || return false
+    sign(row_pivot) == sign(column_pivot) || return false
+    min(_primal_direction_magnitude(row_pivot),_primal_direction_magnitude(column_pivot)) > error_bound || return false
+    return _primal_direction_magnitude(row_pivot-column_pivot) <= error_bound
+end
+
 struct _StageObserver{W}
     live::W
     pending::Vector{Symbol}
@@ -516,6 +524,68 @@ function validate_pivot!(ws::SimplexWorkspace{T}, proposal::PivotCandidate{T},
     isfinite(error_bound) || return :refresh
     error_bound <= policy.pivot_error_tolerance *
                    min(abs(row_pivot),abs(column_pivot)) || return :refresh
+    return _pivot_agrees(row_pivot,column_pivot,error_bound) &&
+           _pivot_agrees(row_pivot,independently_priced,error_bound) ?
+           :accept : :reject_candidate
+end
+
+function validate_pivot!(ws::SimplexWorkspace{BigFloat}, proposal::PivotCandidate{BigFloat},
+                         policy::NumericalPolicy{BigFloat})::Symbol
+    T = BigFloat
+    if policy.recovery && !isempty(ws.scratch.recovery_rejections)
+        _sync_recovery_rejections!(ws)
+        (proposal.leaving_row,proposal.entering) in ws.scratch.recovery_rejections &&
+            return :reject_candidate
+    end
+    B = _basis_matrix!(ws)
+    m = size(B,1)
+    length(proposal.column) == length(proposal.rho) == m ||
+        throw(DimensionMismatch("pivot solve dimensions"))
+    checkbounds(proposal.column,proposal.leaving_row)
+    checkbounds(ws.basis.states,proposal.entering)
+    buffers = _pivot_quality_buffers(ws)
+    rhs = _pivot_column!(buffers.rhs,ws,proposal.entering)
+    unit = fill!(buffers.unit,zero(T))
+    unit[proposal.leaving_row] = one(T)
+    column_quality = buffers.column
+    row_quality = buffers.row
+    cq = solve_quality!(column_quality,B,proposal.column,rhs,policy)
+    rq = solve_quality!(row_quality,B,proposal.rho,unit,policy;transposed=true)
+    cq.reliable && rq.reliable || return :refresh
+    row_pivot = proposal.row_pivot
+    column_pivot = proposal.column[proposal.leaving_row]
+    independently_priced = dot(proposal.rho,rhs)
+    all(isfinite,(row_pivot,column_pivot,independently_priced)) || return :reject_candidate
+    sign(row_pivot) == sign(column_pivot) || return :reject_candidate
+    iszero(column_pivot) && return :reject_candidate
+    isfinite(inv(column_pivot)) || return :reject_candidate
+    all(value -> isfinite(value/column_pivot),proposal.column) || return :reject_candidate
+    if _is_exact(T) === Val(true)
+        return row_pivot == independently_priced &&
+               _pivot_agrees(row_pivot,column_pivot,zero(T)) ? :accept : :reject_candidate
+    end
+    # e_r = B' * rho + row_residual and rhs = B * column + column_residual.
+    # Their contractions bound disagreement, not forward error in an arbitrary
+    # ill-conditioned basis. Cap the allowed error separately and require an
+    # independently accumulated row estimate to agree as well.
+    contraction = zero(T)
+    dot_scale = zero(T)
+    for i in eachindex(rhs)
+        contraction += _primal_direction_magnitude(row_quality.residual[i]*proposal.column[i]) +
+                       _primal_direction_magnitude(column_quality.residual[i]*proposal.rho[i])
+        dot_scale += _primal_direction_magnitude(proposal.rho[i]*rhs[i])
+    end
+    gamma = T(4m+8)*eps(T)
+    gamma < Clong(1) || return :refresh
+    roundoff_factor = gamma/(Clong(1)-gamma)
+    row_magnitude = _primal_direction_magnitude(row_pivot)
+    partial_scale = dot_scale+row_magnitude
+    column_magnitude = _primal_direction_magnitude(column_pivot)
+    roundoff = roundoff_factor*(partial_scale+column_magnitude)
+    error_bound = contraction + roundoff
+    isfinite(error_bound) || return :refresh
+    error_bound <= policy.pivot_error_tolerance *
+                   min(row_magnitude,column_magnitude) || return :refresh
     return _pivot_agrees(row_pivot,column_pivot,error_bound) &&
            _pivot_agrees(row_pivot,independently_priced,error_bound) ?
            :accept : :reject_candidate
