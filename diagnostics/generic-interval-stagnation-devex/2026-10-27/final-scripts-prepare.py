@@ -1,0 +1,13 @@
+from pathlib import Path
+import ast,shutil
+O=Path('/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-stagnation-unit-seed/2026-10-27');D=O.parents[1]/'generic-interval-stagnation-devex/2026-10-27'
+s=(O/'closure-final.py').read_text().replace('generic-stagnation-unit-seed','generic-interval-stagnation-devex').replace('common_reviewed','common').replace("D/'GREEN-final'","D/'GREEN'").replace('GREEN-2-run','GREEN-run').replace('source-inverse-final.json','source-inverse.json').replace('production-review-2.json','production-review.json').replace('publication-preparation-final.json','publication-preparation-reviewed.json').replace('preparation-review-final.json','preparation-review.json').replace('comparison-2/audit.json','comparison-2/audit-reconciled.json').replace('105921','15213')
+a=s.index('reviews=[');b=s.index('\nfor n in reviews:',a)
+s=s[:a]+"reviews=['comparison-2/admission.json','correctness-qualification/admission.json','correctness-qualification/result-review.json','comparison-2/reconciliation-review.json','result-review.json','production-review.json','publication-preparation-reviewed.json','preparation-review.json','commit-review.json','RED-run/admission.json','RED-run/result-review.json','GREEN-run/admission.json','GREEN-run/result-review.json','MASTER-run/admission.json','MASTER-run/result-review.json','final-review.json']"+s[b:]
+s=s.replace("for phase in [D,D/'GREEN-run']:","for phase in [D/'comparison-2']:")
+a=s.index('for phase,manifest in [');b=s.index(':\n pins=',a)
+s=s[:a]+"for phase,manifest in [(D,'pins.json'),(D/'comparison-1','pins.json'),(D/'comparison-2','pins.json'),(D/'correctness-qualification','pins.json'),(D/'correctness-qualification','pins-reviewed.json'),(D/'RED-run','pins.json'),(D/'GREEN-run','pins.json'),(D/'MASTER-run','pins.json')]"+s[b:]
+s=s.replace("cmp['accepted'] is True and cmp['assertions']==15213","cmp['accepted'] is True and cmp['assertions']==15213 and cmp['original_run_accepted'] is False and cmp['raw_original_failures']==360 and c.read('correctness-qualification/audit.json')['assertions']==15213").replace("red['expected_failures']==5","red['expected_failures']==6")
+ast.parse(s);(D/'closure.py').write_text(s)
+s=(O/'diagnostic-publish-final.py').read_text().replace('generic-stagnation-unit-seed','generic-interval-stagnation-devex').replace('common_reviewed','common').replace('Record stagnation and steepest initialization scalar savings','Record interval monitor and Devex scalar savings');ast.parse(s);(D/'diagnostic-publish.py').write_text(s)
+shutil.copyfile(__file__,D/'final-scripts-prepare.py');print('new closure and exactpublisher prepared, unexecuted')

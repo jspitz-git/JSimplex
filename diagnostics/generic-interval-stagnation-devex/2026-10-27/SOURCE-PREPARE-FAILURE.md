@@ -1,0 +1,1 @@
+Initial offline preparation stopped before module creation on a nonunique overloaded relaxed-step end marker. Valid already-written changes.json retained unchanged. Separate full-signature marker correction only; no Julia or production change.

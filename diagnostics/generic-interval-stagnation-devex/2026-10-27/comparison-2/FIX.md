@@ -1,0 +1,3 @@
+Independent prelaunch rejection: add actual stored512 Bworkspace conversion/owner tests and Cscalar+whole weight/pivot tests under all15ambient contexts. Negative-shaped wholeC now genuinely uses negative pivot. Same1813matrix/32634windows/alloriginalexpectations/candidatebodies. NoJulia attempted; originalrootunexecuted/frozen. No tolerance/precision/source tuning.
+
+Second offline review: copied host snapshot lacked diagnostic_head expected by common.unchanged. New fresh fullhost includes explicit actualDIref; same sources/tests/1813cells/32634windows/guard. Original Q never launched and frozen; no numerical attempt used.

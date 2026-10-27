@@ -1,0 +1,1 @@
+Ordinary Test and plain finally TOML. Raw typed column arrays retain all32634 windows and preparation costs; cold/warm/reset/fixture/validation/GC separately recorded. No custom recorder/manual Test stack. All outputs consumed; import/process init only bounded inclusive.

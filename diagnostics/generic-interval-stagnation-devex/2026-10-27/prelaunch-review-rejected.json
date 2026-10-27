@@ -1,0 +1,47 @@
+{
+  "accepted": false,
+  "findings": [
+    {
+      "id": "B-mixed-precision",
+      "file": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-interval-stagnation-devex/2026-10-27/fixtures.jl",
+      "detail": "Only A receives stored 512-bit inputs. Add actual BigFloat workspace setup/rebase controls for stored-512 positive/negative costs, primal values and finite bounds, retaining conversion precision and owner parity."
+    },
+    {
+      "id": "C-mixed-precision",
+      "file": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-interval-stagnation-devex/2026-10-27/fixtures.jl",
+      "detail": "Devex controls use ambient-precision weights/pivots. Add stored-512 positive/negative weights/pivots paired with ambient values, strict bit/precision/sign comparisons, input preservation and fresh result ownership across all 15 BigFloat contexts."
+    },
+    {
+      "id": "C-negative-whole-pivot",
+      "file": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-interval-stagnation-devex/2026-10-27/fixtures.jl",
+      "detail": "Whole Devex update fixtures use positive 3/4 pivot for every matrix shape. Exercise negative pivot for negative shape in both shared-row and actual-BTRAN/price consumers; keep the 1813-cell grid."
+    }
+  ],
+  "bindings": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-interval-stagnation-devex/2026-10-27/PLAN.md": "a7816a2bfdacb621e807655275d60c1ecab2cc53aeff20f047bedcfd8580929f",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-interval-stagnation-devex/2026-10-27/progress.md": "193049fd8373ff8ade1c61b2b305adf9904806bef8759822614cc35e1892f8f0",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-interval-stagnation-devex/2026-10-27/changes.json": "613480fabb26394f9adc66de7fecde035c9f79515fe42bee44a1de6f356c3930",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-interval-stagnation-devex/2026-10-27/source-clones.json": "7350ca5bb48bbe114946d50f281b078a2c32376c1441e8e9ece81380b436ba7d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-interval-stagnation-devex/2026-10-27/Reference.jl": "182624b45c6d3b743f9325ffc6f690af8cf2c0b3461295bba5cb400133ae05a8",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-interval-stagnation-devex/2026-10-27/A.jl": "032182dd159109822d255e755e2dfd78ac4a5d73b35f78914fd4ca5e70dd82f6",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-interval-stagnation-devex/2026-10-27/B.jl": "dea381e570280be34418e238a72aaba06f5eacd16166887d7253fd89f2385428",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-interval-stagnation-devex/2026-10-27/C.jl": "27363fda610145283a80289347e3ee1e40ca8d2fcf113cb3f795b397f029da52",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-interval-stagnation-devex/2026-10-27/fixtures.jl": "41b40cfd5647a996eb404a19825983e7080a4693cf0a4646971ce0c7e8fbf416",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-interval-stagnation-devex/2026-10-27/driver.jl": "c60501291f20cb578f1ab2d40256f1469de3b97128cb79eb4f0904756d659ba9",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-interval-stagnation-devex/2026-10-27/audit.py": "cba7f99ea98050b2b76e8cded1ebf77fecff07b8c04e7860e03cf31164d0561c",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-interval-stagnation-devex/2026-10-27/common.py": "c29675b8c92c671952b29ae8f4fe9de72e8c74b5408ba9ae7e5e1787d645b502",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-interval-stagnation-devex/2026-10-27/launch.py": "a9868953ad67984c1ddf2ce7795d6f1f3b476c31151016c31ba3d91c66d2f334",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-interval-stagnation-devex/2026-10-27/guard/entry_gate.py": "6b1f569959d53c2d37faa0e8f6a8ebda6887ef8b6e5602db8e0b15ae5f530ff9",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-interval-stagnation-devex/2026-10-27/guard/guard_reviewed.py": "92f1c19ded9615f8a1f8cab70bf5209d8dc9db734e9592c3bbf3f5852ee9aa67",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-interval-stagnation-devex/2026-10-27/guard/supervisor_reviewed.py": "f983198c245079eafa712d1b4752a6ac56456aa91058fc469245fa77759bf0ec",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-interval-stagnation-devex/2026-10-27/contract.json": "4cb5d2ddbece8dd0e045c9dac70b79f7723cccc4eb0c6a4161cda09465b2a188",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-interval-stagnation-devex/2026-10-27/pins.json": "b9d57aa5d529cf3e2012d7e666dffa9d6884add200dab880186bba370ec0a5ca",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-interval-stagnation-devex/2026-10-27/protected-before.json": "d9465a80114ce52ba60df41fda4fd17ab0d295f281a5a7959c8dc1ed5a3d5b54",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-interval-stagnation-devex/2026-10-27/host-seed.json": "0077abb6ad69b0cc7e942c0fe64b24c9631315fc42e35f7735ec4c888ecf9816",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-interval-stagnation-devex/2026-10-27/runtime-readtime-pins.json": "d34eab19c9cafa1eb17ff54e9ea78235c63cb85eb27bbb7ad26419e07fcb3236",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-interval-stagnation-devex/2026-10-27/baseline-tree.json": "623f0cbd300cdb8dcdc465352ef1a46bb5f28d6d8e3d94fcf1c43cb472907ab4",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-interval-stagnation-devex/2026-10-27/independent-initial-review-check.json": "6174f6de6eb61020e30844bd4767ed6a7416027ed0adad83a48511c97fb3e254"
+  },
+  "checked_at": "2026-10-27T17:18:46.428608+00:00",
+  "Julia_launched": false
+}

@@ -1,0 +1,1 @@
+Independent prelaunch rejection: add actual stored512 Bworkspace conversion/owner tests and Cscalar+whole weight/pivot tests under all15ambient contexts. Negative-shaped wholeC now genuinely uses negative pivot. Same1813matrix/32634windows/alloriginalexpectations/candidatebodies. NoJulia attempted; originalrootunexecuted/frozen. No tolerance/precision/source tuning.

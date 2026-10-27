@@ -1,0 +1,1 @@
+Offline test producer stopped before test/stage creation because it expected review key variants; actual independent schema uses accepted_variants and decisions. New producer binds both actual fields. No Julia/production change.

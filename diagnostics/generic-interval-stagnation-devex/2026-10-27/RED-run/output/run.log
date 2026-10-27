@@ -1,0 +1,139 @@
+ISD_SOURCE /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-interval-stagnation-devex/2026-10-27/RED/src/JSimplex.jl
+INCLUDING generic_interval_stagnation_devex_tests.jl
+ERROR: LoadError: Some tests did not pass: 15231 passed, 6 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-interval-stagnation-devex/2026-10-27/RED-run/tests.jl:8
+
+Whole-call allocation rows: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-interval-stagnation-devex/2026-10-27/RED/test/generic_interval_stagnation_devex_tests.jl:906
+  Expression: all((new["events"] < old["events"] for (old, new) = pairs)) && (sort([new["bytes"] for (old, new) = pairs]))[2] < (sort([old["bytes"] for (old, new) = pairs]))[2]
+  Stacktrace:
+   [1] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+   [2] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-interval-stagnation-devex/2026-10-27/RED/test/generic_interval_stagnation_devex_tests.jl:906 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] (::Main.GenericIntervalStagnationDevexTests.var"#43#44")()
+     @ Main.GenericIntervalStagnationDevexTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-interval-stagnation-devex/2026-10-27/RED/test/generic_interval_stagnation_devex_tests.jl:896
+
+Whole-call allocation witness: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-interval-stagnation-devex/2026-10-27/RED/test/generic_interval_stagnation_devex_tests.jl:906
+  Expression: all((new["events"] < old["events"] for (old, new) = pairs)) && (sort([new["bytes"] for (old, new) = pairs]))[2] < (sort([old["bytes"] for (old, new) = pairs]))[2]
+  Stacktrace:
+   [1] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+   [2] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-interval-stagnation-devex/2026-10-27/RED/test/generic_interval_stagnation_devex_tests.jl:906 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] (::Main.GenericIntervalStagnationDevexTests.var"#43#44")()
+     @ Main.GenericIntervalStagnationDevexTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-interval-stagnation-devex/2026-10-27/RED/test/generic_interval_stagnation_devex_tests.jl:896
+
+Whole-call allocation new: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-interval-stagnation-devex/2026-10-27/RED/test/generic_interval_stagnation_devex_tests.jl:906
+  Expression: all((new["events"] < old["events"] for (old, new) = pairs)) && (sort([new["bytes"] for (old, new) = pairs]))[2] < (sort([old["bytes"] for (old, new) = pairs]))[2]
+  Stacktrace:
+   [1] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+   [2] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-interval-stagnation-devex/2026-10-27/RED/test/generic_interval_stagnation_devex_tests.jl:906 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] (::Main.GenericIntervalStagnationDevexTests.var"#43#44")()
+     @ Main.GenericIntervalStagnationDevexTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-interval-stagnation-devex/2026-10-27/RED/test/generic_interval_stagnation_devex_tests.jl:896
+
+Whole-call allocation cold: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-interval-stagnation-devex/2026-10-27/RED/test/generic_interval_stagnation_devex_tests.jl:906
+  Expression: all((new["events"] < old["events"] for (old, new) = pairs)) && (sort([new["bytes"] for (old, new) = pairs]))[2] < (sort([old["bytes"] for (old, new) = pairs]))[2]
+  Stacktrace:
+   [1] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+   [2] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-interval-stagnation-devex/2026-10-27/RED/test/generic_interval_stagnation_devex_tests.jl:906 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] (::Main.GenericIntervalStagnationDevexTests.var"#43#44")()
+     @ Main.GenericIntervalStagnationDevexTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-interval-stagnation-devex/2026-10-27/RED/test/generic_interval_stagnation_devex_tests.jl:896
+
+Whole-call allocation rebase: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-interval-stagnation-devex/2026-10-27/RED/test/generic_interval_stagnation_devex_tests.jl:906
+  Expression: all((new["events"] < old["events"] for (old, new) = pairs)) && (sort([new["bytes"] for (old, new) = pairs]))[2] < (sort([old["bytes"] for (old, new) = pairs]))[2]
+  Stacktrace:
+   [1] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+   [2] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-interval-stagnation-devex/2026-10-27/RED/test/generic_interval_stagnation_devex_tests.jl:906 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] (::Main.GenericIntervalStagnationDevexTests.var"#43#44")()
+     @ Main.GenericIntervalStagnationDevexTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-interval-stagnation-devex/2026-10-27/RED/test/generic_interval_stagnation_devex_tests.jl:896
+
+Whole-call allocation devex_solve: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-interval-stagnation-devex/2026-10-27/RED/test/generic_interval_stagnation_devex_tests.jl:906
+  Expression: all((new["events"] < old["events"] for (old, new) = pairs)) && (sort([new["bytes"] for (old, new) = pairs]))[2] < (sort([old["bytes"] for (old, new) = pairs]))[2]
+  Stacktrace:
+   [1] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+   [2] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-interval-stagnation-devex/2026-10-27/RED/test/generic_interval_stagnation_devex_tests.jl:906 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] (::Main.GenericIntervalStagnationDevexTests.var"#43#44")()
+     @ Main.GenericIntervalStagnationDevexTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-interval-stagnation-devex/2026-10-27/RED/test/generic_interval_stagnation_devex_tests.jl:896
+Test Summary:                                                |  Pass  Fail  Total   Time
+Interval setup Devex RED                                     | 15231     6  15237  37.3s
+  Interval monitor and Devex whole-function regressions      | 15231     6  15237  37.0s
+    Interval setup Devex correctness BigFloat                |   654          654   3.0s
+    Scale owners callbacks and empty bounds BigFloat         |    83           83   0.8s
+    Actual stored-512 workspace and Devex boundaries         |   148          148   0.0s
+    Interval setup Devex correctness BigFloat                |   654          654   0.0s
+    Scale owners callbacks and empty bounds BigFloat         |    83           83   0.0s
+    Actual stored-512 workspace and Devex boundaries         |   148          148   0.0s
+    Interval setup Devex correctness BigFloat                |   654          654   0.1s
+    Scale owners callbacks and empty bounds BigFloat         |    83           83   0.0s
+    Actual stored-512 workspace and Devex boundaries         |   148          148   0.0s
+    Interval setup Devex correctness BigFloat                |   654          654   0.0s
+    Scale owners callbacks and empty bounds BigFloat         |    83           83   0.0s
+    Actual stored-512 workspace and Devex boundaries         |   148          148   0.0s
+    Interval setup Devex correctness BigFloat                |   654          654   0.0s
+    Scale owners callbacks and empty bounds BigFloat         |    83           83   0.0s
+    Actual stored-512 workspace and Devex boundaries         |   148          148   0.0s
+    Interval setup Devex correctness BigFloat                |   654          654   0.0s
+    Scale owners callbacks and empty bounds BigFloat         |    83           83   0.0s
+    Actual stored-512 workspace and Devex boundaries         |   148          148   0.0s
+    Interval setup Devex correctness BigFloat                |   654          654   0.0s
+    Scale owners callbacks and empty bounds BigFloat         |    83           83   0.0s
+    Actual stored-512 workspace and Devex boundaries         |   148          148   0.0s
+    Interval setup Devex correctness BigFloat                |   654          654   0.0s
+    Scale owners callbacks and empty bounds BigFloat         |    83           83   0.0s
+    Actual stored-512 workspace and Devex boundaries         |   148          148   0.0s
+    Interval setup Devex correctness BigFloat                |   654          654   0.0s
+    Scale owners callbacks and empty bounds BigFloat         |    83           83   0.0s
+    Actual stored-512 workspace and Devex boundaries         |   148          148   0.0s
+    Interval setup Devex correctness BigFloat                |   654          654   0.0s
+    Scale owners callbacks and empty bounds BigFloat         |    83           83   0.0s
+    Actual stored-512 workspace and Devex boundaries         |   148          148   0.0s
+    Interval setup Devex correctness BigFloat                |   654          654   0.0s
+    Scale owners callbacks and empty bounds BigFloat         |    83           83   0.0s
+    Actual stored-512 workspace and Devex boundaries         |   148          148   0.0s
+    Interval setup Devex correctness BigFloat                |   654          654   0.0s
+    Scale owners callbacks and empty bounds BigFloat         |    83           83   0.0s
+    Actual stored-512 workspace and Devex boundaries         |   148          148   0.0s
+    Interval setup Devex correctness BigFloat                |   654          654   0.0s
+    Scale owners callbacks and empty bounds BigFloat         |    83           83   0.0s
+    Actual stored-512 workspace and Devex boundaries         |   148          148   0.0s
+    Interval setup Devex correctness BigFloat                |   654          654   0.0s
+    Scale owners callbacks and empty bounds BigFloat         |    83           83   0.0s
+    Actual stored-512 workspace and Devex boundaries         |   148          148   0.0s
+    Interval setup Devex correctness BigFloat                |   654          654   0.0s
+    Scale owners callbacks and empty bounds BigFloat         |    83           83   0.0s
+    Actual stored-512 workspace and Devex boundaries         |   148          148   0.0s
+    Interval setup Devex correctness Float32                 |   404          404   2.7s
+    Scale owners callbacks and empty bounds Float32          |    73           73   0.7s
+    Interval setup Devex correctness Float64                 |   404          404   2.8s
+    Scale owners callbacks and empty bounds Float64          |    73           73   0.7s
+    Interval setup Devex correctness Rational{BigInt}        |   404          404   3.1s
+    Scale owners callbacks and empty bounds Rational{BigInt} |    73           73   0.7s
+    Interval setup Devex correctness Rational{Int64}         |   404          404   3.0s
+    Scale owners callbacks and empty bounds Rational{Int64}  |    73           73   0.8s
+    Whole-call allocation rows                               |     3     1      4   0.7s
+    Whole-call allocation witness                            |     3     1      4   0.1s
+    Whole-call allocation new                                |     3     1      4   0.0s
+    Whole-call allocation cold                               |     3     1      4   0.0s
+    Whole-call allocation rebase                             |     3     1      4   0.0s
+    Whole-call allocation devex_solve                        |     3     1      4   0.0s
+RNG of the outermost testset: Random.Xoshiro(0x4f511fc4a1ee03a5, 0xb76fc8bade5deae5, 0x79d59d0862baa166, 0xb6e48d0edbc1ed95, 0xd70c66872cfa6a65)
