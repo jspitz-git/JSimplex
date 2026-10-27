@@ -29,6 +29,27 @@ function _primal_direction_weight(direction::AbstractVector{T}) where {T<:Ration
     return weight, stored_weight
 end
 
+function _primal_direction_weight(direction::AbstractVector{BigFloat})
+    T = BigFloat
+    scale = one(T)
+    for coefficient in direction
+        scale = max(scale, _primal_direction_magnitude(coefficient))
+    end
+    scaled_square = abs2(inv(scale))
+    for coefficient in direction
+        scaled_square += abs2(coefficient / scale)
+    end
+    factor = sqrt(scaled_square)
+    scale_mantissa, scale_exponent = frexp(scale)
+    factor_mantissa, factor_exponent = frexp(factor)
+    mantissa, correction = frexp(scale_mantissa * factor_mantissa)
+    # Keep the exponent separately: a finite column can have a norm above floatmax(T).
+    scaled_weight = (scale_exponent + factor_exponent + correction, mantissa)
+    product = scale * factor
+    stored_weight = isinf(product) && !signbit(product) ? floatmax(BigFloat) : product
+    return scaled_weight, stored_weight
+end
+
 function _primal_weighted_score(reduced_cost::T,
                                 weight::Tuple{I,T}) where {I<:Integer,T<:AbstractFloat}
     cost_mantissa, cost_exponent = frexp(abs(reduced_cost))
@@ -510,6 +531,12 @@ _primal_relaxed_step(raw_step::T, tolerance::T, movement::T) where {T<:Rational}
 _primal_relaxed_step(raw_step::BigFloat, tolerance::BigFloat, movement::BigFloat) =
     raw_step + tolerance / _primal_direction_magnitude(movement)
 
+# Invocation-private comparison zero is read-only and never published by these Boolean guards.
+_primal_bound_lower_violation(bound::Bound{T},value::T,z::T) where T =
+    isfinite(bound) ? bound_value(bound)-value : z
+_primal_bound_upper_violation(bound::Bound{T},value::T,z::T) where T =
+    isfinite(bound) ? value-bound_value(bound) : z
+
 function _primal_bound_snap_feasible(workspace::SimplexWorkspace{T}, entering::Int,
                                     direction::T, column::Vector{T}, leaving_row::Int) where {T}
     leaving = workspace.basis.basic_indices[leaving_row]
@@ -558,15 +585,16 @@ function _primal_bound_snap_feasible(workspace::SimplexWorkspace{BigFloat}, ente
     value = workspace.primal[entering] + direction * step
     isfinite(value) || return false
     tolerance = workspace.options.primal_tolerance
-    violation = max(zero(T), _lower_violation(workspace.lower[entering], value),
-                    _upper_violation(workspace.upper[entering], value))
+    comparison_zero = zero(T)
+    violation = max(comparison_zero, _primal_bound_lower_violation(workspace.lower[entering], value, comparison_zero),
+                    _primal_bound_upper_violation(workspace.upper[entering], value, comparison_zero))
     violation <= tolerance || return false
     for (row, index) in enumerate(workspace.basis.basic_indices)
         row == leaving_row && continue
         value = workspace.primal[index] - direction * column[row] * step
         isfinite(value) || return false
-        bound_violation = max(zero(T), _lower_violation(workspace.lower[index], value),
-                              _upper_violation(workspace.upper[index], value))
+        bound_violation = max(comparison_zero, _primal_bound_lower_violation(workspace.lower[index], value, comparison_zero),
+                              _primal_bound_upper_violation(workspace.upper[index], value, comparison_zero))
         # Use the same per-bound feasibility criterion as legacy Harris pricing
         # and recomputation, including the movement imposed by this bound snap.
         violation = max(violation, bound_violation)
@@ -584,6 +612,57 @@ function _primal_step_bounds_feasible(workspace::SimplexWorkspace{T}, direction:
         isfinite(value) || return false
         violation = max(zero(T), _lower_violation(workspace.lower[index], value),
                         _upper_violation(workspace.upper[index], value))
+        violation <= tolerance || return false
+    end
+    return true
+end
+
+function _primal_bound_snap_feasible(workspace::SimplexWorkspace{Rational{BigInt}}, entering::Int,
+                                    direction::Rational{BigInt}, column::Vector{Rational{BigInt}}, leaving_row::Int)
+    T = Rational{BigInt}
+    leaving = workspace.basis.basic_indices[leaving_row]
+    movement = -direction * column[leaving_row]
+    bound = movement > zero(T) ? workspace.upper[leaving] : workspace.lower[leaving]
+    step = (bound_value(bound) - workspace.primal[leaving]) / movement
+    step >= zero(T) && return true
+    state = movement > zero(T) ? AT_UPPER : AT_LOWER
+    _can_preserve_primal_bound_value(workspace, leaving, state, bound) && return true
+    # A tolerated bound violation has a negative ratio. Clipping it to zero
+    # does not eliminate the movement imposed by fixing the leaving variable
+    # exactly at its bound during the subsequent basis recomputation.
+    value = workspace.primal[entering] + direction * step
+    isfinite(value) || return false
+    tolerance = workspace.options.primal_tolerance
+    comparison_zero = zero(T)
+    violation = max(comparison_zero, _primal_bound_lower_violation(workspace.lower[entering], value, comparison_zero),
+                    _primal_bound_upper_violation(workspace.upper[entering], value, comparison_zero))
+    violation <= tolerance || return false
+    for (row, index) in enumerate(workspace.basis.basic_indices)
+        row == leaving_row && continue
+        value = workspace.primal[index] - direction * column[row] * step
+        isfinite(value) || return false
+        bound_violation = max(comparison_zero, _primal_bound_lower_violation(workspace.lower[index], value, comparison_zero),
+                              _primal_bound_upper_violation(workspace.upper[index], value, comparison_zero))
+        # Use the same per-bound feasibility criterion as legacy Harris pricing
+        # and recomputation, including the movement imposed by this bound snap.
+        violation = max(violation, bound_violation)
+        violation <= tolerance || return false
+    end
+    return true
+end
+
+function _primal_step_bounds_feasible(workspace::SimplexWorkspace{T}, direction::T,
+                                      column::Vector{T}, step::T) where {T<:Union{BigFloat,Rational{BigInt}}}
+    tolerance = workspace.options.primal_tolerance
+    comparison_zero = nothing
+    for (row, index) in enumerate(workspace.basis.basic_indices)
+        value = workspace.primal[index] - direction * column[row] * step
+        isfinite(value) || return false
+        if isnothing(comparison_zero)
+            comparison_zero = zero(T)
+        end
+        violation = max(comparison_zero, _primal_bound_lower_violation(workspace.lower[index], value, comparison_zero),
+                        _primal_bound_upper_violation(workspace.upper[index], value, comparison_zero))
         violation <= tolerance || return false
     end
     return true

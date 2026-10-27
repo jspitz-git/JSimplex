@@ -453,3 +453,5 @@ include("generic_stagnation_unit_seed_tests.jl")
 include("generic_interval_stagnation_devex_tests.jl")
 
 include("generic_ratio_monitor_tests.jl")
+
+include("generic_bounds_norm_infeasibility_tests.jl")

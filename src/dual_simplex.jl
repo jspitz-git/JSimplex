@@ -1129,6 +1129,57 @@ function _floating_infeasibility_certified(workspace::SimplexWorkspace{T},
     return minimum_value > zero(T)
 end
 
+function _floating_infeasibility_certified(workspace::SimplexWorkspace{BigFloat},
+                                          rho::Vector{BigFloat}, below::Bool)
+    T = BigFloat
+    # Every feasible working vector satisfies [A -I] * x == 0. A row
+    # combination must stay positive over the tolerance envelope of the bounds.
+    # This does not rely on the computed basic primal values.
+    A = workspace.problem.A
+    column_count = size(A, 2)
+    orientation = below ? one(T) : -one(T)
+    minimum_value = zero(T)
+    for index in eachindex(workspace.lower)
+        coefficient_lower = coefficient_upper = zero(T)
+        if index <= column_count
+            for position in A.colptr[index]:(A.colptr[index + 1] - 1)
+                coefficient_lower, coefficient_upper = _add_product_bounds(
+                    coefficient_lower, coefficient_upper,
+                    orientation * rho[A.rowval[position]], A.nzval[position],
+                )
+            end
+        else
+            coefficient_lower = coefficient_upper = -orientation * rho[index - column_count]
+        end
+        isfinite(coefficient_lower) && isfinite(coefficient_upper) || return false
+        iszero(coefficient_lower) && iszero(coefficient_upper) && continue
+
+        lower, upper = workspace.lower[index], workspace.upper[index]
+        !isfinite(lower) && coefficient_upper > 0 && return false
+        !isfinite(upper) && coefficient_lower < 0 && return false
+        isfinite(lower) || isfinite(upper) || return false
+        endpoint = isfinite(lower) ? bound_value(lower) : bound_value(upper)
+        term = min(coefficient_lower * endpoint, coefficient_upper * endpoint)
+        if isfinite(lower) && isfinite(upper)
+            endpoint = bound_value(upper)
+            term = min(term, coefficient_lower * endpoint, coefficient_upper * endpoint)
+        end
+        isfinite(term) || return false
+        contribution = prevfloat(term)
+        allowance = _infeasibility_bound_allowance(workspace,index)
+        if !iszero(allowance)
+            magnitude = nextfloat(max(_primal_direction_magnitude(coefficient_lower),_primal_direction_magnitude(coefficient_upper)))
+            penalty = nextfloat(magnitude*allowance)
+            isfinite(penalty) || return false
+            contribution = prevfloat(contribution-penalty)
+        end
+        total = minimum_value + contribution
+        isfinite(total) || return false
+        minimum_value = prevfloat(total)
+    end
+    return minimum_value > 0
+end
+
 function _dual_direction_residual_ok!(workspace::SimplexWorkspace{T},
                                       direction::Vector{T}, pivot::T) where {T<:AbstractFloat}
     A = workspace.problem.A
