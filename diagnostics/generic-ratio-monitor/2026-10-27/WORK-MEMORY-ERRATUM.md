@@ -1,0 +1,3 @@
+# Scope wording correction
+
+PLAN.md and WORK-MEMORY.md use an overly broad shorthand that every nonfinite step follows the original clamp fallback. The strict-positive BigFloat predicate also accepts positive infinity; returning that existing operand preserves the original max(+zero,+Inf) value and owner. NaN, negative infinity, both zeros and negative finite values retain the original fresh-zero max expression. Direct signedzero/infinity/NaN/mixed-precision component controls passed in the admitted comparison and original RED. The original documents remain frozen; this corrects prose only, with no source, test, expectation, measurement or gate change.

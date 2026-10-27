@@ -1,0 +1,3 @@
+Reduce BigFloat ratio and stagnation scalar allocations
+
+Avoid constructing a zero for positive primal ratio candidates, and avoid discarded nonnegative negations in progress-step and normalized improvement magnitudes. Preserve all numerical guards, tolerances, arithmetic order, signed-zero handling, scalar ownership, precision/rounding and callback/context checks. Add ordinary whole-function correctness and allocation regressions.

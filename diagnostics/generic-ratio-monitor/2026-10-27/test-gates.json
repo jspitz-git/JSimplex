@@ -1,0 +1,33 @@
+{
+  "accepted_variants": [
+    "A",
+    "B",
+    "C"
+  ],
+  "baseline_component_test": "Uses exact old max when production helper absent; all whole-call gates call actual original functions and must fail RED",
+  "expected_RED_failures": 4,
+  "failure_line": 613,
+  "gates": [
+    [
+      "ratio",
+      "A",
+      "end"
+    ],
+    [
+      "progress",
+      "B",
+      "ordinary"
+    ],
+    [
+      "progress",
+      "C",
+      "end"
+    ],
+    [
+      "workspace",
+      "BC",
+      "end"
+    ]
+  ],
+  "rule": "fixed3pairs lowerEvents each/lowerMedianBytes, no time assertions, original tests/thresholds unchanged"
+}

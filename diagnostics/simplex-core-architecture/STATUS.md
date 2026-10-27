@@ -1,3 +1,13 @@
+# Current continuation — BigFloat ratio and stagnation savings integrated, 2026-10-27
+
+Master/origin/master `9d29b1f0aa21932217b03ca7b35dd91281baaae6` normally pushed/remoteverified. Exact4paths: BigFloat positive ratio clamps avoid unusedzero, conditional stepmagnitudes and normalizedimprovement magnitudes; generic/exact routes and allguards/tolerances/order/owners/callback/context/recoveryprecision remain. No newscan/solve/copy/conversion/persistentcache; independentreview no unnecessaryproductionworkmemory. A positive includes+Inf (sameowner), otherexceptional/zero/negative fallback originalfreshzero/max; exactproseerratum separate.
+
+One short measurement52721PASS/1225cells/22050compilezerowindows/7GCwindows preserved; no remeasurement. BFwholepositivestep ratio median time~0.922/bytes~0.908, monitor standalone savesallocations; wholeworkspace timeinconclusive/allslowercases andbytevariationretained. No endtoend/universal/nativefreeclaim. Allinitialofflineharnessrejections and beforeversions preserved; finalcorrectness expectations fixed beforeJulia with candidate unchanged.
+
+RED24721PASS+4expectedcostFAIL; GREEN/actualMASTER each298088PASS/50samewholefiles, oldtests/thresholdsunchanged/no oldexceptionreused. Exactinverse/privateindexcommit/ff-only/freshMASTER/independentreviews/normalpush verified. Evidence diagnostics/generic-ratio-monitor/2026-10-27/FINAL-REPORT.md. FinalPASSclosure/exactdiagnosticpublication separatelyrequired. Oldbindings mapONLY baseline/before-master/continuation-before; alloldermaps/raw/rejections FROZENNEVERRERUN/rewrite. Userfiles/env preserved, freshfullgroupsANDsessions/boot/startticks/command/noJulia; CIoff/automationpaused/HHdisabled/broader/fullsuite/x64/native-retentionOPEN. Noautomaticnewexperiment.
+
+## Previous continuation — preserved verbatim below
+
 # Current continuation — BigFloat interval/monitor/Devex savings integrated, 2026-10-27
 
 Master/origin/master `8ceff4f1f7d295dcc9e656295b5553e28e7cbe9b` normally pushed/remote-verified, exact5paths(3src+ordinarytest+runtests). Aconditionalmagnitudes onlywithin originalBFintervalNearest guards; allFMA/FastTwoSum/underflow/precision/rounding/enclosures retained. BconcreteBFmonitor setup/rebase AFTERtype, originalconversions/owners/recoveryprecision/callback/context/hash/history/scans retained. CBFDevexleaving freshunitfirst/samequotient/finalmax/caponlypositiveoverflow. Generic/native/exact routes and tolerances/coefficients/arithmeticorder/exception/ownerchecks retained. No newscan/solve/copy/conversion/persistentnumericcache; independent review no unnecessaryproductionworkmemory.
