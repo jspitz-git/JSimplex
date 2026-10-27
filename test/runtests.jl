@@ -449,3 +449,5 @@ include("generic_quality_local_tests.jl")
 include("generic_virtual_free_pivot_tests.jl")
 
 include("generic_stagnation_unit_seed_tests.jl")
+
+include("generic_interval_stagnation_devex_tests.jl")

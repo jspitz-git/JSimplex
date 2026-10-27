@@ -1907,7 +1907,7 @@ function _primal_sum_bounds(left::BigFloat, right::BigFloat)
     # Other rounding modes and mixed BigFloat precisions use the enclosure.
     if isfinite(value) && _primal_nearest_rounding(T) &&
        precision(left) == precision(right) == precision(T)
-        left_magnitude, right_magnitude = abs(left), abs(right)
+        left_magnitude, right_magnitude = _primal_direction_magnitude(left), _primal_direction_magnitude(right)
         if min(left_magnitude, right_magnitude) >= ldexp(nextfloat(zero(T)), precision(T))
             large, small = left_magnitude >= right_magnitude ? (left, right) : (right, left)
             error = (large - value) + small
@@ -1971,7 +1971,7 @@ function _primal_product_bounds(left::BigFloat, right::BigFloat)
         # A nonzero fused residual has a conclusive sign. Zero only proves
         # exactness when the product's finest possible bit cannot underflow.
         if isfinite(error) && (!iszero(error) ||
-           abs(value) >= ldexp(nextfloat(zero(T)), precision(left) + precision(right)))
+           _primal_direction_magnitude(value) >= ldexp(nextfloat(zero(T)), precision(left) + precision(right)))
             return error < 0 ? (prevfloat(value), value) :
                    error > 0 ? (value, nextfloat(value)) : (value, value)
         end

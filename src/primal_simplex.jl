@@ -73,6 +73,13 @@ end
 
 _primal_devex_leaving_weight(weight::T, pivot::T) where {T<:AbstractFloat} =
     max(one(T), min(floatmax(T), weight / abs(pivot)))
+
+function _primal_devex_leaving_weight(weight::BigFloat,pivot::BigFloat)
+    unit = one(BigFloat)
+    quotient = weight / _primal_direction_magnitude(pivot)
+    clipped = isinf(quotient) && !signbit(quotient) ? floatmax(BigFloat) : quotient
+    return max(unit,clipped)
+end
 _primal_store_rational_weight(::Type{Rational{BigInt}}, weight::Rational{BigInt}) = weight
 function _primal_store_rational_weight(::Type{Rational{I}},
                                        weight::Rational{BigInt}) where {I<:Integer}

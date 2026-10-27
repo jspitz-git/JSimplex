@@ -776,3 +776,41 @@ function _workspace_stagnation_values(ws::SimplexWorkspace{BigFloat},state::Work
     # bound upward. Both orientations are decreases to the progress monitor.
     return algorithm == :dual ? -objective : objective, primal, dual
 end
+
+function _new_workspace_stagnation(ws::SimplexWorkspace{BigFloat},key,algorithm)
+    T = eltype(ws.costs)
+    S = T <: Rational ? Rational{BigInt} : T
+    cost_scale, value_scale = one(S),one(S)
+    for value in ws.costs
+        cost_scale = max(cost_scale,_primal_direction_magnitude(S(value)))
+    end
+    for value in ws.primal
+        value_scale = max(value_scale,_primal_direction_magnitude(S(value)))
+    end
+    for bounds in (ws.lower,ws.upper), bound in bounds
+        isfinite(bound) && (value_scale = max(value_scale,_primal_direction_magnitude(S(bound_value(bound)))))
+    end
+    # Averaging prevents overflowing sums; these monitor scales cancel it so
+    # the number of rows/columns does not alter the significance threshold.
+    objective_scale = inv(2S(max(1,length(ws.costs))))
+    primal_scale = inv(2S(max(1,length(ws.basis.basic_indices))))
+    policy = ws.progress.numerical_policy
+    monitor = StagnationMonitor{T}(policy.stagnation_window;objective_scale,
+        primal_scale,dual_scale=objective_scale,tolerance=policy.solve_tolerance)
+    return WorkspaceStagnation(monitor,key,
+        _stagnation_context(ws,algorithm;include_costs=false),
+        ws.iterations-1,cost_scale,value_scale)
+end
+
+function _rebase_dual_stagnation_costs!(ws::SimplexWorkspace{BigFloat},state::WorkspaceStagnation{BigFloat,BigFloat},key)
+    S = BigFloat
+    state.cost_scale = maximum(x -> _primal_direction_magnitude(S(x)),ws.costs;init=one(S))
+    objective,_,dual = _workspace_stagnation_values(ws,state,:dual)
+    m = state.monitor
+    m.start_objective = m.minimum_objective = m.end_objective = m.best_objective = objective
+    m.start_dual = m.minimum_dual = m.end_dual = m.best_dual = dual
+    m.objective_improvement = m.dual_improvement = zero(S)
+    state.context_key = key
+    _simplex_event!(ws,:stagnation_cost_rebase)
+    return nothing
+end
