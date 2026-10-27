@@ -1,0 +1,5 @@
+# Identity-safe historical group preflight
+
+Two offline preparations were refused before any Julia or RED stage. The second was mistakenly dispatched after the first failure and left a partial directory; original scripts/config are preserved. Numeric PGID/SID77336 now belongs to /usr/libexec/wsl-pro-service. The archived numerical child77336 has boot4fde10f2/start3810211; current service has a different boot and start6151792. A numeric ID alone cannot identify an old run. No system service is killed.
+
+New common_next.py preserves the old helper and every other gate. All historical group/session numbers are still examined. The sole allowed collision is the exact pinned (currentboot,pid,pgid,sid,start_ticks,command) service tuple; any different occupant or any Julia process is refused. Historical numerical identities remain absent. Fresh admission must verify this explicit source-bound refinement, current refs/source/index and memory before each launch. Do not claim literal absence of every numeric ID:77336 is present as the proven unrelated different-boot process. No numerical checks, memory limits or candidate bytes changed.

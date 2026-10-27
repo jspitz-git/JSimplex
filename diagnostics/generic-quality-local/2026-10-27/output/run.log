@@ -1,0 +1,67 @@
+CONTEXT BF64_RoundingMode{:Nearest}()
+CONTEXT BF64_RoundingMode{:Down}()
+CONTEXT BF64_RoundingMode{:Up}()
+CONTEXT BF64_RoundingMode{:ToZero}()
+CONTEXT BF64_RoundingMode{:FromZero}()
+CONTEXT BF128_RoundingMode{:Nearest}()
+CONTEXT BF128_RoundingMode{:Down}()
+CONTEXT BF128_RoundingMode{:Up}()
+CONTEXT BF128_RoundingMode{:ToZero}()
+CONTEXT BF128_RoundingMode{:FromZero}()
+CONTEXT BF256_RoundingMode{:Nearest}()
+CONTEXT BF256_RoundingMode{:Down}()
+CONTEXT BF256_RoundingMode{:Up}()
+CONTEXT BF256_RoundingMode{:ToZero}()
+CONTEXT BF256_RoundingMode{:FromZero}()
+CONTEXT Float32
+CONTEXT Float64
+CONTEXT Rational{BigInt}
+
+Local quality correctness Rational{BigInt}: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-local/2026-10-27/fixtures.jl:134
+  Expression: z[1] === :value && z[2] === :corrected
+  Stacktrace:
+   [1] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+   [2] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-local/2026-10-27/fixtures.jl:0 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] correctness(::Type{Rational{BigInt}})
+     @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-local/2026-10-27/fixtures.jl:92
+CONTEXT Rational{Int64}
+ERROR: LoadError: Some tests did not pass: 63389 passed, 2 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-local/2026-10-27/driver.jl:41
+
+Local quality correctness Rational{Int64}: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-local/2026-10-27/fixtures.jl:134
+  Expression: z[1] === :value && z[2] === :corrected
+  Stacktrace:
+   [1] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+   [2] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-local/2026-10-27/fixtures.jl:0 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] correctness(::Type{Rational{Int64}})
+     @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-quality-local/2026-10-27/fixtures.jl:92
+Test Summary:                                |  Pass  Fail  Total     Time
+Local quality whole-function comparison      | 63389     2  63391  2m26.3s
+  Local quality correctness BigFloat         |   893          893     3.5s
+  Local quality correctness BigFloat         |   893          893     0.1s
+  Local quality correctness BigFloat         |   893          893     0.1s
+  Local quality correctness BigFloat         |   893          893     0.1s
+  Local quality correctness BigFloat         |   893          893     0.1s
+  Local quality correctness BigFloat         |   893          893     0.1s
+  Local quality correctness BigFloat         |   893          893     0.1s
+  Local quality correctness BigFloat         |   893          893     0.1s
+  Local quality correctness BigFloat         |   893          893     0.1s
+  Local quality correctness BigFloat         |   893          893     0.1s
+  Local quality correctness BigFloat         |   893          893     0.1s
+  Local quality correctness BigFloat         |   893          893     0.1s
+  Local quality correctness BigFloat         |   893          893     0.1s
+  Local quality correctness BigFloat         |   893          893     0.1s
+  Local quality correctness BigFloat         |   893          893     0.1s
+  Local quality correctness Float32          |   585          585     3.4s
+  Local quality correctness Float64          |   585          585     3.4s
+  Local quality correctness Rational{BigInt} |   520     1    521     2.5s
+  Local quality correctness Rational{Int64}  |   520     1    521     2.3s
+RNG of the outermost testset: Random.Xoshiro(0x324f0d7990d21f91, 0x4703303175a7f2c4, 0x8d4b7e4eec243d20, 0x38c6c3a9eb05d29d, 0x57416f3dfba7ebc8)

@@ -1,0 +1,3 @@
+Reuse private BigFloat scalars in quality finalization and primal audits
+
+Reuse the private product magnitude for ordinary BigFloat quality accumulation. Preserve finalization passes while avoiding temporary zero and one values in BigFloat work-vector checks. Lazily create one private unit after recomputation and guards in BigFloat primal auditing. Preserve numerical safeguards, tolerances, precision, rounding, arithmetic order, input ownership and callback boundaries. Add ordinary whole-function differential and allocation regressions.
