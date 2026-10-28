@@ -1,0 +1,26 @@
+{
+  "accepted": true,
+  "findings": [],
+  "scope": "Supplemental source-only work accounting clarification; current measured candidate remains accepted. Does not authorize any implementation change, alternate candidate, numerical rerun or broader benchmark. Prior reviews remain unchanged.",
+  "reviewed_at_utc": "2026-10-28T14:14:03.525174+00:00",
+  "bindings": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-unit-perturb-residual/2026-10-28/GREEN/src/primal_simplex.jl": "eb86457d43caff919c6ef7ecd45792262e856ee8187af19b40bb6af6ffe4123c",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-unit-perturb-residual/2026-10-28/changes.json": "3bdb9b0a4d54a63ef1ffa99c346430c2743b331ddf6205e12f66b181f035730f",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-unit-perturb-residual/2026-10-28/result-review.json": "90e15e7f7ad739434b224199701ac8a8619e11faf5edb5ef63b35c05c36db5fa",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-unit-perturb-residual/2026-10-28/source-production-review.json": "2054bdbaaa1c07a8ca48eac8d83b39b7a802394e60392a0869114ea3a0c1562e",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-unit-perturb-residual/2026-10-28/test-control-review.json": "02649312d060b163e87efc51f919a84a5e19c05d589dc81bb8950a90d80d1e5c",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-unit-perturb-residual/2026-10-28/production-review.json": "e02d05ed29823da861a2e0cebf3ad2143b86fae2703e4e8d114b182e7a1bf04d"
+  },
+  "avoidable_scalar_work_found": true,
+  "observation": "A source orders isfinite(reduced_cost) before isone(weight). On a finite nonunit input it therefore evaluates one scalar finite predicate before taking the original division path. Checking unit weight first could short-circuit that finite predicate on nonunit inputs. Conversely, unit-first would evaluate the unit predicate on nonfinite inputs where the present ordering skips it. This is source-level work accounting, not an assertion about optimized machine-code instruction counts.",
+  "clarification": "Earlier wording that the added predicates are necessary was too broad. Both guards describe the admitted branch condition, but the finite predicate need only be evaluated after unit weight is established to preserve this candidate nonfinite fallback. The earlier narrower statement of no added unnecessary full-vector/matrix scans, solves, copies/conversion passes or persistent numeric cache remains correct.",
+  "work_memory_effect": "Potentially avoidable work is a single scalar finiteness predicate on the nonunit path. It adds no full-vector/matrix pass, basis solve, output owner, conversion pass or persistent state; recorded nonunit allocation event counts are unchanged. Source alone does not establish an elapsed-time improvement from reordered predicates.",
+  "decision": "Current qualified A remains an acceptable targeted tradeoff: independently measured unit and mixed weights benefit, while approximately4.0%devex/1.2%cached-steepest nonunit overhead is explicitly disclosed. Reordered predicates would be a distinct unmeasured candidate. No claim is made that current ordering is computationally minimal, universally faster, or that reordering would erase the measured nonunit overhead.",
+  "numerical_verdict": "No numerical defect identified in admitted current ordering. Original fresh square still occurs first and all nonunit/nonfinite division behavior remains.",
+  "execution": {
+    "julia_launched": false,
+    "code_edited": false,
+    "new_candidate_created": false,
+    "new_benchmark_run": false
+  }
+}

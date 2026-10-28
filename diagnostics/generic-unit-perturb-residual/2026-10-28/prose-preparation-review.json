@@ -1,0 +1,34 @@
+{
+  "accepted": true,
+  "findings": [],
+  "reviewed_at_utc": "2026-10-28T14:37:55.442553+00:00",
+  "scope": "Source-only preparation review of unexecuted documentation clarification, intended after reviewed finalizer and before actual final artifact review/closure. No script execution or final artifact acceptance.",
+  "bindings": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-unit-perturb-residual/2026-10-28/final-prose-prepared.py": "9e01d3c76c0b637bfb41f1209f47e25c803e1b32baae1ef2f8e018360f2b8681",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-unit-perturb-residual/2026-10-28/finalize-reviewed.py": "c2da31d3885e5602254c646f2476ffdfc25ae0688526841f2a86fa7b5ee054ee",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-unit-perturb-residual/2026-10-28/predicate-order-supplement.json": "db1c8e8aa055bd73507f152915eb07f3661d12ccc94df8870f3c212a41794eca",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-unit-perturb-residual/2026-10-28/common_qualified.py": "6084a2ecc4fba1cae300ebef2210b7ec64d1f0487efd901222aef71b9e4f6fe0",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-unit-perturb-residual/2026-10-28/finalization-preparation-review.json": "6b8d5ec08bcc11a1b45c882d9c29847077416dac82ad76c98c98246b78eb27d1"
+  },
+  "checks": [
+    "Needle matches exactly one statement in the approved finalizer report template.",
+    "Replacement removes broad repeated-invariant-check wording and explicitly acknowledges the avoidable finite-first scalar predicate on nonunit inputs; alternative ordering remains unmeasured, unimplemented and not claimed faster.",
+    "Script requires one occurrence before mutation, copies original FINAL-REPORT to its predicate-clarification beforeimage, replaces only that statement, preserves a script copy and records both file hashes plus supplement.",
+    "Only report and adjacent diagnostic evidence are written; no source/test/environment/continuation path is mutated.",
+    "Current numerical candidate and all frozen phase controls remain unchanged."
+  ],
+  "expected_order": [
+    "Run approved finalize-reviewed.py after production publication gates.",
+    "Run this one documentation clarification.",
+    "Independently review actual final artifacts including original report beforeimage and exact single replacement.",
+    "Run approved closure and diagnostic publication only after final review."
+  ],
+  "limitations": [
+    "Final report and beforeimage are not yet generated or reviewed.",
+    "Recorded unchanged_continuations/source_unchanged assertions are supported by script write-path inspection, not new numerical execution."
+  ],
+  "execution": {
+    "julia_launched": false,
+    "prose_script_executed": false
+  }
+}

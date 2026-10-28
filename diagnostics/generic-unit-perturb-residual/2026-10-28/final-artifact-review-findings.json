@@ -1,0 +1,52 @@
+{
+  "accepted": false,
+  "reviewed_at_utc": "2026-10-28T15:54:27.911542+00:00",
+  "scope": "Actual final-artifact review before closure; documentation statistical wording finding only, not numerical/source rejection.",
+  "bindings": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-unit-perturb-residual/2026-10-28/FINAL-REPORT.md": "16644a2a52173d3ef720cea8abd64f15bcca65d923a064d2dcd2c487dfccf0f2",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-unit-perturb-residual/2026-10-28/output/results.toml": "e237ef095f84daf3367a59d3102c2a090d025c85a12e2d284f34c07ab7f2a76f",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-unit-perturb-residual/2026-10-28/summary.json": "8725f41f1a0d0e3fe31a28559f782de78c6b6aebe9cedf7822a07ad5aeb48a6a",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-unit-perturb-residual/2026-10-28/result-review.json": "90e15e7f7ad739434b224199701ac8a8619e11faf5edb5ef63b35c05c36db5fa",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-unit-perturb-residual/2026-10-28/final-prose-fix.json": "3674f789db94a4ca33e893c575d75db969a68f31938bae5058dbdc59ddb5dcef"
+  },
+  "findings": [
+    {
+      "artifact": "FINAL-REPORT.md",
+      "claim": "All measured calls save three aggregate allocation events and160\u2013688bytes",
+      "issue": "Three events are saved in every C pair, but160\u2013688bytes is a range of per-cell differences of arm median allocated bytes, not savings in every call/pair. Seven raw pairs increase allocated bytes.",
+      "observed": {
+        "C_cells": 456,
+        "event_savings_every_pair": 3,
+        "negative_byte_saving_pairs": 7,
+        "paired_byte_saving_min": -2032,
+        "paired_byte_saving_max": 17600,
+        "per_cell_difference_of_arm_medians_min": 160,
+        "per_cell_difference_of_arm_medians_max": 688,
+        "per_cell_median_paired_difference_min": 160,
+        "per_cell_median_paired_difference_max": 672
+      },
+      "requested_resolution": "Preserve current report; clarify per-cell median byte statistics and retained individual-pair outliers, including byte increases. No numerical rerun or source change."
+    }
+  ],
+  "other_checks_passed": {
+    "manifest_bindings_checked": 8599,
+    "historical_before_resolutions": {
+      "/home/jspitz/JSimplex.jl/src/primal_simplex.jl@6c51e3b2a3e98b03263891d56fdd138ec251b4acb1f70b46875d007ed22fda9b": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-unit-perturb-residual/2026-10-28/baseline/src/primal_simplex.jl",
+      "/home/jspitz/JSimplex.jl/src/simplex_perturbation.jl@8eb35a82a124e841517859e907f13928ad433edcd9598d75f02184c29e1c38e7": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-unit-perturb-residual/2026-10-28/baseline/src/simplex_perturbation.jl",
+      "/home/jspitz/JSimplex.jl/src/lp_refinement.jl@a5d26df2bcad21864bc809f18b0e0ed9267715355820c27b10a93ef2b7d11195": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-unit-perturb-residual/2026-10-28/baseline/src/lp_refinement.jl",
+      "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-unit-perturb-residual/2026-10-28/DESIGN.md@eee4d28d2a1e126c6eda146300538006c6940b44e6783d30555ff5fbfb1ce438": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-unit-perturb-residual/2026-10-28/DESIGN.md.before-owner-clarification",
+      "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-unit-perturb-residual/2026-10-28/WORK-MEMORY.md@69558d7c56f918cef42745ba445e74250e886f448ad5212bf813aebc347ddf10": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-unit-perturb-residual/2026-10-28/WORK-MEMORY.md.before-review",
+      "/home/jspitz/JSimplex.jl/test/runtests.jl@b0866656d319908a52600322b211fadfc232932467406b1e122f9add4b72def3": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-unit-perturb-residual/2026-10-28/baseline/test/runtests.jl"
+    },
+    "actual_commit": "235eedf33901fe8c4cc06a3d8c3508ef2fcbb718",
+    "file_membership_checked": 541,
+    "GREEN_MASTER_passed": 373035,
+    "files": 82,
+    "finalization_host_groups": 675
+  },
+  "execution": {
+    "julia_launched": false,
+    "numerical_rerun": false,
+    "evidence_rewritten": false
+  }
+}

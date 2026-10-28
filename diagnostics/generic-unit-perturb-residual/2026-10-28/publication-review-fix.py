@@ -1,0 +1,5 @@
+from pathlib import Path
+D=Path('/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-unit-perturb-residual/2026-10-28')
+s=(D/'diagnostic-publish.py').read_text();needle='protect_files();protect_indexes(True)\n';assert s.count(needle)==1;s=s.replace(needle,"from publication_checks import verify_tested_trees\nc.need(c.git(['branch','--show-current'])=='master' and c.git(['rev-parse','master'])==target,'actual master ref before diagnostic staging')\nverify_tested_trees(M,D/'GREEN',c.read('MASTER-run/pins.json'),c.need,c.sha)\n"+needle)
+needle="subprocess.run(['/usr/bin/git','-C',str(R),'push','origin',new+':refs/heads/codex/simplex-core-architecture'],check=True)";assert s.count(needle)==1;s=s.replace(needle,"verify_tested_trees(M,D/'GREEN',c.read('MASTER-run/pins.json'),c.need,c.sha)\n"+needle)
+compile(s,str(D/'diagnostic-publish-reviewed.py'),'exec');(D/'diagnostic-publish-reviewed.py').write_text(s);(D/'publication-review-fix.py').write_bytes(Path(__file__).read_bytes());print('separate tested-tree publication preflight prepared UNEXECUTED')

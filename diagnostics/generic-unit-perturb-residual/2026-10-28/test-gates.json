@@ -1,0 +1,106 @@
+{
+  "accepted_variants": [
+    "A",
+    "B",
+    "C"
+  ],
+  "comparison_cell_assertions": 46416,
+  "correctness_assertions_from_unchanged_source": 9478,
+  "expected_RED_failures": 10,
+  "expected_RED_passes": 9628,
+  "expected_RED_total": 9638,
+  "failure_line": 581,
+  "gates": [
+    {
+      "arm": "A",
+      "density": "sparse",
+      "mode": "unit",
+      "n": 64,
+      "scope": "devex",
+      "shape": "mixed",
+      "type": "Rational{BigInt}"
+    },
+    {
+      "arm": "A",
+      "density": "sparse",
+      "mode": "unit",
+      "n": 64,
+      "scope": "steepest",
+      "shape": "mixed",
+      "type": "Rational{BigInt}"
+    },
+    {
+      "arm": "B",
+      "density": "dense",
+      "mode": "unit",
+      "n": 64,
+      "scope": "dual",
+      "shape": "mixed",
+      "type": "BigFloat"
+    },
+    {
+      "arm": "B",
+      "density": "dense",
+      "mode": "unit",
+      "n": 64,
+      "scope": "primal",
+      "shape": "mixed",
+      "type": "BigFloat"
+    },
+    {
+      "arm": "C",
+      "density": "sparse",
+      "mode": "unit",
+      "n": 64,
+      "scope": "residual",
+      "shape": "mixed",
+      "type": "Float64"
+    },
+    {
+      "arm": "C",
+      "density": "sparse",
+      "mode": "unit",
+      "n": 64,
+      "scope": "outer",
+      "shape": "mixed",
+      "type": "Float64"
+    },
+    {
+      "arm": "C",
+      "density": "sparse",
+      "mode": "unit",
+      "n": 64,
+      "scope": "residual",
+      "shape": "mixed",
+      "type": "BigFloat"
+    },
+    {
+      "arm": "C",
+      "density": "sparse",
+      "mode": "unit",
+      "n": 64,
+      "scope": "outer",
+      "shape": "mixed",
+      "type": "BigFloat"
+    },
+    {
+      "arm": "C",
+      "density": "sparse",
+      "mode": "unit",
+      "n": 64,
+      "scope": "residual",
+      "shape": "mixed",
+      "type": "Rational{BigInt}"
+    },
+    {
+      "arm": "C",
+      "density": "sparse",
+      "mode": "unit",
+      "n": 64,
+      "scope": "outer",
+      "shape": "mixed",
+      "type": "Rational{BigInt}"
+    }
+  ],
+  "rule": "fixed3whole-callpairs lowerEvents each/lowerMedianBytes; all numerical expectations and oldthresholds unchanged, no timingassertion"
+}

@@ -1,3 +1,11 @@
+# Current continuation — unit pricing, perturbation and residual integration completed, 2026-10-28
+
+Master/origin/master `235eedf33901fe8c4cc06a3d8c3508ef2fcbb718` normally pushed/remotely verified; accepted variants A,B,C only. Source inverse and all numerical safeguards/tolerances/precision/owners/pivot policy retained. A has disclosed nonunit predicate overhead; B modest intervention savings; C allocation savings without a timing-speedup claim. See diagnostics/generic-unit-perturb-residual/2026-10-28/FINAL-REPORT.md and independent reviews.
+
+Comparison 55894PASS/1112cells/20016compilezero windows/9GC preserved, 1150preparation records. OriginalRED 9628PASS+10expectedcostFAIL; GREEN/actualMASTER 373035PASS each/82same wholefiles. Private-index/actualcommitreview/ff-only/freshMASTER/normalpush verified. At preparation of this prepublication continuation, diagnostic closure/publication remained pending; canonical output records contain subsequent outcomes. Exact older source/index/continuation bindings map ONLY baseline/before-master/continuation-before bytes; all older maps/rejections/raw preserved FROZEN NEVER RERUN/rewrite. Userfiles/env/index protected; fullgroupsANDsessions/boot/start_ticks/command/noJulia. CIoff automationpaused HHdisabled; broader/fullsuite/x64/native-retentionOPEN. No automatic next experiment/cleanup.
+
+## Previous continuation — preserved verbatim below
+
 # Current continuation — residual pivot crash integrated, 2026-10-28
 
 Master/origin/master `85f8275b85183f87fa8f33164cb0fbb5115f17ec` normally pushed/remotely verified, accepted variants A,B,C only. Exact paths/source inverse, original numerical safeguards/order/tolerances/precision/owners/pivot rules retained. No new full scan/solve/copy/conversion/persistent numeric cache. See diagnostics/generic-residual-pivot-crash/2026-10-28/FINAL-REPORT.md and independent result/production reviews for measured complete-function savings and all controls/limits; no universal/end-to-end/native-free claim.

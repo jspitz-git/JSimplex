@@ -1,0 +1,30 @@
+{
+  "accepted": false,
+  "bindings": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-unit-perturb-residual/2026-10-28/audit-final.py": "047b659a33738e0e10c0b86ab50fe1f6ce6ceb3a0fc222d70b6b8cc5328a7ef0",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-unit-perturb-residual/2026-10-28/common_final.py": "20f709353cbf4136d3400abbb88495d6c23aca5e91d12431efb8cc38b5b4af05",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-unit-perturb-residual/2026-10-28/contract-final.json": "bf587d6c7cea4fde0b9baf7f56daae54289bd4d773cd28d4ddaea12d467cdca8",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-unit-perturb-residual/2026-10-28/driver-final.jl": "7b790868d0707bd1c5f36f771be4b8b42bbe750a67a113ab3275ccacf5fe76e1",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-unit-perturb-residual/2026-10-28/fixtures-final.jl": "03e5a9b2981700b9d8fbf7bc8cf22a20da2bb3644ad495a00d1b1f4cb85c1b7e",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-unit-perturb-residual/2026-10-28/launch-final.py": "84af5baf574d5c5883642ecb2ad16980d6605ba07ef9b2629429a5c2e17dc806",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-unit-perturb-residual/2026-10-28/pins-final.json": "9ff1fb046506e74c90166e652fb23eab97995688d32f45317bd83c6c17b7a716"
+  },
+  "findings": [
+    {
+      "correction": "Restrict freshness assertions to BigFloat and assert baseline-preserved Rational{BigInt} sharing.",
+      "file": "fixtures-final.jl",
+      "id": "F7",
+      "problem": "Overlapping-input tests wrongly require Rational{BigInt} copied scalar owners to differ from source and each other. Baseline _copy_precision_scalar uses S(value); installed rational.jl147-149 unsafe_rational preserves converted same-type BigInt scalar owners."
+    },
+    {
+      "correction": "Read output/pins.json and compare it against source pins-final.json.",
+      "file": "audit-final.py",
+      "id": "F8",
+      "line": 29,
+      "problem": "Auditor reads output/pins-final.json, but guard_reviewed.py publishes output/pins.json unconditionally."
+    }
+  ],
+  "numerics_run": false,
+  "reviewed_at_utc": "2026-10-28T13:20:54.774661+00:00",
+  "scope": "Final1287-pin source-only admission, two source-proven runtime failures"
+}

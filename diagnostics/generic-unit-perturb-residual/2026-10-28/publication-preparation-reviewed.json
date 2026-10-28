@@ -1,0 +1,36 @@
+{
+  "accepted": true,
+  "findings": [],
+  "reviewed_at_utc": "2026-10-28T13:41:18.877813+00:00",
+  "scope": "Source-only acceptance of production commit/integration/push preparation controls. Not actual production-source, commit, GREEN/MASTER-result or diagnostic-finalization acceptance.",
+  "bindings": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-unit-perturb-residual/2026-10-28/commit-integrate-publish-qualified.py": "7da01294fb490ca23535a060f80324cfe344627c7f19cda31386d6ce9d557723",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-unit-perturb-residual/2026-10-28/publication_checks.py": "4204391c20bf3005c80e3b96a594c1e580a138a268c6d405b21d3cf141bcb694",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-unit-perturb-residual/2026-10-28/common_qualified.py": "6084a2ecc4fba1cae300ebef2210b7ec64d1f0487efd901222aef71b9e4f6fe0",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-unit-perturb-residual/2026-10-28/stage-qualified.py": "0cb98f5352eb652ed09ecd00496cc0966cc4704c2fc66881cbeba8534b024d40",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-unit-perturb-residual/2026-10-28/prepare-phase-admitted.py": "0224c2ea7b181ac51db278f5c79da67021f61167ef07f4c3f6e1ac2f6ecf0da2",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-unit-perturb-residual/2026-10-28/phase-audit.py": "39dfbcd67d184e8a1bf38827784470a24df6e4147e16ca02cfa65c5a1ac832ee",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-unit-perturb-residual/2026-10-28/protected-before.json": "2c5f1afa0d6a5f2903f2131770e0add69611719e3ca2a8821d1c3515ea33d411",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-unit-perturb-residual/2026-10-28/baseline-tree.json": "29349ef41460bc1e4ededdcab8f5685ab6f0b92562ca1c8d8699fc720685b397",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-unit-perturb-residual/2026-10-28/test-control-review.json": "02649312d060b163e87efc51f919a84a5e19c05d589dc81bb8950a90d80d1e5c"
+  },
+  "checks": [
+    "Each mode requires accepted preparation review and exact bindings plus fresh host observation.",
+    "Commit requires accepted production and GREEN result reviews, full candidate membership/hashes, protected files/indexes and exact base refs.",
+    "Private temporary index reads pinned base; exact changed names and blobs are verified before sole-parent commit-tree and new branch update. Real indexes remain unchanged.",
+    "Integration requires actual commit review, current candidate/protection checks, branch master at base, remote base, sole parent and clean target paths; only ff-only merge; snapshots original index/source maps and verifies unrelated index and staged-state preservation.",
+    "Push requires accepted actual MASTER result, same GREEN total, actual master branch/ref, approved single fetch/push endpoint and nonforce remote relationship.",
+    "Before push, complete actual/tested/pinned src/test membership and hashes, exact historical source/index maps, full preserved baseline, and every MASTER pin are checked.",
+    "Normal nonforce push followed by exact tracking/remote verification. All subprocess mutations use check=True or checked output; errors stop subsequent actions."
+  ],
+  "pending": [
+    "Actual staged-production review.",
+    "Actual commit review.",
+    "Actual GREEN and MASTER result acceptance.",
+    "Separate finalization controls have reported findings and are not accepted by this record."
+  ],
+  "execution": {
+    "julia_launched": false,
+    "controls_executed": false
+  }
+}

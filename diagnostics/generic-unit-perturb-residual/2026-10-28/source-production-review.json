@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "reviewer": "independent production source review agent",
+  "created_utc": "2026-10-28T13:20:47.905621+00:00",
+  "scope": "Source-only review of proposed A/B/C against actual pinned master and installed Julia arithmetic. No Julia run, benchmark admission, staged production or permanent test acceptance is implied.",
+  "master_head": "85f8275b85183f87fa8f33164cb0fbb5115f17ec",
+  "source_bindings": {
+    "/home/jspitz/JSimplex.jl/AGENTS.md": "648146ccd145178d776319aab53c5f09bf5578806dd53a8d1b440b96511b4232",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/AGENTS.md": "648146ccd145178d776319aab53c5f09bf5578806dd53a8d1b440b96511b4232",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-unit-perturb-residual/2026-10-28/changes.json": "3bdb9b0a4d54a63ef1ffa99c346430c2743b331ddf6205e12f66b181f035730f",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-unit-perturb-residual/2026-10-28/Reference.jl": "9bc1ffb565b70c35a472f212a3565ddbd757069542f11204a00a3446b8c2e9e4",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-unit-perturb-residual/2026-10-28/A.jl": "457fff7ce14a402e75cc84d7c6b79b71f0ecae45b03d428044098b7bf76cf2d3",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-unit-perturb-residual/2026-10-28/B.jl": "d0fc91e679da28c2da1c00186605bd4b5084610279f262cbd5d9fa47ec16be59",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-unit-perturb-residual/2026-10-28/C.jl": "0ab2b2bf74e659db307d20df78dca24df23a2898f1534e4c1490c3401787ce75",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-unit-perturb-residual/2026-10-28/DESIGN.md": "c195652edeedde4ba68a34fe2dba44ded6f7e486b6f80f3bab91dc3382294271",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-unit-perturb-residual/2026-10-28/PLAN.md": "36a05ea18a5206600ee01c7dc89e4a81dde1009c2a1cbdfd30ca93545e4248ce",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-unit-perturb-residual/2026-10-28/WORK-MEMORY.md": "bcd78b292cbf4fd974bb9e444e6de4852b065a25aa29b40e776895f20ffc0da6",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-unit-perturb-residual/2026-10-28/WORK-MEMORY.md.before-review": "69558d7c56f918cef42745ba445e74250e886f448ad5212bf813aebc347ddf10",
+    "/home/jspitz/JSimplex.jl/src/primal_simplex.jl": "6c51e3b2a3e98b03263891d56fdd138ec251b4acb1f70b46875d007ed22fda9b",
+    "/home/jspitz/JSimplex.jl/src/simplex_perturbation.jl": "8eb35a82a124e841517859e907f13928ad433edcd9598d75f02184c29e1c38e7",
+    "/home/jspitz/JSimplex.jl/src/lp_refinement.jl": "a5d26df2bcad21864bc809f18b0e0ed9267715355820c27b10a93ef2b7d11195",
+    "/home/jspitz/JSimplex.jl/src/simplex_precision.jl": "9351fa8a6128b59a59d1d5ba98207afa0b70278692a9e5297b00e0a829798609",
+    "/home/jspitz/JSimplex.jl/src/simplex_recovery.jl": "d68055947b8cedfd0eb6cb554f656ef80b942bf85a64e3b8ccd2881d9e37761c",
+    "/home/jspitz/JSimplex.jl/src/simplex_pricing.jl": "8c2a3ad270e68366611b4c21b5b64c754e266d962f6f965854b48fbeccd3fe3b",
+    "/home/jspitz/JSimplex.jl/src/dual_simplex.jl": "4e07580f6d82e5210fd3259be36cc71e069701c7bbedde3e5d2aa11570fd5c2a",
+    "/home/jspitz/JSimplex.jl/src/lp_refinement_driver.jl": "7b6a74c574b7791f46fcca685807d5f92c11970c804add2ed486e01640a01e90",
+    "/home/jspitz/JSimplex.jl/src/numeric.jl": "403c6f50597b4b0031961fa459d8129937a81af0b061d97e3b0dcfd09c28c607",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/base/intfuncs.jl": "6b8609675d189818cc1d8db72f3dea18b73fd0f33fa10e19e787406ea87b4da2",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/base/gmp.jl": "84f99707815485bba5105c23a136535530963282fc14124d0623858f68976f91",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/base/rational.jl": "0a0345a11cab9d2ba3c7bb1554c896813e3b1611771803616d2f3f7376f0141e",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/base/mpfr.jl": "bb4057b471d897dfaa279a522aca33b88e8791300a955ef0c628708a5835fcfd",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/base/array.jl": "7452476e6bd6152f0df52417fb469c29a319682b739bee8b22e85e3224ca28cb",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/base/number.jl": "dd1b1f80924b73bd0042bd2c8a38200e5deefd8e8ba8b90e44d5e8a68612f4ac",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/base/float.jl": "95c1200c8898d718c6664f3cb90a9de4045404cbb846ed354a99b1c93abbc083"
+  },
+  "change_block_bindings": [
+    {
+      "variant": "A",
+      "file": "src/primal_simplex.jl",
+      "original_block_matches_actual_master": 1,
+      "old_sha256": "f96b9eb185d8aabec8ae1033214c6509080a1ebf85d38f16465f631f4f44f143",
+      "new_sha256": "c32c56ce1049c11845c269500809685f6b4c617360ff3cbc103582fd7f62705d"
+    },
+    {
+      "variant": "B",
+      "file": "src/simplex_perturbation.jl",
+      "original_block_matches_actual_master": 1,
+      "old_sha256": "7da2116e8d7d53eeac13fab5aeb1d1c71da8f6dbf0bea8d2485701791c568e99",
+      "new_sha256": "337c10ba7dec4a70af51edf1d60a8fe088357e53381497832fd63101a29fe36d"
+    },
+    {
+      "variant": "B",
+      "file": "src/simplex_perturbation.jl",
+      "original_block_matches_actual_master": 1,
+      "old_sha256": "30b08b7e9e4f503ba2c1f0f5ca8b3f7b0d0bfd55b5a42a0cdd9d1e2d583bcbe1",
+      "new_sha256": "fb964d7915fa1f2ba8d12936d97c3e2458485fe0d6ac226d2e5a09f0be64a443"
+    },
+    {
+      "variant": "C",
+      "file": "src/lp_refinement.jl",
+      "original_block_matches_actual_master": 1,
+      "old_sha256": "a3fe53a93a3066ed358f379240e54ece2a1fef8e3b89fa66c1c9270ecec80d39",
+      "new_sha256": "ff09061976aa2e7a768dfd2436cf20f431d8fcec4d0071f575f0946d2698e6ef"
+    }
+  ],
+  "numerical_verdict": "No production correctness blocker found in A, B or C; provisional pending measured admission, permanent tests and staged-source review.",
+  "work_memory_verdict": "The proposals remove identifiable unnecessary work and temporary storage. No newly unnecessary vector/matrix work, conversions, solves or retained numeric cache found. A adds nonunit predicates; B adds two specialization bodies. Source review does not establish elapsed-time gains or native-memory retention.",
+  "variants": {
+    "A": {
+      "numerical": "Original square executes first. Installed power_by_squaring computes x*x and returns its fresh GMP numerator/denominator owners for exponent two, including zero and +/-1. Finite exact division by canonical unit can be skipped without aliasing inputs. Other weights/nonfinite costs retain original division and exceptions. Other rational types retain dispatch.",
+      "work_memory": "Per eligible weighted Rational{BigInt} candidate: finite/unit predicates added; at unit weight one rational division and its result owners removed. Nonunit retains division plus predicate overhead. No additional scans, basis solves, vectors or persistent cache. Full and partial primal weighted pricing can reach helper; ordinary rational Dantzig cannot.",
+      "evidence": [
+        "A.jl:32-35",
+        "base/intfuncs.jl:394-411",
+        "base/gmp.jl:1059-1096",
+        "base/rational.jl:551-565",
+        "src/simplex_pricing.jl:448-453"
+      ]
+    },
+    "B": {
+      "numerical": "Both specializations retain numerical guards, arithmetic order, cancellation sites, journal publication and recovery precision. Unit is constructed at original expression site after preceding callback, and is not reused across callbacks/candidates/calls. MPFR addition allocates new result; scale therefore does not expose shared local unit owner. All rounding modes and stored precision continue through original arithmetic/context.",
+      "work_memory": "Each reached BigFloat scale removes one one constructor. Existing feasibility scans and copied work vectors remain. Triggered stagnation intervention, not ordinary iteration. Two specialization bodies add bounded method/compiled-code storage; native retention unmeasured.",
+      "evidence": [
+        "B.jl:204-257",
+        "B.jl:334-350",
+        "base/mpfr.jl:323-328",
+        "base/mpfr.jl:575-583",
+        "src/simplex_recovery.jl:40-49"
+      ]
+    },
+    "C": {
+      "numerical": "Vector slicing and vcat each allocate independent containers. Removing outer slice copy and copy(y) preserves output-container independence and original scalar-sharing topology. Initial working-value copies/conversions, dimensions/finiteness checks, precision wrapper and CSC term order retained. BigFloat input ownership protection retained; exact scalar-sharing behavior unchanged.",
+      "work_memory": "Per residual evaluation: two length-m temporary vectors and 2m element copies removed. O(nnz(A)) arithmetic and precision scans unchanged; no added scan or solve. Runs at refinement initialization, correction candidates and certificate-projection candidates that reach residual evaluation.",
+      "evidence": [
+        "C.jl:280-293",
+        "src/simplex_precision.jl:37-49",
+        "base/array.jl:967-975",
+        "base/array.jl:2320-2333",
+        "src/lp_refinement_driver.jl:226",
+        "src/lp_refinement_driver.jl:253",
+        "src/lp_refinement_driver.jl:280"
+      ]
+    }
+  },
+  "findings": [
+    {
+      "severity": "evidence wording",
+      "description": "Original C work ledger incorrectly described LP residual frequency as setup only. Actual calls include correction candidate and certificate projection paths.",
+      "status": "corrected and independently verified",
+      "preservation": "WORK-MEMORY.md.before-review retains original; current file differs only by stated frequency sentence replacement."
+    }
+  ],
+  "execution": {
+    "julia_launched": false,
+    "implementation_edited": false,
+    "benchmark_admission_reviewed": false
+  },
+  "remaining_review": [
+    "measured acceptance decisions",
+    "staged production source",
+    "permanent tests",
+    "phase controls and results"
+  ],
+  "prior_review_binding": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-unit-perturb-residual/2026-10-28/DESIGN.md": "eee4d28d2a1e126c6eda146300538006c6940b44e6783d30555ff5fbfb1ce438"
+  },
+  "design_clarification": "DESIGN.md changed before report publication; independently re-read revised text clarifying fresh BigFloat owners and retained Rational{BigInt} scalar sharing. This matches the review."
+}
