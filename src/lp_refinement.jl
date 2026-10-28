@@ -22,8 +22,8 @@ function _lp_residual_values(::Type{R}, ws, values, multipliers) where R
         throw(DimensionMismatch("LP residual coordinates do not match the original model"))
     v, y = _copy_working_values(R, values), _copy_working_values(R, multipliers)
     all(isfinite, v) && all(isfinite, y) || throw(ArgumentError("Nonfinite LP residual candidate"))
-    primal = copy(v[n+1:end])
-    dual = vcat(_copy_working_values(R, ws.problem.objective), copy(y))
+    primal = v[n+1:end]
+    dual = vcat(_copy_working_values(R, ws.problem.objective), y)
     for j in 1:n, k in nzrange(ws.problem.A, j)
         i, a = ws.problem.A.rowval[k], R(ws.problem.A.nzval[k])
         primal[i] -= a*v[j]

@@ -183,6 +183,60 @@ function _perturb_dual_costs_precise!(ws,monitor,journal::PerturbationJournal{T}
     _simplex_event!(ws,:perturbation)
     return shifted
 end
+function _perturb_dual_costs_precise!(ws,monitor,journal::PerturbationJournal{BigFloat},
+                                    policy,stop_requested)::Int
+    T = BigFloat
+    tolerance = ws.options.dual_tolerance
+    isfinite(tolerance) && tolerance > zero(T) || return 0
+    _finite_workspace(ws) && dual_infeasibility(ws) <= tolerance || return 0
+    level = journal.level+1
+    cap = T(512)*tolerance
+    isfinite(cap) || return 0
+    costs,prices = copy(ws.costs),copy(ws.reduced_costs)
+    shifted = 0
+    for j in eachindex(ws.basis.states)
+        j % 1024 == 0 && _perturbation_stopped(stop_requested) && return -1
+        state = ws.basis.states[j]
+        (state == AT_LOWER || state == AT_UPPER) || continue
+        _is_fixed(ws.lower[j],ws.upper[j]) && continue
+        old_cost,price = ws.costs[j],ws.reduced_costs[j]
+        direction = state == AT_LOWER ? one(T) : -one(T)
+        unit = one(T)
+        local_scale = unit+min(abs(old_cost),unit)
+        target = min(cap,tolerance*T(8+j%16)*local_scale*T(1 << (level-1)))
+        isfinite(target) && target > tolerance || continue
+        previous_shift = !isequal(old_cost,journal.original_costs[j])
+        (abs(price) <= tolerance || (journal.active && previous_shift && abs(price) <= target)) || continue
+        direction*price < target || continue
+        requested = direction*target-price
+        new_cost = old_cost+requested
+        isfinite(new_cost) && new_cost != old_cost || continue
+        actual = new_cost-old_cost
+        isfinite(actual) && abs(actual) <= 2abs(requested) || continue
+        displacement = new_cost-journal.original_costs[j]
+        isfinite(displacement) && abs(displacement) <= cap || continue
+        new_price = price+actual
+        isfinite(new_price) && direction*new_price > tolerance || continue
+        costs[j],prices[j] = new_cost,new_price
+        shifted += 1
+    end
+    _perturbation_stopped(stop_requested) && return -1
+    # Even an unrepresentable attempt consumes one level and one observation.
+    journal.level = level
+    journal.last_monitor = monitor
+    journal.last_observation = monitor.observations
+    shifted == 0 && return 0
+    copyto!(journal.active_costs,costs)
+    ws.costs = journal.active_costs
+    copyto!(ws.reduced_costs,prices)
+    journal.active = true
+    ws.perturbed = true
+    ws.scratch.perturbations = journal
+    _invalidate_basis_checkpoints!(ws)
+    _reset_workspace_stagnation!(ws)
+    _simplex_event!(ws,:perturbation)
+    return shifted
+end
 
 # Automatic shifts need the common monitor and original-objective cleanup.
 _adaptive_dual_perturbation_enabled(policy) = policy.adaptive_dual_perturbation &&
@@ -281,6 +335,24 @@ function _expanded_basic_bound(original::Bound{T},current::Bound{T},value::T,
     isfinite(current) && isfinite(original) || return current
     abs(value-current.value) <= tolerance || return current
     scale = one(T)+min(abs(original.value),one(T))
+    margin = min(cap,tolerance*T(8+index%16)*scale*T(1 << (level-1)))
+    isfinite(margin) && margin > tolerance || return current
+    requested = original.value+direction*margin
+    isfinite(requested) || return current
+    change = direction*(requested-current.value)
+    change > zero(T) && change <= 2margin || return current
+    displacement = direction*(requested-original.value)
+    isfinite(displacement) && zero(T) < displacement <= cap || return current
+    return Bound(requested)
+end
+
+function _expanded_basic_bound(original::Bound{BigFloat},current::Bound{BigFloat},value::BigFloat,
+                               direction::BigFloat,tolerance::BigFloat,cap::BigFloat,level::Int,index::Int)
+    T = BigFloat
+    isfinite(current) && isfinite(original) || return current
+    abs(value-current.value) <= tolerance || return current
+    unit = one(T)
+    scale = unit+min(abs(original.value),unit)
     margin = min(cap,tolerance*T(8+index%16)*scale*T(1 << (level-1)))
     isfinite(margin) && margin > tolerance || return current
     requested = original.value+direction*margin

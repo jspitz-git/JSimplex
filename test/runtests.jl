@@ -459,3 +459,5 @@ include("generic_bounds_norm_infeasibility_tests.jl")
 include("generic_sum_rational_growth_tests.jl")
 
 include("generic_residual_pivot_crash_tests.jl")
+
+include("generic_unit_perturb_residual_tests.jl")

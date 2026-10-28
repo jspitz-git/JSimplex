@@ -75,6 +75,12 @@ end
 _primal_weighted_score(reduced_cost::Rational, weight::Rational) =
     big(reduced_cost)^2 / big(weight)
 
+function _primal_weighted_score(reduced_cost::Rational{BigInt}, weight::Rational{BigInt})
+    squared = big(reduced_cost)^2
+    # Preserve the original square and its exceptions before inspecting weight.
+    return isfinite(reduced_cost) && isone(weight) ? squared : squared / big(weight)
+end
+
 _primal_dantzig_score(reduced_cost::T) where {T<:AbstractFloat} =
     _primal_weighted_score(reduced_cost, one(T))
 _primal_dantzig_score(reduced_cost::Rational) = abs(big(reduced_cost))
