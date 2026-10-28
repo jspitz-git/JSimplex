@@ -1,0 +1,54 @@
+{
+  "review": "independent source and work-memory review",
+  "reviewer": "epsilon_bound_auxiliary_review",
+  "baseline": "235eedf33901fe8c4cc06a3d8c3508ef2fcbb718",
+  "decision": "ACCEPT source proposals A/B/C for guarded measurement and ordinary qualification; not final production or performance acceptance",
+  "execution": "Static source inspection and Python standard-library text/hash assertions only. No Julia execution, import, query, or tests. No source edits.",
+  "identity": "Actual affected production sources equal baseline copies; each old block occurs once; private arms equal Reference with exactly the declared single variant replacement and module-name change.",
+  "findings": [],
+  "A": {
+    "evidence": [
+      "src/dual_simplex.jl:1257-1299",
+      "src/dual_simplex.jl:1738",
+      "A.jl:84-87",
+      "installed Julia 1.13 base/mpfr.jl:575-582,782-787,1169",
+      "installed Julia 1.13 base/float.jl:983"
+    ],
+    "numerics": "T(256) remains before eps(one(T)); same ambient-context expression at its original first location. BigFloat multiplication and sqrt use fresh outputs and do not mutate epsilon. No intervening callback/precision setter is removed or reordered. Residual accumulation, scratch invalidation, dimensions/index exceptions, nonfinite guards and tolerances unchanged. Stored-value precision does not replace ambient precision; no cache lifetime/invalidation problem.",
+    "work": "Each reached BigFloat direction check removes one eps(one(T)) evaluation; zero new scans, solves, copies or invariant checks. Core remains O(m+nonzeros in structural basis columns), independent of update-chain length. Local read-only scalar survives only the call. No runtime retained cache."
+  },
+  "B": {
+    "evidence": [
+      "src/lp_refinement_driver.jl:140-166,254,281",
+      "src/lp_refinement.jl:10-15",
+      "B.jl:122-147"
+    ],
+    "numerics": "Only concrete BigFloat and Rational{BigInt} residual scalar methods specialize. Each changed lo/hi is read numerically only behind its corresponding has-bound condition, including complementarity ternaries. Existing value is already loaded. Finite bound conversion and fixed-bound branch order remain. All returned metric zero/abs/max arithmetic remains separate and preserves the original scalar alias graph. Native and fixed-size rational fallback unchanged.",
+    "work": "Initial refinement metric and each reached candidate metric remove one zero(R) per absent endpoint, 0..2 per variable. Same O(m+n) scans/arithmetic outside these placeholders; no new pass, conversion, solve, persistent field or array retention. Additional method adds cold code/metadata; native-code retention not measured."
+  },
+  "C": {
+    "evidence": [
+      "src/simplex.jl:3-18,182-189",
+      "src/lp_refinement_driver.jl:73-104,113-132",
+      "C.jl:143-162"
+    ],
+    "numerics": "Concrete workspace basis has Vector{Int}/Vector{VariableState}. Existing copy(indices), fill suffix and vcat(states,suffix) produce private owned arrays. Owned constructor only bypasses Int broadcast and collect; original two-argument constructor has no other validation. Original caller buffers remain isolated and _lp_workspace line 92 still independently copies the transferred basis. Factorization/recompute, stop calls, observer event, dispatch, witness, finally budget sync and diagnostics merge unchanged, including exception paths. Generic nonworkspace method unchanged.",
+    "work": "Each auxiliary setup removes two arrays and element copies: m Int and m+n+k enum entries, k fixed activities. Saves O(m+n+k) copying and roughly sizeof(Int)*m + sizeof(VariableState)*(m+n+k) payload bytes plus two array headers; actual allocation counts require measurement. No new solves, scans, or retained field. Original fresh copies and later workspace isolation copies remain. All numeric precisions follow the same concrete Basis ownership rule; update-chain length unaffected. Additional method has cold code/metadata cost."
+  },
+  "cost_conclusion": "No unnecessary added runtime computational work or retained data memory found. Deliberate method duplication preserves generic fallbacks and adds unmeasured cold method/code metadata. Source supports avoided work, not elapsed-time or end-to-end speedup claims.",
+  "remaining": [
+    "Independent correctness/precision/rounding/alias/exception/stop tests and representative sparse/dense whole-call measurements remain necessary before production acceptance.",
+    "Record compilation/initialization and ordinary/recovery work separately; preserve outliers and numerical trajectory equality.",
+    "Actual staged source/full-branch review, native-code retention, other platforms and broader/full-suite coverage remain open."
+  ],
+  "sha256": {
+    "DESIGN.md": "b04385c5e1a2759e09b50e3c57785063bf9fd04bb6d099cd0c59f1658979969f",
+    "PLAN.md": "8751d35f5e06433f469270aac57e61f0ca28b02c17a93e33ff149004db5ae818",
+    "WORK-MEMORY.md": "d372a11e39e778046101ff3f888270e989f1b79533b0fde3a67cc41c1c6d91f9",
+    "changes.json": "690c7fa108a190cb17943aed3242ffff75e62587125c8bcfff8290d886b3955b",
+    "Reference.jl": "442c6363fed0c59268d308b1f84481e70102fdfd2fbc05be97117f5d33b13ea6",
+    "A.jl": "47822d6bbd29e61255012c8f84bf60c20d161c466e23bd00afe0a1c2b0755902",
+    "B.jl": "800e5d783f7b217ca75bacbfcde9ba0e82d20ace4f00d4bc92ad72024f2a3b71",
+    "C.jl": "9e6f465625cf0692cb787ddf4ff539e49e731b9412b76542e5581caff5e3187b"
+  }
+}

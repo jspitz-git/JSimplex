@@ -1,0 +1,67 @@
+{
+  "accepted": false,
+  "auditor_review": "Exact failed-root55626pass/1fail/2errors/55629total and no success marker are required; every1196cell/21528window/1232prep entry retains typed metadata, costs, alternating pairs, compilezero/output checks, original process/entry/pin/deadline/resource linkage and unchanged source. Original attempt remains explicitly failed. Aside from the provenance field, no further concrete auditor/control issue found in this review.",
+  "bindings": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/audit-prefix.py": "6fb3c1053632330b28a3a6fe0ca7e6910a2a2c0abd9f786130c5d5f1a6a26361",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/fixtures-supported.jl": "6dc1344992d590022db169321d57779707168357d089ede01335cfe85a308dbe",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/output/pins.json": "a1845c292e6c6ac589fbe3e5a7bd0483137bbd3626197825972faf3f2a0bd377",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/pins-qualified.json": "a1845c292e6c6ac589fbe3e5a7bd0483137bbd3626197825972faf3f2a0bd377",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/remaining/audit.py": "687cd55168cb2d5768eb64d44b551e7ba97358042f125f30fa0aaef844643075",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/remaining/common.py": "5dad6057673bd26773377fb61e54dabe076bb5496212d3bad4c8a9947cfb1b4e",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/remaining/contract.json": "bfe62a6703dd2b2e45c6fd0f57536153515fbb1dd38e279af96eadabed12e097",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/remaining/driver.jl": "72a5b2fdecf7dd968b9e002ff8f0d0bdbf459bea84aaebf251a4de59b8668189",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/remaining/expected-cases.json": "31a94acfb6c43ef196e853d184cc9f8821364bcdbee2619b384a5b4ef89ce47b",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/remaining/grid.toml": "03f1d97e7358e98ecccf8542655da5c854216e2b6d772dbbf6ea2efc5e385b0b",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/remaining/host-before.json": "37a2c1d18b0ef36bd95898375031835981e6fbd276571489e93879ca6d9a8603",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/remaining/host-seed.json": "37a2c1d18b0ef36bd95898375031835981e6fbd276571489e93879ca6d9a8603",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/remaining/launch.py": "bf5ca4f5106161ba70a11636d482bdb733bb6747e82adc7557cd1d87d8416512",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/remaining/pins.json": "1ef4012626e48b3c880d30daf7ea87f8391a434e0b1a924a95fe50fff2180e2f",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/route-review.json": "255512a79229a6caf115761a43dac2ef0e1a8276888d92cf14108f5cacd205b9",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/route-supplement.json": "2d8cc471586348cb8c371b0f87ca990778c84766b99fd96f8aa58e00c94f97e5"
+  },
+  "execution": "Static source/data/hash review only. No Julia, reviewed script execution, or production edits. No remaining attempt reservation exists.",
+  "findings": [
+    {
+      "effect": "Guaranteed KeyError before Julia launch. Fresh host evidence must include the independently verified diagnostic ref used by the control.",
+      "evidence_keys": [
+        "available_kib",
+        "boot_id",
+        "groups",
+        "no_Julia",
+        "processes",
+        "swap_used_kib",
+        "time_utc"
+      ],
+      "file": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/remaining/common.py",
+      "issue": "unchanged() reads host-before.json['diagnostic_head'], but remaining/host-before.json lacks that field.",
+      "priority": "P1"
+    },
+    {
+      "effect": "Misleading result provenance. Distinguish original-launch pin/admission membership from separately reviewed posthoc/remaining-manifest binding.",
+      "evidence": "audit-prefix.py is absent from pins-qualified.json and output/pins.json; present in remaining/pins.json.",
+      "file": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/audit-prefix.py",
+      "issue": "auditor_in_actual_launchpins=True falsely describes this posthoc prefix auditor as present in the original failed launch manifest.",
+      "priority": "P2"
+    }
+  ],
+  "fixture_review": "Only the successful C correctness/early-stop block is gated on AbstractFloat; original floating body and all helper/whole-call measurement code remain unchanged. Rational branch performs2sides*4 assertions: MethodError, input values, scalar/array owners, budget preservation. Each Rational context has186 B checks+8unsupported-C checks+10empty-B checks=204.",
+  "passed_checks": {
+    "all_manifest_files": 1311,
+    "all_resolved_paths_hashes_and_tree_membership": true,
+    "cell_assertions": 1020,
+    "correctness_per_rational_context": 204,
+    "correctness_total": 408,
+    "original_1273_inventory_unchanged": true,
+    "overlap_with_completed_cells": 0,
+    "protected_files_indexes": true,
+    "remaining_cases": 30,
+    "remaining_type": "Rational{Int64}",
+    "remaining_variant": "B",
+    "root_assertions": 1428,
+    "unchanged_common_launcher_guard": true,
+    "windows": 540
+  },
+  "prefix_auditor_accepted": false,
+  "reviewer": "epsilon_bound_auxiliary_admission",
+  "time_utc": "2026-10-28T17:56:09.977749+00:00"
+}

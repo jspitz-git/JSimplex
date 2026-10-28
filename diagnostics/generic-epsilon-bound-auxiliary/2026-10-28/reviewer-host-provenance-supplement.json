@@ -1,0 +1,31 @@
+{
+  "accepted": true,
+  "bindings": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/GREEN-run/audit.json": "6f770b172e2120b0dfbfe958d3413293e8e46d57d81f12b1f6737540835e2e67",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/GREEN-run/output/process.json": "aa1fc157a231abfb4f6b437f53816630022064760de9da485ca9240d5ef33244",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/GREEN-run/pins.json": "629c5d33616d4ca2655a911960500cc593ec401b85ec7ebb8dfa2b570e2730ae",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/GREEN-run/reviewer-actual-host.json": "e6bf8fe3d8cf3894a50bd342575a562e78baddd44215fb05c050ea729d216867",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/GREEN-run/reviewer-live-refs.json": "53c9e2b997b2bccf5d2d372540770e5c69306d4c67a250e8d3e30295ba13ea55"
+  },
+  "correction": "Earlier independent reviewer admissions/RED checks ran plain sandbox proc and local Git reads. Sandbox proc exposes only executor PID namespace, so those reviewer-local noJulia/session observations are not whole-host proof. Source/pin/file checks remain valid; frozen records are preserved without rewriting. Actual author/guard launch/postexit records, produced outside sandbox and inspected by reviewer, remain the run host provenance. This supplement makes the limitation explicit and binds a new actual-host683group/session noJulia proof and repeated unsandboxed Git/file/pin/protected checks. All future reviewer host/Git checks must use require_escalated.",
+  "findings": [],
+  "reviewed_actual_host_records": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/GREEN-run/audit-host.json": "d473f072784161925d1dc5b6f8d89413f20ef1f72d78b97be71950567fa5451d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/GREEN-run/author-host.json": "1b9288e96e0503fbbd8ef26f571299314d8202526e549e29cfdde0a0e714e782",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/GREEN-run/host-after.json": "9eb7ab07142100e6d3c5429a75e15a7986d6ed8494325eb24ea29320f8f96f63",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/GREEN-run/launch-host.json": "336eeb5e239606e07fcfd2095418ce20a3497875c7c0dd2eba66b54c1ed6057b",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED-run/audit-host.json": "a8cc5338662a44530e00aff14ff931c58d668781a8d35900813c291da8a5a7ad",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED-run/author-host.json": "9f04759ed869bfd8d39c5d0446b95066bc4f5e4dcca767896bf22f3927eb3cf4",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED-run/host-after.json": "04a00fec8374369343584f1f6f7687a8bcf79e2c4eabc409a30ebcd824483af0",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED-run/launch-host.json": "81892652d7d0b7bc7a77eab661bf76ce54d5936c595b2a7da0c5e6f16f5018ba"
+  },
+  "reviewer": "epsilon_bound_auxiliary_review",
+  "time_utc": "2026-10-28T19:22:57.668727+00:00",
+  "unchanged_prior_records": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/GREEN-run/admission.json": "955dc09717b9b3083ee1a29af75df23dcec5d93adbe96143100888ad7e887283",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED-run/admission.json": "433ca63d3cdd0415eea5a423cc92e9cfbd6d746fbcd1a22457be7aca06317cd0",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED-run/result-review.json": "453c8fb6592d7597b89e8ec84e17162c50bb5bec8b079592d0d9eb2418b1f12c",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/production-preparation-review.json": "d4099061a8016c49bff5b92d011eafa2fb0259f7b5f815b0c69dd7bdc1fb4dc2",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/production-review.json": "cf84252ab22562bb4582baa948b54d3abea048451340a6b5824f867b87288f96"
+  }
+}

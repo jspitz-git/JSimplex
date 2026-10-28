@@ -1,0 +1,124 @@
+{
+  "accepted_variants": [
+    "A",
+    "B",
+    "C"
+  ],
+  "comparison_cell_assertions": 49708,
+  "correctness_assertions_from_unchanged_source": 7153,
+  "expected_RED_failures": 12,
+  "expected_RED_passes": 7325,
+  "expected_RED_total": 7337,
+  "failure_line": 391,
+  "gates": [
+    {
+      "arm": "A",
+      "density": "sparse",
+      "mode": "good",
+      "n": 16,
+      "scope": "direction",
+      "shape": "mixed",
+      "type": "BigFloat"
+    },
+    {
+      "arm": "A",
+      "density": "dense",
+      "mode": "good",
+      "n": 16,
+      "scope": "direction",
+      "shape": "mixed",
+      "type": "BigFloat"
+    },
+    {
+      "arm": "A",
+      "density": "sparse",
+      "mode": "good",
+      "n": 64,
+      "scope": "direction",
+      "shape": "mixed",
+      "type": "BigFloat"
+    },
+    {
+      "arm": "A",
+      "density": "dense",
+      "mode": "good",
+      "n": 64,
+      "scope": "direction",
+      "shape": "mixed",
+      "type": "BigFloat"
+    },
+    {
+      "arm": "B",
+      "density": "sparse",
+      "mode": "free",
+      "n": 64,
+      "scope": "errors",
+      "shape": "mixed",
+      "type": "BigFloat"
+    },
+    {
+      "arm": "B",
+      "density": "sparse",
+      "mode": "mixed",
+      "n": 64,
+      "scope": "errors",
+      "shape": "mixed",
+      "type": "BigFloat"
+    },
+    {
+      "arm": "B",
+      "density": "sparse",
+      "mode": "free",
+      "n": 64,
+      "scope": "errors",
+      "shape": "mixed",
+      "type": "Rational{BigInt}"
+    },
+    {
+      "arm": "B",
+      "density": "sparse",
+      "mode": "mixed",
+      "n": 64,
+      "scope": "errors",
+      "shape": "mixed",
+      "type": "Rational{BigInt}"
+    },
+    {
+      "arm": "C",
+      "density": "sparse",
+      "mode": "good",
+      "n": 16,
+      "scope": "auxiliary",
+      "shape": "positive",
+      "type": "Float32"
+    },
+    {
+      "arm": "C",
+      "density": "dense",
+      "mode": "good",
+      "n": 16,
+      "scope": "auxiliary",
+      "shape": "positive",
+      "type": "Float32"
+    },
+    {
+      "arm": "C",
+      "density": "sparse",
+      "mode": "good",
+      "n": 16,
+      "scope": "auxiliary",
+      "shape": "positive",
+      "type": "Float64"
+    },
+    {
+      "arm": "C",
+      "density": "dense",
+      "mode": "good",
+      "n": 16,
+      "scope": "auxiliary",
+      "shape": "positive",
+      "type": "Float64"
+    }
+  ],
+  "rule": "fixed3whole-callpairs lowerEvents each/lowerMedianBytes; all numerical expectations and oldthresholds unchanged, no timingassertion"
+}

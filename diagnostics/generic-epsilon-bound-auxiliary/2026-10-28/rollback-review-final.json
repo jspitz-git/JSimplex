@@ -1,0 +1,56 @@
+{
+  "accepted": true,
+  "bindings": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/baseline-tree.json": "3b38e8514f42c2908bcc1a5d09b33f158462adb912a8c4bbb495e635fa440f0e",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-gc-preparation/common.py": "c7f636bbff8e5f9dadf9f86ee2aab109b612b4a8dbf3befdef3524ffce3d4713",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-gc-preparation/contract.json": "114bacff6700cb79bdf0b194ebf41646fc35aae3cd9d0a1dfd76b7f2c50e575b",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-gc-preparation/environment.json": "0486038314ae4f4310c75c7a32572e7b048bac164ba9fc2105e51e7a4e979c4d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-gc-preparation/host-before.json": "218b625eb50171b62c5cfe1990f8e169133a3e9c0d6e96e89ba26b74a78c5aa3",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-gc-preparation/host-seed.json": "218b625eb50171b62c5cfe1990f8e169133a3e9c0d6e96e89ba26b74a78c5aa3",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-gc-preparation/pins.json": "e639d855a2b03795e1dbdb848abaedd2294d5fe47e1f029e3e5aec28a0b02076",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-gc-preparation/protected-before.json": "709705344583c2dab9bf2ec7ad2b2eb056f020bdc676546b47907549a8cda88f",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/gc-preparation-decision.json": "985f1b6c79f00901002c215992e4a5c8362af7689cf55c934626cb28bc37466b",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/production-commit.json": "0c49ae4c5a6b23a4fe1f66e79b298088046878b29abd58697ef583cc74a104fa",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/rollback-review.json": "4d8a2d5c56e8327f399d6a2601e57748407d25679373dca84fc60bbbee084592",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/rollback-unpromoted-final.py": "3e53cbffc997e9c192d332f5cfdce74b2f0b95da36504ef288921e8a45cf4c78",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/rollback-unpromoted-reviewed.py": "58843c3c15472f111d30481a2c938a8c558796ec74fc2219f45348e4f5a93aec",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/rollback-unpromoted.py": "dd964bc0a0cdcfa8ed6efe4db320447030ecba341c6a378f2349dc582c597137"
+  },
+  "corrected_draft_findings": [
+    "Original accepted:false rollback-review.json and both drafts preserved. Canonical final script journals before/after each mutation and catches mutation, post-validation, host-check and output-construction exceptions with observed state plus STOP/narrow manual completion guidance.",
+    "Final-script Git reads bounded60s, mutations120s. Post-mutation live-ref failure goes through failure recorder. No broad automatic reset/recovery."
+  ],
+  "findings": [],
+  "limitations": [
+    "Process termination or filesystem failure can prevent exception recording; beforeimages and candidate branch are retained. A timeout/failure requires stopping and reviewing exact state, never blindly rerunning.",
+    "Review acceptance is confined to the exact reversible rollback control. Existing production qualification rejection remains in force. No Julia execution, source/test edit, ref mutation or push performed by reviewer."
+  ],
+  "reviewer": "epsilon_bound_auxiliary_review",
+  "scope": "Independent rollback-only pre-execution review; does not qualify candidate for production or authorize push",
+  "time_utc": "2026-10-28T21:36:35.739107+00:00",
+  "transaction_review": [
+    "Prechecks require rejected production candidate, exact final-script review hash, protected user files and both index hashes, all853pins/tree memberships, candidate local master/backup, sole parent235, live/tracking master235 and unchanged diagnostic refs.",
+    "Owned four paths have no staged changes; complete candidate src/test equals GREEN. Exclusive original index and all4source beforeimages precede detach/CAS/switch. Hooks disabled on switches, CAS supplies expected old candidate, no force switch/reset/clean/push.",
+    "Successful outcome requires baseline src/test tree, protected user files, unrelated index entries/staged raw diff/untracked membership, unchanged diagnostic index and exact candidate backup source blobs.",
+    "Partial transaction is recoverable, not automatically atomic: retained branch/index/source beforeimages and step records allow separately reviewed completion. Failed validation never establishes successful rollback."
+  ],
+  "verification": {
+    "actual_host": {
+      "boot_id": "781795f4-f7af-4c3b-9ce9-45c7cae76ecb",
+      "historical_groups_and_sessions": 689,
+      "no_Julia": true,
+      "process_count": 42
+    },
+    "indexes": 2,
+    "pins": 853,
+    "protected_files": 9,
+    "refs": {
+      "backup": "717ef2d5dc40b57bfaff198a0a4a48f7198d00db",
+      "diagnostic": "90848b35ca1090522f472d4111d678642b9fef4a",
+      "live_and_tracking_master": "235eedf33901fe8c4cc06a3d8c3508ef2fcbb718",
+      "local_master": "717ef2d5dc40b57bfaff198a0a4a48f7198d00db"
+    },
+    "rollback_unexecuted": true,
+    "tool_context": "require_escalated actual host and Git; Python standard-library checks only"
+  }
+}

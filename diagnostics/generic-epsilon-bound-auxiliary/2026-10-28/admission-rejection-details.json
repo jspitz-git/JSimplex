@@ -1,0 +1,80 @@
+{
+  "accepted": false,
+  "bindings": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/A.jl": "47822d6bbd29e61255012c8f84bf60c20d161c466e23bd00afe0a1c2b0755902",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/B.jl": "800e5d783f7b217ca75bacbfcde9ba0e82d20ace4f00d4bc92ad72024f2a3b71",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/C.jl": "9e6f465625cf0692cb787ddf4ff539e49e731b9412b76542e5581caff5e3187b",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/Reference.jl": "442c6363fed0c59268d308b1f84481e70102fdfd2fbc05be97117f5d33b13ea6",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/admission-rejection.json": "4fd8733aeda13992a974aff72b6a1869c333fb74b0bb61c7e5d4dd8ca16c394c",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/audit.py": "abee690d0c72ba75a57aed3e1bb12bb04a3905a525ed640e518d34241450edd9",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/changes.json": "690c7fa108a190cb17943aed3242ffff75e62587125c8bcfff8290d886b3955b",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/contract.json": "a17648c987eecbddfd6c4798289c9268020c31d13fb1b9cd2fbcaa852eb5136e",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/driver.jl": "7d7713e0346a73e4387cd6023c6be206d0302faeb88cff70321b38e89fe3acbf",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/fixtures.jl": "8c0fcc7e5a06e9ee8d95a596ee82086b407edebc0d6a079d4f040ff9626f41f2",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/pins.json": "fd2819eac9127b825b20ed1ba3a7981b762e1607e0e1c731e17c1cbafad7fa40",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/preparation-review.json": "de77078d61fecc34bc1aaa2b1e4d6a077ec2c7298f3d2a7ec4b42b604095e45d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/source-review.json": "d5559ea373a01c3d099e82add5665bd2a1c74eec6dce055f467b9bc2a4a7f262"
+  },
+  "counts": {
+    "BigFloat": 401,
+    "Float32": 355,
+    "Float64": 375,
+    "Rational": 226,
+    "cells": 50156,
+    "checkpair": {
+      "A": 7,
+      "B": 8,
+      "C": 10
+    },
+    "correctness": 7197,
+    "incorrect_frozen_correctness": 8897,
+    "incorrect_frozen_total": 59053,
+    "per_context_blocks": {
+      "A": "12*(7+2)+(7+1)+2*2=120",
+      "B": "18*(8+2)+6=186",
+      "C": "2*(10+3)=26",
+      "early_stop": "2*2=4",
+      "empty_float": "(8+2)+(7+2)=19",
+      "empty_rational": "8+2=10",
+      "finite_budget": "4*3=12",
+      "native_bounds": "2*(8+1)=18",
+      "observer": "2*4=8",
+      "stored512": "7+1=8"
+    },
+    "total": 57353
+  },
+  "execution": "No Julia query/parser/loading, launcher, test, or reviewed Python-script execution; no production edits. Independent Python hash/text/JSON/TOML/arithmetic and read-only Git checks only.",
+  "findings": [
+    {
+      "evidence": "fixtures.jl:122-210; driver.jl:16-22,31-40; preparation-review.json counts.assertion_derivation; contract.json expected_assertions/correctness_assertions; audit.py exact ordinary root count guard",
+      "impact": "A completely successful ordinary Test run produces57353 rather than59053 assertions, so the pinned auditor rejects the attempt. Do not launch this sealed manifest.",
+      "priority": "P1",
+      "required_correction": "Have the author correct the prospective count metadata and independently review/reseal the changed bindings, preserving the current rejection and original pins. No numerical source or fixture change is required by this finding.",
+      "title": "Frozen exact-assertion contract overcounts by1700"
+    }
+  ],
+  "not_completed": "The admission verifier stopped at the count discrepancy before its final fresh host observation and admission publication. No admission.json was produced.",
+  "passed_before_rejection": {
+    "baseline_files": 544,
+    "commit_source_test_project_files": 542,
+    "exact_source_inverses": true,
+    "full_manifest_bytes": 613935895,
+    "full_manifest_files": 1263,
+    "full_preparation_bindings": true,
+    "grid": {
+      "A": 408,
+      "B": 750,
+      "C": 76,
+      "cells": 1234,
+      "contexts": 19,
+      "windows": 22212
+    },
+    "live_refs_verified_read_only": true,
+    "protected_files": 9,
+    "protected_indexes": 2,
+    "source_files": 71,
+    "test_files": 470
+  },
+  "reviewer": "epsilon_bound_auxiliary_admission",
+  "time_utc": "2026-10-28T17:44:47.126477+00:00"
+}

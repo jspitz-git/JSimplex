@@ -1,0 +1,31 @@
+{
+  "accepted": false,
+  "bindings": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/baseline-tree.json": "3b38e8514f42c2908bcc1a5d09b33f158462adb912a8c4bbb495e635fa440f0e",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-gc-preparation/common.py": "c7f636bbff8e5f9dadf9f86ee2aab109b612b4a8dbf3befdef3524ffce3d4713",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-gc-preparation/pins.json": "e639d855a2b03795e1dbdb848abaedd2294d5fe47e1f029e3e5aec28a0b02076",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-gc-preparation/protected-before.json": "709705344583c2dab9bf2ec7ad2b2eb056f020bdc676546b47907549a8cda88f",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/gc-preparation-decision.json": "985f1b6c79f00901002c215992e4a5c8362af7689cf55c934626cb28bc37466b",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/production-commit.json": "0c49ae4c5a6b23a4fe1f66e79b298088046878b29abd58697ef583cc74a104fa",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/rollback-unpromoted.py": "dd964bc0a0cdcfa8ed6efe4db320447030ecba341c6a378f2349dc582c597137"
+  },
+  "execution": "Static script/helper/precondition review and Python AST parse only, with all file tooling require_escalated. No Julia, numerical rerun, host survey, Git ref mutation, source/test edit, integration or push.",
+  "findings": [
+    {
+      "finding": "The three-step detach/ref-CAS/switch transaction has no exception handler or failure-state record. If the last switch fails, HEAD/worktree remain at detached CAND while master has already moved to BASE. Beforeimages and backup branch prevent data loss, but the script stops without documenting the intermediate state; the exclusive rollback-before directory makes naive rerun fail.",
+      "location": "rollback-unpromoted.py transaction after switch --detach and update-ref",
+      "priority": 1,
+      "required_change": "Record completed mutation steps and a caught failure snapshot of HEAD/master/backup/index plus exact narrow recovery guidance, or implement guarded recovery that never overwrites intervening user changes. Preserve beforeimages and do not claim success on any partial failure."
+    },
+    {
+      "finding": "All Git metadata subprocess calls, including post-mutation ls-remote checks, have no command deadline. SSH connection timeout/server keepalive alone does not bound a live stalled upload-pack command.",
+      "location": "rollback-unpromoted.py raw()/refs()",
+      "priority": 2,
+      "required_change": "Bound metadata calls with a wall-clock deadline, preserve timeout/failure evidence, and route post-mutation failures through the failure-state recorder."
+    }
+  ],
+  "positive_evidence": "Candidate backup ref and soleparent checks precede mutation; original production rejection required; source/protected/index pins checked; complete src/test candidate equality and clean owned staged paths enforced; exclusive source/index beforeimages written before ref mutations; hooks disabled; master update uses expected-old CAS; no reset-hard or force switch; postchecks cover baseline source tree, protected files, unrelated staged entries/raw diff, untracked membership, diagnostic index and backup blobs. These are good preservation checks but do not resolve the partial-state failure gap.",
+  "reviewer": "epsilon_bound_auxiliary_review",
+  "scope": "Rollback-only control review before execution; rejection pending concrete failure-handling fixes",
+  "time_utc": "2026-10-28T21:33:21.458286+00:00"
+}

@@ -1,0 +1,50 @@
+{
+  "accepted": false,
+  "bindings": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/MASTER-run/result-review.json": "f921bd5bf445894e9030afec053c966870dd18a247ea0af464de079f638780c5",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/baseline-tree.json": "3b38e8514f42c2908bcc1a5d09b33f158462adb912a8c4bbb495e635fa440f0e",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-capture/result-review.json": "d21578924a00f586554bb30d55e70491ec29fdaaa17d105f28c372d34ede5398",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-gc-preparation/common.py": "c7f636bbff8e5f9dadf9f86ee2aab109b612b4a8dbf3befdef3524ffce3d4713",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-gc-preparation/result-review.json": "15178791e3a32589a10281013f847c753cdd1578927d96b10d35430ccbb7f4ce",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/gc-preparation-decision.json": "985f1b6c79f00901002c215992e4a5c8362af7689cf55c934626cb28bc37466b",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/git-transport.json": "cb77ad2246c93ab0354542c704bfea6ec1cbebcc76c35d9a3d5f57dccaf927a3",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/integration-historical-path-map.json": "901ed2b26fd8f7ac73220063960f5e2698eb1efe08de217de8dfd1eaea94a07c",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/negative-close.py": "2a99953e2976008f259d244ad1d913d622fbcd13d157bc994854edd6887440ee",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/negative-common.py": "e86357dd43a407e3f51a9cb46772b8d23eaf1bf9405877ce983d85144acbc5c8",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/negative-frozen-whitespace-ledger.json": "e99358180e197e62f15ccb98eca2dab930afe2dece0061c488c7b9435fc98b0b",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/negative-publish.py": "4874c0caf6b76539c9f4498a055625009fd491706812b8255729da43f475c855",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/production-commit.json": "0c49ae4c5a6b23a4fe1f66e79b298088046878b29abd58697ef583cc74a104fa",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/protected-before.json": "736d65e95aac1c028d9dc858d8005d5738f331e8ba323730b5a2ef2b07ac1b56",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/publication_checks.py": "4204391c20bf3005c80e3b96a594c1e580a138a268c6d405b21d3cf141bcb694"
+  },
+  "created_utc": "2026-10-28T21:38:33.066956+00:00",
+  "findings": [
+    {
+      "file": "negative-publish.py",
+      "issue": "The first git add mutates the diagnostic index before the fresh whole-host check. n.host() currently appears only inside creation of negative-publication-plan.json after staging and diff-check.",
+      "required_change": "Run the fresh full historical-group/session/no-Julia host check before the first git add, retain its record, and preserve existing protection/ref/source checks before that mutation."
+    },
+    {
+      "file": "negative-publish.py / negative-common.py:refs",
+      "issue": "Immediately before push after the diagnostic commit, the publisher checks baseline_and_backup and protected but not live master or expected OLD diagnostic remote/tracking refs. The next refs(new) call occurs only after external publication.",
+      "required_change": "Add phase-aware ref verification before push: local diagnostic HEAD=new with sole parentOLD, diagnostic remote/tracking stillOLD, restored local/live masterBASE and candidate backupCAND. Run a fresh host check before push. Do not use current refs(new) unchanged because it expects the remote already atnew."
+    }
+  ],
+  "limitations": [
+    "Rollback and final documentation/continuation/index maps do not yet exist and were not certified.",
+    "This is not a final artifact review, rollback approval, numerical acceptance or publication approval.",
+    "No Julia, process survey, numerical run, source/reference/index mutation or network operation was performed for this offline review. Git reads used require_escalated.",
+    "Fix reviewed files via separate versions and retain this rejection as evidence; do not silently overwrite the sealed controls."
+  ],
+  "positive_checks": {
+    "baseline_and_candidate": "Whole restored baseline src/test and candidate backup ref/sole parent/four exact blobs and GREEN candidate membership are checked. Future rollback-before/after and continuation/index records remain required inputs.",
+    "historical_resolution": "All nine manifests use exact canonical paths/hashes and membership; resolver handles current bytes, baseline, candidate rollback snapshots, original master index, rollback index, diagnostic index, continuation beforeimages, and known source-document beforeversions. Newly absent candidate test resolves via preserved rollback snapshot.",
+    "ordinary_qualifications_truthful": "Positive scoped component/RED/GREEN evidence preserved; original comparison root remains failed; actualMASTER380370+2, countercapture23661+2, GCtrial23662+1 retained explicitly. Stopping decision rejects production, permanent GC and tuning.",
+    "protected_state": "Protected file bytes, continuation suffixes, restored current indexes, unrelated staged index entries and untracked membership are checked. Diagnostic index exemption applies only after intentional staging.",
+    "publication_blobs": "Exact unique artifact list and blob hashes fixed before commit; stage names/blobs, sole diagnostic parent and committed names/blobs checked. Push is diagnostic-only and normal nonforce; there is no production push command.",
+    "review_gates": "Independent negative-final-review is a prerequisite to closure, and its bindings are validated by the complete review-binding walk before closure write; publisher requires closure acceptance with production false and exact closure bindings.",
+    "syntax": "All three new Python controls parse via AST. No control script was imported/executed.",
+    "whitespace": "Current D artifact set is entirely untracked at diagnosticOLD. Static text inspection found no trailing whitespace or extra blank line atEOF in included artifacts, so current empty ledger is not a blocker. Future final artifacts still require concrete diff-check."
+  },
+  "scope": "Offline algorithm/control review only; final artifacts and verified rollback are pending. No negative closure or publication execution approved by this record."
+}

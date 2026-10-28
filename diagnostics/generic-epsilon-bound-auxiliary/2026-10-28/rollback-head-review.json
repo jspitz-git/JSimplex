@@ -1,0 +1,62 @@
+{
+  "accepted": true,
+  "bindings": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/baseline-tree.json": "3b38e8514f42c2908bcc1a5d09b33f158462adb912a8c4bbb495e635fa440f0e",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/before-master/master.index": "1f1bd1806338180867267122e05735a2c1b7944ed76d38304e4b948c117b8ec8",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-gc-preparation/common.py": "c7f636bbff8e5f9dadf9f86ee2aab109b612b4a8dbf3befdef3524ffce3d4713",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-gc-preparation/host-seed.json": "218b625eb50171b62c5cfe1990f8e169133a3e9c0d6e96e89ba26b74a78c5aa3",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/gc-preparation-decision.json": "985f1b6c79f00901002c215992e4a5c8362af7689cf55c934626cb28bc37466b",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/production-commit.json": "0c49ae4c5a6b23a4fe1f66e79b298088046878b29abd58697ef583cc74a104fa",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/rollback-before.json": "2db932fd4f3584dbbfe145472995f47613227ece1d3b012e6cf4057dbfa83f7e",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/rollback-before/master.index": "a87fcb7fb0b2af45938c63800767ff287cea4de1b8dae310ff2a462a6540ecfb",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/rollback-before/src/dual_simplex.jl": "083279f6ca665a41622741e6e9280c65cc829b693a5b32d6380aee06d2aa0f40",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/rollback-before/src/lp_refinement_driver.jl": "c39a488e2667651e3fb99a93d1d1ac62f253f8a1488d459aaff805551056c603",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/rollback-before/test/generic_epsilon_bound_auxiliary_tests.jl": "16c8ac21e6c37d52bad578f89871e5c0afcc2a6fe3626debed34579cd73f4779",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/rollback-before/test/runtests.jl": "5b222414f26eaa838c034a3a9c2db60a01f9657ecd9434baea9317c4276bd89a",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/rollback-complete-head.py": "2256aff27266129c6e68eb7bdfd675b5885487c733eb91df4663dec006393089",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/rollback-failure.json": "0fb26a66d81d52f7c7ed7bcb82ddb7746302c31149ac7246560e7ade418f4c33",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/rollback-review-final.json": "99959ca56ccf85671812ea2016fe8123e67724dec3263a7b08c69c93fffbb936",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/rollback-step-2-before.json": "33005c849238cd93fd5f18697f5067315f771d8b4f9e5ab1d1c5fa2e3a45bd8d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/rollback-unpromoted-final.py": "3e53cbffc997e9c192d332f5cfdce74b2f0b95da36504ef288921e8a45cf4c78"
+  },
+  "conclusion": "The recorded failed switch already restored the full baseline source tree and every index entry. Attaching HEAD to the already-restored master BASE completes only metadata, without another checkout, reset or index/source write.",
+  "findings": [],
+  "limits": [
+    "Recovery not executed by reviewer; no source/test/index/ref mutation or Julia run.",
+    "A filesystem or local Git failure can itself prevent recording the full exception snapshot; preserved initial journals and index/source beforeimages remain the recovery evidence.",
+    "Production candidate remains rejected, and no positive test/release qualification follows from this control acceptance."
+  ],
+  "reviewer": "epsilon_bound_auxiliary_review",
+  "safety": [
+    "Exact accepted script hash required before execution; failure journal, detached candidate/masterBASE, whole baseline tree, entire index-entry equality to original baseline, protected/staged/untracked state and fresh host checked before HEAD mutation.",
+    "Only mutating Git command is symbolic-ref HEAD refs/heads/master, bounded60s; candidate backup and master refs unchanged. Recovery index copy and exclusive recovery-before record precede it.",
+    "Validation remains within catch and requires HEAD/masterBASE, unchanged index bytes and full source tree, user data/diagnostic index/staged/untracked state, exact backup blobs and fresh host. Failure stops and preserves initial failed transaction; no reset/clean/ref cleanup/push.",
+    "Current recovery beforeimage does not exist; normal rerun after successful symbolic-ref fails the detached-state precondition. Any failure still requires separately reviewed state, never blind rerun."
+  ],
+  "scope": "Narrow HEAD-only recovery control pre-execution review; no production qualification",
+  "time_utc": "2026-10-28T21:40:43.752328+00:00",
+  "verified": {
+    "HEAD_detached": "717ef2d5dc40b57bfaff198a0a4a48f7198d00db",
+    "actual_host": {
+      "available_kib": 22815700,
+      "boot_id": "781795f4-f7af-4c3b-9ce9-45c7cae76ecb",
+      "historical_groups_and_sessions": 689,
+      "no_Julia": true,
+      "process_count": 42,
+      "swap_used_kib": 0,
+      "tool_context": "require_escalated"
+    },
+    "all_index_entries_equal_original_baseline": true,
+    "baseline_source_files": 541,
+    "candidate_backup": "717ef2d5dc40b57bfaff198a0a4a48f7198d00db",
+    "candidate_beforeimages_equal_blobs": true,
+    "diagnostic_index_unchanged": true,
+    "diagnostic_refs": "90848b35ca1090522f472d4111d678642b9fef4a",
+    "exclusive_recovery_outputs_absent": true,
+    "index_sha256": "6fcc8430e88baf671cebe8400f4e68d4d193e93991bed1cb36e71b08bb39eca0",
+    "master_live_tracking": "235eedf33901fe8c4cc06a3d8c3508ef2fcbb718",
+    "protected_files": 9,
+    "staged_diff_relative_BASE_unchanged": true,
+    "untracked_membership_unchanged": true
+  }
+}

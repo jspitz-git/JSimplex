@@ -1,0 +1,32 @@
+{
+  "arm": "COUNTER_CAPTURE",
+  "attempts": 1,
+  "command": [
+    "/bin/bash",
+    "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+    "--compiled-modules=existing",
+    "--threads=1",
+    "--gcthreads=1,0",
+    "--heap-size-hint=2G",
+    "--history-file=no",
+    "--project=/home/jspitz/JSimplex.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-gc-preparation/tests.jl"
+  ],
+  "diagnostic_possible_test_exit": [
+    0,
+    1
+  ],
+  "expected_exit": 0,
+  "expected_total": 23663,
+  "explicit_full_gc_calls": 4,
+  "files": [
+    "/home/jspitz/JSimplex.jl/test/generic_epsilon_bound_auxiliary_tests.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-gc-preparation/generic_unit_perturb_residual_tests.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-gc-preparation/generic_dual_comparisons_tests.jl"
+  ],
+  "guard_limit_seconds": 892,
+  "scope": "ONE preregistered preparation-state hypothesis test: exactly one fullGC after warmups per each of four named Rational gates, recorded outside windows; unchanged all23663checks/warmups/samples/order/thresholds; no between-arm/pair GC/filter/retry. Neither original failed run is waived; not release qualification.",
+  "shared_limit_seconds": 900,
+  "source_commit": "717ef2d5dc40b57bfaff198a0a4a48f7198d00db",
+  "source_root": "/home/jspitz/JSimplex.jl"
+}

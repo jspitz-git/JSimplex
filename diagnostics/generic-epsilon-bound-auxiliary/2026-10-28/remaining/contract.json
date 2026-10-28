@@ -1,0 +1,31 @@
+{
+  "attempts": 1,
+  "baseline": "235eedf33901fe8c4cc06a3d8c3508ef2fcbb718",
+  "cases": 30,
+  "command": [
+    "/bin/bash",
+    "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+    "--compiled-modules=existing",
+    "--threads=1",
+    "--gcthreads=1,0",
+    "--heap-size-hint=2G",
+    "--history-file=no",
+    "--project=/home/jspitz/JSimplex.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/remaining/driver.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/remaining/output/results.toml"
+  ],
+  "context_labels": [
+    "Rational{BigInt}",
+    "Rational{Int64}"
+  ],
+  "contexts": 2,
+  "correctness_assertions": 408,
+  "expected_assertions": 1428,
+  "expected_exit": 0,
+  "guard_limit_seconds": 892,
+  "measured_windows": 540,
+  "optimal_status": 0,
+  "ordinary_Test": true,
+  "scope": "ONLY previously unmeasured RationalInt64 B cells, plus conventional Rational C unsupported-route preservation checks. No completed measurement rerun.",
+  "shared_limit_seconds": 900
+}

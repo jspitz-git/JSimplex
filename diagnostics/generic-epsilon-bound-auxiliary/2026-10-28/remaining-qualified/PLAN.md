@@ -1,0 +1,3 @@
+# Remaining supported cases
+
+Original run remains FAILED (55626pass/1fail/2errors); all1196 complete paired cells remain untouched. This separate run measures ONLY thirty previously unmeasured RationalInt64 B cells. It also runs ordinary RationalBigInt/RationalInt64 correctness with four unchanged-input/owner/budget assertions per side proving the original unsupported C wrapper MethodError. No precision method or source workaround. Other floating correctness/measurements are reused from preserved raw with separate strict prefix audit. Separate independent admission,900s shared/892guard, same all resources and fresh677groups/sessions. No Julia before admission.

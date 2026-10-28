@@ -1,0 +1,942 @@
+{
+  "GREEN": {
+    "accepted": true,
+    "expected_failures": 0,
+    "meaning": "The same candidate source and legacy test passed GREEN; this does not waive the actualMASTER failure or establish deterministic costs.",
+    "passed": 380372,
+    "total": 380372
+  },
+  "baseline": "235eedf33901fe8c4cc06a3d8c3508ef2fcbb718",
+  "bindings": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-dual-comparisons/2026-10-26/measure/candidate.jl": "b590a20f0d44065c480a4e32ddb9b2cd848cf2b93ab041da677d18890d5992d4",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-dual-comparisons/2026-10-26/measure/driver.jl": "b90dba85316ae2c7ebd1d0bf9a75aba8c500437f29f5c3b75ef7396243b3dd9d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-dual-comparisons/2026-10-26/measure/output/results.toml": "6427e3058b9208dc5b9559c139618b7097ed7117fdd9cb4399980d1a15b7cfed",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-dual-comparisons/2026-10-26/measure/reference.jl": "b72d46152efd4839f6ba2003c2e2eaadb60b10cc56241bd97e1f50ccee725546",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/GREEN-run/audit.json": "6f770b172e2120b0dfbfe958d3413293e8e46d57d81f12b1f6737540835e2e67",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/GREEN-run/output/run.log": "10fc351ed28745f138a0b818d058358a857c02d7b56ef2150f3ce0912056f4c5",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/GREEN-run/result-review.json": "70d4c3bf62fb69e9abbea30809256f5b2b44a42110692a11b72d5f2dfcf3df0f",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/GREEN/src/dual_simplex.jl": "083279f6ca665a41622741e6e9280c65cc829b693a5b32d6380aee06d2aa0f40",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/GREEN/src/lp_refinement_driver.jl": "c39a488e2667651e3fb99a93d1d1ac62f253f8a1488d459aaff805551056c603",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/GREEN/src/numeric.jl": "403c6f50597b4b0031961fa459d8129937a81af0b061d97e3b0dcfd09c28c607",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/GREEN/src/simplex.jl": "a56c58b30c2ba659da56bceff691c7fe2919adbcadcd5a22779aca77ec04f3e0",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/GREEN/src/simplex_pricing.jl": "8c2a3ad270e68366611b4c21b5b64c754e266d962f6f965854b48fbeccd3fe3b",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/GREEN/test/generic_dual_comparisons_tests.jl": "4d1a0b3c1bf5618427d70a60d675e12b769696b3cfd15ac670795fbe6d52c06f",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/MASTER-run/contract.json": "84e718c75c7df49d87112bfb9d4b93e1552492f9acbed56c74d6f921aa46b191",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/MASTER-run/pins.json": "9bd1c264b2a17242fef4ab929e3bdf4526e60381662c7e9daa8eb714a376b288",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/baseline/src/dual_simplex.jl": "4e07580f6d82e5210fd3259be36cc71e069701c7bbedde3e5d2aa11570fd5c2a",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/baseline/src/lp_refinement_driver.jl": "7b6a74c574b7791f46fcca685807d5f92c11970c804add2ed486e01640a01e90",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/baseline/src/numeric.jl": "403c6f50597b4b0031961fa459d8129937a81af0b061d97e3b0dcfd09c28c607",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/baseline/src/simplex.jl": "a56c58b30c2ba659da56bceff691c7fe2919adbcadcd5a22779aca77ec04f3e0",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/baseline/src/simplex_pricing.jl": "8c2a3ad270e68366611b4c21b5b64c754e266d962f6f965854b48fbeccd3fe3b",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/baseline/test/generic_dual_comparisons_tests.jl": "4d1a0b3c1bf5618427d70a60d675e12b769696b3cfd15ac670795fbe6d52c06f",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/changes.json": "690c7fa108a190cb17943aed3242ffff75e62587125c8bcfff8290d886b3955b",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/master-cost-source-review.json": "bc217b60b7fae1b699c5399564e830079d1d872e4ac6150c368157091266fdf1",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/production-commit.json": "0c49ae4c5a6b23a4fe1f66e79b298088046878b29abd58697ef583cc74a104fa",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/source-inverse.json": "d707b05e299fcbff2c3cb6d429420f4d39adf5b2cb94a8ae4bafac0a8d4f1949",
+    "/home/jspitz/JSimplex.jl/src/dual_simplex.jl": "083279f6ca665a41622741e6e9280c65cc829b693a5b32d6380aee06d2aa0f40",
+    "/home/jspitz/JSimplex.jl/src/lp_refinement_driver.jl": "c39a488e2667651e3fb99a93d1d1ac62f253f8a1488d459aaff805551056c603",
+    "/home/jspitz/JSimplex.jl/src/numeric.jl": "403c6f50597b4b0031961fa459d8129937a81af0b061d97e3b0dcfd09c28c607",
+    "/home/jspitz/JSimplex.jl/src/simplex.jl": "a56c58b30c2ba659da56bceff691c7fe2919adbcadcd5a22779aca77ec04f3e0",
+    "/home/jspitz/JSimplex.jl/src/simplex_pricing.jl": "8c2a3ad270e68366611b4c21b5b64c754e266d962f6f965854b48fbeccd3fe3b",
+    "/home/jspitz/JSimplex.jl/test/generic_dual_comparisons_tests.jl": "4d1a0b3c1bf5618427d70a60d675e12b769696b3cfd15ac670795fbe6d52c06f"
+  },
+  "created_utc": "2026-10-28T19:59:45.514378+00:00",
+  "current_log_observation": {
+    "append_only_prefix_bytes": 70794,
+    "append_only_prefix_sha256": "9c6327df34fce8e5a7782240c31d38d4805f880005b8b71bd327aa7c758cf9f8",
+    "failure_excerpt": "Whole-call allocation gates: Test Failed at /home/jspitz/JSimplex.jl/test/generic_dual_comparisons_tests.jl:709\n  Expression: all((100 * (after[i])[1] < 97 * (before[i])[1] && 100 * (after[i])[2] < 97 * (before[i])[2] for i = eachindex(before)))\n   Evaluated: all(Base.Generator{Base.OneTo{Int64}, Main.GenericDualComparisonsTests.var\"#42#43\"{Vector{Tuple{Int64, Int64}}, Vector{Tuple{Int64, Int64}}}}(Main.GenericDualComparisonsTests.var\"#42#43\"{Vector{Tuple{Int64, Int64}}, Vector{Tuple{Int64, Int64}}}([(1401264, 41720), (1475056, 41720), (1410192, 41720)], [(1457744, 43736), (1479456, 43736), (1457136, 43736)]), Base.OneTo(3)))\n  Stacktrace:\n    [1] macro expansion\n      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]\n    [2] allocation_gate_batched(::Type{Rational{BigInt}}, scope::Symbol, pattern::Symbol; other::Symbol, expect_saving::Bool)\n      @ Main.GenericDualComparisonsTests ~/JSimplex.jl/test/generic_dual_comparisons_tests.jl:709\n    [3] allocation_gate_batched\n      @ ~/JSimplex.jl/test/generic_dual_comparisons_tests.jl:668 [inlined]\n    [4] allocation_gate(::Type{Rational{BigInt}}, scope::Symbol, pattern::Symbol)\n      @ Main.GenericDualComparisonsTests ~/JSimplex.jl/test/generic_dual_comparisons_tests.jl:719\n    [5] (::Main.GenericDualComparisonsTests.var\"#59#60\")()\n      @ Main.GenericDualComparisonsTests ~/JSimplex.jl/test/generic_dual_comparisons_tests.jl:746\n    [6] setrounding_raw(f::Main.GenericDualComparisonsTests.var\"#59#60\", ::Type{BigFloat}, r::Base.MPFR.MPFRRoundingMode)\n      @ Base.MPFR ./mpfr.jl:250\n    [7] setrounding\n      @ ./mpfr.jl:255 [inlined]\n    [8] #57\n      @ ~/JSimplex.jl/test/generic_dual_comparisons_tests.jl:745 [inlined]\n    [9] setprecision(f::Main.GenericDualComparisonsTests.var\"#57#58\", ::Type{BigFloat}, prec::Int64; base::Int64)\n      @ Base.MPFR ./mpfr.jl:1214\n   [10] setprecision(f::Function, ::Type{BigFloat}, prec::Int64)\n      @ Base.MPFR ./mpfr.jl:1213\n   [11] top-level scope\n      @ ~/JSimplex.jl/test/generic_dual_comparisons_tests.jl:739\n   [12] macro expansion\n      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]\n   [13] macro expansion\n      @ ~/JSimplex.jl/test/generic_dual_comparisons_tests.jl:744 [inlined]\n   [14] macro expansion\n      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]\n   [15] macro expansion\n      @ ~/JSimplex.jl/test/generic_dual_comparisons_tests.jl:744 [inlined]\n",
+    "important": "The active full log is NOT an immutable binding. This prefix is an observation, not final test totals.",
+    "path": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/MASTER-run/output/run.log"
+  },
+  "diagnosis_complete": true,
+  "direct_call_path": [
+    "allocation_gate_batched -> allocation_batch -> runwhole(candidate,update)",
+    "ComparisonCandidate=JSimplex -> specialized update_duals! for Rational{BigInt}",
+    "per-index arithmetic and _is_fixed; conditional _invalidate_pricing_pool!; result consumption isfinite plus perturbed"
+  ],
+  "execution": "Read-only source, Git objects (explicit require_escalated), saved TOML/JSON and one active-log prefix. No Julia, process survey, historical auditor/measurement rerun, source/pin edits, waiver or publication.",
+  "failing_gate": {
+    "batch_size": 8,
+    "caller_line": 746,
+    "density": "dense",
+    "file": "/home/jspitz/JSimplex.jl/test/generic_dual_comparisons_tests.jl",
+    "line": 709,
+    "m": 4,
+    "measured_order": "original/candidate, candidate/original, original/candidate",
+    "measured_pairs": 3,
+    "n": 128,
+    "pattern": "free (inference from exact saved event-count fingerprint; not printed as a named argument)",
+    "rule": "Every pair must have candidate bytes AND events strictly below 97 percent of reference.",
+    "scope": "update",
+    "type": "Rational{BigInt}",
+    "warm_rounds": 3
+  },
+  "findings": [
+    "Second observed legacy cost gate remains unresolved and blocks claiming actualMASTER all-pass.",
+    "No unnecessary additional work or retained memory was found in the measured update path introduced by target717: its body and direct helpers are unchanged.",
+    "Counters narrow the apparent second failure to one byte threshold, but mechanism remains unproved.",
+    "Neither historical qualification nor GREEN supersedes current failed assertions."
+  ],
+  "historical_7e306_exception_reused": false,
+  "historical_saved_context": {
+    "cases": [
+      {
+        "pattern": "lower",
+        "records": [
+          {
+            "bytes": 108912,
+            "calls": 1,
+            "compile_seconds": 0.0,
+            "events": 3181,
+            "gc_seconds": 0.0,
+            "method": "original",
+            "recompile_seconds": 0.0,
+            "reset": {
+              "bytes": 0,
+              "compile_seconds": 0.0,
+              "events": 0,
+              "gc_seconds": 0.0,
+              "recompile_seconds": 0.0,
+              "seconds": 4e-07
+            },
+            "round": 1,
+            "seconds": 3e-05,
+            "sink": 1
+          },
+          {
+            "bytes": 101824,
+            "calls": 1,
+            "compile_seconds": 0.0,
+            "events": 2929,
+            "gc_seconds": 0.0,
+            "method": "candidate",
+            "recompile_seconds": 0.0,
+            "reset": {
+              "bytes": 0,
+              "compile_seconds": 0.0,
+              "events": 0,
+              "gc_seconds": 0.0,
+              "recompile_seconds": 0.0,
+              "seconds": 4e-07
+            },
+            "round": 1,
+            "seconds": 2.7e-05,
+            "sink": 1
+          },
+          {
+            "bytes": 101824,
+            "calls": 1,
+            "compile_seconds": 0.0,
+            "events": 2929,
+            "gc_seconds": 0.0,
+            "method": "candidate",
+            "recompile_seconds": 0.0,
+            "reset": {
+              "bytes": 0,
+              "compile_seconds": 0.0,
+              "events": 0,
+              "gc_seconds": 0.0,
+              "recompile_seconds": 0.0,
+              "seconds": 1.1e-06
+            },
+            "round": 2,
+            "seconds": 2.89e-05,
+            "sink": 1
+          },
+          {
+            "bytes": 108928,
+            "calls": 1,
+            "compile_seconds": 0.0,
+            "events": 3181,
+            "gc_seconds": 0.0,
+            "method": "original",
+            "recompile_seconds": 0.0,
+            "reset": {
+              "bytes": 0,
+              "compile_seconds": 0.0,
+              "events": 0,
+              "gc_seconds": 0.0,
+              "recompile_seconds": 0.0,
+              "seconds": 4e-07
+            },
+            "round": 2,
+            "seconds": 3.02e-05,
+            "sink": 1
+          },
+          {
+            "bytes": 108912,
+            "calls": 1,
+            "compile_seconds": 0.0,
+            "events": 3181,
+            "gc_seconds": 0.0,
+            "method": "original",
+            "recompile_seconds": 0.0,
+            "reset": {
+              "bytes": 0,
+              "compile_seconds": 0.0,
+              "events": 0,
+              "gc_seconds": 0.0,
+              "recompile_seconds": 0.0,
+              "seconds": 1.1e-06
+            },
+            "round": 3,
+            "seconds": 4.01e-05,
+            "sink": 1
+          },
+          {
+            "bytes": 101824,
+            "calls": 1,
+            "compile_seconds": 0.0,
+            "events": 2929,
+            "gc_seconds": 0.0,
+            "method": "candidate",
+            "recompile_seconds": 0.0,
+            "reset": {
+              "bytes": 0,
+              "compile_seconds": 0.0,
+              "events": 0,
+              "gc_seconds": 0.0,
+              "recompile_seconds": 0.0,
+              "seconds": 5e-07
+            },
+            "round": 3,
+            "seconds": 3.77e-05,
+            "sink": 1
+          },
+          {
+            "bytes": 101856,
+            "calls": 1,
+            "compile_seconds": 0.0,
+            "events": 2929,
+            "gc_seconds": 0.0,
+            "method": "candidate",
+            "recompile_seconds": 0.0,
+            "reset": {
+              "bytes": 0,
+              "compile_seconds": 0.0,
+              "events": 0,
+              "gc_seconds": 0.0,
+              "recompile_seconds": 0.0,
+              "seconds": 1e-06
+            },
+            "round": 4,
+            "seconds": 3.29e-05,
+            "sink": 1
+          },
+          {
+            "bytes": 108912,
+            "calls": 1,
+            "compile_seconds": 0.0,
+            "events": 3181,
+            "gc_seconds": 0.0,
+            "method": "original",
+            "recompile_seconds": 0.0,
+            "reset": {
+              "bytes": 0,
+              "compile_seconds": 0.0,
+              "events": 0,
+              "gc_seconds": 0.0,
+              "recompile_seconds": 0.0,
+              "seconds": 1e-06
+            },
+            "round": 4,
+            "seconds": 3.54e-05,
+            "sink": 1
+          },
+          {
+            "bytes": 108912,
+            "calls": 1,
+            "compile_seconds": 0.0,
+            "events": 3181,
+            "gc_seconds": 0.0,
+            "method": "original",
+            "recompile_seconds": 0.0,
+            "reset": {
+              "bytes": 0,
+              "compile_seconds": 0.0,
+              "events": 0,
+              "gc_seconds": 0.0,
+              "recompile_seconds": 0.0,
+              "seconds": 6e-07
+            },
+            "round": 5,
+            "seconds": 3.46e-05,
+            "sink": 1
+          },
+          {
+            "bytes": 101872,
+            "calls": 1,
+            "compile_seconds": 0.0,
+            "events": 2929,
+            "gc_seconds": 0.0,
+            "method": "candidate",
+            "recompile_seconds": 0.0,
+            "reset": {
+              "bytes": 0,
+              "compile_seconds": 0.0,
+              "events": 0,
+              "gc_seconds": 0.0,
+              "recompile_seconds": 0.0,
+              "seconds": 4e-07
+            },
+            "round": 5,
+            "seconds": 3.18e-05,
+            "sink": 1
+          },
+          {
+            "bytes": 101824,
+            "calls": 1,
+            "compile_seconds": 0.0,
+            "events": 2929,
+            "gc_seconds": 0.0,
+            "method": "candidate",
+            "recompile_seconds": 0.0,
+            "reset": {
+              "bytes": 0,
+              "compile_seconds": 0.0,
+              "events": 0,
+              "gc_seconds": 0.0,
+              "recompile_seconds": 0.0,
+              "seconds": 4e-07
+            },
+            "round": 6,
+            "seconds": 2.96e-05,
+            "sink": 1
+          },
+          {
+            "bytes": 108912,
+            "calls": 1,
+            "compile_seconds": 0.0,
+            "events": 3181,
+            "gc_seconds": 0.0,
+            "method": "original",
+            "recompile_seconds": 0.0,
+            "reset": {
+              "bytes": 0,
+              "compile_seconds": 0.0,
+              "events": 0,
+              "gc_seconds": 0.0,
+              "recompile_seconds": 0.0,
+              "seconds": 3e-07
+            },
+            "round": 6,
+            "seconds": 3.11e-05,
+            "sink": 1
+          },
+          {
+            "bytes": 108896,
+            "calls": 1,
+            "compile_seconds": 0.0,
+            "events": 3181,
+            "gc_seconds": 0.0,
+            "method": "original",
+            "recompile_seconds": 0.0,
+            "reset": {
+              "bytes": 0,
+              "compile_seconds": 0.0,
+              "events": 0,
+              "gc_seconds": 0.0,
+              "recompile_seconds": 0.0,
+              "seconds": 4e-07
+            },
+            "round": 7,
+            "seconds": 3.35e-05,
+            "sink": 1
+          },
+          {
+            "bytes": 101856,
+            "calls": 1,
+            "compile_seconds": 0.0,
+            "events": 2929,
+            "gc_seconds": 0.0,
+            "method": "candidate",
+            "recompile_seconds": 0.0,
+            "reset": {
+              "bytes": 0,
+              "compile_seconds": 0.0,
+              "events": 0,
+              "gc_seconds": 0.0,
+              "recompile_seconds": 0.0,
+              "seconds": 4e-07
+            },
+            "round": 7,
+            "seconds": 2.91e-05,
+            "sink": 1
+          },
+          {
+            "bytes": 101856,
+            "calls": 1,
+            "compile_seconds": 0.0,
+            "events": 2929,
+            "gc_seconds": 0.0,
+            "method": "candidate",
+            "recompile_seconds": 0.0,
+            "reset": {
+              "bytes": 0,
+              "compile_seconds": 0.0,
+              "events": 0,
+              "gc_seconds": 0.0,
+              "recompile_seconds": 0.0,
+              "seconds": 5e-07
+            },
+            "round": 8,
+            "seconds": 3.2e-05,
+            "sink": 1
+          },
+          {
+            "bytes": 108944,
+            "calls": 1,
+            "compile_seconds": 0.0,
+            "events": 3181,
+            "gc_seconds": 0.0,
+            "method": "original",
+            "recompile_seconds": 0.0,
+            "reset": {
+              "bytes": 0,
+              "compile_seconds": 0.0,
+              "events": 0,
+              "gc_seconds": 0.0,
+              "recompile_seconds": 0.0,
+              "seconds": 5e-07
+            },
+            "round": 8,
+            "seconds": 3.28e-05,
+            "sink": 1
+          },
+          {
+            "bytes": 108880,
+            "calls": 1,
+            "compile_seconds": 0.0,
+            "events": 3181,
+            "gc_seconds": 0.0,
+            "method": "original",
+            "recompile_seconds": 0.0,
+            "reset": {
+              "bytes": 0,
+              "compile_seconds": 0.0,
+              "events": 0,
+              "gc_seconds": 0.0,
+              "recompile_seconds": 0.0,
+              "seconds": 5e-07
+            },
+            "round": 9,
+            "seconds": 3.31e-05,
+            "sink": 1
+          },
+          {
+            "bytes": 101856,
+            "calls": 1,
+            "compile_seconds": 0.0,
+            "events": 2929,
+            "gc_seconds": 0.0,
+            "method": "candidate",
+            "recompile_seconds": 0.0,
+            "reset": {
+              "bytes": 0,
+              "compile_seconds": 0.0,
+              "events": 0,
+              "gc_seconds": 0.0,
+              "recompile_seconds": 0.0,
+              "seconds": 5e-07
+            },
+            "round": 9,
+            "seconds": 3.03e-05,
+            "sink": 1
+          }
+        ],
+        "zero_based_case": 861
+      },
+      {
+        "pattern": "free",
+        "records": [
+          {
+            "bytes": 182336,
+            "calls": 1,
+            "compile_seconds": 0.0,
+            "events": 5467,
+            "gc_seconds": 0.0,
+            "method": "original",
+            "recompile_seconds": 0.0,
+            "reset": {
+              "bytes": 0,
+              "compile_seconds": 0.0,
+              "events": 0,
+              "gc_seconds": 0.0,
+              "recompile_seconds": 0.0,
+              "seconds": 3e-07
+            },
+            "round": 1,
+            "seconds": 5.05e-05,
+            "sink": 2
+          },
+          {
+            "bytes": 175232,
+            "calls": 1,
+            "compile_seconds": 0.0,
+            "events": 5215,
+            "gc_seconds": 0.0,
+            "method": "candidate",
+            "recompile_seconds": 0.0,
+            "reset": {
+              "bytes": 0,
+              "compile_seconds": 0.0,
+              "events": 0,
+              "gc_seconds": 0.0,
+              "recompile_seconds": 0.0,
+              "seconds": 3e-07
+            },
+            "round": 1,
+            "seconds": 4.82e-05,
+            "sink": 2
+          },
+          {
+            "bytes": 175280,
+            "calls": 1,
+            "compile_seconds": 0.0,
+            "events": 5215,
+            "gc_seconds": 0.0,
+            "method": "candidate",
+            "recompile_seconds": 0.0,
+            "reset": {
+              "bytes": 0,
+              "compile_seconds": 0.0,
+              "events": 0,
+              "gc_seconds": 0.0,
+              "recompile_seconds": 0.0,
+              "seconds": 5e-07
+            },
+            "round": 2,
+            "seconds": 5.07e-05,
+            "sink": 2
+          },
+          {
+            "bytes": 182400,
+            "calls": 1,
+            "compile_seconds": 0.0,
+            "events": 5467,
+            "gc_seconds": 0.0,
+            "method": "original",
+            "recompile_seconds": 0.0,
+            "reset": {
+              "bytes": 0,
+              "compile_seconds": 0.0,
+              "events": 0,
+              "gc_seconds": 0.0,
+              "recompile_seconds": 0.0,
+              "seconds": 4e-07
+            },
+            "round": 2,
+            "seconds": 5.17e-05,
+            "sink": 2
+          },
+          {
+            "bytes": 182336,
+            "calls": 1,
+            "compile_seconds": 0.0,
+            "events": 5467,
+            "gc_seconds": 0.0,
+            "method": "original",
+            "recompile_seconds": 0.0,
+            "reset": {
+              "bytes": 0,
+              "compile_seconds": 0.0,
+              "events": 0,
+              "gc_seconds": 0.0,
+              "recompile_seconds": 0.0,
+              "seconds": 4e-07
+            },
+            "round": 3,
+            "seconds": 4.94e-05,
+            "sink": 2
+          },
+          {
+            "bytes": 175232,
+            "calls": 1,
+            "compile_seconds": 0.0,
+            "events": 5215,
+            "gc_seconds": 0.0,
+            "method": "candidate",
+            "recompile_seconds": 0.0,
+            "reset": {
+              "bytes": 0,
+              "compile_seconds": 0.0,
+              "events": 0,
+              "gc_seconds": 0.0,
+              "recompile_seconds": 0.0,
+              "seconds": 3e-07
+            },
+            "round": 3,
+            "seconds": 4.72e-05,
+            "sink": 2
+          },
+          {
+            "bytes": 175344,
+            "calls": 1,
+            "compile_seconds": 0.0,
+            "events": 5215,
+            "gc_seconds": 0.0,
+            "method": "candidate",
+            "recompile_seconds": 0.0,
+            "reset": {
+              "bytes": 0,
+              "compile_seconds": 0.0,
+              "events": 0,
+              "gc_seconds": 0.0,
+              "recompile_seconds": 0.0,
+              "seconds": 4e-07
+            },
+            "round": 4,
+            "seconds": 5.52e-05,
+            "sink": 2
+          },
+          {
+            "bytes": 182480,
+            "calls": 1,
+            "compile_seconds": 0.0,
+            "events": 5467,
+            "gc_seconds": 0.0,
+            "method": "original",
+            "recompile_seconds": 0.0,
+            "reset": {
+              "bytes": 0,
+              "compile_seconds": 0.0,
+              "events": 0,
+              "gc_seconds": 0.0,
+              "recompile_seconds": 0.0,
+              "seconds": 4e-07
+            },
+            "round": 4,
+            "seconds": 4.97e-05,
+            "sink": 2
+          },
+          {
+            "bytes": 182240,
+            "calls": 1,
+            "compile_seconds": 0.0,
+            "events": 5467,
+            "gc_seconds": 0.0,
+            "method": "original",
+            "recompile_seconds": 0.0,
+            "reset": {
+              "bytes": 0,
+              "compile_seconds": 0.0,
+              "events": 0,
+              "gc_seconds": 0.0,
+              "recompile_seconds": 0.0,
+              "seconds": 4e-07
+            },
+            "round": 5,
+            "seconds": 5.08e-05,
+            "sink": 2
+          },
+          {
+            "bytes": 175168,
+            "calls": 1,
+            "compile_seconds": 0.0,
+            "events": 5215,
+            "gc_seconds": 0.0,
+            "method": "candidate",
+            "recompile_seconds": 0.0,
+            "reset": {
+              "bytes": 0,
+              "compile_seconds": 0.0,
+              "events": 0,
+              "gc_seconds": 0.0,
+              "recompile_seconds": 0.0,
+              "seconds": 3e-07
+            },
+            "round": 5,
+            "seconds": 4.74e-05,
+            "sink": 2
+          },
+          {
+            "bytes": 175136,
+            "calls": 1,
+            "compile_seconds": 0.0,
+            "events": 5215,
+            "gc_seconds": 0.0,
+            "method": "candidate",
+            "recompile_seconds": 0.0,
+            "reset": {
+              "bytes": 0,
+              "compile_seconds": 0.0,
+              "events": 0,
+              "gc_seconds": 0.0,
+              "recompile_seconds": 0.0,
+              "seconds": 2e-07
+            },
+            "round": 6,
+            "seconds": 4.84e-05,
+            "sink": 2
+          },
+          {
+            "bytes": 182176,
+            "calls": 1,
+            "compile_seconds": 0.0,
+            "events": 5467,
+            "gc_seconds": 0.0,
+            "method": "original",
+            "recompile_seconds": 0.0,
+            "reset": {
+              "bytes": 0,
+              "compile_seconds": 0.0,
+              "events": 0,
+              "gc_seconds": 0.0,
+              "recompile_seconds": 0.0,
+              "seconds": 4e-07
+            },
+            "round": 6,
+            "seconds": 4.97e-05,
+            "sink": 2
+          },
+          {
+            "bytes": 182176,
+            "calls": 1,
+            "compile_seconds": 0.0,
+            "events": 5467,
+            "gc_seconds": 0.0,
+            "method": "original",
+            "recompile_seconds": 0.0,
+            "reset": {
+              "bytes": 0,
+              "compile_seconds": 0.0,
+              "events": 0,
+              "gc_seconds": 0.0,
+              "recompile_seconds": 0.0,
+              "seconds": 3e-07
+            },
+            "round": 7,
+            "seconds": 5.89e-05,
+            "sink": 2
+          },
+          {
+            "bytes": 175360,
+            "calls": 1,
+            "compile_seconds": 0.0,
+            "events": 5215,
+            "gc_seconds": 0.0,
+            "method": "candidate",
+            "recompile_seconds": 0.0,
+            "reset": {
+              "bytes": 0,
+              "compile_seconds": 0.0,
+              "events": 0,
+              "gc_seconds": 0.0,
+              "recompile_seconds": 0.0,
+              "seconds": 4e-07
+            },
+            "round": 7,
+            "seconds": 5.6e-05,
+            "sink": 2
+          },
+          {
+            "bytes": 175104,
+            "calls": 1,
+            "compile_seconds": 0.0,
+            "events": 5215,
+            "gc_seconds": 0.0,
+            "method": "candidate",
+            "recompile_seconds": 0.0,
+            "reset": {
+              "bytes": 0,
+              "compile_seconds": 0.0,
+              "events": 0,
+              "gc_seconds": 0.0,
+              "recompile_seconds": 0.0,
+              "seconds": 4e-07
+            },
+            "round": 8,
+            "seconds": 5.45e-05,
+            "sink": 2
+          },
+          {
+            "bytes": 182256,
+            "calls": 1,
+            "compile_seconds": 0.0,
+            "events": 5467,
+            "gc_seconds": 0.0,
+            "method": "original",
+            "recompile_seconds": 0.0,
+            "reset": {
+              "bytes": 0,
+              "compile_seconds": 0.0,
+              "events": 0,
+              "gc_seconds": 0.0,
+              "recompile_seconds": 0.0,
+              "seconds": 4e-07
+            },
+            "round": 8,
+            "seconds": 5.93e-05,
+            "sink": 2
+          },
+          {
+            "bytes": 182288,
+            "calls": 1,
+            "compile_seconds": 0.0,
+            "events": 5467,
+            "gc_seconds": 0.0,
+            "method": "original",
+            "recompile_seconds": 0.0,
+            "reset": {
+              "bytes": 0,
+              "compile_seconds": 0.0,
+              "events": 0,
+              "gc_seconds": 0.0,
+              "recompile_seconds": 0.0,
+              "seconds": 3e-07
+            },
+            "round": 9,
+            "seconds": 6.67e-05,
+            "sink": 2
+          },
+          {
+            "bytes": 175120,
+            "calls": 1,
+            "compile_seconds": 0.0,
+            "events": 5215,
+            "gc_seconds": 0.0,
+            "method": "candidate",
+            "recompile_seconds": 0.0,
+            "reset": {
+              "bytes": 0,
+              "compile_seconds": 0.0,
+              "events": 0,
+              "gc_seconds": 0.0,
+              "recompile_seconds": 0.0,
+              "seconds": 3e-07
+            },
+            "round": 9,
+            "seconds": 6.38e-05,
+            "sink": 2
+          }
+        ],
+        "zero_based_case": 863
+      }
+    ],
+    "path": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-dual-comparisons/2026-10-26/measure/output/results.toml",
+    "qualification": "Saved single-call records are context for pattern/counter inference, not a replay or replacement of current eight-call cost gates. Free event totals match current batch counters exactly; lower totals would instead be 8*2929 and 8*3181. Historical byte variability and zero recorded GC do not establish the mechanism of current failure."
+  },
+  "limitations": [
+    "Current log lacks named pattern, named before/after capture, full gc_raw, elapsed/GC/compile fields and reset records for this batch, though records were built in the local test function.",
+    "Compile/recompile-zero checks precede the gate and no separate failure for them is present in this observed prefix; this is not a full current counter dump.",
+    "First residual failure still has no before/after values printed; its failed conjunct remains unknown.",
+    "No allocator, garbage-collection, environment, numerical-trajectory or new-ABC causal diagnosis is established from these observations.",
+    "No performance regression or speedup should be inferred solely from this strict assertion failure or historical timing."
+  ],
+  "minimal_capture_proposal": {
+    "first_gate": "In a separate ordinary-Test diagnostic copy, emit one unconditional named record after all existing three measured pairs and before the unchanged line581 assertion: T/scope/arm/n/density/shape/mode, before/after full cost dicts, per-pair event comparisons, byte medians.",
+    "observability_limit": "Logging after a gate can alter process state for subsequent tests; record that limitation. A later pass alone will not identify the present failure cause.",
+    "preserve": "Keep all original fixtures, owner checks, warmups, wrapper controls, alternating order, checks and strict thresholds byte-identical. Capture outside all timed regions. No forced GC, batch-size changes, repeated attempts until pass or custom Test recorder. Any later run needs its own explicit preparation/admission; this review does not authorize execution.",
+    "second_gate": "Emit one unconditional named record after all existing three measured pairs/check_batch calls and immediately before unchanged expect_saving assertion: T/scope/pattern/other/expect_saving, batch_size=8, before/after, existing records (including method/round/reset/gc_raw/compile/recompile/time/sink/calls), and each original strict predicate. Use existing records; do not remeasure."
+  },
+  "new_ABC_reachability": "No direct call to new A _dual_direction_residual_ok!, B _lp_errors or C _lp_auxiliary_run occurs in the measured update body or its inspected direct helpers. Source difference 235->717 adds no work, scan, copy, conversion or retained cache on this measured call path. This does not exclude process-history effects from earlier tests.",
+  "printed_counter_analysis": {
+    "conclusion": "Pair 2 bytes save only 4400 / 1479456 = about 0.2974 percent, failing the strict 3 percent byte gate. All three event comparisons save 2016 / 43736 = about 4.6095 percent. Pairs 1 and 3 satisfy both thresholds.",
+    "mapping": "Interpret first captured vector as after, second as before. This is consistent with source expression and exact historical free event counts: 8*5215=41720 candidate; 8*5467=43736 reference. The log prints positional closure captures, not field labels, so this association is an inference rather than direct named-field capture.",
+    "pairs_under_that_mapping": [
+      {
+        "after_bytes_events": [
+          1401264,
+          41720
+        ],
+        "before_bytes_events": [
+          1457744,
+          43736
+        ],
+        "byte_fraction_saved": 0.03874480018439452,
+        "bytes_saved": 56480,
+        "event_fraction_saved": 0.04609475032010246,
+        "events_saved": 2016,
+        "pair": 1,
+        "strict_3percent_bytes": true,
+        "strict_3percent_events": true
+      },
+      {
+        "after_bytes_events": [
+          1475056,
+          41720
+        ],
+        "before_bytes_events": [
+          1479456,
+          43736
+        ],
+        "byte_fraction_saved": 0.0029740661432310356,
+        "bytes_saved": 4400,
+        "event_fraction_saved": 0.04609475032010246,
+        "events_saved": 2016,
+        "pair": 2,
+        "strict_3percent_bytes": false,
+        "strict_3percent_events": true
+      },
+      {
+        "after_bytes_events": [
+          1410192,
+          41720
+        ],
+        "before_bytes_events": [
+          1457136,
+          43736
+        ],
+        "byte_fraction_saved": 0.03221662219586918,
+        "bytes_saved": 46944,
+        "event_fraction_saved": 0.04609475032010246,
+        "events_saved": 2016,
+        "pair": 3,
+        "strict_3percent_bytes": true,
+        "strict_3percent_events": true
+      }
+    ],
+    "raw_first_vector": [
+      [
+        1401264,
+        41720
+      ],
+      [
+        1475056,
+        41720
+      ],
+      [
+        1410192,
+        41720
+      ]
+    ],
+    "raw_second_vector": [
+      [
+        1457744,
+        43736
+      ],
+      [
+        1479456,
+        43736
+      ],
+      [
+        1457136,
+        43736
+      ]
+    ]
+  },
+  "production_qualification_accepted": false,
+  "source_checks": {
+    "src/dual_simplex.jl:update_duals! both methods": {
+      "baseline_target_actual_GREEN_identical": true,
+      "sha256": "92f64acea76e65e7e98aa7358f5e64741ef7e05260ff500d87df621680b97de6"
+    },
+    "src/numeric.jl": {
+      "baseline_target_actual_GREEN_identical": true,
+      "sha256": "403c6f50597b4b0031961fa459d8129937a81af0b061d97e3b0dcfd09c28c607"
+    },
+    "src/simplex.jl": {
+      "baseline_target_actual_GREEN_identical": true,
+      "sha256": "a56c58b30c2ba659da56bceff691c7fe2919adbcadcd5a22779aca77ec04f3e0"
+    },
+    "src/simplex_pricing.jl": {
+      "baseline_target_actual_GREEN_identical": true,
+      "sha256": "8c2a3ad270e68366611b4c21b5b64c754e266d962f6f965854b48fbeccd3fe3b"
+    },
+    "test/generic_dual_comparisons_tests.jl": {
+      "baseline_target_actual_GREEN_identical": true,
+      "sha256": "4d1a0b3c1bf5618427d70a60d675e12b769696b3cfd15ac670795fbe6d52c06f"
+    }
+  },
+  "target": "717ef2d5dc40b57bfaff198a0a4a48f7198d00db"
+}

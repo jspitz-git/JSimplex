@@ -1,0 +1,51 @@
+{
+  "accepted": true,
+  "bindings": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/MASTER-run/result-review.json": "f921bd5bf445894e9030afec053c966870dd18a247ea0af464de079f638780c5",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-capture-diagnosis.json": "16f65596e493e72feac41857f05f46360eac7a67585ebeeb51304bfa11556822",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-capture/result-review.json": "d21578924a00f586554bb30d55e70491ec29fdaaa17d105f28c372d34ede5398",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-gc-preparation/admission.json": "da733ac1263aebe965d6ad1ec026fa6de0b892d5b44b8e2215d5729af041423a",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-gc-preparation/capture-data.json": "193776f3395d37109effb336b08f3a3e3e01f6fba3e241a6f7acf240ffe310d1",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-gc-preparation/output/process.json": "87a794cecd58d9dcb3d8771e2a95d1bc22e61d18b2cfab887905dc4ba62407dd",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-gc-preparation/output/run.log": "83226cdf54580b420787373e72320e00b52737a4c7bb2e438fd460d5b37b407a",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-gc-preparation/result-review.json": "15178791e3a32589a10281013f847c753cdd1578927d96b10d35430ccbb7f4ce",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-gc-preparation/source-inverse.json": "843d64b1206a844029a289aa6370b7052e40f77561ff302fdd4a6a5b70fe752a",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/master-cost-source-review.json": "bc217b60b7fae1b699c5399564e830079d1d872e4ac6150c368157091266fdf1",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/master-second-cost-source-review.json": "58b46f1a8f7c872bc15cb326cf300f3c937559955b362ce46d0ffe85d323848c"
+  },
+  "created_utc": "2026-10-28T21:25:19.963954+00:00",
+  "decision": {
+    "candidate": "Combined717 remains unadmitted for production and must not be pushed as a passing master.",
+    "next_work": "Prepare safe closure of the unpromoted candidate and preserve all evidence. A rollback of only the agent-owned unpublished717 integration should have an explicit backup ref, exact parent235 and user-file/index beforeimage checks, plus independent review before mutation. Diagnostic closure/publication must truthfully retain rejected results; this decision does not itself execute or approve concrete rollback commands.",
+    "no_more_tuning": "No adaptive GC placement/frequency, batch growth, sample filtering, repeated runs until pass or threshold waiver follows from this evidence.",
+    "no_permanent_GC": "Do not add this GC preparation to permanent tests: the tested intervention failed its sufficiency criterion and introduces measured preparation work.",
+    "preserve_checks": "No thresholds, sample counts, pair ordering, warmup counts, batch sizes or numerical checks are relaxed, replaced or waived.",
+    "stop": "Stop the preparation-state experiment at its preregistered single attempt."
+  },
+  "evidence": {
+    "actual_MASTER": "380370 passed,2 failed of380372; remains rejected.",
+    "named_counter_capture": "23661 passed,2 cost failures of23663; UPR residual and DUAL free; remains failed.",
+    "persistent_failure": "UPR residual events2254->2251 in all three pairs; reference bytes95632,99376,93344 and candidate104464,104464,91008. Median95632->104464 violates original strict lower-byte-median requirement.",
+    "preparation_cost": "Four recorded full-GC preparation calls cost0.227029106,0.221508906,0.255886376,0.249671976 seconds; total0.954096364 seconds, separately accounted outside measurement.",
+    "single_postwarm_GC_trial": "23662 passed,1 cost failure of23663; UPR residual still fails. UPR outer and both DUAL predicates pass in this trial.",
+    "verification": "Independent full853pin/tree/sourceinverse/protected checks; all24 samples and strict predicates recomputed; process/resources and fresh actual-host689group survey passed; local source/tests unchanged at717. No numerical assertion failure observed."
+  },
+  "findings": [
+    "Full-GC preparation after warmup is not sufficient to satisfy all original cost gates."
+  ],
+  "further_adaptive_tuning_authorized": false,
+  "historical_7e306_exception_reused": false,
+  "limits": [
+    "This does not show that any individual A/B/C optimization is impossible or intrinsically invalid.",
+    "This does not establish a solver numerical defect, a direct new-ABC cause, or a particular native allocator mechanism.",
+    "Passing DUAL predicates after GC does not independently prove causation or justify applying GC as a general fix.",
+    "No timing or retained-memory improvement is established.",
+    "Prior accepted supported-cell measurement data and GREEN success remain evidence with their original limited scopes; they do not supersede failed actualMASTER qualification."
+  ],
+  "permanent_GC_test_change_approved": false,
+  "production_candidate": "717ef2d5dc40b57bfaff198a0a4a48f7198d00db",
+  "production_candidate_admitted": false,
+  "reviewer_changed_production_or_tests": false,
+  "reviewer_executed_Julia": false,
+  "scope": "Independent stopping decision after the one preregistered preparation-control trial; no production acceptance"
+}

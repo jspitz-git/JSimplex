@@ -1,0 +1,339 @@
+EBA_SOURCE /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/src/JSimplex.jl
+INCLUDING generic_epsilon_bound_auxiliary_tests.jl
+ERROR: LoadError: Some tests did not pass: 7325 passed, 12 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED-run/tests.jl:8
+
+Multiprecision epsilon bound and auxiliary: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:391
+  Expression: all(((after[k])["events"] < (before[k])["events"] for k = 1:3)) && median((x["bytes"] for x = after)) < median((x["bytes"] for x = before))
+  Stacktrace:
+    [1] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+    [2] allocation_gate(::Type{BigFloat}, scope::Symbol, arm::Symbol, n::Int64, density::Symbol, shape::Symbol, mode::Symbol)
+      @ Main.GenericEpsilonBoundAuxiliaryTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:391
+    [3] (::Main.GenericEpsilonBoundAuxiliaryTests.var"#36#37")()
+      @ Main.GenericEpsilonBoundAuxiliaryTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:403
+    [4] setrounding_raw(f::Main.GenericEpsilonBoundAuxiliaryTests.var"#36#37", ::Type{BigFloat}, r::Base.MPFR.MPFRRoundingMode)
+      @ Base.MPFR ./mpfr.jl:250
+    [5] setrounding
+      @ ./mpfr.jl:255 [inlined]
+    [6] #34
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:402 [inlined]
+    [7] setprecision(f::Main.GenericEpsilonBoundAuxiliaryTests.var"#34#35", ::Type{BigFloat}, prec::Int64; base::Int64)
+      @ Base.MPFR ./mpfr.jl:1214
+    [8] setprecision(f::Function, ::Type{BigFloat}, prec::Int64)
+      @ Base.MPFR ./mpfr.jl:1213
+    [9] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:395
+   [10] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [11] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:401 [inlined]
+
+Multiprecision epsilon bound and auxiliary: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:391
+  Expression: all(((after[k])["events"] < (before[k])["events"] for k = 1:3)) && median((x["bytes"] for x = after)) < median((x["bytes"] for x = before))
+  Stacktrace:
+    [1] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+    [2] allocation_gate(::Type{BigFloat}, scope::Symbol, arm::Symbol, n::Int64, density::Symbol, shape::Symbol, mode::Symbol)
+      @ Main.GenericEpsilonBoundAuxiliaryTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:391
+    [3] (::Main.GenericEpsilonBoundAuxiliaryTests.var"#36#37")()
+      @ Main.GenericEpsilonBoundAuxiliaryTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:404
+    [4] setrounding_raw(f::Main.GenericEpsilonBoundAuxiliaryTests.var"#36#37", ::Type{BigFloat}, r::Base.MPFR.MPFRRoundingMode)
+      @ Base.MPFR ./mpfr.jl:250
+    [5] setrounding
+      @ ./mpfr.jl:255 [inlined]
+    [6] #34
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:402 [inlined]
+    [7] setprecision(f::Main.GenericEpsilonBoundAuxiliaryTests.var"#34#35", ::Type{BigFloat}, prec::Int64; base::Int64)
+      @ Base.MPFR ./mpfr.jl:1214
+    [8] setprecision(f::Function, ::Type{BigFloat}, prec::Int64)
+      @ Base.MPFR ./mpfr.jl:1213
+    [9] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:395
+   [10] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [11] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:401 [inlined]
+
+Multiprecision epsilon bound and auxiliary: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:391
+  Expression: all(((after[k])["events"] < (before[k])["events"] for k = 1:3)) && median((x["bytes"] for x = after)) < median((x["bytes"] for x = before))
+  Stacktrace:
+    [1] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+    [2] allocation_gate(::Type{BigFloat}, scope::Symbol, arm::Symbol, n::Int64, density::Symbol, shape::Symbol, mode::Symbol)
+      @ Main.GenericEpsilonBoundAuxiliaryTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:391
+    [3] (::Main.GenericEpsilonBoundAuxiliaryTests.var"#36#37")()
+      @ Main.GenericEpsilonBoundAuxiliaryTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:405
+    [4] setrounding_raw(f::Main.GenericEpsilonBoundAuxiliaryTests.var"#36#37", ::Type{BigFloat}, r::Base.MPFR.MPFRRoundingMode)
+      @ Base.MPFR ./mpfr.jl:250
+    [5] setrounding
+      @ ./mpfr.jl:255 [inlined]
+    [6] #34
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:402 [inlined]
+    [7] setprecision(f::Main.GenericEpsilonBoundAuxiliaryTests.var"#34#35", ::Type{BigFloat}, prec::Int64; base::Int64)
+      @ Base.MPFR ./mpfr.jl:1214
+    [8] setprecision(f::Function, ::Type{BigFloat}, prec::Int64)
+      @ Base.MPFR ./mpfr.jl:1213
+    [9] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:395
+   [10] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [11] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:401 [inlined]
+
+Multiprecision epsilon bound and auxiliary: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:391
+  Expression: all(((after[k])["events"] < (before[k])["events"] for k = 1:3)) && median((x["bytes"] for x = after)) < median((x["bytes"] for x = before))
+  Stacktrace:
+    [1] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+    [2] allocation_gate(::Type{BigFloat}, scope::Symbol, arm::Symbol, n::Int64, density::Symbol, shape::Symbol, mode::Symbol)
+      @ Main.GenericEpsilonBoundAuxiliaryTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:391
+    [3] (::Main.GenericEpsilonBoundAuxiliaryTests.var"#36#37")()
+      @ Main.GenericEpsilonBoundAuxiliaryTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:406
+    [4] setrounding_raw(f::Main.GenericEpsilonBoundAuxiliaryTests.var"#36#37", ::Type{BigFloat}, r::Base.MPFR.MPFRRoundingMode)
+      @ Base.MPFR ./mpfr.jl:250
+    [5] setrounding
+      @ ./mpfr.jl:255 [inlined]
+    [6] #34
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:402 [inlined]
+    [7] setprecision(f::Main.GenericEpsilonBoundAuxiliaryTests.var"#34#35", ::Type{BigFloat}, prec::Int64; base::Int64)
+      @ Base.MPFR ./mpfr.jl:1214
+    [8] setprecision(f::Function, ::Type{BigFloat}, prec::Int64)
+      @ Base.MPFR ./mpfr.jl:1213
+    [9] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:395
+   [10] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [11] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:401 [inlined]
+
+Multiprecision epsilon bound and auxiliary: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:391
+  Expression: all(((after[k])["events"] < (before[k])["events"] for k = 1:3)) && median((x["bytes"] for x = after)) < median((x["bytes"] for x = before))
+  Stacktrace:
+    [1] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+    [2] allocation_gate(::Type{BigFloat}, scope::Symbol, arm::Symbol, n::Int64, density::Symbol, shape::Symbol, mode::Symbol)
+      @ Main.GenericEpsilonBoundAuxiliaryTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:391
+    [3] (::Main.GenericEpsilonBoundAuxiliaryTests.var"#36#37")()
+      @ Main.GenericEpsilonBoundAuxiliaryTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:407
+    [4] setrounding_raw(f::Main.GenericEpsilonBoundAuxiliaryTests.var"#36#37", ::Type{BigFloat}, r::Base.MPFR.MPFRRoundingMode)
+      @ Base.MPFR ./mpfr.jl:250
+    [5] setrounding
+      @ ./mpfr.jl:255 [inlined]
+    [6] #34
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:402 [inlined]
+    [7] setprecision(f::Main.GenericEpsilonBoundAuxiliaryTests.var"#34#35", ::Type{BigFloat}, prec::Int64; base::Int64)
+      @ Base.MPFR ./mpfr.jl:1214
+    [8] setprecision(f::Function, ::Type{BigFloat}, prec::Int64)
+      @ Base.MPFR ./mpfr.jl:1213
+    [9] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:395
+   [10] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [11] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:401 [inlined]
+
+Multiprecision epsilon bound and auxiliary: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:391
+  Expression: all(((after[k])["events"] < (before[k])["events"] for k = 1:3)) && median((x["bytes"] for x = after)) < median((x["bytes"] for x = before))
+  Stacktrace:
+    [1] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+    [2] allocation_gate(::Type{BigFloat}, scope::Symbol, arm::Symbol, n::Int64, density::Symbol, shape::Symbol, mode::Symbol)
+      @ Main.GenericEpsilonBoundAuxiliaryTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:391
+    [3] (::Main.GenericEpsilonBoundAuxiliaryTests.var"#36#37")()
+      @ Main.GenericEpsilonBoundAuxiliaryTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:408
+    [4] setrounding_raw(f::Main.GenericEpsilonBoundAuxiliaryTests.var"#36#37", ::Type{BigFloat}, r::Base.MPFR.MPFRRoundingMode)
+      @ Base.MPFR ./mpfr.jl:250
+    [5] setrounding
+      @ ./mpfr.jl:255 [inlined]
+    [6] #34
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:402 [inlined]
+    [7] setprecision(f::Main.GenericEpsilonBoundAuxiliaryTests.var"#34#35", ::Type{BigFloat}, prec::Int64; base::Int64)
+      @ Base.MPFR ./mpfr.jl:1214
+    [8] setprecision(f::Function, ::Type{BigFloat}, prec::Int64)
+      @ Base.MPFR ./mpfr.jl:1213
+    [9] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:395
+   [10] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [11] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:401 [inlined]
+
+Multiprecision epsilon bound and auxiliary: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:391
+  Expression: all(((after[k])["events"] < (before[k])["events"] for k = 1:3)) && median((x["bytes"] for x = after)) < median((x["bytes"] for x = before))
+  Stacktrace:
+    [1] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+    [2] allocation_gate(::Type{Rational{BigInt}}, scope::Symbol, arm::Symbol, n::Int64, density::Symbol, shape::Symbol, mode::Symbol)
+      @ Main.GenericEpsilonBoundAuxiliaryTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:391
+    [3] (::Main.GenericEpsilonBoundAuxiliaryTests.var"#36#37")()
+      @ Main.GenericEpsilonBoundAuxiliaryTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:409
+    [4] setrounding_raw(f::Main.GenericEpsilonBoundAuxiliaryTests.var"#36#37", ::Type{BigFloat}, r::Base.MPFR.MPFRRoundingMode)
+      @ Base.MPFR ./mpfr.jl:250
+    [5] setrounding
+      @ ./mpfr.jl:255 [inlined]
+    [6] #34
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:402 [inlined]
+    [7] setprecision(f::Main.GenericEpsilonBoundAuxiliaryTests.var"#34#35", ::Type{BigFloat}, prec::Int64; base::Int64)
+      @ Base.MPFR ./mpfr.jl:1214
+    [8] setprecision(f::Function, ::Type{BigFloat}, prec::Int64)
+      @ Base.MPFR ./mpfr.jl:1213
+    [9] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:395
+   [10] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [11] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:401 [inlined]
+
+Multiprecision epsilon bound and auxiliary: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:391
+  Expression: all(((after[k])["events"] < (before[k])["events"] for k = 1:3)) && median((x["bytes"] for x = after)) < median((x["bytes"] for x = before))
+  Stacktrace:
+    [1] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+    [2] allocation_gate(::Type{Rational{BigInt}}, scope::Symbol, arm::Symbol, n::Int64, density::Symbol, shape::Symbol, mode::Symbol)
+      @ Main.GenericEpsilonBoundAuxiliaryTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:391
+    [3] (::Main.GenericEpsilonBoundAuxiliaryTests.var"#36#37")()
+      @ Main.GenericEpsilonBoundAuxiliaryTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:410
+    [4] setrounding_raw(f::Main.GenericEpsilonBoundAuxiliaryTests.var"#36#37", ::Type{BigFloat}, r::Base.MPFR.MPFRRoundingMode)
+      @ Base.MPFR ./mpfr.jl:250
+    [5] setrounding
+      @ ./mpfr.jl:255 [inlined]
+    [6] #34
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:402 [inlined]
+    [7] setprecision(f::Main.GenericEpsilonBoundAuxiliaryTests.var"#34#35", ::Type{BigFloat}, prec::Int64; base::Int64)
+      @ Base.MPFR ./mpfr.jl:1214
+    [8] setprecision(f::Function, ::Type{BigFloat}, prec::Int64)
+      @ Base.MPFR ./mpfr.jl:1213
+    [9] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:395
+   [10] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [11] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:401 [inlined]
+
+Multiprecision epsilon bound and auxiliary: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:391
+  Expression: all(((after[k])["events"] < (before[k])["events"] for k = 1:3)) && median((x["bytes"] for x = after)) < median((x["bytes"] for x = before))
+  Stacktrace:
+    [1] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+    [2] allocation_gate(::Type{Float32}, scope::Symbol, arm::Symbol, n::Int64, density::Symbol, shape::Symbol, mode::Symbol)
+      @ Main.GenericEpsilonBoundAuxiliaryTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:391
+    [3] (::Main.GenericEpsilonBoundAuxiliaryTests.var"#36#37")()
+      @ Main.GenericEpsilonBoundAuxiliaryTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:411
+    [4] setrounding_raw(f::Main.GenericEpsilonBoundAuxiliaryTests.var"#36#37", ::Type{BigFloat}, r::Base.MPFR.MPFRRoundingMode)
+      @ Base.MPFR ./mpfr.jl:250
+    [5] setrounding
+      @ ./mpfr.jl:255 [inlined]
+    [6] #34
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:402 [inlined]
+    [7] setprecision(f::Main.GenericEpsilonBoundAuxiliaryTests.var"#34#35", ::Type{BigFloat}, prec::Int64; base::Int64)
+      @ Base.MPFR ./mpfr.jl:1214
+    [8] setprecision(f::Function, ::Type{BigFloat}, prec::Int64)
+      @ Base.MPFR ./mpfr.jl:1213
+    [9] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:395
+   [10] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [11] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:401 [inlined]
+
+Multiprecision epsilon bound and auxiliary: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:391
+  Expression: all(((after[k])["events"] < (before[k])["events"] for k = 1:3)) && median((x["bytes"] for x = after)) < median((x["bytes"] for x = before))
+  Stacktrace:
+    [1] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+    [2] allocation_gate(::Type{Float32}, scope::Symbol, arm::Symbol, n::Int64, density::Symbol, shape::Symbol, mode::Symbol)
+      @ Main.GenericEpsilonBoundAuxiliaryTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:391
+    [3] (::Main.GenericEpsilonBoundAuxiliaryTests.var"#36#37")()
+      @ Main.GenericEpsilonBoundAuxiliaryTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:412
+    [4] setrounding_raw(f::Main.GenericEpsilonBoundAuxiliaryTests.var"#36#37", ::Type{BigFloat}, r::Base.MPFR.MPFRRoundingMode)
+      @ Base.MPFR ./mpfr.jl:250
+    [5] setrounding
+      @ ./mpfr.jl:255 [inlined]
+    [6] #34
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:402 [inlined]
+    [7] setprecision(f::Main.GenericEpsilonBoundAuxiliaryTests.var"#34#35", ::Type{BigFloat}, prec::Int64; base::Int64)
+      @ Base.MPFR ./mpfr.jl:1214
+    [8] setprecision(f::Function, ::Type{BigFloat}, prec::Int64)
+      @ Base.MPFR ./mpfr.jl:1213
+    [9] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:395
+   [10] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [11] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:401 [inlined]
+
+Multiprecision epsilon bound and auxiliary: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:391
+  Expression: all(((after[k])["events"] < (before[k])["events"] for k = 1:3)) && median((x["bytes"] for x = after)) < median((x["bytes"] for x = before))
+  Stacktrace:
+    [1] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+    [2] allocation_gate(::Type{Float64}, scope::Symbol, arm::Symbol, n::Int64, density::Symbol, shape::Symbol, mode::Symbol)
+      @ Main.GenericEpsilonBoundAuxiliaryTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:391
+    [3] (::Main.GenericEpsilonBoundAuxiliaryTests.var"#36#37")()
+      @ Main.GenericEpsilonBoundAuxiliaryTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:413
+    [4] setrounding_raw(f::Main.GenericEpsilonBoundAuxiliaryTests.var"#36#37", ::Type{BigFloat}, r::Base.MPFR.MPFRRoundingMode)
+      @ Base.MPFR ./mpfr.jl:250
+    [5] setrounding
+      @ ./mpfr.jl:255 [inlined]
+    [6] #34
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:402 [inlined]
+    [7] setprecision(f::Main.GenericEpsilonBoundAuxiliaryTests.var"#34#35", ::Type{BigFloat}, prec::Int64; base::Int64)
+      @ Base.MPFR ./mpfr.jl:1214
+    [8] setprecision(f::Function, ::Type{BigFloat}, prec::Int64)
+      @ Base.MPFR ./mpfr.jl:1213
+    [9] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:395
+   [10] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [11] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:401 [inlined]
+
+Multiprecision epsilon bound and auxiliary: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:391
+  Expression: all(((after[k])["events"] < (before[k])["events"] for k = 1:3)) && median((x["bytes"] for x = after)) < median((x["bytes"] for x = before))
+  Stacktrace:
+    [1] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+    [2] allocation_gate(::Type{Float64}, scope::Symbol, arm::Symbol, n::Int64, density::Symbol, shape::Symbol, mode::Symbol)
+      @ Main.GenericEpsilonBoundAuxiliaryTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:391
+    [3] (::Main.GenericEpsilonBoundAuxiliaryTests.var"#36#37")()
+      @ Main.GenericEpsilonBoundAuxiliaryTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:414
+    [4] setrounding_raw(f::Main.GenericEpsilonBoundAuxiliaryTests.var"#36#37", ::Type{BigFloat}, r::Base.MPFR.MPFRRoundingMode)
+      @ Base.MPFR ./mpfr.jl:250
+    [5] setrounding
+      @ ./mpfr.jl:255 [inlined]
+    [6] #34
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:402 [inlined]
+    [7] setprecision(f::Main.GenericEpsilonBoundAuxiliaryTests.var"#34#35", ::Type{BigFloat}, prec::Int64; base::Int64)
+      @ Base.MPFR ./mpfr.jl:1214
+    [8] setprecision(f::Function, ::Type{BigFloat}, prec::Int64)
+      @ Base.MPFR ./mpfr.jl:1213
+    [9] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:395
+   [10] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [11] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/RED/test/generic_epsilon_bound_auxiliary_tests.jl:401 [inlined]
+Test Summary:                                | Pass  Fail  Total     Time
+Epsilon bound auxiliary RED                  | 7325    12   7337  2m06.7s
+  Multiprecision epsilon bound and auxiliary | 7325    12   7337  2m06.4s
+    Epsilon bound auxiliary BigFloat         |  401          401    19.7s
+    Epsilon bound auxiliary BigFloat         |  401          401     0.0s
+    Epsilon bound auxiliary BigFloat         |  401          401     0.1s
+    Epsilon bound auxiliary BigFloat         |  401          401     0.2s
+    Epsilon bound auxiliary BigFloat         |  401          401     0.0s
+    Epsilon bound auxiliary BigFloat         |  401          401     0.0s
+    Epsilon bound auxiliary BigFloat         |  401          401     0.0s
+    Epsilon bound auxiliary BigFloat         |  401          401     0.1s
+    Epsilon bound auxiliary BigFloat         |  401          401     0.0s
+    Epsilon bound auxiliary BigFloat         |  401          401     0.0s
+    Epsilon bound auxiliary BigFloat         |  401          401     0.0s
+    Epsilon bound auxiliary BigFloat         |  401          401     0.1s
+    Epsilon bound auxiliary BigFloat         |  401          401     0.0s
+    Epsilon bound auxiliary BigFloat         |  401          401     0.0s
+    Epsilon bound auxiliary BigFloat         |  401          401     0.0s
+    Epsilon bound auxiliary Float32          |  355          355    15.0s
+    Epsilon bound auxiliary Float64          |  375          375    22.6s
+    Epsilon bound auxiliary Rational{BigInt} |  204          204     5.8s
+    Epsilon bound auxiliary Rational{Int64}  |  204          204     2.8s
+RNG of the outermost testset: Random.Xoshiro(0x0cae8ad09051337d, 0xb06b1b91c4213dec, 0xf635f27cc1a64528, 0xaeacb4f3b89c7ebe, 0xb3b68c9fb13bbe3b)

@@ -1,0 +1,31 @@
+{
+  "arm": "COUNTER_CAPTURE",
+  "attempts": 1,
+  "command": [
+    "/bin/bash",
+    "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+    "--compiled-modules=existing",
+    "--threads=1",
+    "--gcthreads=1,0",
+    "--heap-size-hint=2G",
+    "--history-file=no",
+    "--project=/home/jspitz/JSimplex.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-capture/tests.jl"
+  ],
+  "diagnostic_possible_test_exit": [
+    0,
+    1
+  ],
+  "expected_exit": 0,
+  "expected_total": 23663,
+  "files": [
+    "/home/jspitz/JSimplex.jl/test/generic_epsilon_bound_auxiliary_tests.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-capture/generic_unit_perturb_residual_tests.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-capture/generic_dual_comparisons_tests.jl"
+  ],
+  "guard_limit_seconds": 892,
+  "scope": "Named counter diagnosis only; failed Test exit remains failed. Not production qualification. No GC, sampling, thresholds, warmups or original assertions changed; three-file cohort is not exact fullsuite allocator-state replay.",
+  "shared_limit_seconds": 900,
+  "source_commit": "717ef2d5dc40b57bfaff198a0a4a48f7198d00db",
+  "source_root": "/home/jspitz/JSimplex.jl"
+}

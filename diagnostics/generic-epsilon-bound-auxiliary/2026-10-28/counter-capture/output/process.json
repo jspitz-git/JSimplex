@@ -1,0 +1,62 @@
+{
+  "command": [
+    "/bin/bash",
+    "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+    "--compiled-modules=existing",
+    "--threads=1",
+    "--gcthreads=1,0",
+    "--heap-size-hint=2G",
+    "--history-file=no",
+    "--project=/home/jspitz/JSimplex.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-capture/tests.jl"
+  ],
+  "cwd": "/home/jspitz/JSimplex.jl",
+  "started": 1793220724.6702933,
+  "runner": {
+    "pid": 238058,
+    "pgid": 238058,
+    "sid": 238058,
+    "start_ticks": 19038559,
+    "boot_id": "781795f4-f7af-4c3b-9ce9-45c7cae76ecb",
+    "command": "/usr/bin/python3 -B /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-capture/guard/guard_reviewed.py run /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-capture/pins.json /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-capture/output --expected-exit 0 --seconds 891.4916982069844 --deadline 191277.081770066 -- /bin/bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --compiled-modules=existing --threads=1 --gcthreads=1,0 --heap-size-hint=2G --history-file=no --project=/home/jspitz/JSimplex.jl /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-capture/tests.jl "
+  },
+  "pins_sha256": "3ca338b4d5697ff7e9437d0c316093474d27efa957e84c5a4dc8fc40ce8499aa",
+  "reason": "exit1",
+  "returncode": 1,
+  "gate_command": [
+    "/usr/bin/python3",
+    "-B",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-capture/guard/entry_gate.py",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-capture/output",
+    "238058",
+    "19038559",
+    "781795f4-f7af-4c3b-9ce9-45c7cae76ecb",
+    "191277.081770066",
+    "--",
+    "/bin/bash",
+    "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+    "--compiled-modules=existing",
+    "--threads=1",
+    "--gcthreads=1,0",
+    "--heap-size-hint=2G",
+    "--history-file=no",
+    "--project=/home/jspitz/JSimplex.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-capture/tests.jl"
+  ],
+  "child": {
+    "pid": 238059,
+    "pgid": 238059,
+    "sid": 238059,
+    "start_ticks": 19038585,
+    "boot_id": "781795f4-f7af-4c3b-9ce9-45c7cae76ecb",
+    "command": "/usr/bin/python3 -B /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-capture/guard/entry_gate.py /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-capture/output 238058 19038559 781795f4-f7af-4c3b-9ce9-45c7cae76ecb 191277.081770066 -- /bin/bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --compiled-modules=existing --threads=1 --gcthreads=1,0 --heap-size-hint=2G --history-file=no --project=/home/jspitz/JSimplex.jl /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-capture/tests.jl "
+  },
+  "elapsed_including_launch": 224.36176183397765,
+  "child_maxrss_kib": 1578916,
+  "terminal_memory": {
+    "available_kib": 22800052,
+    "swap_used_kib": 0
+  },
+  "ended": 1793220948.7922041,
+  "pins_unchanged": true
+}

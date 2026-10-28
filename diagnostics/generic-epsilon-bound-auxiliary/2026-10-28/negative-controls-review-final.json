@@ -1,0 +1,73 @@
+{
+  "accepted": true,
+  "algorithm_checks": {
+    "historical_manifests": "All nine phase manifests checked with canonical path/hash resolution and exact tree membership; current restored baseline or candidate snapshots supply matching historical representations. Absent introduced test uses exact candidate beforeimage.",
+    "historical_review_bindings": "Negative closure walks accepted AND rejected JSON bindings, original source-review hashes and exact source/index/continuation maps. Prior failures never rewritten.",
+    "independent_final_gate": "negative-close.py requires final control acceptance AND negative-final-review acceptance/findings=[]; exact review-binding walk runs before closure write. Final artifact review is still outstanding.",
+    "negative_scopes": "Explicit original comparison failure, scoped supported union, expected RED/privateGREEN, failed actualMASTER, failed counter capture and insufficient oneGC trial are retained. No production push or GC/test repair.",
+    "preparation_transaction": "Before docs change, rollback accepted, refs/backup/baseline/protection/host checked; creates exclusive source/index/continuation snapshots and historical maps; negative host record and snapshot directory creation prevent blind rerun.",
+    "protected_state": "Whole baseline source/test, preserved candidate sole parent/four blobs/full candidate tree, user protected files, restored current indexes, unrelated staged entries and untracked membership checked. Continuation prefixing retains original bytes verbatim and explicit beforeimages.",
+    "publication": "Exact current artifact membership covered by closure bindings; unique names and exact SHA/Git blobs determined before staging. Exact staged and committed names/blobs including plan self-blob verified; sole parentOLD enforced. Normal nonforce push only to diagnostic branch. Postpush refs, baseline/protection and empty diagnostic staging verified.",
+    "whitespace": "Empty fixed ledger was consistent with inspected current artifact text. Runtime diff-check fails closed on unlisted whitespace or any non-whitespace diagnostic; new prose/controls are not covered by an automatic exception."
+  },
+  "bindings": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/MASTER-run/result-review.json": "f921bd5bf445894e9030afec053c966870dd18a247ea0af464de079f638780c5",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/baseline-tree.json": "3b38e8514f42c2908bcc1a5d09b33f158462adb912a8c4bbb495e635fa440f0e",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-capture/result-review.json": "d21578924a00f586554bb30d55e70491ec29fdaaa17d105f28c372d34ede5398",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-gc-preparation/common.py": "c7f636bbff8e5f9dadf9f86ee2aab109b612b4a8dbf3befdef3524ffce3d4713",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-gc-preparation/result-review.json": "15178791e3a32589a10281013f847c753cdd1578927d96b10d35430ccbb7f4ce",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/gc-preparation-decision.json": "985f1b6c79f00901002c215992e4a5c8362af7689cf55c934626cb28bc37466b",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/git-transport.json": "cb77ad2246c93ab0354542c704bfea6ec1cbebcc76c35d9a3d5f57dccaf927a3",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/integration-historical-path-map.json": "901ed2b26fd8f7ac73220063960f5e2698eb1efe08de217de8dfd1eaea94a07c",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/negative-close.before-control-gate.py": "2a99953e2976008f259d244ad1d913d622fbcd13d157bc994854edd6887440ee",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/negative-close.py": "b827a7967764e08a943ccdfdb9b755703186f38509026e000abe761bf58744a9",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/negative-common.before-historical-fix.py": "e86357dd43a407e3f51a9cb46772b8d23eaf1bf9405877ce983d85144acbc5c8",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/negative-common.before-ref-fix.py": "9e2f43d18b44f20b8df7759e53477aedec9e36251f357abd25be1846acf626c8",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/negative-common.py": "a9cabf4c49c143ca69b2ea3c423ddb871c77880b1b9f6442d0c31b62011961a7",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/negative-controls-review.json": "167977cd5247288e24bd4fad1890ec5f59834ed0f7cd978468b28a62e70f42de",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/negative-finalize.before-review-gate.py": "cb14c0c8fbb42d3fa37042cdb72a1bae0d13552dd489de83f6de50e5f9b771b8",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/negative-finalize.py": "c022f67794c205f709ffae0bfe8dba8d502e929128696fbae5fa6c9d8324ee90",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/negative-frozen-whitespace-ledger.json": "e99358180e197e62f15ccb98eca2dab930afe2dece0061c488c7b9435fc98b0b",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/negative-publish.before-host-ref-fix.py": "aa1ea8b707dec9f7cb5f79b85a8c589c5e1ddd2fe433da25f46932b3b0244a88",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/negative-publish.py": "4874c0caf6b76539c9f4498a055625009fd491706812b8255729da43f475c855",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/production-commit.json": "0c49ae4c5a6b23a4fe1f66e79b298088046878b29abd58697ef583cc74a104fa",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/protected-before.json": "736d65e95aac1c028d9dc858d8005d5738f331e8ba323730b5a2ef2b07ac1b56",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/publication_checks.py": "4204391c20bf3005c80e3b96a594c1e580a138a268c6d405b21d3cf141bcb694",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/rollback-after.json": "1c980166d8e726c674d34694014b96588c1dd8f5e00e4d1a3bca68adef1edd49",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/rollback-before.json": "2db932fd4f3584dbbfe145472995f47613227ece1d3b012e6cf4057dbfa83f7e"
+  },
+  "created_utc": "2026-10-28T21:42:44.319622+00:00",
+  "findings": [],
+  "historical_rejected_review_resolutions": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/negative-close.py@2a99953e2976008f259d244ad1d913d622fbcd13d157bc994854edd6887440ee": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/negative-close.before-control-gate.py",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/negative-common.py@e86357dd43a407e3f51a9cb46772b8d23eaf1bf9405877ce983d85144acbc5c8": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/negative-common.before-historical-fix.py"
+  },
+  "initial_rejection_provenance": {
+    "clarification": "Initial negative-controls-review.json findings describe the original controls read before the first correction. Its bindings were sampled later while saving the rejection, after root had already corrected common/publish in response to the findings message, so those two bindings cover the then-corrected controls. This timing discrepancy is explicitly retained here; it does not mean the earlier control versions passed review. The preserved .before-* copies document the original algorithms.",
+    "final_review_basis": "This final decision follows fresh inspection and exact SHA recheck of all four CURRENT controls; it does not rely on the initial rejection as evidence of correctness.",
+    "record_preserved": true
+  },
+  "limits": [
+    "Rollback-after accepted record now exists and is bound; the separate source reviewer owns its actual rollback/recovery validation. This algorithm review does not claim a new independent live rollback or remote survey.",
+    "Do not treat report templates as already published or as production qualification. Final artifact review must verify actual generated documents, maps, beforeimages, records and current prerequisites.",
+    "Old positive finalizers/publishers remain unexecuted; importing publication_checks only uses its definition-only historical-map helper.",
+    "No controls, Julia, numerical runs, source/index/ref mutations or network operations were executed in this review. Git metadata reads, where used, were require_escalated."
+  ],
+  "production_accepted": false,
+  "required_fixes_resolved": {
+    "finalizer_review_gate": "negative-finalize.py checks this accepted review/findings and EVERY bound SHA before first write, then verified rollback, refs, whole baseline/candidate backup, protection and fresh host.",
+    "historical_control_versions": "Explicit bounded filename candidates preserve exact old hashes for common/close/publish/finalize. Digest match remains mandatory and every used resolution is recorded. Rejected review old bindings independently resolve as listed below.",
+    "preindex_host": "negative-publish.py obtains fresh host before first git add; record retained in publication plan.",
+    "prepush_refs_host": "Before push, refs(new,remote_diagnostic=OLD) requires local new diagnostic commit with remote/tracking stillOLD and restored live/local masterBASE. Baseline/backup/protection and fresh host follow before normal diagnostic-only push.",
+    "truthful_report_template": "Finalizer prose records interrupted switch plus separately reviewed HEAD-only completion, names actual counted GMP callbacks, preserves failed qualifications and labels diagnostic publication pending."
+  },
+  "reviewed_controls": {
+    "negative-close.py": "b827a7967764e08a943ccdfdb9b755703186f38509026e000abe761bf58744a9",
+    "negative-common.py": "a9cabf4c49c143ca69b2ea3c423ddb871c77880b1b9f6442d0c31b62011961a7",
+    "negative-finalize.py": "c022f67794c205f709ffae0bfe8dba8d502e929128696fbae5fa6c9d8324ee90",
+    "negative-publish.py": "4874c0caf6b76539c9f4498a055625009fd491706812b8255729da43f475c855"
+  },
+  "scope": "Final independent offline algorithm/control review for negative report preparation, closure and diagnostic-only publication; actual prepared artifacts require negative-final-review before closure.",
+  "stopping_decision_preserved": true,
+  "work_memory": "No new production algorithm, numerical work, allocation measurement or retained cache. Control cost is bounded read-only hashing/tree/Git metadata validation plus requested diagnostic file/index publication; no Julia is started."
+}

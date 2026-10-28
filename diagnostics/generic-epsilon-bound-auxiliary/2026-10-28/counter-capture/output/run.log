@@ -1,0 +1,1054 @@
+COUNTER_SOURCE /home/jspitz/JSimplex.jl/src/JSimplex.jl
+INCLUDING /home/jspitz/JSimplex.jl/test/generic_epsilon_bound_auxiliary_tests.jl
+FILE_FINISHED /home/jspitz/JSimplex.jl/test/generic_epsilon_bound_auxiliary_tests.jl elapsed_seconds=124.539082633
+INCLUDING /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-capture/generic_unit_perturb_residual_tests.jl
+COUNTER_CAPTURE_BEGIN UPR
+scope = "residual"
+arm = "C"
+density = "sparse"
+n = 64
+bytes_predicate = false
+shape = "mixed"
+events_predicate = true
+mode = "unit"
+kind = "UPR"
+type = "Rational{BigInt}"
+
+[[after]]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 2.98e-5
+bytes = 91024
+compile_seconds = 0.0
+result = -0.9375
+events = 2251
+
+    [after.capture_preparation]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 3.0e-5
+    bytes = 33280
+    compile_seconds = 0.0
+    events = 1120
+[[after]]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 2.89e-5
+bytes = 92192
+compile_seconds = 0.0
+result = -0.9375
+events = 2251
+
+    [after.capture_preparation]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 3.08e-5
+    bytes = 33280
+    compile_seconds = 0.0
+    events = 1120
+[[after]]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 6.45e-5
+bytes = 91440
+compile_seconds = 0.0
+result = -0.9375
+events = 2251
+
+    [after.capture_preparation]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 3.12e-5
+    bytes = 33280
+    compile_seconds = 0.0
+    events = 1120
+
+[[before]]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 2.95e-5
+bytes = 89456
+compile_seconds = 0.0
+result = -0.9375
+events = 2254
+
+    [before.capture_preparation]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 3.02e-5
+    bytes = 33280
+    compile_seconds = 0.0
+    events = 1120
+[[before]]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 2.86e-5
+bytes = 89968
+compile_seconds = 0.0
+result = -0.9375
+events = 2254
+
+    [before.capture_preparation]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 3.03e-5
+    bytes = 33280
+    compile_seconds = 0.0
+    events = 1120
+[[before]]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 2.86e-5
+bytes = 90032
+compile_seconds = 0.0
+result = -0.9375
+events = 2254
+
+    [before.capture_preparation]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 3.05e-5
+    bytes = 33280
+    compile_seconds = 0.0
+    events = 1120
+
+COUNTER_CAPTURE_END UPR
+
+Multiprecision unit perturb and residual: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-capture/generic_unit_perturb_residual_tests.jl:586
+  Expression: all(((after[k])["events"] < (before[k])["events"] for k = 1:3)) && median((x["bytes"] for x = after)) < median((x["bytes"] for x = before))
+  Stacktrace:
+    [1] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+    [2] allocation_gate(::Type{Rational{BigInt}}, scope::Symbol, arm::Symbol, n::Int64, density::Symbol, shape::Symbol, mode::Symbol)
+      @ Main.GenericUnitPerturbResidualTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-capture/generic_unit_perturb_residual_tests.jl:586
+    [3] (::Main.GenericUnitPerturbResidualTests.var"#42#43")()
+      @ Main.GenericUnitPerturbResidualTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-capture/generic_unit_perturb_residual_tests.jl:606
+    [4] setrounding_raw(f::Main.GenericUnitPerturbResidualTests.var"#42#43", ::Type{BigFloat}, r::Base.MPFR.MPFRRoundingMode)
+      @ Base.MPFR ./mpfr.jl:250
+    [5] setrounding
+      @ ./mpfr.jl:255 [inlined]
+    [6] #40
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-capture/generic_unit_perturb_residual_tests.jl:597 [inlined]
+    [7] setprecision(f::Main.GenericUnitPerturbResidualTests.var"#40#41", ::Type{BigFloat}, prec::Int64; base::Int64)
+      @ Base.MPFR ./mpfr.jl:1214
+    [8] setprecision(f::Function, ::Type{BigFloat}, prec::Int64)
+      @ Base.MPFR ./mpfr.jl:1213
+    [9] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-capture/generic_unit_perturb_residual_tests.jl:590
+   [10] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [11] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-capture/generic_unit_perturb_residual_tests.jl:596 [inlined]
+COUNTER_CAPTURE_BEGIN UPR
+scope = "outer"
+arm = "C"
+density = "sparse"
+n = 64
+bytes_predicate = true
+shape = "mixed"
+events_predicate = true
+mode = "unit"
+kind = "UPR"
+type = "Rational{BigInt}"
+
+[[after]]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 3.05e-5
+bytes = 89104
+compile_seconds = 0.0
+result = -0.9375
+events = 2251
+
+    [after.capture_preparation]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 2.96e-5
+    bytes = 33280
+    compile_seconds = 0.0
+    events = 1120
+[[after]]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 3.34e-5
+bytes = 90176
+compile_seconds = 0.0
+result = -0.9375
+events = 2251
+
+    [after.capture_preparation]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 2.95e-5
+    bytes = 33280
+    compile_seconds = 0.0
+    events = 1120
+[[after]]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 3.71e-5
+bytes = 89104
+compile_seconds = 0.0
+result = -0.9375
+events = 2251
+
+    [after.capture_preparation]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 2.99e-5
+    bytes = 33280
+    compile_seconds = 0.0
+    events = 1120
+
+[[before]]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 3.65e-5
+bytes = 89552
+compile_seconds = 0.0
+result = -0.9375
+events = 2254
+
+    [before.capture_preparation]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 2.97e-5
+    bytes = 33280
+    compile_seconds = 0.0
+    events = 1120
+[[before]]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 3.49e-5
+bytes = 89456
+compile_seconds = 0.0
+result = -0.9375
+events = 2254
+
+    [before.capture_preparation]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 2.89e-5
+    bytes = 33280
+    compile_seconds = 0.0
+    events = 1120
+[[before]]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 3.61e-5
+bytes = 89456
+compile_seconds = 0.0
+result = -0.9375
+events = 2254
+
+    [before.capture_preparation]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 3.01e-5
+    bytes = 33280
+    compile_seconds = 0.0
+    events = 1120
+
+COUNTER_CAPTURE_END UPR
+FILE_FINISHED /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-capture/generic_unit_perturb_residual_tests.jl elapsed_seconds=60.223941533
+INCLUDING /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-capture/generic_dual_comparisons_tests.jl
+COUNTER_CAPTURE_BEGIN DUAL
+scope = "update"
+batch_size = 8
+pattern = "lower"
+per_pair_events_predicate = [true, true, true]
+other = "candidate"
+expect_saving = true
+kind = "DUAL"
+type = "Rational{BigInt}"
+after = [[819952, 23432], [816736, 23432], [817040, 23432]]
+before = [[876016, 25448], [873376, 25448], [871808, 25448]]
+per_pair_bytes_predicate = [true, true, true]
+
+[wrapper_warmup]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 1.19e-5
+bytes = 12624
+compile_seconds = 0.0
+events = 153
+
+    [wrapper_warmup.gc_raw]
+    bigalloc = 0
+    realloc = 0
+    freecall = 0
+    total_time = 0
+    full_sweep = 0
+    allocd = 12624
+    poolalloc = 153
+    pause = 0
+    malloc = 0
+
+[snapshot]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 0.061155299
+bytes = 23481040
+compile_seconds = 0.054258499
+events = 469533
+
+    [snapshot.gc_raw]
+    bigalloc = 7
+    realloc = 0
+    freecall = 0
+    total_time = 0
+    full_sweep = 0
+    allocd = 23481040
+    poolalloc = 447964
+    pause = 0
+    malloc = 21562
+
+[warmup]
+gc_seconds = 0.0300751
+recompile_seconds = 0.0
+seconds = 13.137329084
+bytes = 53225456
+compile_seconds = 13.088326884
+events = 780142
+
+    [warmup.gc_raw]
+    bigalloc = 1
+    realloc = 30480
+    freecall = 5344
+    total_time = 30075100
+    full_sweep = 0
+    allocd = 53225456
+    poolalloc = 709693
+    pause = 1
+    malloc = 39968
+
+[[records]]
+seconds = 0.0004619
+compile_seconds = 0.0
+calls = 8
+sink = 8
+gc_seconds = 0.0
+recompile_seconds = 0.0
+bytes = 876016
+events = 25448
+method = "original"
+round = 1
+
+    [records.reset]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 8.1e-6
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+        [records.reset.gc_raw]
+        bigalloc = 0
+        realloc = 0
+        freecall = 0
+        total_time = 0
+        full_sweep = 0
+        allocd = 0
+        poolalloc = 0
+        pause = 0
+        malloc = 0
+
+    [records.gc_raw]
+    bigalloc = 0
+    realloc = 5080
+    freecall = 0
+    total_time = 0
+    full_sweep = 0
+    allocd = 876016
+    poolalloc = 13232
+    pause = 0
+    malloc = 7136
+[[records]]
+seconds = 0.0003622
+compile_seconds = 0.0
+calls = 8
+sink = 8
+gc_seconds = 0.0
+recompile_seconds = 0.0
+bytes = 819952
+events = 23432
+method = "candidate"
+round = 1
+
+    [records.reset]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 9.3e-6
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+        [records.reset.gc_raw]
+        bigalloc = 0
+        realloc = 0
+        freecall = 0
+        total_time = 0
+        full_sweep = 0
+        allocd = 0
+        poolalloc = 0
+        pause = 0
+        malloc = 0
+
+    [records.gc_raw]
+    bigalloc = 0
+    realloc = 5080
+    freecall = 0
+    total_time = 0
+    full_sweep = 0
+    allocd = 819952
+    poolalloc = 12224
+    pause = 0
+    malloc = 6128
+[[records]]
+seconds = 0.0003435
+compile_seconds = 0.0
+calls = 8
+sink = 8
+gc_seconds = 0.0
+recompile_seconds = 0.0
+bytes = 816736
+events = 23432
+method = "candidate"
+round = 2
+
+    [records.reset]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 6.8e-6
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+        [records.reset.gc_raw]
+        bigalloc = 0
+        realloc = 0
+        freecall = 0
+        total_time = 0
+        full_sweep = 0
+        allocd = 0
+        poolalloc = 0
+        pause = 0
+        malloc = 0
+
+    [records.gc_raw]
+    bigalloc = 0
+    realloc = 5080
+    freecall = 0
+    total_time = 0
+    full_sweep = 0
+    allocd = 816736
+    poolalloc = 12224
+    pause = 0
+    malloc = 6128
+[[records]]
+seconds = 0.0004281
+compile_seconds = 0.0
+calls = 8
+sink = 8
+gc_seconds = 0.0
+recompile_seconds = 0.0
+bytes = 873376
+events = 25448
+method = "original"
+round = 2
+
+    [records.reset]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 7.6e-6
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+        [records.reset.gc_raw]
+        bigalloc = 0
+        realloc = 0
+        freecall = 0
+        total_time = 0
+        full_sweep = 0
+        allocd = 0
+        poolalloc = 0
+        pause = 0
+        malloc = 0
+
+    [records.gc_raw]
+    bigalloc = 0
+    realloc = 5080
+    freecall = 0
+    total_time = 0
+    full_sweep = 0
+    allocd = 873376
+    poolalloc = 13232
+    pause = 0
+    malloc = 7136
+[[records]]
+seconds = 0.0004546
+compile_seconds = 0.0
+calls = 8
+sink = 8
+gc_seconds = 0.0
+recompile_seconds = 0.0
+bytes = 871808
+events = 25448
+method = "original"
+round = 3
+
+    [records.reset]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.1e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+        [records.reset.gc_raw]
+        bigalloc = 0
+        realloc = 0
+        freecall = 0
+        total_time = 0
+        full_sweep = 0
+        allocd = 0
+        poolalloc = 0
+        pause = 0
+        malloc = 0
+
+    [records.gc_raw]
+    bigalloc = 0
+    realloc = 5080
+    freecall = 0
+    total_time = 0
+    full_sweep = 0
+    allocd = 871808
+    poolalloc = 13232
+    pause = 0
+    malloc = 7136
+[[records]]
+seconds = 0.0003371
+compile_seconds = 0.0
+calls = 8
+sink = 8
+gc_seconds = 0.0
+recompile_seconds = 0.0
+bytes = 817040
+events = 23432
+method = "candidate"
+round = 3
+
+    [records.reset]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 6.3e-6
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+        [records.reset.gc_raw]
+        bigalloc = 0
+        realloc = 0
+        freecall = 0
+        total_time = 0
+        full_sweep = 0
+        allocd = 0
+        poolalloc = 0
+        pause = 0
+        malloc = 0
+
+    [records.gc_raw]
+    bigalloc = 0
+    realloc = 5080
+    freecall = 0
+    total_time = 0
+    full_sweep = 0
+    allocd = 817040
+    poolalloc = 12224
+    pause = 0
+    malloc = 6128
+
+[fixture]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 0.0029041
+bytes = 3796640
+compile_seconds = 0.0
+events = 68784
+
+    [fixture.gc_raw]
+    bigalloc = 0
+    realloc = 320
+    freecall = 0
+    total_time = 0
+    full_sweep = 0
+    allocd = 3796640
+    poolalloc = 36096
+    pause = 0
+    malloc = 32368
+
+[wrapper]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 3.0e-7
+bytes = 0
+sink = 0
+compile_seconds = 0.0
+calls = 8
+events = 0
+
+    [wrapper.gc_raw]
+    bigalloc = 0
+    realloc = 0
+    freecall = 0
+    total_time = 0
+    full_sweep = 0
+    allocd = 0
+    poolalloc = 0
+    pause = 0
+    malloc = 0
+
+COUNTER_CAPTURE_END DUAL
+COUNTER_CAPTURE_BEGIN DUAL
+scope = "update"
+batch_size = 8
+pattern = "free"
+per_pair_events_predicate = [true, true, true]
+other = "candidate"
+expect_saving = true
+kind = "DUAL"
+type = "Rational{BigInt}"
+after = [[1404912, 41720], [1420160, 41720], [1403008, 41720]]
+before = [[1459712, 43736], [1457872, 43736], [1461008, 43736]]
+per_pair_bytes_predicate = [true, false, true]
+
+[wrapper_warmup]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 8.5e-6
+bytes = 12624
+compile_seconds = 0.0
+events = 153
+
+    [wrapper_warmup.gc_raw]
+    bigalloc = 0
+    realloc = 0
+    freecall = 0
+    total_time = 0
+    full_sweep = 0
+    allocd = 12624
+    poolalloc = 153
+    pause = 0
+    malloc = 0
+
+[snapshot]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 0.0071891
+bytes = 10482384
+compile_seconds = 0.0
+events = 230341
+
+    [snapshot.gc_raw]
+    bigalloc = 5
+    realloc = 0
+    freecall = 0
+    total_time = 0
+    full_sweep = 0
+    allocd = 10482384
+    poolalloc = 208960
+    pause = 0
+    malloc = 21376
+
+[warmup]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 0.0134119
+bytes = 43579152
+compile_seconds = 0.0
+events = 655296
+
+    [warmup.gc_raw]
+    bigalloc = 0
+    realloc = 48768
+    freecall = 0
+    total_time = 0
+    full_sweep = 0
+    allocd = 43579152
+    poolalloc = 530160
+    pause = 0
+    malloc = 76368
+
+[[records]]
+seconds = 0.000539
+compile_seconds = 0.0
+calls = 8
+sink = 16
+gc_seconds = 0.0
+recompile_seconds = 0.0
+bytes = 1459712
+events = 43736
+method = "original"
+round = 1
+
+    [records.reset]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 5.8e-6
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+        [records.reset.gc_raw]
+        bigalloc = 0
+        realloc = 0
+        freecall = 0
+        total_time = 0
+        full_sweep = 0
+        allocd = 0
+        poolalloc = 0
+        pause = 0
+        malloc = 0
+
+    [records.gc_raw]
+    bigalloc = 0
+    realloc = 8128
+    freecall = 0
+    total_time = 0
+    full_sweep = 0
+    allocd = 1459712
+    poolalloc = 22376
+    pause = 0
+    malloc = 13232
+[[records]]
+seconds = 0.0004725
+compile_seconds = 0.0
+calls = 8
+sink = 16
+gc_seconds = 0.0
+recompile_seconds = 0.0
+bytes = 1404912
+events = 41720
+method = "candidate"
+round = 1
+
+    [records.reset]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 5.7e-6
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+        [records.reset.gc_raw]
+        bigalloc = 0
+        realloc = 0
+        freecall = 0
+        total_time = 0
+        full_sweep = 0
+        allocd = 0
+        poolalloc = 0
+        pause = 0
+        malloc = 0
+
+    [records.gc_raw]
+    bigalloc = 0
+    realloc = 8128
+    freecall = 0
+    total_time = 0
+    full_sweep = 0
+    allocd = 1404912
+    poolalloc = 21368
+    pause = 0
+    malloc = 12224
+[[records]]
+seconds = 0.0010975
+compile_seconds = 0.0
+calls = 8
+sink = 16
+gc_seconds = 0.0
+recompile_seconds = 0.0
+bytes = 1420160
+events = 41720
+method = "candidate"
+round = 2
+
+    [records.reset]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 7.4e-6
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+        [records.reset.gc_raw]
+        bigalloc = 0
+        realloc = 0
+        freecall = 0
+        total_time = 0
+        full_sweep = 0
+        allocd = 0
+        poolalloc = 0
+        pause = 0
+        malloc = 0
+
+    [records.gc_raw]
+    bigalloc = 0
+    realloc = 8128
+    freecall = 0
+    total_time = 0
+    full_sweep = 0
+    allocd = 1420160
+    poolalloc = 21368
+    pause = 0
+    malloc = 12224
+[[records]]
+seconds = 0.0007349
+compile_seconds = 0.0
+calls = 8
+sink = 16
+gc_seconds = 0.0
+recompile_seconds = 0.0
+bytes = 1457872
+events = 43736
+method = "original"
+round = 2
+
+    [records.reset]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 6.1e-6
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+        [records.reset.gc_raw]
+        bigalloc = 0
+        realloc = 0
+        freecall = 0
+        total_time = 0
+        full_sweep = 0
+        allocd = 0
+        poolalloc = 0
+        pause = 0
+        malloc = 0
+
+    [records.gc_raw]
+    bigalloc = 0
+    realloc = 8128
+    freecall = 0
+    total_time = 0
+    full_sweep = 0
+    allocd = 1457872
+    poolalloc = 22376
+    pause = 0
+    malloc = 13232
+[[records]]
+seconds = 0.0006191
+compile_seconds = 0.0
+calls = 8
+sink = 16
+gc_seconds = 0.0
+recompile_seconds = 0.0
+bytes = 1461008
+events = 43736
+method = "original"
+round = 3
+
+    [records.reset]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 6.1e-6
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+        [records.reset.gc_raw]
+        bigalloc = 0
+        realloc = 0
+        freecall = 0
+        total_time = 0
+        full_sweep = 0
+        allocd = 0
+        poolalloc = 0
+        pause = 0
+        malloc = 0
+
+    [records.gc_raw]
+    bigalloc = 0
+    realloc = 8128
+    freecall = 0
+    total_time = 0
+    full_sweep = 0
+    allocd = 1461008
+    poolalloc = 22376
+    pause = 0
+    malloc = 13232
+[[records]]
+seconds = 0.000526
+compile_seconds = 0.0
+calls = 8
+sink = 16
+gc_seconds = 0.0
+recompile_seconds = 0.0
+bytes = 1403008
+events = 41720
+method = "candidate"
+round = 3
+
+    [records.reset]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 5.4e-6
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+        [records.reset.gc_raw]
+        bigalloc = 0
+        realloc = 0
+        freecall = 0
+        total_time = 0
+        full_sweep = 0
+        allocd = 0
+        poolalloc = 0
+        pause = 0
+        malloc = 0
+
+    [records.gc_raw]
+    bigalloc = 0
+    realloc = 8128
+    freecall = 0
+    total_time = 0
+    full_sweep = 0
+    allocd = 1403008
+    poolalloc = 21368
+    pause = 0
+    malloc = 12224
+
+[fixture]
+gc_seconds = 0.0154464
+recompile_seconds = 0.0
+seconds = 0.0232866
+bytes = 3790880
+compile_seconds = 0.0
+events = 68784
+
+    [fixture.gc_raw]
+    bigalloc = 0
+    realloc = 320
+    freecall = 1126
+    total_time = 15446400
+    full_sweep = 0
+    allocd = 3790880
+    poolalloc = 36096
+    pause = 1
+    malloc = 32368
+
+[wrapper]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 3.0e-7
+bytes = 0
+sink = 8
+compile_seconds = 0.0
+calls = 8
+events = 0
+
+    [wrapper.gc_raw]
+    bigalloc = 0
+    realloc = 0
+    freecall = 0
+    total_time = 0
+    full_sweep = 0
+    allocd = 0
+    poolalloc = 0
+    pause = 0
+    malloc = 0
+
+COUNTER_CAPTURE_END DUAL
+
+Whole-call allocation gates: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-capture/generic_dual_comparisons_tests.jl:712
+  Expression: all((100 * (after[i])[1] < 97 * (before[i])[1] && 100 * (after[i])[2] < 97 * (before[i])[2] for i = eachindex(before)))
+   Evaluated: all(Base.Generator{Base.OneTo{Int64}, Main.GenericDualComparisonsTests.var"#54#55"{Vector{Tuple{Int64, Int64}}, Vector{Tuple{Int64, Int64}}}}(Main.GenericDualComparisonsTests.var"#54#55"{Vector{Tuple{Int64, Int64}}, Vector{Tuple{Int64, Int64}}}([(1404912, 41720), (1420160, 41720), (1403008, 41720)], [(1459712, 43736), (1457872, 43736), (1461008, 43736)]), Base.OneTo(3)))
+  Stacktrace:
+    [1] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+    [2] allocation_gate_batched(::Type{Rational{BigInt}}, scope::Symbol, pattern::Symbol; other::Symbol, expect_saving::Bool)
+      @ Main.GenericDualComparisonsTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-capture/generic_dual_comparisons_tests.jl:712
+    [3] allocation_gate_batched
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-capture/generic_dual_comparisons_tests.jl:668 [inlined]
+    [4] allocation_gate(::Type{Rational{BigInt}}, scope::Symbol, pattern::Symbol)
+      @ Main.GenericDualComparisonsTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-capture/generic_dual_comparisons_tests.jl:722
+    [5] (::Main.GenericDualComparisonsTests.var"#71#72")()
+      @ Main.GenericDualComparisonsTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-capture/generic_dual_comparisons_tests.jl:749
+    [6] setrounding_raw(f::Main.GenericDualComparisonsTests.var"#71#72", ::Type{BigFloat}, r::Base.MPFR.MPFRRoundingMode)
+      @ Base.MPFR ./mpfr.jl:250
+    [7] setrounding
+      @ ./mpfr.jl:255 [inlined]
+    [8] #69
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-capture/generic_dual_comparisons_tests.jl:748 [inlined]
+    [9] setprecision(f::Main.GenericDualComparisonsTests.var"#69#70", ::Type{BigFloat}, prec::Int64; base::Int64)
+      @ Base.MPFR ./mpfr.jl:1214
+   [10] setprecision(f::Function, ::Type{BigFloat}, prec::Int64)
+      @ Base.MPFR ./mpfr.jl:1213
+   [11] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-capture/generic_dual_comparisons_tests.jl:742
+   [12] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [13] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-capture/generic_dual_comparisons_tests.jl:747 [inlined]
+   [14] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [15] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-capture/generic_dual_comparisons_tests.jl:747 [inlined]
+FILE_FINISHED /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-capture/generic_dual_comparisons_tests.jl elapsed_seconds=35.348527216
+ERROR: LoadError: Some tests did not pass: 23661 passed, 2 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/counter-capture/tests.jl:7
+Test Summary:                                 |  Pass  Fail  Total     Time
+Legacy allocation counter capture             | 23661     2  23663  3m40.1s
+  Multiprecision epsilon bound and auxiliary  |  7337         7337  2m04.3s
+  Multiprecision unit perturb and residual    |  9637     1   9638  1m00.1s
+    unit perturb residual BigFloat            |   509          509     6.5s
+    unit perturb residual BigFloat            |   509          509     0.1s
+    unit perturb residual BigFloat            |   509          509     0.3s
+    unit perturb residual BigFloat            |   509          509     0.1s
+    unit perturb residual BigFloat            |   509          509     0.1s
+    unit perturb residual BigFloat            |   509          509     0.1s
+    unit perturb residual BigFloat            |   509          509     0.1s
+    unit perturb residual BigFloat            |   509          509     0.1s
+    unit perturb residual BigFloat            |   509          509     0.1s
+    unit perturb residual BigFloat            |   509          509     0.1s
+    unit perturb residual BigFloat            |   509          509     0.1s
+    unit perturb residual BigFloat            |   509          509     0.1s
+    unit perturb residual BigFloat            |   509          509     0.1s
+    unit perturb residual BigFloat            |   509          509     0.1s
+    unit perturb residual BigFloat            |   509          509     0.1s
+    unit perturb residual Float32             |   477          477     3.6s
+    unit perturb residual Float64             |   477          477     3.5s
+    unit perturb residual Rational{BigInt}    |   459          459    11.3s
+    unit perturb residual Rational{Int64}     |   430          430     3.4s
+  Generic dual comparisons                    |  6687     1   6688    35.2s
+    Whole dual comparisons BigFloat           |   342          342     0.9s
+    Whole dual comparisons BigFloat           |   342          342     0.1s
+    Whole dual comparisons BigFloat           |   342          342     0.1s
+    Whole dual comparisons BigFloat           |   342          342     0.1s
+    Whole dual comparisons BigFloat           |   342          342     0.1s
+    Whole dual comparisons BigFloat           |   342          342     0.1s
+    Whole dual comparisons BigFloat           |   342          342     0.1s
+    Whole dual comparisons BigFloat           |   342          342     0.1s
+    Whole dual comparisons BigFloat           |   342          342     0.1s
+    Whole dual comparisons BigFloat           |   342          342     0.1s
+    Whole dual comparisons BigFloat           |   342          342     0.1s
+    Whole dual comparisons BigFloat           |   342          342     0.1s
+    Whole dual comparisons BigFloat           |   342          342     0.1s
+    Whole dual comparisons BigFloat           |   342          342     0.1s
+    Whole dual comparisons BigFloat           |   342          342     0.1s
+    Whole dual comparisons Rational{BigInt}   |   120          120     0.3s
+    Whole dual comparisons Float32            |   217          217     0.5s
+    Whole dual comparisons Float64            |   217          217     0.4s
+    Whole dual comparisons Rational{Int64}    |   119          119     0.3s
+    Whole-call allocation gates               |   860     1    861    24.6s
+    Unchanged native and fixed-rational costs |    24           24     0.2s
+RNG of the outermost testset: Random.Xoshiro(0xfe38c72ce90ffe7c, 0x335ec22bc6de18a5, 0xc8fda28920b594a4, 0x6c68eecb4a130b88, 0x7c27c1ece7bb8057)

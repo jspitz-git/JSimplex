@@ -1,0 +1,26 @@
+{
+  "accepted": true,
+  "changes": [
+    {
+      "diagnostic_sha256": "0d4376a25f572ed532f633848b49206779bc932f5fc2532edd686ab022064f9e",
+      "file": "generic_unit_perturb_residual_tests.jl",
+      "gate_line": 587,
+      "insertion": " if T===Rational{BigInt}&&arm===:C\n  println(\"COUNTER_CAPTURE_BEGIN UPR\")\n  Main.TOML.print(stdout,Dict(\"kind\"=>\"UPR\",\"type\"=>string(T),\"scope\"=>String(scope),\"arm\"=>String(arm),\"n\"=>n,\"density\"=>String(density),\"shape\"=>String(shape),\"mode\"=>String(mode),\"gc_preparation\"=>cost(gc_preparation),\"before\"=>before,\"after\"=>after,\"events_predicate\"=>all(after[k][\"events\"]<before[k][\"events\"] for k in 1:3),\"bytes_predicate\"=>median(x[\"bytes\"] for x in after)<median(x[\"bytes\"] for x in before)))\n  println(\"\\nCOUNTER_CAPTURE_END UPR\");flush(stdout)\n end\n",
+      "original_sha256": "7be79ffdf6a7cffd0493d2233bd93076dd17d6a876970e85415479f0195e590f",
+      "preparation_insertion": " gc_preparation = T===Rational{BigInt}&&arm===:C ? (@timed GC.gc(true)) : nothing\n"
+    },
+    {
+      "diagnostic_sha256": "4d8a82f3c91a3e5e1780305c7f7719e436ec8adfd1b68e43da0c3e04d0d18539",
+      "file": "generic_dual_comparisons_tests.jl",
+      "gate_line": 713,
+      "insertion": " println(\"COUNTER_CAPTURE_BEGIN DUAL\")\n Main.TOML.print(stdout,Dict(\"kind\"=>\"DUAL\",\"type\"=>string(T),\"scope\"=>String(scope),\"pattern\"=>String(pattern),\"other\"=>String(other),\"expect_saving\"=>expect_saving,\"batch_size\"=>8,\"gc_preparation\"=>batch_cost(gc_preparation),\"before\"=>[collect(v) for v in before],\"after\"=>[collect(v) for v in after],\"records\"=>records,\"fixture\"=>batch_cost(prep),\"snapshot\"=>batch_cost(shot),\"warmup\"=>batch_cost(warm),\"wrapper_warmup\"=>batch_cost(wrapper_warmup),\"wrapper\"=>wrapper,\"per_pair_bytes_predicate\"=>[100*after[i][1]<97*before[i][1] for i in eachindex(before)],\"per_pair_events_predicate\"=>[100*after[i][2]<97*before[i][2] for i in eachindex(before)]))\n println(\"\\nCOUNTER_CAPTURE_END DUAL\");flush(stdout)\n",
+      "original_sha256": "4d1a0b3c1bf5618427d70a60d675e12b769696b3cfd15ac670795fbe6d52c06f",
+      "preparation_insertion": " gc_preparation=@timed GC.gc(true)\n"
+    }
+  ],
+  "numerical_checks_thresholds_warmups_samples_order_unchanged": true,
+  "observation_only_after_measurements": true,
+  "observer_neutrality_not_proved": true,
+  "only_intervention": "One explicit fullGC after all existing warmups per each of four named Rational gates; no between-arm/pair GC or retry",
+  "source_commit": "717ef2d5dc40b57bfaff198a0a4a48f7198d00db"
+}

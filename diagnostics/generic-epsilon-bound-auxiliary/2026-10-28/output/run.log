@@ -1,0 +1,136 @@
+CONTEXT BF64_Nearest
+CONTEXT BF64_Down
+CONTEXT BF64_Up
+CONTEXT BF64_ToZero
+CONTEXT BF64_FromZero
+CONTEXT BF128_Nearest
+CONTEXT BF128_Down
+CONTEXT BF128_Up
+CONTEXT BF128_ToZero
+CONTEXT BF128_FromZero
+CONTEXT BF256_Nearest
+CONTEXT BF256_Down
+CONTEXT BF256_Up
+CONTEXT BF256_ToZero
+CONTEXT BF256_FromZero
+CONTEXT Float32
+CONTEXT Float64
+CONTEXT Rational{BigInt}
+ERROR: LoadError: Some tests did not pass: 55626 passed, 1 failed, 2 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/driver.jl:35
+
+Epsilon bound auxiliary Rational{BigInt}: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/fixtures.jl:162
+  Expression: r[1] === :value
+   Evaluated: error === value
+  Stacktrace:
+   [1] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+   [2] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/fixtures.jl:162 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] correctness(::Type{Rational{BigInt}})
+     @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/fixtures.jl:141
+
+Epsilon bound auxiliary Rational{BigInt}: Error During Test at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/fixtures.jl:140
+  Got exception outside of a @test
+  MethodError: no method matching precision(::Type{Rational{BigInt}})
+  The function `precision` exists, but no method is defined for this combination of argument types.
+  Closest candidates are:
+    precision(!Matched::BigFloat; base)
+     @ Base mpfr.jl:1045
+    precision(!Matched::ForwardDiff.Dual; base)
+     @ ForwardDiff ~/.julia/packages/ForwardDiff/wp23H/src/dual.jl:313
+    precision(!Matched::Type{D}; base) where D<:ForwardDiff.Dual
+     @ ForwardDiff ~/.julia/packages/ForwardDiff/wp23H/src/dual.jl:314
+    ...
+  Stacktrace:
+    [1] _precision_current_bits(ws::JSimplex.SimplexWorkspace{Rational{BigInt}, JSimplex.PFIFactorization{Rational{BigInt}, JSimplex.DenseLUBackend{Rational{BigInt}, LU{Rational{BigInt}, Matrix{Rational{BigInt}}, Vector{Int64}}}}, :pfi, :native, Nothing})
+      @ JSimplex ~/JSimplex.jl/src/simplex_precision_recovery.jl:18
+    [2] _lp_auxiliary_run_at_working_precision(ws::JSimplex.SimplexWorkspace{Rational{BigInt}, JSimplex.PFIFactorization{Rational{BigInt}, JSimplex.DenseLUBackend{Rational{BigInt}, LU{Rational{BigInt}, Matrix{Rational{BigInt}}, Vector{Int64}}}}, :pfi, :native, Nothing}, problem::LinearProblem{Rational{BigInt}}, map::JSimplex.CorrectionMap{Rational{BigInt}}, budget::JSimplex.SimplexRunBudget, policy::JSimplex.NumericalPolicy{Rational{BigInt}}, stop::JSimplex._StopCallback{typeof(no_stop)})
+      @ Main.EBAReference ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/Reference.jl:144
+    [3] whole(tag::Val{:original}, v::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{Rational{BigInt}, JSimplex.PFIFactorization{Rational{BigInt}, JSimplex.DenseLUBackend{Rational{BigInt}, LU{Rational{BigInt}, Matrix{Rational{BigInt}}, Vector{Int64}}}}, :pfi, :native, Nothing}, problem::LinearProblem{Rational{BigInt}}, map::JSimplex.CorrectionMap{Rational{BigInt}}, budget::Base.RefValue{JSimplex.SimplexRunBudget}, policy::JSimplex.NumericalPolicy{Rational{BigInt}}, stop::JSimplex._StopCallback{typeof(no_stop)}})
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/fixtures.jl:77
+    [4] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/fixtures.jl:163 [inlined]
+    [5] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+    [6] correctness(::Type{Rational{BigInt}})
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/fixtures.jl:141
+    [7] macro expansion
+      @ ./timing.jl:699 [inlined]
+    [8] context(::Type{Rational{BigInt}}, label::String)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/driver.jl:31
+    [9] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/driver.jl:37
+   [10] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [11] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/driver.jl:42 [inlined]
+   [12] include(mod::Module, _path::String)
+      @ Base ./Base.jl:309
+   [13] exec_options(opts::Base.JLOptions)
+      @ Base ./client.jl:344
+   [14] _start()
+      @ Base ./client.jl:577
+
+Epsilon bound auxiliary whole-function comparison: Error During Test at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/driver.jl:36
+  Got exception outside of a @test
+  MethodError: no method matching precision(::Type{Rational{BigInt}})
+  The function `precision` exists, but no method is defined for this combination of argument types.
+  Closest candidates are:
+    precision(!Matched::BigFloat; base)
+     @ Base mpfr.jl:1045
+    precision(!Matched::ForwardDiff.Dual; base)
+     @ ForwardDiff ~/.julia/packages/ForwardDiff/wp23H/src/dual.jl:313
+    precision(!Matched::Type{D}; base) where D<:ForwardDiff.Dual
+     @ ForwardDiff ~/.julia/packages/ForwardDiff/wp23H/src/dual.jl:314
+    ...
+  Stacktrace:
+    [1] _precision_current_bits(ws::JSimplex.SimplexWorkspace{Rational{BigInt}, JSimplex.PFIFactorization{Rational{BigInt}, JSimplex.DenseLUBackend{Rational{BigInt}, LU{Rational{BigInt}, Matrix{Rational{BigInt}}, Vector{Int64}}}}, :pfi, :native, Nothing})
+      @ JSimplex ~/JSimplex.jl/src/simplex_precision_recovery.jl:18
+    [2] _lp_auxiliary_run_at_working_precision(ws::JSimplex.SimplexWorkspace{Rational{BigInt}, JSimplex.PFIFactorization{Rational{BigInt}, JSimplex.DenseLUBackend{Rational{BigInt}, LU{Rational{BigInt}, Matrix{Rational{BigInt}}, Vector{Int64}}}}, :pfi, :native, Nothing}, problem::LinearProblem{Rational{BigInt}}, map::JSimplex.CorrectionMap{Rational{BigInt}}, budget::JSimplex.SimplexRunBudget, policy::JSimplex.NumericalPolicy{Rational{BigInt}}, stop::JSimplex._StopCallback{typeof(no_stop)})
+      @ Main.EBAReference ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/Reference.jl:144
+    [3] whole(tag::Val{:original}, v::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{Rational{BigInt}, JSimplex.PFIFactorization{Rational{BigInt}, JSimplex.DenseLUBackend{Rational{BigInt}, LU{Rational{BigInt}, Matrix{Rational{BigInt}}, Vector{Int64}}}}, :pfi, :native, Nothing}, problem::LinearProblem{Rational{BigInt}}, map::JSimplex.CorrectionMap{Rational{BigInt}}, budget::Base.RefValue{JSimplex.SimplexRunBudget}, policy::JSimplex.NumericalPolicy{Rational{BigInt}}, stop::JSimplex._StopCallback{typeof(no_stop)}})
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/fixtures.jl:77
+    [4] macro expansion
+      @ ./timing.jl:699 [inlined]
+    [5] timed(tag::Val{:original}, v::@NamedTuple{scope::Symbol, w::JSimplex.SimplexWorkspace{Rational{BigInt}, JSimplex.PFIFactorization{Rational{BigInt}, JSimplex.DenseLUBackend{Rational{BigInt}, LU{Rational{BigInt}, Matrix{Rational{BigInt}}, Vector{Int64}}}}, :pfi, :native, Nothing}, problem::LinearProblem{Rational{BigInt}}, map::JSimplex.CorrectionMap{Rational{BigInt}}, budget::Base.RefValue{JSimplex.SimplexRunBudget}, policy::JSimplex.NumericalPolicy{Rational{BigInt}}, stop::JSimplex._StopCallback{typeof(no_stop)}})
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/fixtures.jl:87
+    [6] cell(::Type{Rational{BigInt}}, spec::Dict{String, Any})
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/driver.jl:15
+    [7] context(::Type{Rational{BigInt}}, label::String)
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/driver.jl:33
+    [8] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/driver.jl:37
+    [9] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [10] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/driver.jl:42 [inlined]
+   [11] include(mod::Module, _path::String)
+      @ Base ./Base.jl:309
+   [12] exec_options(opts::Base.JLOptions)
+      @ Base ./client.jl:344
+   [13] _start()
+      @ Base ./client.jl:577
+Test Summary:                                     |  Pass  Fail  Error  Total     Time
+Epsilon bound auxiliary whole-function comparison | 55626     1      2  55629  2m19.5s
+  Epsilon bound auxiliary BigFloat                |   401                 401    20.4s
+  Epsilon bound auxiliary BigFloat                |   401                 401     0.0s
+  Epsilon bound auxiliary BigFloat                |   401                 401     0.1s
+  Epsilon bound auxiliary BigFloat                |   401                 401     0.0s
+  Epsilon bound auxiliary BigFloat                |   401                 401     0.0s
+  Epsilon bound auxiliary BigFloat                |   401                 401     0.0s
+  Epsilon bound auxiliary BigFloat                |   401                 401     0.0s
+  Epsilon bound auxiliary BigFloat                |   401                 401     0.0s
+  Epsilon bound auxiliary BigFloat                |   401                 401     0.0s
+  Epsilon bound auxiliary BigFloat                |   401                 401     0.0s
+  Epsilon bound auxiliary BigFloat                |   401                 401     0.1s
+  Epsilon bound auxiliary BigFloat                |   401                 401     0.1s
+  Epsilon bound auxiliary BigFloat                |   401                 401     0.0s
+  Epsilon bound auxiliary BigFloat                |   401                 401     0.0s
+  Epsilon bound auxiliary BigFloat                |   401                 401     0.1s
+  Epsilon bound auxiliary Float32                 |   355                 355    15.1s
+  Epsilon bound auxiliary Float64                 |   375                 375    23.0s
+  Epsilon bound auxiliary Rational{BigInt}        |   193     1      1    195     6.9s
+RNG of the outermost testset: Random.Xoshiro(0xd2ca2f4f5f4ffa66, 0x621de7dabfcdf283, 0x2b5cfcfc4c533ab5, 0x4036322c33e20e0b, 0x93703702878859c5)

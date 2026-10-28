@@ -1,3 +1,15 @@
+# Current continuation — epsilon/bound/auxiliary qualification closed UNPROMOTED, 2026-10-28
+
+Historical provenance supplement: two pre-exact-assertion offline controls were recovered by exact-hash-verified inversion of frozen text changes; labelled RECONSTRUCTIONS, never contemporaneous beforeimages or retroactive launch pins. Original files/reviews unchanged, no old script/Julia rerun; all nine launch manifests resolve. See history-reconstruction.json and separate history-control-review.json.
+
+Actual local/tracking/live master `235eedf33901fe8c4cc06a3d8c3508ef2fcbb718` restored/unchanged. Candidate `717ef2d5dc40b57bfaff198a0a4a48f7198d00db` remains on local codex/generic-epsilon-bound-auxiliary, NOT production-admitted or pushed. Supported helper measurements show A modest BigFloat savings, B absent-bound savings, C allocation saving without established timing benefit. See diagnostics/generic-epsilon-bound-auxiliary/2026-10-28/FINAL-REPORT.md.
+
+Supported union1226cells/22068windows/1266prep/19contexts compilezero/all4GC retained; original55626PASS/1FAIL/2ERROR remains FAILED (unsupported original RationalC wrapper; no productionprecisionfix). Missing30B/RationalInt64 cells1428PASS separately. OriginalRED7325PASS+12expectedcostFAIL; privateGREEN380372PASS/83files; actualMASTER380370PASS+2unchangedlegacycostFAIL remainsREJECTED. Namedcounter23661PASS+2FAIL; onefixedpostwarmGC23662PASS+1FAIL, preparation0.954096364s insufficient. No thresholdwaiver, permanentGC, adaptiveGC/batchgrowth/filter/retry or historical7e306exception. No further tuning under this bounded attempt; no automatic nextexperiment. IndividualA/B/C impossibility or solverdefect NOTproved.
+
+Reviewed reversible rollback preserves candidate717/exact4blobs andsource/indexbeforeimages/userfiles/unrelatedstaged-untrackedstate. Older235bindings ONLY baseline/before-master;717bindings ONLY rollback-before;newtestabsent mappedexactly. PriorO STATUS/roadmapbindings ONLY continuation-before; ALLoldermaps/text preserved. At preparation, separate negativeclosure/diagnosticpublication pending; canonicalnegative records give lateroutcomes and NEVER imply productionacceptance. All scripts/raw/pins/rejections/reviews FROZEN NEVER RERUN/rewrite; oldpositivefinalizers blocked/unexecuted. FreshfullgroupsANDsessions/boot/start_ticks/command/noJulia. CIoff automationpaused HHdisabled; broaderplan/fullsuite/x64/native-retentionOPEN, no cleanup.
+
+## Previous continuation — preserved verbatim below
+
 # Current continuation — unit pricing, perturbation and residual integration completed, 2026-10-28
 
 Master/origin/master `235eedf33901fe8c4cc06a3d8c3508ef2fcbb718` normally pushed/remotely verified; accepted variants A,B,C only. Source inverse and all numerical safeguards/tolerances/precision/owners/pivot policy retained. A has disclosed nonunit predicate overhead; B modest intervention savings; C allocation savings without a timing-speedup claim. See diagnostics/generic-unit-perturb-residual/2026-10-28/FINAL-REPORT.md and independent reviews.
