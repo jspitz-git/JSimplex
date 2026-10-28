@@ -1,0 +1,25 @@
+from common import *
+import re
+
+def main():
+ con=read('contract.json');p=read('output/process.json');s=read('supervisor.json');done=read('completed.json');log=(D/'output/run.log').read_text();res=read('reservation.json')
+ need(p['returncode']==0 and p['pins_unchanged'] is True and s['accepted'] is True and s['returncode']==0 and not s['soft_timeout'] and not s['hard_timeout'] and 'cleanup_error' not in s,'successful qualified guard')
+ need(done['accepted'] is True and done['elapsed_shared_seconds']<=900 and s['elapsed_seconds']<=900,'inclusive900deadline')
+ need(p['command']==con['command'] and p['pins_sha256']==sha(D/'pins.json'),'exact command/pins')
+ gate=read('output/gate.json');cur=read('output/current.json');permit=read('output/permit.json')
+ need(gate['identity']==p['child']==cur['child'] and gate['parent']==p['runner']==cur['runner']==s['guard_identity'],'exact identities')
+ need(gate['command']==cur['command']==permit['command']==con['command'] and gate['parent_death_signal']==9,'exact command/signal')
+ need(gate['current_sha256']==sha(D/'output/current.json')==permit['current_sha256'] and gate['permit_sha256']==sha(D/'output/permit.json') and sha(D/'output/pins.json')==sha(D/'pins.json'),'all gate/hash links')
+ need(res['guard_deadline']==res['started_monotonic']+892 and res['outer_deadline']==res['started_monotonic']+900,'shared deadlines')
+ need('Test Failed at ' not in log and 'Error During Test' not in log and re.search(r'^ERROR:',log,re.M) is None,'no failures/errors')
+ line=next((v for v in log.splitlines() if v.startswith('SRG corrected exact-decoder qualification') and '|' in v),None);need(line is not None,'root ordinary summary')
+ header=next(v for v in log.splitlines() if v.startswith('Test Summary:') and '|' in v);need(header.split('|',1)[1].split()==['Pass','Total','Time'],'no failures/broken/skips schema')
+ cols=line.split('|',1)[1].split();need(len(cols)==3 and int(cols[0])==int(cols[1])==con['expected_assertions']==28227,'exact qualification total')
+ need(log.count('SRG_CORRECTNESS_COMPLETE')==1 and con['measured_windows']==0 and not (D/'output/results.toml').exists(),'no measurement repeat')
+ contexts=[f'BF{bits}_{mode}' for bits in [64,128,256] for mode in ['Nearest','Down','Up','ToZero','FromZero']]+['Float32','Float64','Rational{BigInt}','Rational{Int64}'];need(re.findall(r'^CONTEXT (.*)$',log,re.M)==contexts,'all19orderedcontexts')
+ correction=read('oracle-correction.json');need(correction['expected_total']==28227 and correction['original_run_remains_failed'] is True and correction['corrected_extra_sha256']==sha(D/'extra-corrected.jl'),'exact decoder correction')
+ resources=[json.loads(v) for v in (D/'output/resources.jsonl').read_text().splitlines()];need(resources and all(v['available_kib']>=6*1024**2 and v['swap_used_kib']<=1024**2 for v in resources),'all resources')
+ need(p['terminal_memory']['available_kib']>=6*1024**2 and p['terminal_memory']['swap_used_kib']<=1024**2,'terminal resources');unchanged();extra=[p[k][v] for k in ['runner','child'] for v in ['pgid','sid']];put('audit-host.json',host(extra))
+ put('audit.json',dict(accepted=True,assertions=28227,measured_windows=0,original_comparison_remains_failed=True,elapsed_shared_seconds=done['elapsed_shared_seconds'],auditor_not_in_original_launch_manifest=True,bindings={str(D/n):sha(D/n) for n in ['driver.jl','extra-corrected.jl','oracle-correction.json','pins.json','admission.json','output/process.json','output/run.log','audit.py']}))
+ print('correctness-only qualification PASS28227; measuredwindows0')
+if __name__=='__main__':main()

@@ -1,0 +1,29 @@
+{
+  "Julia_executed": false,
+  "accepted": false,
+  "auditors_are_supplemental_not_launch_pins": true,
+  "auditors_executed": false,
+  "bindings": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-sum-rational-growth/2026-10-28/audit-qualified.py": "f83e52c3c59731eb69360849cfaf6e9bb5225d1f47cab7f6724f6a7b0198512c",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-sum-rational-growth/2026-10-28/audit-ready.py": "6f9e12ee57403488111a5445932c3d459864481d0d746b4414fdd7a2c674e3a4",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-sum-rational-growth/2026-10-28/correctness-qualification/admission.json": "694305fca0b4e1f8e802cc0d69c0b2c8a1ee24a18b1d8882f9fc5ec90da84701",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-sum-rational-growth/2026-10-28/correctness-qualification/audit.py": "d23273347694814cd502f753e01dd6e9f723c8d22ec8f7f0c7686a01a9f02391",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-sum-rational-growth/2026-10-28/decoder-root-cause-review.json": "2fa88ec130c0e5507586ab83148723deb0dc463e15e17dab7ed674d5b6d5067c"
+  },
+  "findings": [
+    {
+      "detail": "The loop for p,h in review['bindings'].items() replaces process dictionary p with a path string; later p['terminal_memory'] and runner/child indexing fail. Use a distinct binding-path variable.",
+      "file": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-sum-rational-growth/2026-10-28/audit-qualified.py",
+      "priority": 1,
+      "title": "Binding loop shadows process record"
+    },
+    {
+      "detail": "common_ready host seed has649 groups; extra includes only original comparison runner/child, yielding651. Include runner/child PGIDs/SIDs from correctness-qualification/output/process.json as well for complete653-identifier closure.",
+      "file": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-sum-rational-growth/2026-10-28/audit-qualified.py",
+      "priority": 2,
+      "title": "Qualified closure omits qualifier historical process identifiers"
+    }
+  ],
+  "qualification_auditor_accepted_static": true,
+  "qualification_launch_admission_unchanged": true
+}

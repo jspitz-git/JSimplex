@@ -1,0 +1,82 @@
+{
+  "accepted_variants": [
+    "A",
+    "B",
+    "C"
+  ],
+  "expected_RED_failures": 7,
+  "failure_line": 624,
+  "gates": [
+    {
+      "arm": "A",
+      "below": true,
+      "chain": 8,
+      "density": "dense",
+      "n": 64,
+      "scope": "rows",
+      "shape": "positive",
+      "type": "BigFloat"
+    },
+    {
+      "arm": "A",
+      "below": true,
+      "chain": 8,
+      "density": "dense",
+      "n": 64,
+      "scope": "feasible",
+      "shape": "positive",
+      "type": "BigFloat"
+    },
+    {
+      "arm": "B",
+      "below": true,
+      "chain": 8,
+      "density": "dense",
+      "n": 16,
+      "scope": "cert",
+      "shape": "wide",
+      "type": "Rational{BigInt}"
+    },
+    {
+      "arm": "B",
+      "below": false,
+      "chain": 8,
+      "density": "dense",
+      "n": 16,
+      "scope": "cert",
+      "shape": "wide",
+      "type": "Rational{BigInt}"
+    },
+    {
+      "arm": "C",
+      "below": true,
+      "chain": 8,
+      "density": "dense",
+      "n": 8,
+      "scope": "growth",
+      "shape": "positive",
+      "type": "BigFloat"
+    },
+    {
+      "arm": "C",
+      "below": true,
+      "chain": 8,
+      "density": "dense",
+      "n": 8,
+      "scope": "refresh",
+      "shape": "positive",
+      "type": "BigFloat"
+    },
+    {
+      "arm": "C",
+      "below": true,
+      "chain": 8,
+      "density": "dense",
+      "n": 8,
+      "scope": "scheduled",
+      "shape": "positive",
+      "type": "BigFloat"
+    }
+  ],
+  "rule": "fixed3whole-callpairs: lowerEvents ineach/lowerMedianBytes; allnumericalexpectations unchanged, decoderonlyqualified; no oldthreshold or timingassertion"
+}

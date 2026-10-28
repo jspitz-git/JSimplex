@@ -1,0 +1,228 @@
+SRG_SOURCE /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-sum-rational-growth/2026-10-28/RED/src/JSimplex.jl
+INCLUDING generic_sum_rational_growth_tests.jl
+ERROR: LoadError: Some tests did not pass: 28316 passed, 7 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-sum-rational-growth/2026-10-28/RED-run/tests.jl:8
+
+Multiprecision sums exact certificate and growth: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-sum-rational-growth/2026-10-28/RED/test/generic_sum_rational_growth_tests.jl:624
+  Expression: all(((after[k])["events"] < (before[k])["events"] for k = 1:3)) && median((x["bytes"] for x = after)) < median((x["bytes"] for x = before))
+  Stacktrace:
+    [1] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+    [2] allocation_gate(::Type{BigFloat}, scope::Symbol, arm::Symbol, n::Int64, density::Symbol, shape::Symbol, below::Bool, chain::Int64)
+      @ Main.GenericSumRationalGrowthTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-sum-rational-growth/2026-10-28/RED/test/generic_sum_rational_growth_tests.jl:624
+    [3] (::Main.GenericSumRationalGrowthTests.var"#45#46")()
+      @ Main.GenericSumRationalGrowthTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-sum-rational-growth/2026-10-28/RED/test/generic_sum_rational_growth_tests.jl:636
+    [4] setrounding_raw(f::Main.GenericSumRationalGrowthTests.var"#45#46", ::Type{BigFloat}, r::Base.MPFR.MPFRRoundingMode)
+      @ Base.MPFR ./mpfr.jl:250
+    [5] setrounding
+      @ ./mpfr.jl:255 [inlined]
+    [6] #43
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-sum-rational-growth/2026-10-28/RED/test/generic_sum_rational_growth_tests.jl:635 [inlined]
+    [7] setprecision(f::Main.GenericSumRationalGrowthTests.var"#43#44", ::Type{BigFloat}, prec::Int64; base::Int64)
+      @ Base.MPFR ./mpfr.jl:1214
+    [8] setprecision(f::Function, ::Type{BigFloat}, prec::Int64)
+      @ Base.MPFR ./mpfr.jl:1213
+    [9] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-sum-rational-growth/2026-10-28/RED/test/generic_sum_rational_growth_tests.jl:628
+   [10] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [11] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-sum-rational-growth/2026-10-28/RED/test/generic_sum_rational_growth_tests.jl:634 [inlined]
+
+Multiprecision sums exact certificate and growth: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-sum-rational-growth/2026-10-28/RED/test/generic_sum_rational_growth_tests.jl:624
+  Expression: all(((after[k])["events"] < (before[k])["events"] for k = 1:3)) && median((x["bytes"] for x = after)) < median((x["bytes"] for x = before))
+  Stacktrace:
+    [1] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+    [2] allocation_gate(::Type{BigFloat}, scope::Symbol, arm::Symbol, n::Int64, density::Symbol, shape::Symbol, below::Bool, chain::Int64)
+      @ Main.GenericSumRationalGrowthTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-sum-rational-growth/2026-10-28/RED/test/generic_sum_rational_growth_tests.jl:624
+    [3] (::Main.GenericSumRationalGrowthTests.var"#45#46")()
+      @ Main.GenericSumRationalGrowthTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-sum-rational-growth/2026-10-28/RED/test/generic_sum_rational_growth_tests.jl:637
+    [4] setrounding_raw(f::Main.GenericSumRationalGrowthTests.var"#45#46", ::Type{BigFloat}, r::Base.MPFR.MPFRRoundingMode)
+      @ Base.MPFR ./mpfr.jl:250
+    [5] setrounding
+      @ ./mpfr.jl:255 [inlined]
+    [6] #43
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-sum-rational-growth/2026-10-28/RED/test/generic_sum_rational_growth_tests.jl:635 [inlined]
+    [7] setprecision(f::Main.GenericSumRationalGrowthTests.var"#43#44", ::Type{BigFloat}, prec::Int64; base::Int64)
+      @ Base.MPFR ./mpfr.jl:1214
+    [8] setprecision(f::Function, ::Type{BigFloat}, prec::Int64)
+      @ Base.MPFR ./mpfr.jl:1213
+    [9] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-sum-rational-growth/2026-10-28/RED/test/generic_sum_rational_growth_tests.jl:628
+   [10] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [11] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-sum-rational-growth/2026-10-28/RED/test/generic_sum_rational_growth_tests.jl:634 [inlined]
+
+Multiprecision sums exact certificate and growth: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-sum-rational-growth/2026-10-28/RED/test/generic_sum_rational_growth_tests.jl:624
+  Expression: all(((after[k])["events"] < (before[k])["events"] for k = 1:3)) && median((x["bytes"] for x = after)) < median((x["bytes"] for x = before))
+  Stacktrace:
+    [1] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+    [2] allocation_gate(::Type{Rational{BigInt}}, scope::Symbol, arm::Symbol, n::Int64, density::Symbol, shape::Symbol, below::Bool, chain::Int64)
+      @ Main.GenericSumRationalGrowthTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-sum-rational-growth/2026-10-28/RED/test/generic_sum_rational_growth_tests.jl:624
+    [3] (::Main.GenericSumRationalGrowthTests.var"#45#46")()
+      @ Main.GenericSumRationalGrowthTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-sum-rational-growth/2026-10-28/RED/test/generic_sum_rational_growth_tests.jl:638
+    [4] setrounding_raw(f::Main.GenericSumRationalGrowthTests.var"#45#46", ::Type{BigFloat}, r::Base.MPFR.MPFRRoundingMode)
+      @ Base.MPFR ./mpfr.jl:250
+    [5] setrounding
+      @ ./mpfr.jl:255 [inlined]
+    [6] #43
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-sum-rational-growth/2026-10-28/RED/test/generic_sum_rational_growth_tests.jl:635 [inlined]
+    [7] setprecision(f::Main.GenericSumRationalGrowthTests.var"#43#44", ::Type{BigFloat}, prec::Int64; base::Int64)
+      @ Base.MPFR ./mpfr.jl:1214
+    [8] setprecision(f::Function, ::Type{BigFloat}, prec::Int64)
+      @ Base.MPFR ./mpfr.jl:1213
+    [9] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-sum-rational-growth/2026-10-28/RED/test/generic_sum_rational_growth_tests.jl:628
+   [10] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [11] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-sum-rational-growth/2026-10-28/RED/test/generic_sum_rational_growth_tests.jl:634 [inlined]
+
+Multiprecision sums exact certificate and growth: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-sum-rational-growth/2026-10-28/RED/test/generic_sum_rational_growth_tests.jl:624
+  Expression: all(((after[k])["events"] < (before[k])["events"] for k = 1:3)) && median((x["bytes"] for x = after)) < median((x["bytes"] for x = before))
+  Stacktrace:
+    [1] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+    [2] allocation_gate(::Type{Rational{BigInt}}, scope::Symbol, arm::Symbol, n::Int64, density::Symbol, shape::Symbol, below::Bool, chain::Int64)
+      @ Main.GenericSumRationalGrowthTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-sum-rational-growth/2026-10-28/RED/test/generic_sum_rational_growth_tests.jl:624
+    [3] (::Main.GenericSumRationalGrowthTests.var"#45#46")()
+      @ Main.GenericSumRationalGrowthTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-sum-rational-growth/2026-10-28/RED/test/generic_sum_rational_growth_tests.jl:639
+    [4] setrounding_raw(f::Main.GenericSumRationalGrowthTests.var"#45#46", ::Type{BigFloat}, r::Base.MPFR.MPFRRoundingMode)
+      @ Base.MPFR ./mpfr.jl:250
+    [5] setrounding
+      @ ./mpfr.jl:255 [inlined]
+    [6] #43
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-sum-rational-growth/2026-10-28/RED/test/generic_sum_rational_growth_tests.jl:635 [inlined]
+    [7] setprecision(f::Main.GenericSumRationalGrowthTests.var"#43#44", ::Type{BigFloat}, prec::Int64; base::Int64)
+      @ Base.MPFR ./mpfr.jl:1214
+    [8] setprecision(f::Function, ::Type{BigFloat}, prec::Int64)
+      @ Base.MPFR ./mpfr.jl:1213
+    [9] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-sum-rational-growth/2026-10-28/RED/test/generic_sum_rational_growth_tests.jl:628
+   [10] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [11] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-sum-rational-growth/2026-10-28/RED/test/generic_sum_rational_growth_tests.jl:634 [inlined]
+
+Multiprecision sums exact certificate and growth: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-sum-rational-growth/2026-10-28/RED/test/generic_sum_rational_growth_tests.jl:624
+  Expression: all(((after[k])["events"] < (before[k])["events"] for k = 1:3)) && median((x["bytes"] for x = after)) < median((x["bytes"] for x = before))
+  Stacktrace:
+    [1] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+    [2] allocation_gate(::Type{BigFloat}, scope::Symbol, arm::Symbol, n::Int64, density::Symbol, shape::Symbol, below::Bool, chain::Int64)
+      @ Main.GenericSumRationalGrowthTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-sum-rational-growth/2026-10-28/RED/test/generic_sum_rational_growth_tests.jl:624
+    [3] (::Main.GenericSumRationalGrowthTests.var"#45#46")()
+      @ Main.GenericSumRationalGrowthTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-sum-rational-growth/2026-10-28/RED/test/generic_sum_rational_growth_tests.jl:640
+    [4] setrounding_raw(f::Main.GenericSumRationalGrowthTests.var"#45#46", ::Type{BigFloat}, r::Base.MPFR.MPFRRoundingMode)
+      @ Base.MPFR ./mpfr.jl:250
+    [5] setrounding
+      @ ./mpfr.jl:255 [inlined]
+    [6] #43
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-sum-rational-growth/2026-10-28/RED/test/generic_sum_rational_growth_tests.jl:635 [inlined]
+    [7] setprecision(f::Main.GenericSumRationalGrowthTests.var"#43#44", ::Type{BigFloat}, prec::Int64; base::Int64)
+      @ Base.MPFR ./mpfr.jl:1214
+    [8] setprecision(f::Function, ::Type{BigFloat}, prec::Int64)
+      @ Base.MPFR ./mpfr.jl:1213
+    [9] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-sum-rational-growth/2026-10-28/RED/test/generic_sum_rational_growth_tests.jl:628
+   [10] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [11] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-sum-rational-growth/2026-10-28/RED/test/generic_sum_rational_growth_tests.jl:634 [inlined]
+
+Multiprecision sums exact certificate and growth: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-sum-rational-growth/2026-10-28/RED/test/generic_sum_rational_growth_tests.jl:624
+  Expression: all(((after[k])["events"] < (before[k])["events"] for k = 1:3)) && median((x["bytes"] for x = after)) < median((x["bytes"] for x = before))
+  Stacktrace:
+    [1] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+    [2] allocation_gate(::Type{BigFloat}, scope::Symbol, arm::Symbol, n::Int64, density::Symbol, shape::Symbol, below::Bool, chain::Int64)
+      @ Main.GenericSumRationalGrowthTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-sum-rational-growth/2026-10-28/RED/test/generic_sum_rational_growth_tests.jl:624
+    [3] (::Main.GenericSumRationalGrowthTests.var"#45#46")()
+      @ Main.GenericSumRationalGrowthTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-sum-rational-growth/2026-10-28/RED/test/generic_sum_rational_growth_tests.jl:641
+    [4] setrounding_raw(f::Main.GenericSumRationalGrowthTests.var"#45#46", ::Type{BigFloat}, r::Base.MPFR.MPFRRoundingMode)
+      @ Base.MPFR ./mpfr.jl:250
+    [5] setrounding
+      @ ./mpfr.jl:255 [inlined]
+    [6] #43
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-sum-rational-growth/2026-10-28/RED/test/generic_sum_rational_growth_tests.jl:635 [inlined]
+    [7] setprecision(f::Main.GenericSumRationalGrowthTests.var"#43#44", ::Type{BigFloat}, prec::Int64; base::Int64)
+      @ Base.MPFR ./mpfr.jl:1214
+    [8] setprecision(f::Function, ::Type{BigFloat}, prec::Int64)
+      @ Base.MPFR ./mpfr.jl:1213
+    [9] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-sum-rational-growth/2026-10-28/RED/test/generic_sum_rational_growth_tests.jl:628
+   [10] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [11] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-sum-rational-growth/2026-10-28/RED/test/generic_sum_rational_growth_tests.jl:634 [inlined]
+
+Multiprecision sums exact certificate and growth: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-sum-rational-growth/2026-10-28/RED/test/generic_sum_rational_growth_tests.jl:624
+  Expression: all(((after[k])["events"] < (before[k])["events"] for k = 1:3)) && median((x["bytes"] for x = after)) < median((x["bytes"] for x = before))
+  Stacktrace:
+    [1] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+    [2] allocation_gate(::Type{BigFloat}, scope::Symbol, arm::Symbol, n::Int64, density::Symbol, shape::Symbol, below::Bool, chain::Int64)
+      @ Main.GenericSumRationalGrowthTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-sum-rational-growth/2026-10-28/RED/test/generic_sum_rational_growth_tests.jl:624
+    [3] (::Main.GenericSumRationalGrowthTests.var"#45#46")()
+      @ Main.GenericSumRationalGrowthTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-sum-rational-growth/2026-10-28/RED/test/generic_sum_rational_growth_tests.jl:642
+    [4] setrounding_raw(f::Main.GenericSumRationalGrowthTests.var"#45#46", ::Type{BigFloat}, r::Base.MPFR.MPFRRoundingMode)
+      @ Base.MPFR ./mpfr.jl:250
+    [5] setrounding
+      @ ./mpfr.jl:255 [inlined]
+    [6] #43
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-sum-rational-growth/2026-10-28/RED/test/generic_sum_rational_growth_tests.jl:635 [inlined]
+    [7] setprecision(f::Main.GenericSumRationalGrowthTests.var"#43#44", ::Type{BigFloat}, prec::Int64; base::Int64)
+      @ Base.MPFR ./mpfr.jl:1214
+    [8] setprecision(f::Function, ::Type{BigFloat}, prec::Int64)
+      @ Base.MPFR ./mpfr.jl:1213
+    [9] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-sum-rational-growth/2026-10-28/RED/test/generic_sum_rational_growth_tests.jl:628
+   [10] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [11] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-sum-rational-growth/2026-10-28/RED/test/generic_sum_rational_growth_tests.jl:634 [inlined]
+Test Summary:                                      |  Pass  Fail  Total     Time
+Sum rational growth RED                            | 28316     7  28323  1m08.6s
+  Multiprecision sums exact certificate and growth | 28316     7  28323  1m08.2s
+    ordinary whole functions BigFloat              |   638          638     9.5s
+    independent boundaries BigFloat                |   953          953     2.4s
+    ordinary whole functions BigFloat              |   638          638     0.0s
+    independent boundaries BigFloat                |   953          953     0.0s
+    ordinary whole functions BigFloat              |   638          638     0.0s
+    independent boundaries BigFloat                |   953          953     0.0s
+    ordinary whole functions BigFloat              |   638          638     0.0s
+    independent boundaries BigFloat                |   953          953     0.0s
+    ordinary whole functions BigFloat              |   638          638     0.0s
+    independent boundaries BigFloat                |   953          953     0.0s
+    ordinary whole functions BigFloat              |   638          638     0.0s
+    independent boundaries BigFloat                |   953          953     0.0s
+    ordinary whole functions BigFloat              |   638          638     0.0s
+    independent boundaries BigFloat                |   953          953     0.0s
+    ordinary whole functions BigFloat              |   638          638     0.0s
+    independent boundaries BigFloat                |   953          953     0.0s
+    ordinary whole functions BigFloat              |   638          638     0.0s
+    independent boundaries BigFloat                |   953          953     0.0s
+    ordinary whole functions BigFloat              |   638          638     0.0s
+    independent boundaries BigFloat                |   953          953     0.0s
+    ordinary whole functions BigFloat              |   638          638     0.0s
+    independent boundaries BigFloat                |   953          953     0.0s
+    ordinary whole functions BigFloat              |   638          638     0.0s
+    independent boundaries BigFloat                |   953          953     0.0s
+    ordinary whole functions BigFloat              |   638          638     0.0s
+    independent boundaries BigFloat                |   953          953     0.0s
+    ordinary whole functions BigFloat              |   638          638     0.0s
+    independent boundaries BigFloat                |   953          953     0.0s
+    ordinary whole functions BigFloat              |   638          638     0.0s
+    independent boundaries BigFloat                |   953          953     0.0s
+    ordinary whole functions Float32               |   638          638     5.4s
+    independent boundaries Float32                 |   403          403     1.0s
+    ordinary whole functions Float64               |   638          638     5.3s
+    independent boundaries Float64                 |   403          403     1.0s
+    ordinary whole functions Rational{BigInt}      |   694          694    16.1s
+    independent boundaries Rational{BigInt}        |   531          531     8.4s
+    ordinary whole functions Rational{Int64}       |   638          638     5.9s
+    independent boundaries Rational{Int64}         |   417          417     1.5s
+RNG of the outermost testset: Random.Xoshiro(0x2ec0c653b2224603, 0x513618e368d35290, 0xb0c32fbfa3f3c860, 0x3bf60502ea7a3424, 0x39ed22d089b6948f)

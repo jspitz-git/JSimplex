@@ -1,0 +1,15 @@
+{
+  "Julia_executed": false,
+  "corrected_extra_sha256": "0305b9e7e4012ae5fcb1eebcf71da3c4b692cf50b0eff0f90034b7f82eb806c6",
+  "decoder_scope": "setprecision(precision(precise)) around conversion only; original growth/input/context untouched",
+  "expected_total": 28227,
+  "extra_assertions": 270,
+  "measured_windows": 0,
+  "only_conversion_precision_changed": true,
+  "original_correctness_total": 27957,
+  "original_extra_sha256": "ef2b8317bcb398c0787c96e018b33db77e91356dc5fde480135d1dbc5dc949c6",
+  "original_failure_count": 90,
+  "original_run_remains_failed": true,
+  "root_cause": "mpfr.jl Rational{BigInt}(AbstractFloat) scales using ambient-precision BigFloat ldexp",
+  "unchanged_original_expected_rational": "1+2^-53+2^-400"
+}

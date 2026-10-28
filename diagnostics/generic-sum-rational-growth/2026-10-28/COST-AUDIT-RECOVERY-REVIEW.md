@@ -1,0 +1,9 @@
+# Independent post-exit audit recovery review: accepted
+
+The new `audit-qualified-recovery.py` is accepted for one separate post-exit execution. An exact textual comparison confirms that it differs from the previously accepted canonical auditor only by recording its own PID/PPID/PGID/SID, boot/start ticks and command, plus its new self/observer-artifact bindings. All original failure, qualification, raw-grid, cost, resource and strict full653 group-and-session checks are unchanged. No new allowance or PID exception is introduced.
+
+The earlier auditor remains stopped, with no accepted output. Its reported occupant was not captured, so the cause remains unknown; transient PID reuse is only a hypothesis. A later empty scan cannot prove the earlier cause. The rejection report, earlier script and their hashes are preserved. No summary, accepted audit, audit-host or new invoker artifact exists at this review.
+
+Fresh actual-host inspection independently checks all653 historical identifiers as both PGIDs and SIDs, boot/start ticks/commands and the exact fixed unrelated-process allowance, with no Julia and adequate RAM/swap. Original pins, qualification/result-review bindings, protected files/indexes and refs remain unchanged. The new script still must pass that same strict host check itself before publication; this review grants no exception for its observer.
+
+This approval covers only a new read-only interpretation of the already frozen comparison, after the accepted correctness qualification. It does not rerun Julia, any measurement, or the earlier auditor, and does not relabel the original comparison or stopped audit as passing. The reviewer executed neither audit script. Qualified cost result acceptance remains pending the new script's outputs and independent interpretation.
