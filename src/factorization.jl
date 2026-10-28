@@ -93,6 +93,12 @@ _factor_growth_reference(factor::PFIFactorization{T}) where T = one(T)
 _factor_growth_measure(factor::PFIFactorization{T}) where T =
     maximum(eta -> maximum(abs,eta.values;init=one(T)),factor.updates;init=one(T))
 
+function _factor_growth_measure(factor::PFIFactorization{BigFloat})
+    unit = one(BigFloat)
+    return maximum(eta -> maximum(_primal_direction_magnitude,eta.values;init=unit),
+                   factor.updates;init=unit)
+end
+
 _backend_dimension(backend::UMFPACKBackend) = backend.dimension
 _backend_dimension(backend::Union{DenseLUBackend,Float32LUBackend}) =
     size(backend.factorization, 1)

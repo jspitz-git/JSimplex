@@ -1079,6 +1079,37 @@ function _infeasibility_certified(workspace::SimplexWorkspace{T},
     end
 end
 
+function _infeasibility_certified(workspace::SimplexWorkspace{Rational{BigInt}},
+                                  rho::Vector{Rational{BigInt}}, below::Bool)
+    T = Rational{BigInt}
+    try
+        A = workspace.problem.A
+        n = size(A,2)
+        minimum_value = zero(T)
+        for index in eachindex(workspace.lower)
+            coefficient = zero(T)
+            if index <= n
+                for position in nzrange(A,index)
+                    coefficient += (below ? rho[A.rowval[position]] : -rho[A.rowval[position]])*A.nzval[position]
+                end
+            else
+                coefficient = below ? -rho[index-n] : rho[index-n]
+            end
+            iszero(coefficient) && continue
+            bound = coefficient > zero(T) ? workspace.lower[index] : workspace.upper[index]
+            isfinite(bound) || return false
+            minimum_value += coefficient*bound_value(bound) -
+                abs(coefficient)*_infeasibility_bound_allowance(workspace,index)
+        end
+        return minimum_value > zero(T)
+    catch exception
+        # Bounded rational intermediates may exceed their integer storage.
+        # Failure to represent the proof is inconclusive, never infeasibility.
+        exception isa OverflowError || rethrow()
+        return false
+    end
+end
+
 function _floating_infeasibility_certified(workspace::SimplexWorkspace{T},
                                           rho::Vector{T}, below::Bool) where {T<:AbstractFloat}
     # Every feasible working vector satisfies [A -I] * x == 0. A row
@@ -1951,7 +1982,8 @@ function _primal_sum_bounds(left::BigFloat, right::BigFloat)
     T=BigFloat
     iszero(left) && return right, right
     iszero(right) && return left, left
-    isfinite(left) && precision(right) == precision(T) && left == -right &&
+    isfinite(left) && precision(right) == precision(T) &&
+        signbit(left) != signbit(right) && left == -right &&
         return zero(T), zero(T)
     value = left + right
     # FastTwoSum is exact when intermediate residuals cannot underflow.
