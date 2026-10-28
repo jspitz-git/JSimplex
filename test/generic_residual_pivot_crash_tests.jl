@@ -1,0 +1,430 @@
+module GenericResidualPivotCrashTests
+using Test,JSimplex,SparseArrays,LinearAlgebra,Statistics
+module RPCReference
+import JSimplex
+using SparseArrays,LinearAlgebra
+using JSimplex: SimplexWorkspace,_primal_direction_magnitude,PFIFactorization,_is_exact,_positive_tolerance,_backend_dimension,PackedEta
+_crash_violation(args...) = JSimplex._crash_violation(args...)
+function _dual_row_residual_ratio(workspace::SimplexWorkspace{T},
+                                  rho::Vector{T}, leaving_row::Int) where {T<:AbstractFloat}
+    A = workspace.problem.A
+    row_count, column_count = size(A)
+    length(rho) == length(workspace.basis.basic_indices) == row_count ||
+        throw(DimensionMismatch("tableau residual vectors must match the row count"))
+    roundoff = T(256) * eps(one(T))
+    worst_ratio = zero(T)
+    for (basis_row, index) in enumerate(workspace.basis.basic_indices)
+        1 <= index <= column_count + row_count || throw(BoundsError(workspace.primal, index))
+        expected = basis_row == leaving_row ? one(T) : zero(T)
+        residual = -expected
+        scale = expected
+        if index <= column_count
+            @inbounds for position in A.colptr[index]:(A.colptr[index + 1] - 1)
+                term = A.nzval[position] * rho[A.rowval[position]]
+                residual += term
+                scale += abs(term)
+            end
+        else
+            term = @inbounds -rho[index - column_count]
+            residual += term
+            scale += abs(term)
+        end
+        isfinite(residual) && isfinite(scale) || return T(Inf)
+        tolerance = max(workspace.options.zero_tolerance,
+                        roundoff * (scale + one(T)))
+        isfinite(tolerance) || return T(Inf)
+        worst_ratio = max(worst_ratio, abs(residual) / tolerance)
+    end
+    return worst_ratio
+end
+
+function _dual_row_residual_ratio(workspace::SimplexWorkspace{T},
+                                  rho::Vector{T}, leaving_row::Int) where {T<:BigFloat}
+    A = workspace.problem.A
+    row_count, column_count = size(A)
+    length(rho) == length(workspace.basis.basic_indices) == row_count ||
+        throw(DimensionMismatch("tableau residual vectors must match the row count"))
+    roundoff = T(256) * eps(one(T))
+    worst_ratio = zero(T)
+    for (basis_row, index) in enumerate(workspace.basis.basic_indices)
+        1 <= index <= column_count + row_count || throw(BoundsError(workspace.primal, index))
+        expected = basis_row == leaving_row ? one(T) : zero(T)
+        residual = -expected
+        scale = expected
+        if index <= column_count
+            @inbounds for position in A.colptr[index]:(A.colptr[index + 1] - 1)
+                term = A.nzval[position] * rho[A.rowval[position]]
+                residual += term
+                scale += _primal_direction_magnitude(term)
+            end
+        else
+            term = @inbounds -rho[index - column_count]
+            residual += term
+            scale += _primal_direction_magnitude(term)
+        end
+        isfinite(residual) && isfinite(scale) || return T(Inf)
+        tolerance = max(workspace.options.zero_tolerance,
+                        roundoff * (scale + Clong(1)))
+        isfinite(tolerance) || return T(Inf)
+        worst_ratio = max(worst_ratio, _primal_direction_magnitude(residual) / tolerance)
+    end
+    return worst_ratio
+end
+
+_pivot_magnitude(value::Real) = abs(value)
+_pivot_magnitude(value::BigFloat) = setprecision(BigFloat, precision(value)) do
+    # Negating a stored negative BigFloat must not round before the cutoff check.
+    abs(value)
+end
+
+function replace_column!(
+    factor::PFIFactorization{T},
+    tableau_column::AbstractVector,
+    pivot_row::Integer;
+    zero_tolerance::Real=_is_exact(T) === Val(true) ? zero(T) :
+                         _positive_tolerance(T, 1 // 10^12),
+) where {T}
+    tolerance = convert(T, zero_tolerance)
+    isfinite(tolerance) && tolerance >= zero(T) ||
+        throw(ArgumentError("zero_tolerance must be finite and nonnegative"))
+    length(tableau_column) == _backend_dimension(factor.base) ||
+        throw(DimensionMismatch("tableau column length must match the basis dimension"))
+
+    pivot = Int(pivot_row)
+    checkbounds(tableau_column, pivot)
+    pivot_value = convert(T, tableau_column[pivot])
+    _pivot_magnitude(pivot_value) > tolerance || throw(LinearAlgebra.ZeroPivotException(pivot))
+
+    inverse_pivot = inv(pivot_value)
+    direct_pack = tableau_column isa Vector{T} && T <: Union{Float32,Float64}
+    if !isempty(factor.recycled_updates)
+        retired = pop!(factor.recycled_updates)
+        entry_count = tableau_column isa AbstractVector{T} ?
+            count(!iszero, tableau_column) : 1
+        indices = resize!(retired.indices, entry_count)
+        values = resize!(retired.values, entry_count)
+        if !direct_pack
+            resize!(indices, 1)
+            resize!(values, 1)
+        end
+        indices[1] = pivot
+        values[1] = inverse_pivot
+    elseif tableau_column isa AbstractVector{T}
+        # Allocate the final capacity once, without first creating singleton
+        # buffers that would immediately need to grow.
+        entry_count = count(!iszero, tableau_column)
+        indices = Vector{Int}(undef, entry_count)
+        values = Vector{T}(undef, entry_count)
+        if !direct_pack
+            resize!(indices, 1)
+            resize!(values, 1)
+        end
+        indices[1] = pivot
+        values[1] = inverse_pivot
+    else
+        # Converting mixed-type inputs just to count nonzeros can allocate
+        # heavily, so retain the single conversion pass.
+        indices = Int[pivot]
+        values = T[inverse_pivot]
+    end
+    if direct_pack
+        # The stable native vector was counted above, so every destination
+        # index fits. Keep pivot-first order and the original scalar divisions.
+        entry = 1
+        @inbounds for row in eachindex(tableau_column)
+            row == pivot && continue
+            value = convert(T, tableau_column[row])
+            iszero(value) && continue
+            entry += 1
+            indices[entry] = row
+            values[entry] = -(value / pivot_value)
+        end
+    else
+        for row in eachindex(tableau_column)
+            row == pivot && continue
+            value = convert(T, tableau_column[row])
+            iszero(value) && continue
+            push!(indices, row)
+            push!(values, -(value / pivot_value))
+        end
+    end
+    push!(factor.updates, PackedEta{T}(indices, values, pivot))
+    return factor
+end
+
+function _crash_rows!(rows,ws,column,policy)
+    empty!(rows)
+    scale = maximum(abs,column;init=zero(eltype(column)))
+    iszero(scale) && return rows
+    cutoff = policy.pivot_error_tolerance*scale
+    for (row,j) in enumerate(ws.basis.basic_indices)
+        abs(column[row]) > cutoff || continue
+        _crash_violation(ws.primal[j],ws.lower[j],ws.upper[j],ws.options.primal_tolerance) > 0 || continue
+        # Keep only a bounded number of strongest eligible pivots. Checking all
+        # row scores would turn each column's selection into quadratic work.
+        position = findfirst(r->abs(column[row])>abs(column[r]),rows)
+        if isnothing(position)
+            length(rows)<policy.max_pivot_candidates && push!(rows,row)
+        else
+            insert!(rows,position,row)
+            length(rows)>policy.max_pivot_candidates && pop!(rows)
+        end
+    end
+    return rows
+end
+
+
+end
+
+const RPCA=JSimplex
+const RPCB=JSimplex
+const RPCC=JSimplex
+using Test,JSimplex,SparseArrays,LinearAlgebra,Statistics
+const J=JSimplex
+const MODES=(RoundNearest,RoundDown,RoundUp,RoundToZero,RoundFromZero)
+modof(::Val{:original})=RPCReference
+modof(::Val{:A})=RPCA
+modof(::Val{:B})=RPCB
+modof(::Val{:C})=RPCC
+same(a,b)=isequal(a,b)
+same(a::BigFloat,b::BigFloat)=isequal(a,b)&&precision(a)==precision(b)&&signbit(a)==signbit(b)
+same(a::Tuple,b::Tuple)=length(a)==length(b)&&all(same(x,y) for (x,y) in zip(a,b))
+same(a::AbstractArray,b::AbstractArray)=axes(a)==axes(b)&&all(same(a[i],b[i]) for i in eachindex(a))
+same(a::J.Bound,b::J.Bound)=a.bounded==b.bounded&&same(a.value,b.value)
+capture(f)=try;(:value,f());catch e;(:error,typeof(e),sprint(showerror,e));end
+cost(t)=Dict("seconds"=>t.time,"bytes"=>t.bytes,"events"=>Base.gc_alloc_count(t.gcstats),"gc_seconds"=>t.gctime,"compile_seconds"=>t.compile_time,"recompile_seconds"=>t.recompile_time)
+statevalues(s)=Tuple(getfield(s,k) for k in fieldnames(typeof(s)))
+function fixture(::Type{T},n,density,shape,scope;mode=:structural,recycled=false,cap=8) where T
+ if scope===:update
+  f=J.PFIFactorization(spdiagm(0=>ones(T,n)))
+  column=zeros(T,n)
+  for i in 1:n
+   if i==1||density===:dense||i%4==0
+    sign=shape===:negative||shape===:mixed&&iseven(i) ? -1 : 1
+    column[i]=T(sign*((i%5)+1)//8)
+   end
+  end
+  if recycled
+   J.replace_column!(f,column,1;zero_tolerance=zero(T));push!(f.recycled_updates,pop!(f.updates))
+  end
+  return (scope=scope,f=f,column=column,recycled=recycled,tol=zero(T))
+ end
+ A=zeros(T,n,n)
+ for j in 1:n,i in 1:n
+  if i==j||density===:dense||(i+j)%7==0
+   A[i,j]=i==j ? one(T) : T(((i+j)%3+1)//(16*n))
+  end
+ end
+ p=LinearProblem(sparse(A),zeros(T,n);column_lower=fill(-T(8),n),column_upper=fill(T(8),n),row_lower=fill(-T(8),n),row_upper=fill(T(8),n))
+ o=SolverOptions(T;verbose=false,basis_update=:pfi,pricing=:dantzig)
+ pol=J.NumericalPolicy(T;refactor_timing=false,solve_refinement=false,recovery=false,max_pivot_candidates=cap)
+ w=J._initialize_workspace_state(p,o;progress=J.SimplexProgressContext(p;numerical_policy=pol))
+ if scope===:residual
+  if mode===:structural
+   fill!(w.basis.states,J.AT_LOWER);w.basis.basic_indices.=1:n;w.basis.states[1:n].=J.BASIC
+  end
+  rho=[T((shape===:negative||shape===:mixed&&isodd(i) ? -1 : 1)*(i%5+1)//16) for i in 1:n]
+  return (scope=scope,w=w,rho=rho,leaving=1)
+ end
+ for j in w.basis.basic_indices;w.primal[j]=T(16);end
+ column=[density===:sparse&&i%4!=0 ? zero(T) : T((shape===:negative||shape===:mixed&&isodd(density===:sparse ? div(i,4) : i) ? -1 : 1)*((i*7)%n+1)//16) for i in 1:n]
+ @assert count(!iszero,column)==(density===:sparse ? div(n,4) : n)
+ @assert n<8||shape!==:mixed||(any(signbit,column)&&any(x->x>0,column))
+ return (scope=scope,w=w,column=column,rows=Int[],policy=pol,cap=cap)
+end
+function reset!(v)
+ if v.scope===:update
+  if v.recycled&&!isempty(v.f.updates)
+   @assert isempty(v.f.recycled_updates)
+   push!(v.f.recycled_updates,pop!(v.f.updates))
+  elseif !v.recycled
+   empty!(v.f.updates)
+  end
+ end
+ nothing
+end
+@noinline function whole(tag::A,v::V) where {A,V}
+ m=modof(tag)
+ v.scope===:residual&&return m._dual_row_residual_ratio(v.w,v.rho,v.leaving)
+ v.scope===:update&&return m.replace_column!(v.f,v.column,1;zero_tolerance=v.tol)
+ return m._crash_rows!(v.rows,v.w,v.column,v.policy)
+end
+function key(v,result)
+ v.scope===:residual&&return Float64(result)
+ v.scope===:crash&&return sum(result;init=0)
+ eta=only(result.updates)
+ return sum(Float64,eta.values;init=0.0)+sum(eta.indices;init=0)
+end
+@noinline function timed(tag::A,v::V) where {A,V}
+ t=@timed whole(tag,v);k=@timed key(v,t.value)
+ merge(cost(t),Dict("result"=>k.value,"capture_preparation"=>cost(k)))
+end
+function inputvalues(v)
+ if v.scope===:update
+  f=v.f
+  return (v.column,v.tol,f.work,f.base,Tuple(getfield(f.base.factorization,k) for k in fieldnames(typeof(f.base.factorization)) if getfield(f.base.factorization,k) isa AbstractArray{<:Real}))
+ end
+ w=v.w
+ return (w.problem.A.colptr,w.problem.A.rowval,w.problem.A.nzval,w.basis.basic_indices,w.basis.states,w.costs,w.primal,w.reduced_costs,w.lower,w.upper,w.pricing_weights,w.scratch.tau,w.scratch.row_rhs,w.progress.start_ns,w.progress.iteration_offset,w.progress.refactorization_offset,w.progress.objective,statevalues(w.options),statevalues(w.progress.numerical_policy),v.scope===:residual ? v.rho : v.column)
+end
+# Backend itself is retained for identity checks, its numerical arrays are captured separately.
+function valuesonly(x)
+ x isa Tuple&&return map(valuesonly,x)
+ x isa Union{J.UMFPACKBackend,J.DenseLUBackend,J.Float32LUBackend,J.MarkowitzBackend}&&return typeof(x)
+ return x
+end
+function owners(x)
+ x isa BigFloat&&return (x,)
+ x isa Rational{BigInt}&&return (numerator(x),denominator(x))
+ x isa J.Bound&&return owners(x.value)
+ x isa AbstractArray&&return (x,Tuple(owners(y) for y in x))
+ x isa Tuple&&return Tuple(owners(y) for y in x)
+ return x isa Real||x isa Symbol||x isa String||x===nothing ? nothing : x
+end
+sameowners(a,b)=a===b
+sameowners(a::Tuple,b::Tuple)=length(a)==length(b)&&all(sameowners(x,y) for (x,y) in zip(a,b))
+function resultvalue(v,x)
+ x[1]===:error&&return x
+ v.scope===:update&&return (:value,Tuple((eta.indices,eta.values,eta.pivot_row) for eta in v.f.updates))
+ return x
+end
+function checkpair(a,b,arm)
+ reset!(a);reset!(b)
+ va=deepcopy(valuesonly(inputvalues(a)));vb=deepcopy(valuesonly(inputvalues(b)));oa=owners(inputvalues(a));ob=owners(inputvalues(b));ambient=(precision(BigFloat),rounding(BigFloat))
+ x=capture(()->whole(Val(:original),a));y=capture(()->whole(Val(arm),b))
+ @test same(resultvalue(a,x),resultvalue(b,y))
+ @test ambient==(precision(BigFloat),rounding(BigFloat))
+ @test same(va,valuesonly(inputvalues(a)));@test same(vb,valuesonly(inputvalues(b)))
+ @test sameowners(oa,owners(inputvalues(a)));@test sameowners(ob,owners(inputvalues(b)))
+ if a.scope===:update&&x[1]===:value
+  @test x[2]===a.f&&y[2]===b.f
+  @test a.f.updates[1].indices!==a.column&&b.f.updates[1].indices!==b.column
+ elseif a.scope===:crash&&x[1]===:value
+  @test x[2]===a.rows&&y[2]===b.rows
+ end
+ return x
+end
+function correctness(::Type{T}) where T
+ @testset "ordinary residual pivot crash $(T)" begin
+  if T<:AbstractFloat
+   a=fixture(T,0,:sparse,:positive,:residual;mode=:slack);b=fixture(T,0,:sparse,:positive,:residual;mode=:slack)
+   @test iszero(checkpair(a,b,:A)[2])
+   for tag in (Val(:original),Val(:C))
+    a=fixture(T,4,:dense,:positive,:crash;cap=2);a.column.=T.([1,2,4,1])
+    pol=J.NumericalPolicy(T;pivot_error_tolerance=T(1//2),max_pivot_candidates=2)
+    @test modof(tag)._crash_rows!(a.rows,a.w,a.column,pol)==[3]
+   end
+  end
+  for tag in (Val(:original),Val(:B))
+   for pv in (T(1//4),-T(1//4))
+    a=fixture(T,4,:dense,:positive,:update);a.column[1]=pv;b=merge(a,(tol=T(1//4),))
+    @test_throws LinearAlgebra.ZeroPivotException whole(tag,b)
+    a.column[1]=pv+sign(pv)*T(1//1024);@test whole(tag,b)===a.f
+   end
+   a=fixture(T,4,:dense,:positive,:update);resize!(a.column,3)
+   @test_throws DimensionMismatch whole(tag,a)
+   a=fixture(T,4,:dense,:positive,:update)
+   @test_throws BoundsError modof(tag).replace_column!(a.f,a.column,5;zero_tolerance=zero(T))
+  end
+  if T<:AbstractFloat
+   for basis in (:structural,:slack),shape in (:positive,:negative,:mixed),density in (:sparse,:dense)
+    a=fixture(T,8,density,shape,:residual;mode=basis);b=fixture(T,8,density,shape,:residual;mode=basis)
+    @test checkpair(a,b,:A)[1]===:value
+   end
+   for tag in (Val(:original),Val(:A))
+    a=fixture(T,4,:sparse,:positive,:residual;mode=:slack);fill!(a.rho,zero(T));a.rho[1]=-one(T)
+    x=whole(tag,a);y=whole(tag,a);@test iszero(x);@test !signbit(x)
+    T===BigFloat&&(@test x!==y;@test all(z->x!==z,a.rho))
+    resize!(a.rho,3);@test_throws DimensionMismatch whole(tag,a)
+   end
+  end
+  for shape in (:positive,:negative,:mixed),density in (:sparse,:dense),recycled in (false,true)
+   a=fixture(T,8,density,shape,:update;recycled);b=fixture(T,8,density,shape,:update;recycled)
+   @test checkpair(a,b,:B)[1]===:value
+  end
+  for tag in (Val(:original),Val(:B))
+   a=fixture(T,4,:dense,:positive,:update);a.column.=T.([2,1//2,0,-1]);whole(tag,a);eta=only(a.f.updates)
+   @test eta.indices==[1,2,4];@test eta.values==T.([1//2,-1//4,1//2])
+   out=zeros(T,4);J.forward_solve!(out,a.f,a.column);@test out==T.([1,0,0,0])
+   reset!(a);a.column[1]=zero(T);@test_throws LinearAlgebra.ZeroPivotException whole(tag,a)
+   @test isempty(a.f.updates)
+   a.column[1]=one(T);bad=merge(a,(tol=-one(T),));@test_throws ArgumentError whole(tag,bad)
+  end
+  for shape in (:positive,:negative,:mixed),density in (:sparse,:dense),cap in (1,8)
+   a=fixture(T,8,density,shape,:crash;cap);b=fixture(T,8,density,shape,:crash;cap)
+   @test checkpair(a,b,:C)[1]===:value
+  end
+  for tag in (Val(:original),Val(:C))
+   a=fixture(T,4,:dense,:positive,:crash;cap=2);a.column.=T.([1,4,2,4]);@test whole(tag,a)==[2,4]
+   fill!(a.column,zero(T));@test isempty(whole(tag,a))
+   a.column.=T.([1,4,2,4]);fill!(a.w.primal,zero(T));@test isempty(whole(tag,a))
+   a=fixture(T,4,:dense,:mixed,:crash;cap=2);cv=@view a.column[:];@test modof(tag)._crash_rows!(a.rows,a.w,cv,a.policy)==RPCReference._crash_rows!(Int[],a.w,cv,a.policy)
+  end
+  if T<:AbstractFloat
+   for bad in (T(Inf),T(-Inf),T(NaN))
+    a=fixture(T,4,:dense,:mixed,:residual);b=fixture(T,4,:dense,:mixed,:residual);a.rho[2]=bad;b.rho[2]=bad
+    @test checkpair(a,b,:A)[2]==T(Inf)
+   end
+   for tag in (Val(:original),Val(:A))
+    a=fixture(T,4,:dense,:mixed,:residual);a.w.basis.basic_indices[2]=100
+    @test_throws BoundsError whole(tag,a)
+   end
+  end
+  for tag in (Val(:original),Val(:B))
+   a=fixture(T,4,:dense,:mixed,:update;recycled=true);saved=(only(a.f.recycled_updates).indices,only(a.f.recycled_updates).values)
+   whole(tag,a);@test only(a.f.updates).indices===saved[1];@test only(a.f.updates).values===saved[2]
+  end
+  if T===BigFloat
+   for bits in (64,128,512),sign in (-1,1)
+    stored=setprecision(BigFloat,bits) do;BigFloat(sign)*(1+ldexp(BigFloat(1),-53)+ldexp(BigFloat(1),-400));end
+    before=deepcopy(stored);old=RPCReference._pivot_magnitude(stored);new=RPCB._pivot_magnitude(stored)
+    @test same(old,new);@test same(stored,before)
+   end
+   for scope in (:residual,:crash)
+    arm=scope===:residual ? :A : :C
+    a=fixture(T,8,:dense,:mixed,scope);b=fixture(T,8,:dense,:mixed,scope)
+    stored=setprecision(BigFloat,512) do;1+ldexp(BigFloat(1),-53)+ldexp(BigFloat(1),-400);end
+    if scope===:residual;a.rho[2]=stored;b.rho[2]=deepcopy(stored)
+    else;a.column[2]=stored;b.column[2]=deepcopy(stored);end
+    @test checkpair(a,b,arm)[1]===:value
+   end
+   for x in (BigFloat(0),-BigFloat(0),BigFloat(Inf),BigFloat(-Inf),BigFloat(NaN))
+    @test same(RPCReference._pivot_magnitude(x),RPCB._pivot_magnitude(x))
+   end
+  end
+ end
+ nothing
+end
+
+function allocation_gate(::Type{T},scope,arm,n,density,shape,mode,recycled,cap) where T
+ a=fixture(T,n,density,shape,scope;mode,recycled,cap);b=fixture(T,n,density,shape,scope;mode,recycled,cap)
+ checkpair(a,b,arm)
+ for k in 1:3,(tag,v) in ((Val(:original),a),(Val(arm),b));reset!(v);timed(tag,v);end
+ before=Any[];after=Any[]
+ for pair in 1:3,tag in (isodd(pair) ? (:original,arm) : (arm,:original))
+  v=tag===:original ? a : b;reset!(v);t=timed(Val(tag),v)
+  @test t["compile_seconds"]==t["recompile_seconds"]==0
+  push!(tag===:original ? before : after,t)
+ end
+ @test all(after[k]["events"]<before[k]["events"] for k in 1:3)&&median(x["bytes"] for x in after)<median(x["bytes"] for x in before)
+ nothing
+end
+@testset "Multiprecision residual pivot and crash" begin
+ for bits in (64,128,256),mode in MODES
+  setprecision(BigFloat,bits) do
+   setrounding(BigFloat,mode) do;correctness(BigFloat);end
+  end
+ end
+ for T in (Float32,Float64,Rational{BigInt},Rational{Int64});correctness(T);end
+ setprecision(BigFloat,128) do
+  setrounding(BigFloat,RoundNearest) do
+   allocation_gate(BigFloat,:residual,:A,64,:sparse,:positive,:structural,false,8)
+   allocation_gate(BigFloat,:residual,:A,64,:sparse,:positive,:slack,false,8)
+   allocation_gate(BigFloat,:update,:B,16,:sparse,:positive,:structural,false,8)
+   allocation_gate(BigFloat,:update,:B,16,:sparse,:positive,:structural,true,8)
+   allocation_gate(BigFloat,:crash,:C,32,:dense,:mixed,:structural,false,8)
+   allocation_gate(Rational{BigInt},:crash,:C,32,:dense,:mixed,:structural,false,8)
+  end
+ end
+end
+end

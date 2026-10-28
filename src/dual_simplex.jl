@@ -1341,9 +1341,10 @@ function _dual_row_residual_ratio(workspace::SimplexWorkspace{T},
         throw(DimensionMismatch("tableau residual vectors must match the row count"))
     roundoff = T(256) * eps(one(T))
     worst_ratio = zero(T)
+    expected_zero = worst_ratio
     for (basis_row, index) in enumerate(workspace.basis.basic_indices)
         1 <= index <= column_count + row_count || throw(BoundsError(workspace.primal, index))
-        expected = basis_row == leaving_row ? one(T) : zero(T)
+        expected = basis_row == leaving_row ? one(T) : expected_zero
         residual = -expected
         scale = expected
         if index <= column_count

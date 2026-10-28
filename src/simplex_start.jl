@@ -143,6 +143,28 @@ function _crash_rows!(rows,ws,column,policy)
     return rows
 end
 
+function _crash_rows!(rows,ws,column::Vector{T},policy) where {T<:Union{BigFloat,Rational{BigInt}}}
+    empty!(rows)
+    scale = maximum(abs,column;init=zero(eltype(column)))
+    iszero(scale) && return rows
+    cutoff = policy.pivot_error_tolerance*scale
+    for (row,j) in enumerate(ws.basis.basic_indices)
+        magnitude = abs(column[row])
+        magnitude > cutoff || continue
+        _crash_violation(ws.primal[j],ws.lower[j],ws.upper[j],ws.options.primal_tolerance) > 0 || continue
+        # Keep only a bounded number of strongest eligible pivots. Checking all
+        # row scores would turn each column's selection into quadratic work.
+        position = findfirst(r->magnitude>abs(column[r]),rows)
+        if isnothing(position)
+            length(rows)<policy.max_pivot_candidates && push!(rows,row)
+        else
+            insert!(rows,position,row)
+            length(rows)>policy.max_pivot_candidates && pop!(rows)
+        end
+    end
+    return rows
+end
+
 function _crash_workspace_impl(initial::SimplexWorkspace{T},stop,fill_limit) where T
     stopped = Ref(false)
     guard = _guard_stop_callback(()->(stopped[] = stopped[] ||

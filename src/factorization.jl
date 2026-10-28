@@ -253,9 +253,12 @@ function transpose_solve(factor::PFIFactorization{T}, rhs::AbstractVector) where
 end
 
 _pivot_magnitude(value::Real) = abs(value)
-_pivot_magnitude(value::BigFloat) = setprecision(BigFloat, precision(value)) do
-    # Negating a stored negative BigFloat must not round before the cutoff check.
-    abs(value)
+function _pivot_magnitude(value::BigFloat)
+    isfinite(value) && value > 0 && return value
+    return setprecision(BigFloat, precision(value)) do
+        # Retain stored-precision negation and all exceptional/zero cases.
+        abs(value)
+    end
 end
 
 function replace_column!(
