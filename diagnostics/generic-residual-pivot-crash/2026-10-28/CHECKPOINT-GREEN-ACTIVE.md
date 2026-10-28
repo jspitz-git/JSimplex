@@ -1,0 +1,7 @@
+# GREEN active, do not duplicate launch
+
+GREEN-run/launch.py independently admitted and launched once; exec session70600. Limit3600shared/3592guard,67wholefiles1329pins. No pinned changes during active Julia. Read output/run.log/resources only, never fullhost/noJulia scan whileactive. Currentactualmasterbb765d00 unchanged,diagnostic94394f8b; sourceprivateGREEN5paths543files exactinverse. Root45,382PASS and originalRED7252PASS+6expectedcostFAIL already independentlyaccepted. Production-review565bindings/ GREENadmission accepted concrete67files.
+
+Afterprocesscomplete copy rootphase-audit.py exclusivelyto GREEN-run/audit.py, executeONCE (supplementalalreadyadmitted), request independentGREENresultreview. Then commit-integrate-publish.py commit (accepted pubprep) -> independentactualcommitreview -> integrateff-only -> prepare-phase.py MASTER -> independentMASTERadmission -> launchMASTER once3600same67files/frozentotal -> byteexactpostexitauditor+independentresult -> ordinarypush+verify. Do not stopafterlocal integration. Allauthorization autonomoususeralreadygranted.
+
+Finalcontrols: finalize-reviewed.py canonicalaccepted; originalfinalize.py UNEXECUTEDdraftpreserved. Explicitprotectedstate/index gatebeforewrites. closure.py and diagnostic-publish.py separatelyacceptedpreparation; finalreport/live refs/historicalmaps requirefinalreview afternormalprodpush, then PASSclosure once +exactDIcommit/push/remoteverify. Noold rerun/cleanup/CIenable/HHenable/automationresume. BroaderplanOPEN. User .vscode/Manifest/LocalPrefs and alloldworktrees/history protected.

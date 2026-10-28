@@ -1,0 +1,42 @@
+{
+  "accepted": true,
+  "bindings": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/audit-final.py": "fd095f788f94af0cffa651c1196750b37d75cbf60a838c1911240cf879df11eb",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/closure.py": "c56ace186c47f7bea77fb87e2cede54db60bbb65dcacb18e2aeef1d1a60777ec",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/common.py": "9510c3cc15c5bed4afd9ba904e0f2dd9263dce90af294b3cf8234f0b2baf0a2d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/diagnostic-publish.py": "952497938d3e594e7392e7b1e7928eccb490d64905cc1d25d4f4bd36d5282589",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/final-controls-prepare.py": "71717c816f73b6d71c7c68abd9bd05b56d559b6e85f8fbccd724e480ec883fd0",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/finalization-preparation-initial-review.json": "ae4f2cca372b9cc671a559b0b76926c86f69944432365fcdb58ef0831ce31068",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/finalization-preparation-initial-review.md": "b3de4316771b0e8887d43668f72d331bf1bdfeb4ed96e99a3dab47ebf6557569",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/finalization_checks.py": "881978c1b8ee16744e87dbf4118b3078faf4b7bbebfc76e48e8e10994630c009",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/finalize-reviewed.py": "5221a7a816423a6ecc0cada7d62f101f1a4804487367ff1e5270a0814683ded0",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/finalize.py": "2384dae209f98c4d02a0c29dfc331d82ddac08afe6859bcd23f78eca77b3ae6d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/protected-before.json": "8037bdde32145cef2588b684956f7a4cadf005486d457e17a462522fe653791f",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/publication-preparation-reviewed.json": "3fbc5d727ee69031d9fcf228a37a83c70cef11517342b87a6a617f7f3004f14d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/publication_checks.py": "4204391c20bf3005c80e3b96a594c1e580a138a268c6d405b21d3cf141bcb694"
+  },
+  "checks": [
+    "Four controls parse as Python without execution.",
+    "Final report reads current audit.json and summary.json schema, uses dynamic accepted variant names, counts, windows, preparation and phase totals; no prior numerical exception qualification is used.",
+    "Closure verifies all six pin sets, independent reviews, original rejected admission, current source/test trees, original source/index/continuation maps and exact verbatim continuation beforeimages.",
+    "Diagnostic publisher requires independent final review and PASS closure bindings, exact artifact membership/blob identity before and after commit, original sole parent, approved single push endpoint, normal push and remote/tracking verification.",
+    "Finalization writes a unique finalization-host.json rather than overwriting the sealed final-host.json.",
+    "Exact single guard insertion validated against original bytes; canonical source parses as Python.",
+    "Every original protected file and every current MASTER protected index are explicitly verified before any artifact or continuation mutation."
+  ],
+  "computational_work_and_memory": "Added pre-write work is one hash pass over the small protected file/index sets during finalization. It enforces required state preservation before user continuation edits and is justified cold-path certification work. No numerical kernel scan, solve, allocation, retained solver memory or performance conclusion is introduced.",
+  "findings": [],
+  "future_requirements": [
+    "Execute only finalize-reviewed.py after fresh actual production publication, accepted production/commit/MASTER/GREEN reviews, all exact review bindings, source/index historical maps and current full protected state validate.",
+    "Independently review actual generated final report and both verbatim continuations; final-review.json must bind current changed continuation bytes and canonical controls.",
+    "Only then run closure.py to validate all six pin sets, complete independent review chain, accepted comparison/RED/GREEN/MASTER outcomes, same ordered whole files, exact beforeimages/current trees, user/environment/index state and fresh full-host process identities.",
+    "Only after separate PASS closure may diagnostic-publish.py stage the exact closed artifact list and continuations, verify every staged and committed blob including its own publication plan, commit on the unchanged diagnostics parent, normally push and remotely verify.",
+    "No actual finalization, closure or diagnostic publication outcome is accepted by this preparation artifact."
+  ],
+  "no_Julia_or_host_audit_during_active_comparison": true,
+  "no_author_controls_modified": true,
+  "no_controls_executed": true,
+  "resolved_finding": "Canonical finalize-reviewed.py contains exactly one five-line guard insertion plus comment compared with preserved finalize.py. It verifies every original protected file and every current MASTER-phase protected index before the first finalization-host.json write, directory creation, copy or continuation update. The historical index/source map validation remains intact. All initial-review control bindings still match.",
+  "reviewed_at_utc": "2026-10-28T09:03:37.487882+00:00",
+  "scope": "Offline static preparation review only. Canonical finalizer is finalize-reviewed.py; original finalize.py remains unexecuted and nonaccepted. No future finalization output, closure, result, stage, commit or publication is accepted."
+}

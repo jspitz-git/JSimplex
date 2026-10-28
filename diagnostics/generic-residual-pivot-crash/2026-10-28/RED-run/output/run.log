@@ -1,0 +1,183 @@
+RPC_SOURCE /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/RED/src/JSimplex.jl
+INCLUDING generic_residual_pivot_crash_tests.jl
+ERROR: LoadError: Some tests did not pass: 7252 passed, 6 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/RED-run/tests.jl:8
+
+Multiprecision residual pivot and crash: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/RED/test/generic_residual_pivot_crash_tests.jl:409
+  Expression: all(((after[k])["events"] < (before[k])["events"] for k = 1:3)) && median((x["bytes"] for x = after)) < median((x["bytes"] for x = before))
+  Stacktrace:
+    [1] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+    [2] allocation_gate(::Type{BigFloat}, scope::Symbol, arm::Symbol, n::Int64, density::Symbol, shape::Symbol, mode::Symbol, recycled::Bool, cap::Int64)
+      @ Main.GenericResidualPivotCrashTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/RED/test/generic_residual_pivot_crash_tests.jl:409
+    [3] (::Main.GenericResidualPivotCrashTests.var"#38#39")()
+      @ Main.GenericResidualPivotCrashTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/RED/test/generic_residual_pivot_crash_tests.jl:421
+    [4] setrounding_raw(f::Main.GenericResidualPivotCrashTests.var"#38#39", ::Type{BigFloat}, r::Base.MPFR.MPFRRoundingMode)
+      @ Base.MPFR ./mpfr.jl:250
+    [5] setrounding
+      @ ./mpfr.jl:255 [inlined]
+    [6] #36
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/RED/test/generic_residual_pivot_crash_tests.jl:420 [inlined]
+    [7] setprecision(f::Main.GenericResidualPivotCrashTests.var"#36#37", ::Type{BigFloat}, prec::Int64; base::Int64)
+      @ Base.MPFR ./mpfr.jl:1214
+    [8] setprecision(f::Function, ::Type{BigFloat}, prec::Int64)
+      @ Base.MPFR ./mpfr.jl:1213
+    [9] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/RED/test/generic_residual_pivot_crash_tests.jl:413
+   [10] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [11] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/RED/test/generic_residual_pivot_crash_tests.jl:419 [inlined]
+
+Multiprecision residual pivot and crash: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/RED/test/generic_residual_pivot_crash_tests.jl:409
+  Expression: all(((after[k])["events"] < (before[k])["events"] for k = 1:3)) && median((x["bytes"] for x = after)) < median((x["bytes"] for x = before))
+  Stacktrace:
+    [1] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+    [2] allocation_gate(::Type{BigFloat}, scope::Symbol, arm::Symbol, n::Int64, density::Symbol, shape::Symbol, mode::Symbol, recycled::Bool, cap::Int64)
+      @ Main.GenericResidualPivotCrashTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/RED/test/generic_residual_pivot_crash_tests.jl:409
+    [3] (::Main.GenericResidualPivotCrashTests.var"#38#39")()
+      @ Main.GenericResidualPivotCrashTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/RED/test/generic_residual_pivot_crash_tests.jl:422
+    [4] setrounding_raw(f::Main.GenericResidualPivotCrashTests.var"#38#39", ::Type{BigFloat}, r::Base.MPFR.MPFRRoundingMode)
+      @ Base.MPFR ./mpfr.jl:250
+    [5] setrounding
+      @ ./mpfr.jl:255 [inlined]
+    [6] #36
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/RED/test/generic_residual_pivot_crash_tests.jl:420 [inlined]
+    [7] setprecision(f::Main.GenericResidualPivotCrashTests.var"#36#37", ::Type{BigFloat}, prec::Int64; base::Int64)
+      @ Base.MPFR ./mpfr.jl:1214
+    [8] setprecision(f::Function, ::Type{BigFloat}, prec::Int64)
+      @ Base.MPFR ./mpfr.jl:1213
+    [9] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/RED/test/generic_residual_pivot_crash_tests.jl:413
+   [10] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [11] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/RED/test/generic_residual_pivot_crash_tests.jl:419 [inlined]
+
+Multiprecision residual pivot and crash: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/RED/test/generic_residual_pivot_crash_tests.jl:409
+  Expression: all(((after[k])["events"] < (before[k])["events"] for k = 1:3)) && median((x["bytes"] for x = after)) < median((x["bytes"] for x = before))
+  Stacktrace:
+    [1] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+    [2] allocation_gate(::Type{BigFloat}, scope::Symbol, arm::Symbol, n::Int64, density::Symbol, shape::Symbol, mode::Symbol, recycled::Bool, cap::Int64)
+      @ Main.GenericResidualPivotCrashTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/RED/test/generic_residual_pivot_crash_tests.jl:409
+    [3] (::Main.GenericResidualPivotCrashTests.var"#38#39")()
+      @ Main.GenericResidualPivotCrashTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/RED/test/generic_residual_pivot_crash_tests.jl:423
+    [4] setrounding_raw(f::Main.GenericResidualPivotCrashTests.var"#38#39", ::Type{BigFloat}, r::Base.MPFR.MPFRRoundingMode)
+      @ Base.MPFR ./mpfr.jl:250
+    [5] setrounding
+      @ ./mpfr.jl:255 [inlined]
+    [6] #36
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/RED/test/generic_residual_pivot_crash_tests.jl:420 [inlined]
+    [7] setprecision(f::Main.GenericResidualPivotCrashTests.var"#36#37", ::Type{BigFloat}, prec::Int64; base::Int64)
+      @ Base.MPFR ./mpfr.jl:1214
+    [8] setprecision(f::Function, ::Type{BigFloat}, prec::Int64)
+      @ Base.MPFR ./mpfr.jl:1213
+    [9] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/RED/test/generic_residual_pivot_crash_tests.jl:413
+   [10] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [11] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/RED/test/generic_residual_pivot_crash_tests.jl:419 [inlined]
+
+Multiprecision residual pivot and crash: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/RED/test/generic_residual_pivot_crash_tests.jl:409
+  Expression: all(((after[k])["events"] < (before[k])["events"] for k = 1:3)) && median((x["bytes"] for x = after)) < median((x["bytes"] for x = before))
+  Stacktrace:
+    [1] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+    [2] allocation_gate(::Type{BigFloat}, scope::Symbol, arm::Symbol, n::Int64, density::Symbol, shape::Symbol, mode::Symbol, recycled::Bool, cap::Int64)
+      @ Main.GenericResidualPivotCrashTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/RED/test/generic_residual_pivot_crash_tests.jl:409
+    [3] (::Main.GenericResidualPivotCrashTests.var"#38#39")()
+      @ Main.GenericResidualPivotCrashTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/RED/test/generic_residual_pivot_crash_tests.jl:424
+    [4] setrounding_raw(f::Main.GenericResidualPivotCrashTests.var"#38#39", ::Type{BigFloat}, r::Base.MPFR.MPFRRoundingMode)
+      @ Base.MPFR ./mpfr.jl:250
+    [5] setrounding
+      @ ./mpfr.jl:255 [inlined]
+    [6] #36
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/RED/test/generic_residual_pivot_crash_tests.jl:420 [inlined]
+    [7] setprecision(f::Main.GenericResidualPivotCrashTests.var"#36#37", ::Type{BigFloat}, prec::Int64; base::Int64)
+      @ Base.MPFR ./mpfr.jl:1214
+    [8] setprecision(f::Function, ::Type{BigFloat}, prec::Int64)
+      @ Base.MPFR ./mpfr.jl:1213
+    [9] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/RED/test/generic_residual_pivot_crash_tests.jl:413
+   [10] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [11] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/RED/test/generic_residual_pivot_crash_tests.jl:419 [inlined]
+
+Multiprecision residual pivot and crash: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/RED/test/generic_residual_pivot_crash_tests.jl:409
+  Expression: all(((after[k])["events"] < (before[k])["events"] for k = 1:3)) && median((x["bytes"] for x = after)) < median((x["bytes"] for x = before))
+  Stacktrace:
+    [1] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+    [2] allocation_gate(::Type{BigFloat}, scope::Symbol, arm::Symbol, n::Int64, density::Symbol, shape::Symbol, mode::Symbol, recycled::Bool, cap::Int64)
+      @ Main.GenericResidualPivotCrashTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/RED/test/generic_residual_pivot_crash_tests.jl:409
+    [3] (::Main.GenericResidualPivotCrashTests.var"#38#39")()
+      @ Main.GenericResidualPivotCrashTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/RED/test/generic_residual_pivot_crash_tests.jl:425
+    [4] setrounding_raw(f::Main.GenericResidualPivotCrashTests.var"#38#39", ::Type{BigFloat}, r::Base.MPFR.MPFRRoundingMode)
+      @ Base.MPFR ./mpfr.jl:250
+    [5] setrounding
+      @ ./mpfr.jl:255 [inlined]
+    [6] #36
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/RED/test/generic_residual_pivot_crash_tests.jl:420 [inlined]
+    [7] setprecision(f::Main.GenericResidualPivotCrashTests.var"#36#37", ::Type{BigFloat}, prec::Int64; base::Int64)
+      @ Base.MPFR ./mpfr.jl:1214
+    [8] setprecision(f::Function, ::Type{BigFloat}, prec::Int64)
+      @ Base.MPFR ./mpfr.jl:1213
+    [9] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/RED/test/generic_residual_pivot_crash_tests.jl:413
+   [10] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [11] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/RED/test/generic_residual_pivot_crash_tests.jl:419 [inlined]
+
+Multiprecision residual pivot and crash: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/RED/test/generic_residual_pivot_crash_tests.jl:409
+  Expression: all(((after[k])["events"] < (before[k])["events"] for k = 1:3)) && median((x["bytes"] for x = after)) < median((x["bytes"] for x = before))
+  Stacktrace:
+    [1] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+    [2] allocation_gate(::Type{Rational{BigInt}}, scope::Symbol, arm::Symbol, n::Int64, density::Symbol, shape::Symbol, mode::Symbol, recycled::Bool, cap::Int64)
+      @ Main.GenericResidualPivotCrashTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/RED/test/generic_residual_pivot_crash_tests.jl:409
+    [3] (::Main.GenericResidualPivotCrashTests.var"#38#39")()
+      @ Main.GenericResidualPivotCrashTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/RED/test/generic_residual_pivot_crash_tests.jl:426
+    [4] setrounding_raw(f::Main.GenericResidualPivotCrashTests.var"#38#39", ::Type{BigFloat}, r::Base.MPFR.MPFRRoundingMode)
+      @ Base.MPFR ./mpfr.jl:250
+    [5] setrounding
+      @ ./mpfr.jl:255 [inlined]
+    [6] #36
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/RED/test/generic_residual_pivot_crash_tests.jl:420 [inlined]
+    [7] setprecision(f::Main.GenericResidualPivotCrashTests.var"#36#37", ::Type{BigFloat}, prec::Int64; base::Int64)
+      @ Base.MPFR ./mpfr.jl:1214
+    [8] setprecision(f::Function, ::Type{BigFloat}, prec::Int64)
+      @ Base.MPFR ./mpfr.jl:1213
+    [9] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/RED/test/generic_residual_pivot_crash_tests.jl:413
+   [10] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [11] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/RED/test/generic_residual_pivot_crash_tests.jl:419 [inlined]
+Test Summary:                                      | Pass  Fail  Total     Time
+Residual pivot crash RED                           | 7252     6   7258  1m00.1s
+  Multiprecision residual pivot and crash          | 7252     6   7258    59.7s
+    ordinary residual pivot crash BigFloat         |  398          398     4.3s
+    ordinary residual pivot crash BigFloat         |  398          398     0.0s
+    ordinary residual pivot crash BigFloat         |  398          398     0.0s
+    ordinary residual pivot crash BigFloat         |  398          398     0.0s
+    ordinary residual pivot crash BigFloat         |  398          398     0.1s
+    ordinary residual pivot crash BigFloat         |  398          398     0.0s
+    ordinary residual pivot crash BigFloat         |  398          398     0.0s
+    ordinary residual pivot crash BigFloat         |  398          398     0.0s
+    ordinary residual pivot crash BigFloat         |  398          398     0.0s
+    ordinary residual pivot crash BigFloat         |  398          398     0.0s
+    ordinary residual pivot crash BigFloat         |  398          398     0.0s
+    ordinary residual pivot crash BigFloat         |  398          398     0.0s
+    ordinary residual pivot crash BigFloat         |  398          398     0.0s
+    ordinary residual pivot crash BigFloat         |  398          398     0.0s
+    ordinary residual pivot crash BigFloat         |  398          398     0.0s
+    ordinary residual pivot crash Float32          |  362          362     2.2s
+    ordinary residual pivot crash Float64          |  362          362     2.1s
+    ordinary residual pivot crash Rational{BigInt} |  240          240     5.2s
+    ordinary residual pivot crash Rational{Int64}  |  240          240     1.9s
+RNG of the outermost testset: Random.Xoshiro(0xaef8071df1ab4561, 0x3a967c1be48a8f0a, 0x01ddcfbceb9b4fe7, 0xb2fb4575a27d0775, 0x4cef7059aabeb635)

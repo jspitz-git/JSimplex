@@ -1,0 +1,31 @@
+{
+  "accepted": false,
+  "advisory": "Add explicit final-report caveat that negative B and all-positive RationalBigInt C have no measured allocation saving or established speedup; the bound detailed result review already supplies these limits.",
+  "bindings": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/FINAL-REPORT.md": "eda0415fb445d4a9c253166028e91fcb4a4b7ca5ebd5b7c331b20573146ae69e",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/audit.json": "935808754a2af9bfe504093f82211f2d0aaa2fce49395746ab863bb7d77df2a5",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/completed.json": "c3102b604e9c207cee83dfb9e47f749c0242b802303c4adc28c68203a8a9b31a",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/supervisor.json": "b5b6d6526c209de80444c19a3b2f402237f50483953a08da5f833d9b18c1f713",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/STATUS.md": "3e65654a84c5af7c4f44149b88b302aca230301845e6c3b34f4b868800c8d597",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/docs/superpowers/plans/2026-10-11-simplex-core-architecture.md": "2bbe89cc970838272c9225a63a28688d9a463dee0340f278df5adb17d694472e"
+  },
+  "findings": [
+    {
+      "body": "The generated report labels 297.380s as inclusive elapsed. That value is supervisor elapsed stored in audit.json; completed.json and independent result-review-statistics.json report the complete admitted interval 297.65999073098646s. Use 297.660s for inclusive elapsed or explicitly label 297.380s as supervisor time.",
+      "file": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/FINAL-REPORT.md",
+      "priority": 2,
+      "title": "Label the actual inclusive comparison duration"
+    },
+    {
+      "body": "Both generated continuation prefixes call the candidates closed and refer to Final PASS closure/exactdiagnosticpublication in canonical output records before those steps have run. State that production integration/publication is complete while closure and diagnostics publication are pending, preserving the old continuation suffixes verbatim.",
+      "files": [
+        "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/STATUS.md",
+        "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/docs/superpowers/plans/2026-10-11-simplex-core-architecture.md"
+      ],
+      "priority": 2,
+      "title": "Mark closure and diagnostic publication as pending"
+    }
+  ],
+  "reviewed_at_utc": "2026-10-28T11:04:37.897589+00:00",
+  "scope": "Initial actual final-output review only; no final closure or diagnostic publication accepted."
+}

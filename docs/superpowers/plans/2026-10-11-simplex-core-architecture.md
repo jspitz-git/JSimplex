@@ -1,3 +1,11 @@
+# Current continuation — residual pivot crash integrated, 2026-10-28
+
+Master/origin/master `85f8275b85183f87fa8f33164cb0fbb5115f17ec` normally pushed/remotely verified, accepted variants A,B,C only. Exact paths/source inverse, original numerical safeguards/order/tolerances/precision/owners/pivot rules retained. No new full scan/solve/copy/conversion/persistent numeric cache. See diagnostics/generic-residual-pivot-crash/2026-10-28/FINAL-REPORT.md and independent result/production reviews for measured complete-function savings and all controls/limits; no universal/end-to-end/native-free claim.
+
+Single comparison 45382PASS/1192cells/21456compilezero windows/14GC preserved, preparation 1230. Initial offline rejection and every initial/ready artifact frozen; final sparse/sign and boundary harness fixes happened before launch, candidates/grid unchanged. OriginalRED 7252PASS+6expectedcostFAIL; GREEN/actualMASTER 362111PASS each/67samewholefiles. Independent reviews accepted; private-index commit/actualcommitreview/ff-only/freshMASTER/normalpush verified. At preparation of this prepublication record, closure and diagnostic publication remain pending; canonical outputs record subsequent outcomes. All older bindings map ONLY exact baseline/before-master/continuation-before bytes; all older maps/artifacts preserved/frozen NEVER RERUN/rewrite. Userfiles/env/index protected, fullgroupsANDsessions/boot/start_ticks/command/noJulia. CIoff automationpaused HHdisabled; broader/fullsuite/x64/native-retentionOPEN. No automatic next experiment/cleanup.
+
+## Previous continuation — preserved verbatim below
+
 # Current continuation — interval sum, exact certificate and PFI growth savings integrated, 2026-10-28
 
 Master/origin/master `bb765d008c6e8aab6187aa0ea49d49a4f8a03309` normally pushed and remotely verified. A BigFloat same-sign cancellation guard skips only unused negation; B Rational{BigInt} certificate uses read-only rho/unary sign instead of unit multiplication; C BigFloat PFI growth uses one private unit and conditional magnitudes. Exact4paths; actual arithmetic/CSC accumulation order, enclosures, tolerances, exceptions, owner categories and refactorization gates retained. No newscan/solve/copy/conversion/persistent numeric cache; independent review found no unnecessary production work or retained numerical memory.

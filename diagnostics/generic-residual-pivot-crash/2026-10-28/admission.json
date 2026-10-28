@@ -1,0 +1,51 @@
+{
+  "accepted": false,
+  "findings": [
+    {
+      "id": "F1",
+      "priority": 2,
+      "file": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/fixtures.jl",
+      "line": 49,
+      "title": "Sparse crash cells actually execute dense columns",
+      "detail": "Crash column construction ignores density and creates a nonzero entry at every row. Only workspace A changes, but _crash_rows! never reads A. The sparse and dense crash cells therefore measure the same dense workload and cannot establish the requested representative sparse/dense evidence. Add genuinely sparse crash direction fixtures with asserted nonzero counts in a new sealed revision before launch."
+    },
+    {
+      "id": "F2",
+      "priority": 2,
+      "file": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/fixtures.jl",
+      "line": 124,
+      "title": "Concrete tests do not meet the sealed admission coverage",
+      "detail": "DESIGN.md promises HH/triangular correctness controls and empty/error paths; PLAN.md explicitly requires threshold boundaries and concrete assertions. The actual correctness function contains no HH/triangular/BG entry controls, no empty residual case, no nonzero PFI cutoff boundary or crash cutoff boundary assertions, and no PFI dimension/index failure cases. Its direct stored-precision helper equality tests and existing ownership checks are useful but do not implement that declared coverage. Complete the relevant promised assertions before launch, and accurately distinguish measured shapes from correctness-only ties/zero/no-violation cases."
+    }
+  ],
+  "reviewer": "independent residual_pivot_crash_admission",
+  "created_utc": "2026-10-28T07:57:57.451582+00:00",
+  "scope": "static admission only; no numerical execution",
+  "auditor_in_original_launchpins": false,
+  "bindings": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/pins.json": "528929359404814d4540ba3ed496aa72e0623c245057824176b12bbf6385267c",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/common.py": "9510c3cc15c5bed4afd9ba904e0f2dd9263dce90af294b3cf8234f0b2baf0a2d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/launch.py": "bf5ca4f5106161ba70a11636d482bdb733bb6747e82adc7557cd1d87d8416512",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/contract.json": "16c88c1bde0ab993df2865cb86bf45bff381d306275e5f047967186941e1ca05",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/changes.json": "e9e34702017137f41141bb9e635a400b1cabde85ba53a523c0cb7994ba3c35ba",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/Reference.jl": "3f91a3b4d2923fd4aecd199bc0f8e5fcf54c67e1f27794ea6ffcd5312466b2e6",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/A.jl": "3f882059a92c9190f9ecec1bd7d3015185aa8d248316c5f2b6f1c54b97040bda",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/B.jl": "c83af340c99a77ba9c8c75d227419e8db6dc1b5ee4af99cac7442e6d3eb90996",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/C.jl": "efe4f9c8e1ba442aa8fce883b9143c785cf390691b11c714b7acf4c1e6f3a278",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/fixtures.jl": "a40067131597d85b09af29b771ed026f5e2db2d3f7cfc3ad8f4ac42a92ba429b",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/driver.jl": "705ba5f98ea546c243dcc97e9885b2a36e56b290856caeb4ae3ef7da0b60f267",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/grid.toml": "119b1d21511af4280e5ff077f67b0c360cef574540e1ad9aaa0c2c4551321c9b",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/expected-cases.json": "ddcacc622d77c9946132155c4f6879f3d0bf0fb5d8d02779c4949dd8cce966cd",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/audit.py": "ef26e6b9be2427113d120da1fa1944579650862bbf564b8a8b805eb4c664bd95",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/audit-prepare.py": "ede8437f0874d1951628e06770f1ab4845bbd746970d6677c08454079b6648d8",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/DESIGN.md": "5aca306461d816bbce23a65db9e47f9f3297fe9e1416beb92167440d95dee7f1",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/PLAN.md": "8a63f22000f130efe27aac6b9730597b07b87bad08bda000ec9ba78df0aa6122",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/WORK-MEMORY.md": "7c521e823c55544c2a520a07519c9fa3afc054d31e58b48f766e91081ab05ab6",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/progress.md": "4b105ddea4b2e996cebd69058356c4969a91b5f6964f57e6a408c2122f70851f",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/guard/guard_reviewed.py": "92f1c19ded9615f8a1f8cab70bf5209d8dc9db734e9592c3bbf3f5852ee9aa67",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/guard/supervisor_reviewed.py": "f983198c245079eafa712d1b4752a6ac56456aa91058fc469245fa77759bf0ec",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/guard/entry_gate.py": "6b1f569959d53c2d37faa0e8f6a8ebda6887ef8b6e5602db8e0b15ae5f530ff9",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/admission-host-evidence.json": "ee53b554d15e92ebbd1f7e729c51406d07346869c35486bfeda2bc9e8b775646",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/ADMISSION-REVIEW.md": "5b9ae468b49165831987b3375a9347707bed79d638f7c3e4f476ed2398b4b54f"
+  }
+}

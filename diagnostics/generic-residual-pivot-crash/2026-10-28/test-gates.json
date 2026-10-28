@@ -1,0 +1,82 @@
+{
+  "accepted_variants": [
+    "A",
+    "B",
+    "C"
+  ],
+  "comparison_cell_assertions": 38208,
+  "correctness_assertions_from_unchanged_source": 7174,
+  "expected_RED_failures": 6,
+  "expected_RED_passes": 7252,
+  "expected_RED_total": 7258,
+  "failure_line": 409,
+  "gates": [
+    {
+      "arm": "A",
+      "cap": 8,
+      "density": "sparse",
+      "mode": "structural",
+      "n": 64,
+      "recycled": false,
+      "scope": "residual",
+      "shape": "positive",
+      "type": "BigFloat"
+    },
+    {
+      "arm": "A",
+      "cap": 8,
+      "density": "sparse",
+      "mode": "slack",
+      "n": 64,
+      "recycled": false,
+      "scope": "residual",
+      "shape": "positive",
+      "type": "BigFloat"
+    },
+    {
+      "arm": "B",
+      "cap": 8,
+      "density": "sparse",
+      "mode": "structural",
+      "n": 16,
+      "recycled": false,
+      "scope": "update",
+      "shape": "positive",
+      "type": "BigFloat"
+    },
+    {
+      "arm": "B",
+      "cap": 8,
+      "density": "sparse",
+      "mode": "structural",
+      "n": 16,
+      "recycled": true,
+      "scope": "update",
+      "shape": "positive",
+      "type": "BigFloat"
+    },
+    {
+      "arm": "C",
+      "cap": 8,
+      "density": "dense",
+      "mode": "structural",
+      "n": 32,
+      "recycled": false,
+      "scope": "crash",
+      "shape": "mixed",
+      "type": "BigFloat"
+    },
+    {
+      "arm": "C",
+      "cap": 8,
+      "density": "dense",
+      "mode": "structural",
+      "n": 32,
+      "recycled": false,
+      "scope": "crash",
+      "shape": "mixed",
+      "type": "Rational{BigInt}"
+    }
+  ],
+  "rule": "fixed3whole-callpairs lowerEvents each/lowerMedianBytes; all numerical expectations and oldthresholds unchanged, no timingassertion"
+}

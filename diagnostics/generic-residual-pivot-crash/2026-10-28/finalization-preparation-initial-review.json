@@ -1,0 +1,38 @@
+{
+  "accepted": false,
+  "bindings": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/audit-final.py": "fd095f788f94af0cffa651c1196750b37d75cbf60a838c1911240cf879df11eb",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/closure.py": "c56ace186c47f7bea77fb87e2cede54db60bbb65dcacb18e2aeef1d1a60777ec",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/common.py": "9510c3cc15c5bed4afd9ba904e0f2dd9263dce90af294b3cf8234f0b2baf0a2d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/diagnostic-publish.py": "952497938d3e594e7392e7b1e7928eccb490d64905cc1d25d4f4bd36d5282589",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/final-controls-prepare.py": "71717c816f73b6d71c7c68abd9bd05b56d559b6e85f8fbccd724e480ec883fd0",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/finalization_checks.py": "881978c1b8ee16744e87dbf4118b3078faf4b7bbebfc76e48e8e10994630c009",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/finalize.py": "2384dae209f98c4d02a0c29dfc331d82ddac08afe6859bcd23f78eca77b3ae6d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/protected-before.json": "8037bdde32145cef2588b684956f7a4cadf005486d457e17a462522fe653791f",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/publication-preparation-reviewed.json": "3fbc5d727ee69031d9fcf228a37a83c70cef11517342b87a6a617f7f3004f14d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/publication_checks.py": "4204391c20bf3005c80e3b96a594c1e580a138a268c6d405b21d3cf141bcb694"
+  },
+  "checks": [
+    "Four controls parse as Python without execution.",
+    "Final report reads current audit.json and summary.json schema, uses dynamic accepted variant names, counts, windows, preparation and phase totals; no prior numerical exception qualification is used.",
+    "Closure verifies all six pin sets, independent reviews, original rejected admission, current source/test trees, original source/index/continuation maps and exact verbatim continuation beforeimages.",
+    "Diagnostic publisher requires independent final review and PASS closure bindings, exact artifact membership/blob identity before and after commit, original sole parent, approved single push endpoint, normal push and remote/tracking verification.",
+    "Finalization writes a unique finalization-host.json rather than overwriting the sealed final-host.json."
+  ],
+  "computational_work_and_memory": "These are cold certification/publication controls with deliberate complete-source and pin scans. No production numerical work or retained solver memory is introduced. No performance claim or actual-stage numerical review is made.",
+  "findings": [
+    {
+      "body": "verify_historical_maps validates the original master index beforeimage against the original protected hash; it does not validate the current master index or diagnostics index. finalize.py also does not directly validate every protected file before its first finalization-host.json write and subsequent snapshot/continuation work. Its generic review-binding loop permits any binding set, so complete coverage of current protected paths is not guaranteed. closure.py checks current indexes and protected files only after finalization has already written artifacts and prepended continuation text. Add explicit pre-write checks that all current indexes match MASTER-run/protected-before.json and all current protected files match protected-before.json, and require the diagnostic index still matches its original hash. Keep the original-index historical map validation.",
+      "end": 29,
+      "file": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-residual-pivot-crash/2026-10-28/finalize.py",
+      "priority": 2,
+      "start": 11,
+      "title": "Validate current protected files and indexes before finalization writes"
+    }
+  ],
+  "no_Julia_or_host_audit_during_active_comparison": true,
+  "no_author_controls_modified": true,
+  "no_controls_executed": true,
+  "reviewed_at_utc": "2026-10-28T09:02:35.761832+00:00",
+  "scope": "Offline static review of unexecuted finalization controls; no phase, source, result, commit, integration, publication or final closure accepted."
+}
