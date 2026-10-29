@@ -1,0 +1,62 @@
+{
+  "command": [
+    "/bin/bash",
+    "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+    "--compiled-modules=existing",
+    "--threads=1",
+    "--gcthreads=1,0",
+    "--heap-size-hint=2G",
+    "--history-file=no",
+    "--project=/home/jspitz/JSimplex.jl",
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/bg-local-rotation/2026-10-29/driver-2.jl"
+  ],
+  "cwd": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl",
+  "started": 1793277150.5014741,
+  "runner": {
+    "pid": 315140,
+    "pgid": 315140,
+    "sid": 315140,
+    "start_ticks": 24681160,
+    "boot_id": "781795f4-f7af-4c3b-9ce9-45c7cae76ecb",
+    "command": "/usr/bin/python3 -B /home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/bg-local-rotation/2026-10-29/guard/guard_reviewed.py run /home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/bg-local-rotation/2026-10-29/pins-2.json /home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/bg-local-rotation/2026-10-29/local-1/guard --expected-exit 0 --seconds 1790 --deadline 248601.608517296 -- /bin/bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --compiled-modules=existing --threads=1 --gcthreads=1,0 --heap-size-hint=2G --history-file=no --project=/home/jspitz/JSimplex.jl /home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/bg-local-rotation/2026-10-29/driver-2.jl "
+  },
+  "pins_sha256": "abd870d9252443532ac4a9b3c8f7503c49ef5f5f8f9345491c4703121d37fe98",
+  "reason": "exit0",
+  "returncode": 0,
+  "gate_command": [
+    "/usr/bin/python3",
+    "-B",
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/bg-local-rotation/2026-10-29/guard/entry_gate.py",
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/bg-local-rotation/2026-10-29/local-1/guard",
+    "315140",
+    "24681160",
+    "781795f4-f7af-4c3b-9ce9-45c7cae76ecb",
+    "248601.608517296",
+    "--",
+    "/bin/bash",
+    "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+    "--compiled-modules=existing",
+    "--threads=1",
+    "--gcthreads=1,0",
+    "--heap-size-hint=2G",
+    "--history-file=no",
+    "--project=/home/jspitz/JSimplex.jl",
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/bg-local-rotation/2026-10-29/driver-2.jl"
+  ],
+  "child": {
+    "pid": 315141,
+    "pgid": 315141,
+    "sid": 315141,
+    "start_ticks": 24681168,
+    "boot_id": "781795f4-f7af-4c3b-9ce9-45c7cae76ecb",
+    "command": "/usr/bin/python3 -B /home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/bg-local-rotation/2026-10-29/guard/entry_gate.py /home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/bg-local-rotation/2026-10-29/local-1/guard 315140 24681160 781795f4-f7af-4c3b-9ce9-45c7cae76ecb 248601.608517296 -- /bin/bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --compiled-modules=existing --threads=1 --gcthreads=1,0 --heap-size-hint=2G --history-file=no --project=/home/jspitz/JSimplex.jl /home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/bg-local-rotation/2026-10-29/driver-2.jl "
+  },
+  "elapsed_including_launch": 32.07028141999035,
+  "child_maxrss_kib": 690036,
+  "terminal_memory": {
+    "available_kib": 22715056,
+    "swap_used_kib": 0
+  },
+  "ended": 1793277182.5405242,
+  "pins_unchanged": true
+}
