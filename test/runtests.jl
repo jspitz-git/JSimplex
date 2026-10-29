@@ -2,6 +2,7 @@ using JSimplex
 using Test
 
 @testset "JSimplex" begin
+    include("native_quality_finite_tests.jl")
     include("generic_quality_devex_tests.jl")
     include("numeric_tests.jl")
     include("compensated_transpose_work_tests.jl")

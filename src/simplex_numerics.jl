@@ -443,6 +443,11 @@ function _wide_solve_quality!(scratch::SolveQualityScratch{T}, B, x, rhs, policy
     end
 end
 
+# Only native owned vectors use the existing full-scan SIMD validator.
+_quality_finite_values(values) = all(isfinite,values)
+_quality_finite_values(values::Vector{T}) where {T<:Union{Float32,Float64}} =
+    _finite_values(values,Val(false))
+
 """Evaluate an absolute residual and a componentwise backward error.
 
 Scratch is owned separately from live tableau vectors. Float32 and Float64 use
@@ -468,14 +473,14 @@ function solve_quality!(scratch::SolveQualityScratch{T}, B::AbstractMatrix{T},
         absolute = maximum(abs,scratch.residual;init=zero(T))
         return SolveQuality{T}(absolute,nothing,true,iszero(absolute))
     end
-    if !all(isfinite,_quality_values(B)) || !all(isfinite,x) || !all(isfinite,rhs)
+    if !_quality_finite_values(_quality_values(B)) || !_quality_finite_values(x) || !_quality_finite_values(rhs)
         fill!(scratch.residual,T(Inf))
         return SolveQuality{T}(T(Inf),T(Inf),false,false)
     end
     T === BigFloat && return _wide_solve_quality!(scratch,B,x,rhs,policy,transposed)
     unsafe_range = _quality_components!(scratch.work_residual,scratch.work_scale,scratch.terms,B,x,rhs,transposed)
     roundoff = _quality_roundoff(eltype(scratch.work_residual),scratch.terms)
-    if unsafe_range || !all(isfinite,scratch.work_residual) || !all(isfinite,scratch.work_scale) ||
+    if unsafe_range || !_quality_finite_values(scratch.work_residual) || !_quality_finite_values(scratch.work_scale) ||
        roundoff > policy.solve_tolerance/4
         if !unsafe_range
             native = _compensated_solve_quality!(scratch,B,x,rhs,policy,transposed)
