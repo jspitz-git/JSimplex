@@ -1,0 +1,3521 @@
+loaded_libraries = ["/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libamd.so.3.3.3", "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libsuitesparseconfig.so.7.10.1", "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libcolamd.so.3.3.4", "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libbtf.so.2.3.2", "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libklu.so.2.3.5"]
+completed = true
+schedule = "2 warm +5 measured rounds;8 fixed-window repeats;3 rotating arms; actual anchors0/80/160"
+
+[[cases]]
+max_scaled_residual = 2.1304455046133668e-18
+qualification_routes = [160, 0, 0, 0, 0, 0, 0]
+matrix_hash = "7b6ab789d7f49d73ec163eee3e2c5c5e9207dadd5f66a3b31972755b367c6d5c"
+tolerance = 1.0e-10
+n = 28453
+zero_sign_differences = 2869650
+queries = 80
+id = "runtime-30000-B0"
+max_native_relative_difference = 4.445180658349028e-13
+
+    [[cases.enclosures]]
+    residual_upper = 4.997734484179042e-17
+    arm = "native"
+    allowed_lower = 7.149312574765e-8
+    [[cases.enclosures]]
+    residual_upper = 8.858443443720477e-17
+    arm = "full"
+    allowed_lower = 7.149312574765e-8
+    [[cases.enclosures]]
+    residual_upper = 8.858443443720477e-17
+    arm = "local"
+    allowed_lower = 7.149312574765e-8
+
+    [cases.candidate_setup]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.025998115
+    bytes = 20213648
+    compile_seconds = 0.0
+    events = 576931
+
+    [cases.candidate_memory]
+    blocks = 22130
+    owned_export_and_scratch_payload_bytes = 6027016
+    graph_eligible = true
+    native_reported_bytes = 6444648
+    wrapper_julia_graph_bytes = 8268008
+
+    [cases.reference_setup]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.010735107
+    bytes = 2467920
+    compile_seconds = 0.0
+    events = 18
+
+    [[cases.samples]]
+    seconds = 0.096939654
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = 49.19829379077453
+    processed_weight = 40690080
+    calls = 640
+    paths = [640, 0, 0, 0, 0, 0, 0]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 2028560
+    round = 1
+    [[cases.samples]]
+    seconds = 0.118202266
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = 49.198293790774514
+    processed_weight = 0
+    calls = 640
+    paths = [0, 640, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 1
+    [[cases.samples]]
+    seconds = 0.190376706
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = 49.19829379077453
+    processed_weight = 107034240
+    calls = 640
+    paths = [0, 0, 0, 0, 0, 0, 640]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 14163200
+    round = 1
+    [[cases.samples]]
+    seconds = 0.119222166
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = 49.198293790774514
+    processed_weight = 0
+    calls = 640
+    paths = [0, 640, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 2
+    [[cases.samples]]
+    seconds = 0.189753906
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = 49.19829379077453
+    processed_weight = 107034240
+    calls = 640
+    paths = [0, 0, 0, 0, 0, 0, 640]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 14163200
+    round = 2
+    [[cases.samples]]
+    seconds = 0.099430356
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = 49.19829379077453
+    processed_weight = 40690080
+    calls = 640
+    paths = [640, 0, 0, 0, 0, 0, 0]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 2028560
+    round = 2
+    [[cases.samples]]
+    seconds = 0.195898409
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = 49.19829379077453
+    processed_weight = 107034240
+    calls = 640
+    paths = [0, 0, 0, 0, 0, 0, 640]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 14163200
+    round = 3
+    [[cases.samples]]
+    seconds = 0.094709953
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = 49.19829379077453
+    processed_weight = 40690080
+    calls = 640
+    paths = [640, 0, 0, 0, 0, 0, 0]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 2028560
+    round = 3
+    [[cases.samples]]
+    seconds = 0.116774165
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = 49.198293790774514
+    processed_weight = 0
+    calls = 640
+    paths = [0, 640, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 3
+    [[cases.samples]]
+    seconds = 0.097341154
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = 49.19829379077453
+    processed_weight = 40690080
+    calls = 640
+    paths = [640, 0, 0, 0, 0, 0, 0]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 2028560
+    round = 4
+    [[cases.samples]]
+    seconds = 0.116377765
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = 49.198293790774514
+    processed_weight = 0
+    calls = 640
+    paths = [0, 640, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 4
+    [[cases.samples]]
+    seconds = 0.188158805
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = 49.19829379077453
+    processed_weight = 107034240
+    calls = 640
+    paths = [0, 0, 0, 0, 0, 0, 640]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 14163200
+    round = 4
+    [[cases.samples]]
+    seconds = 0.115153564
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = 49.198293790774514
+    processed_weight = 0
+    calls = 640
+    paths = [0, 640, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 5
+    [[cases.samples]]
+    seconds = 0.190837106
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = 49.19829379077453
+    processed_weight = 107034240
+    calls = 640
+    paths = [0, 0, 0, 0, 0, 0, 640]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 14163200
+    round = 5
+    [[cases.samples]]
+    seconds = 0.098486855
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = 49.19829379077453
+    processed_weight = 40690080
+    calls = 640
+    paths = [640, 0, 0, 0, 0, 0, 0]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 2028560
+    round = 5
+
+    [cases.reference_memory]
+    blocks = 22130
+    owned_export_and_scratch_payload_bytes = 227624
+    graph_eligible = false
+    native_reported_bytes = 6444648
+    wrapper_julia_graph_bytes = 2467664
+[[cases]]
+max_scaled_residual = 3.512045660651377e-18
+qualification_routes = [160, 0, 0, 0, 0, 0, 0]
+matrix_hash = "7d2e2388dbb7112dd7668bc04192c414ce9d6c9398508c2c7a76f4157bbdf5ca"
+tolerance = 1.0e-10
+n = 28453
+zero_sign_differences = 2834108
+queries = 80
+id = "runtime-30000-B80"
+max_native_relative_difference = 1.1110745087322487e-11
+
+    [[cases.enclosures]]
+    residual_upper = 5.930388710180898e-13
+    arm = "native"
+    allowed_lower = 0.00013357146408597652
+    [[cases.enclosures]]
+    residual_upper = 4.767633536705191e-13
+    arm = "full"
+    allowed_lower = 0.00013357146408597654
+    [[cases.enclosures]]
+    residual_upper = 4.767633536705191e-13
+    arm = "local"
+    allowed_lower = 0.00013357146408597654
+
+    [cases.candidate_setup]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.024389914
+    bytes = 20353456
+    compile_seconds = 0.0
+    events = 576919
+
+    [cases.candidate_memory]
+    blocks = 22087
+    owned_export_and_scratch_payload_bytes = 6167588
+    graph_eligible = true
+    native_reported_bytes = 6585736
+    wrapper_julia_graph_bytes = 8409956
+
+    [cases.reference_setup]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.009880805
+    bytes = 2469328
+    compile_seconds = 0.0
+    events = 18
+
+    [[cases.samples]]
+    seconds = 0.104390258
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = -4.15670282254081
+    processed_weight = 47356864
+    calls = 640
+    paths = [640, 0, 0, 0, 0, 0, 0]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 2132704
+    round = 1
+    [[cases.samples]]
+    seconds = 0.126755271
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = -4.1567028225408125
+    processed_weight = 0
+    calls = 640
+    paths = [0, 640, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 1
+    [[cases.samples]]
+    seconds = 0.195474109
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = -4.15670282254081
+    processed_weight = 112705280
+    calls = 640
+    paths = [0, 0, 0, 0, 0, 0, 640]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 14135680
+    round = 1
+    [[cases.samples]]
+    seconds = 0.118594466
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = -4.1567028225408125
+    processed_weight = 0
+    calls = 640
+    paths = [0, 640, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 2
+    [[cases.samples]]
+    seconds = 0.194205308
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = -4.15670282254081
+    processed_weight = 112705280
+    calls = 640
+    paths = [0, 0, 0, 0, 0, 0, 640]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 14135680
+    round = 2
+    [[cases.samples]]
+    seconds = 0.104900859
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = -4.15670282254081
+    processed_weight = 47356864
+    calls = 640
+    paths = [640, 0, 0, 0, 0, 0, 0]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 2132704
+    round = 2
+    [[cases.samples]]
+    seconds = 0.199755211
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = -4.15670282254081
+    processed_weight = 112705280
+    calls = 640
+    paths = [0, 0, 0, 0, 0, 0, 640]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 14135680
+    round = 3
+    [[cases.samples]]
+    seconds = 0.109178661
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = -4.15670282254081
+    processed_weight = 47356864
+    calls = 640
+    paths = [640, 0, 0, 0, 0, 0, 0]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 2132704
+    round = 3
+    [[cases.samples]]
+    seconds = 0.122035368
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = -4.1567028225408125
+    processed_weight = 0
+    calls = 640
+    paths = [0, 640, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 3
+    [[cases.samples]]
+    seconds = 0.112008162
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = -4.15670282254081
+    processed_weight = 47356864
+    calls = 640
+    paths = [640, 0, 0, 0, 0, 0, 0]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 2132704
+    round = 4
+    [[cases.samples]]
+    seconds = 0.121482568
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = -4.1567028225408125
+    processed_weight = 0
+    calls = 640
+    paths = [0, 640, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 4
+    [[cases.samples]]
+    seconds = 0.194903709
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = -4.15670282254081
+    processed_weight = 112705280
+    calls = 640
+    paths = [0, 0, 0, 0, 0, 0, 640]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 14135680
+    round = 4
+    [[cases.samples]]
+    seconds = 0.119784867
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = -4.1567028225408125
+    processed_weight = 0
+    calls = 640
+    paths = [0, 640, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 5
+    [[cases.samples]]
+    seconds = 0.196903609
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = -4.15670282254081
+    processed_weight = 112705280
+    calls = 640
+    paths = [0, 0, 0, 0, 0, 0, 640]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 14135680
+    round = 5
+    [[cases.samples]]
+    seconds = 0.103839358
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = -4.15670282254081
+    processed_weight = 47356864
+    calls = 640
+    paths = [640, 0, 0, 0, 0, 0, 0]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 2132704
+    round = 5
+
+    [cases.reference_memory]
+    blocks = 22087
+    owned_export_and_scratch_payload_bytes = 227624
+    graph_eligible = false
+    native_reported_bytes = 6585736
+    wrapper_julia_graph_bytes = 2469040
+[[cases]]
+max_scaled_residual = 8.225142623469085e-19
+qualification_routes = [2, 0, 0, 0, 0, 0, 0]
+matrix_hash = "970f57c6fc4af37ffe793928b71027da87d195b65fdcba3786f5265877eadda5"
+tolerance = 1.0e-10
+n = 28453
+zero_sign_differences = 35062
+queries = 1
+id = "runtime-30000-B160"
+max_native_relative_difference = 2.0212020708694903e-16
+
+    [[cases.enclosures]]
+    residual_upper = 7.246317073170491e-15
+    arm = "native"
+    allowed_lower = 5.061719331729215e-6
+    [[cases.enclosures]]
+    residual_upper = 2.766586961376556e-14
+    arm = "full"
+    allowed_lower = 5.061719331729214e-6
+    [[cases.enclosures]]
+    residual_upper = 2.766586961376556e-14
+    arm = "local"
+    allowed_lower = 5.061719331729214e-6
+
+    [cases.candidate_setup]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.022841413
+    bytes = 20435840
+    compile_seconds = 0.0
+    events = 576552
+
+    [cases.candidate_memory]
+    blocks = 22075
+    owned_export_and_scratch_payload_bytes = 6254900
+    graph_eligible = true
+    native_reported_bytes = 6673192
+    wrapper_julia_graph_bytes = 8498628
+
+    [cases.reference_setup]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.009652606
+    bytes = 2470736
+    compile_seconds = 0.0
+    events = 18
+
+    [[cases.samples]]
+    seconds = 0.001443301
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = 0.00014381775292719194
+    processed_weight = 667056
+    calls = 8
+    paths = [8, 0, 0, 0, 0, 0, 0]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 27760
+    round = 1
+    [[cases.samples]]
+    seconds = 0.002126001
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = 0.000143817752927193
+    processed_weight = 0
+    calls = 8
+    paths = [0, 8, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 1
+    [[cases.samples]]
+    seconds = 0.002890602
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = 0.00014381775292719194
+    processed_weight = 1452640
+    calls = 8
+    paths = [0, 0, 0, 0, 0, 0, 8]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 176600
+    round = 1
+    [[cases.samples]]
+    seconds = 0.001687301
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = 0.000143817752927193
+    processed_weight = 0
+    calls = 8
+    paths = [0, 8, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 2
+    [[cases.samples]]
+    seconds = 0.002484801
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = 0.00014381775292719194
+    processed_weight = 1452640
+    calls = 8
+    paths = [0, 0, 0, 0, 0, 0, 8]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 176600
+    round = 2
+    [[cases.samples]]
+    seconds = 0.001350501
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = 0.00014381775292719194
+    processed_weight = 667056
+    calls = 8
+    paths = [8, 0, 0, 0, 0, 0, 0]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 27760
+    round = 2
+    [[cases.samples]]
+    seconds = 0.002413101
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = 0.00014381775292719194
+    processed_weight = 1452640
+    calls = 8
+    paths = [0, 0, 0, 0, 0, 0, 8]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 176600
+    round = 3
+    [[cases.samples]]
+    seconds = 0.001297301
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = 0.00014381775292719194
+    processed_weight = 667056
+    calls = 8
+    paths = [8, 0, 0, 0, 0, 0, 0]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 27760
+    round = 3
+    [[cases.samples]]
+    seconds = 0.001698501
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = 0.000143817752927193
+    processed_weight = 0
+    calls = 8
+    paths = [0, 8, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 3
+    [[cases.samples]]
+    seconds = 0.001359101
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = 0.00014381775292719194
+    processed_weight = 667056
+    calls = 8
+    paths = [8, 0, 0, 0, 0, 0, 0]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 27760
+    round = 4
+    [[cases.samples]]
+    seconds = 0.002031601
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = 0.000143817752927193
+    processed_weight = 0
+    calls = 8
+    paths = [0, 8, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 4
+    [[cases.samples]]
+    seconds = 0.004102502
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = 0.00014381775292719194
+    processed_weight = 1452640
+    calls = 8
+    paths = [0, 0, 0, 0, 0, 0, 8]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 176600
+    round = 4
+    [[cases.samples]]
+    seconds = 0.001627901
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = 0.000143817752927193
+    processed_weight = 0
+    calls = 8
+    paths = [0, 8, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 5
+    [[cases.samples]]
+    seconds = 0.002500301
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = 0.00014381775292719194
+    processed_weight = 1452640
+    calls = 8
+    paths = [0, 0, 0, 0, 0, 0, 8]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 176600
+    round = 5
+    [[cases.samples]]
+    seconds = 0.001347801
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = 0.00014381775292719194
+    processed_weight = 667056
+    calls = 8
+    paths = [8, 0, 0, 0, 0, 0, 0]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 27760
+    round = 5
+
+    [cases.reference_memory]
+    blocks = 22075
+    owned_export_and_scratch_payload_bytes = 227624
+    graph_eligible = false
+    native_reported_bytes = 6673192
+    wrapper_julia_graph_bytes = 2470400
+[[cases]]
+max_scaled_residual = 1.608104887233901e-18
+qualification_routes = [160, 0, 0, 0, 0, 0, 0]
+matrix_hash = "65be11957a298fee9564049af897741efe5f6b3a143848bbc0faa49f6f8d4eaa"
+tolerance = 1.0e-10
+n = 28453
+zero_sign_differences = 2687986
+queries = 80
+id = "runtime-40000-B0"
+max_native_relative_difference = 4.527161916613383e-13
+
+    [[cases.enclosures]]
+    residual_upper = 1.0286065068812287e-13
+    arm = "native"
+    allowed_lower = 2.037383247528292e-5
+    [[cases.enclosures]]
+    residual_upper = 7.872202610345048e-14
+    arm = "full"
+    allowed_lower = 2.037383247528289e-5
+    [[cases.enclosures]]
+    residual_upper = 7.872202610345048e-14
+    arm = "local"
+    allowed_lower = 2.037383247528289e-5
+
+    [cases.candidate_setup]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.026206515
+    bytes = 21422416
+    compile_seconds = 0.0
+    events = 571167
+
+    [cases.candidate_memory]
+    blocks = 21170
+    owned_export_and_scratch_payload_bytes = 7213608
+    graph_eligible = true
+    native_reported_bytes = 7642760
+    wrapper_julia_graph_bytes = 9607576
+
+    [cases.reference_setup]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.012768207
+    bytes = 2620880
+    compile_seconds = 0.0
+    events = 18
+
+    [[cases.samples]]
+    seconds = 0.114797246
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = -42.65816744726968
+    processed_weight = 75024736
+    calls = 640
+    paths = [640, 0, 0, 0, 0, 0, 0]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 2028112
+    round = 1
+    [[cases.samples]]
+    seconds = 0.143204658
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = -42.65816744726986
+    processed_weight = 0
+    calls = 640
+    paths = [0, 640, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 1
+    [[cases.samples]]
+    seconds = 0.217539787
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = -42.65816744726968
+    processed_weight = 155573120
+    calls = 640
+    paths = [0, 0, 0, 0, 0, 0, 640]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 13548800
+    round = 1
+    [[cases.samples]]
+    seconds = 0.144194158
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = -42.65816744726986
+    processed_weight = 0
+    calls = 640
+    paths = [0, 640, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 2
+    [[cases.samples]]
+    seconds = 0.213797286
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = -42.65816744726968
+    processed_weight = 155573120
+    calls = 640
+    paths = [0, 0, 0, 0, 0, 0, 640]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 13548800
+    round = 2
+    [[cases.samples]]
+    seconds = 0.113823246
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = -42.65816744726968
+    processed_weight = 75024736
+    calls = 640
+    paths = [640, 0, 0, 0, 0, 0, 0]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 2028112
+    round = 2
+    [[cases.samples]]
+    seconds = 0.211165585
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = -42.65816744726968
+    processed_weight = 155573120
+    calls = 640
+    paths = [0, 0, 0, 0, 0, 0, 640]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 13548800
+    round = 3
+    [[cases.samples]]
+    seconds = 0.113182746
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = -42.65816744726968
+    processed_weight = 75024736
+    calls = 640
+    paths = [640, 0, 0, 0, 0, 0, 0]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 2028112
+    round = 3
+    [[cases.samples]]
+    seconds = 0.143042057
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = -42.65816744726986
+    processed_weight = 0
+    calls = 640
+    paths = [0, 640, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 3
+    [[cases.samples]]
+    seconds = 0.115717447
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = -42.65816744726968
+    processed_weight = 75024736
+    calls = 640
+    paths = [640, 0, 0, 0, 0, 0, 0]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 2028112
+    round = 4
+    [[cases.samples]]
+    seconds = 0.142494357
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = -42.65816744726986
+    processed_weight = 0
+    calls = 640
+    paths = [0, 640, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 4
+    [[cases.samples]]
+    seconds = 0.215463587
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = -42.65816744726968
+    processed_weight = 155573120
+    calls = 640
+    paths = [0, 0, 0, 0, 0, 0, 640]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 13548800
+    round = 4
+    [[cases.samples]]
+    seconds = 0.144855158
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = -42.65816744726986
+    processed_weight = 0
+    calls = 640
+    paths = [0, 640, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 5
+    [[cases.samples]]
+    seconds = 0.220579389
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = -42.65816744726968
+    processed_weight = 155573120
+    calls = 640
+    paths = [0, 0, 0, 0, 0, 0, 640]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 13548800
+    round = 5
+    [[cases.samples]]
+    seconds = 0.118373448
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = -42.65816744726968
+    processed_weight = 75024736
+    calls = 640
+    paths = [640, 0, 0, 0, 0, 0, 0]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 2028112
+    round = 5
+
+    [cases.reference_memory]
+    blocks = 21170
+    owned_export_and_scratch_payload_bytes = 227624
+    graph_eligible = false
+    native_reported_bytes = 7642760
+    wrapper_julia_graph_bytes = 2620640
+[[cases]]
+max_scaled_residual = 1.8226628172210337e-18
+qualification_routes = [160, 0, 0, 0, 0, 0, 0]
+matrix_hash = "b02f82e749e724265bccbc8f0150a9313d8526f32b76c80dc42ee20a2982e74e"
+tolerance = 1.0e-10
+n = 28453
+zero_sign_differences = 2685476
+queries = 80
+id = "runtime-40000-B80"
+max_native_relative_difference = 6.269463698700917e-13
+
+    [[cases.enclosures]]
+    residual_upper = 5.326116172750871e-12
+    arm = "native"
+    allowed_lower = 0.003205527147749696
+    [[cases.enclosures]]
+    residual_upper = 3.707076930011714e-12
+    arm = "full"
+    allowed_lower = 0.003205527147749696
+    [[cases.enclosures]]
+    residual_upper = 3.707076930011714e-12
+    arm = "local"
+    allowed_lower = 0.003205527147749696
+
+    [cases.candidate_setup]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.027766611
+    bytes = 21578224
+    compile_seconds = 0.0
+    events = 571051
+
+    [cases.candidate_memory]
+    blocks = 21201
+    owned_export_and_scratch_payload_bytes = 7367500
+    graph_eligible = true
+    native_reported_bytes = 7796280
+    wrapper_julia_graph_bytes = 9763868
+
+    [cases.reference_setup]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.013526805
+    bytes = 2623312
+    compile_seconds = 0.0
+    events = 18
+
+    [[cases.samples]]
+    seconds = 0.119631848
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = 12.200602453861823
+    processed_weight = 79030000
+    calls = 640
+    paths = [640, 0, 0, 0, 0, 0, 0]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 2084080
+    round = 1
+    [[cases.samples]]
+    seconds = 0.158303263
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = 12.200602453861823
+    processed_weight = 0
+    calls = 640
+    paths = [0, 640, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 1
+    [[cases.samples]]
+    seconds = 0.220468088
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = 12.200602453861823
+    processed_weight = 161694080
+    calls = 640
+    paths = [0, 0, 0, 0, 0, 0, 640]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 13568640
+    round = 1
+    [[cases.samples]]
+    seconds = 0.152066561
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = 12.200602453861823
+    processed_weight = 0
+    calls = 640
+    paths = [0, 640, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 2
+    [[cases.samples]]
+    seconds = 0.222132089
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = 12.200602453861823
+    processed_weight = 161694080
+    calls = 640
+    paths = [0, 0, 0, 0, 0, 0, 640]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 13568640
+    round = 2
+    [[cases.samples]]
+    seconds = 0.12455545
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = 12.200602453861823
+    processed_weight = 79030000
+    calls = 640
+    paths = [640, 0, 0, 0, 0, 0, 0]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 2084080
+    round = 2
+    [[cases.samples]]
+    seconds = 0.219759689
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = 12.200602453861823
+    processed_weight = 161694080
+    calls = 640
+    paths = [0, 0, 0, 0, 0, 0, 640]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 13568640
+    round = 3
+    [[cases.samples]]
+    seconds = 0.123871649
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = 12.200602453861823
+    processed_weight = 79030000
+    calls = 640
+    paths = [640, 0, 0, 0, 0, 0, 0]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 2084080
+    round = 3
+    [[cases.samples]]
+    seconds = 0.156179063
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = 12.200602453861823
+    processed_weight = 0
+    calls = 640
+    paths = [0, 640, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 3
+    [[cases.samples]]
+    seconds = 0.125062251
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = 12.200602453861823
+    processed_weight = 79030000
+    calls = 640
+    paths = [640, 0, 0, 0, 0, 0, 0]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 2084080
+    round = 4
+    [[cases.samples]]
+    seconds = 0.154848462
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = 12.200602453861823
+    processed_weight = 0
+    calls = 640
+    paths = [0, 640, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 4
+    [[cases.samples]]
+    seconds = 0.220083989
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = 12.200602453861823
+    processed_weight = 161694080
+    calls = 640
+    paths = [0, 0, 0, 0, 0, 0, 640]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 13568640
+    round = 4
+    [[cases.samples]]
+    seconds = 0.15727674
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = 12.200602453861823
+    processed_weight = 0
+    calls = 640
+    paths = [0, 640, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 5
+    [[cases.samples]]
+    seconds = 0.220761496
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = 12.200602453861823
+    processed_weight = 161694080
+    calls = 640
+    paths = [0, 0, 0, 0, 0, 0, 640]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 13568640
+    round = 5
+    [[cases.samples]]
+    seconds = 0.11917656
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = 12.200602453861823
+    processed_weight = 79030000
+    calls = 640
+    paths = [640, 0, 0, 0, 0, 0, 0]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 2084080
+    round = 5
+
+    [cases.reference_memory]
+    blocks = 21201
+    owned_export_and_scratch_payload_bytes = 227624
+    graph_eligible = false
+    native_reported_bytes = 7796280
+    wrapper_julia_graph_bytes = 2623040
+[[cases]]
+max_scaled_residual = 3.8616893212851014e-19
+qualification_routes = [2, 0, 0, 0, 0, 0, 0]
+matrix_hash = "22aa4e442de4cd1524dc507fd12f5c32fcce39e83d714ad8ea0cbdfa2525173a"
+tolerance = 1.0e-10
+n = 28453
+zero_sign_differences = 31770
+queries = 1
+id = "runtime-40000-B160"
+max_native_relative_difference = 3.657118803508314e-16
+
+    [[cases.enclosures]]
+    residual_upper = 1.9063833461613094e-10
+    arm = "native"
+    allowed_lower = 0.030146216368383053
+    [[cases.enclosures]]
+    residual_upper = 1.460906568751941e-10
+    arm = "full"
+    allowed_lower = 0.03014621636838305
+    [[cases.enclosures]]
+    residual_upper = 1.460906568751941e-10
+    arm = "local"
+    allowed_lower = 0.03014621636838305
+
+    [cases.candidate_setup]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.025206834
+    bytes = 21067568
+    compile_seconds = 0.0
+    events = 571333
+
+    [cases.candidate_memory]
+    blocks = 21248
+    owned_export_and_scratch_payload_bytes = 6850768
+    graph_eligible = true
+    native_reported_bytes = 7278984
+    wrapper_julia_graph_bytes = 9246928
+
+    [cases.reference_setup]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.011969116
+    bytes = 2623184
+    compile_seconds = 0.0
+    events = 18
+
+    [[cases.samples]]
+    seconds = 0.003017604
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = -8.964811591436254e-17
+    processed_weight = 944968
+    calls = 8
+    paths = [8, 0, 0, 0, 0, 0, 0]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 30848
+    round = 1
+    [[cases.samples]]
+    seconds = 0.002411403
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = 2.1796020460005513e-17
+    processed_weight = 0
+    calls = 8
+    paths = [0, 8, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 1
+    [[cases.samples]]
+    seconds = 0.002945904
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = -8.964811591436254e-17
+    processed_weight = 1762152
+    calls = 8
+    paths = [0, 0, 0, 0, 0, 0, 8]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 169984
+    round = 1
+    [[cases.samples]]
+    seconds = 0.001928903
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = 2.1796020460005513e-17
+    processed_weight = 0
+    calls = 8
+    paths = [0, 8, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 2
+    [[cases.samples]]
+    seconds = 0.002763903
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = -8.964811591436254e-17
+    processed_weight = 1762152
+    calls = 8
+    paths = [0, 0, 0, 0, 0, 0, 8]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 169984
+    round = 2
+    [[cases.samples]]
+    seconds = 0.001727302
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = -8.964811591436254e-17
+    processed_weight = 944968
+    calls = 8
+    paths = [8, 0, 0, 0, 0, 0, 0]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 30848
+    round = 2
+    [[cases.samples]]
+    seconds = 0.003115904
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = -8.964811591436254e-17
+    processed_weight = 1762152
+    calls = 8
+    paths = [0, 0, 0, 0, 0, 0, 8]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 169984
+    round = 3
+    [[cases.samples]]
+    seconds = 0.001714702
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = -8.964811591436254e-17
+    processed_weight = 944968
+    calls = 8
+    paths = [8, 0, 0, 0, 0, 0, 0]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 30848
+    round = 3
+    [[cases.samples]]
+    seconds = 0.001926203
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = 2.1796020460005513e-17
+    processed_weight = 0
+    calls = 8
+    paths = [0, 8, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 3
+    [[cases.samples]]
+    seconds = 0.001743902
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = -8.964811591436254e-17
+    processed_weight = 944968
+    calls = 8
+    paths = [8, 0, 0, 0, 0, 0, 0]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 30848
+    round = 4
+    [[cases.samples]]
+    seconds = 0.001935303
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = 2.1796020460005513e-17
+    processed_weight = 0
+    calls = 8
+    paths = [0, 8, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 4
+    [[cases.samples]]
+    seconds = 0.002759804
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = -8.964811591436254e-17
+    processed_weight = 1762152
+    calls = 8
+    paths = [0, 0, 0, 0, 0, 0, 8]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 169984
+    round = 4
+    [[cases.samples]]
+    seconds = 0.001825002
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = 2.1796020460005513e-17
+    processed_weight = 0
+    calls = 8
+    paths = [0, 8, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 5
+    [[cases.samples]]
+    seconds = 0.002772504
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = -8.964811591436254e-17
+    processed_weight = 1762152
+    calls = 8
+    paths = [0, 0, 0, 0, 0, 0, 8]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 169984
+    round = 5
+    [[cases.samples]]
+    seconds = 0.001871902
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = -8.964811591436254e-17
+    processed_weight = 944968
+    calls = 8
+    paths = [8, 0, 0, 0, 0, 0, 0]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 30848
+    round = 5
+
+    [cases.reference_memory]
+    blocks = 21248
+    owned_export_and_scratch_payload_bytes = 227624
+    graph_eligible = false
+    native_reported_bytes = 7278984
+    wrapper_julia_graph_bytes = 2622832
+[[cases]]
+max_scaled_residual = 1.214379978906582e-16
+qualification_routes = [0, 160, 0, 0, 0, 0, 0]
+matrix_hash = "0e398ddd414841461a2d495305bc3d200e7096f714848ce5b897890d676bde48"
+tolerance = 1.375610736431554e-11
+n = 484
+zero_sign_differences = 0
+queries = 80
+id = "fast0507-1000-B0"
+max_native_relative_difference = 0.0
+
+    [[cases.enclosures]]
+    residual_upper = 7.049916206369744e-15
+    arm = "native"
+    allowed_lower = 3.766263472033838e-9
+    [[cases.enclosures]]
+    residual_upper = 7.049916206369744e-15
+    arm = "full"
+    allowed_lower = 3.766263472033838e-9
+    [[cases.enclosures]]
+    residual_upper = 7.049916206369744e-15
+    arm = "local"
+    allowed_lower = 3.766263472033838e-9
+
+    [cases.candidate_setup]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.000293601
+    bytes = 44752
+    compile_seconds = 0.0
+    events = 18
+
+    [cases.candidate_memory]
+    blocks = 253
+    owned_export_and_scratch_payload_bytes = 3872
+    graph_eligible = false
+    native_reported_bytes = 169600
+    wrapper_julia_graph_bytes = 44480
+
+    [cases.reference_setup]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.000503101
+    bytes = 44752
+    compile_seconds = 0.0
+    events = 18
+
+    [[cases.samples]]
+    seconds = 0.002346603
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = 11.298076923076444
+    processed_weight = 0
+    calls = 640
+    paths = [0, 640, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 1
+    [[cases.samples]]
+    seconds = 0.002326703
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = 11.298076923076444
+    processed_weight = 0
+    calls = 640
+    paths = [0, 640, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 1
+    [[cases.samples]]
+    seconds = 0.002294504
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = 11.298076923076444
+    processed_weight = 0
+    calls = 640
+    paths = [0, 640, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 1
+    [[cases.samples]]
+    seconds = 0.002326103
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = 11.298076923076444
+    processed_weight = 0
+    calls = 640
+    paths = [0, 640, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 2
+    [[cases.samples]]
+    seconds = 0.002288703
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = 11.298076923076444
+    processed_weight = 0
+    calls = 640
+    paths = [0, 640, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 2
+    [[cases.samples]]
+    seconds = 0.002393503
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = 11.298076923076444
+    processed_weight = 0
+    calls = 640
+    paths = [0, 640, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 2
+    [[cases.samples]]
+    seconds = 0.002296503
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = 11.298076923076444
+    processed_weight = 0
+    calls = 640
+    paths = [0, 640, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 3
+    [[cases.samples]]
+    seconds = 0.002280803
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = 11.298076923076444
+    processed_weight = 0
+    calls = 640
+    paths = [0, 640, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 3
+    [[cases.samples]]
+    seconds = 0.002399703
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = 11.298076923076444
+    processed_weight = 0
+    calls = 640
+    paths = [0, 640, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 3
+    [[cases.samples]]
+    seconds = 0.002282303
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = 11.298076923076444
+    processed_weight = 0
+    calls = 640
+    paths = [0, 640, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 4
+    [[cases.samples]]
+    seconds = 0.002318904
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = 11.298076923076444
+    processed_weight = 0
+    calls = 640
+    paths = [0, 640, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 4
+    [[cases.samples]]
+    seconds = 0.002276703
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = 11.298076923076444
+    processed_weight = 0
+    calls = 640
+    paths = [0, 640, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 4
+    [[cases.samples]]
+    seconds = 0.002317103
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = 11.298076923076444
+    processed_weight = 0
+    calls = 640
+    paths = [0, 640, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 5
+    [[cases.samples]]
+    seconds = 0.002270603
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = 11.298076923076444
+    processed_weight = 0
+    calls = 640
+    paths = [0, 640, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 5
+    [[cases.samples]]
+    seconds = 0.002270203
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = 11.298076923076444
+    processed_weight = 0
+    calls = 640
+    paths = [0, 640, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 5
+
+    [cases.reference_memory]
+    blocks = 253
+    owned_export_and_scratch_payload_bytes = 3872
+    graph_eligible = false
+    native_reported_bytes = 169600
+    wrapper_julia_graph_bytes = 44480
+[[cases]]
+max_scaled_residual = 1.1003805702720954e-16
+qualification_routes = [0, 160, 0, 0, 0, 0, 0]
+matrix_hash = "935ce045111ca20318d36671aca97eb891b136daace6a1ba9ae19b4a3a8bf350"
+tolerance = 1.375610736431554e-11
+n = 484
+zero_sign_differences = 0
+queries = 80
+id = "fast0507-1000-B80"
+max_native_relative_difference = 0.0
+
+    [[cases.enclosures]]
+    residual_upper = 8.181381409457399e-16
+    arm = "native"
+    allowed_lower = 3.439026841078841e-10
+    [[cases.enclosures]]
+    residual_upper = 8.181381409457399e-16
+    arm = "full"
+    allowed_lower = 3.439026841078841e-10
+    [[cases.enclosures]]
+    residual_upper = 8.181381409457399e-16
+    arm = "local"
+    allowed_lower = 3.439026841078841e-10
+
+    [cases.candidate_setup]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0003719
+    bytes = 45136
+    compile_seconds = 0.0
+    events = 18
+
+    [cases.candidate_memory]
+    blocks = 225
+    owned_export_and_scratch_payload_bytes = 3872
+    graph_eligible = false
+    native_reported_bytes = 195424
+    wrapper_julia_graph_bytes = 44816
+
+    [cases.reference_setup]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.000441101
+    bytes = 45136
+    compile_seconds = 0.0
+    events = 18
+
+    [[cases.samples]]
+    seconds = 0.002634604
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = -1.3486742424241431
+    processed_weight = 0
+    calls = 640
+    paths = [0, 640, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 1
+    [[cases.samples]]
+    seconds = 0.002951504
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = -1.3486742424241431
+    processed_weight = 0
+    calls = 640
+    paths = [0, 640, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 1
+    [[cases.samples]]
+    seconds = 0.002583903
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = -1.3486742424241431
+    processed_weight = 0
+    calls = 640
+    paths = [0, 640, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 1
+    [[cases.samples]]
+    seconds = 0.002930304
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = -1.3486742424241431
+    processed_weight = 0
+    calls = 640
+    paths = [0, 640, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 2
+    [[cases.samples]]
+    seconds = 0.002856104
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = -1.3486742424241431
+    processed_weight = 0
+    calls = 640
+    paths = [0, 640, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 2
+    [[cases.samples]]
+    seconds = 0.002581003
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = -1.3486742424241431
+    processed_weight = 0
+    calls = 640
+    paths = [0, 640, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 2
+    [[cases.samples]]
+    seconds = 0.002612804
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = -1.3486742424241431
+    processed_weight = 0
+    calls = 640
+    paths = [0, 640, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 3
+    [[cases.samples]]
+    seconds = 0.002693204
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = -1.3486742424241431
+    processed_weight = 0
+    calls = 640
+    paths = [0, 640, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 3
+    [[cases.samples]]
+    seconds = 0.002939203
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = -1.3486742424241431
+    processed_weight = 0
+    calls = 640
+    paths = [0, 640, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 3
+    [[cases.samples]]
+    seconds = 0.002582303
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = -1.3486742424241431
+    processed_weight = 0
+    calls = 640
+    paths = [0, 640, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 4
+    [[cases.samples]]
+    seconds = 0.003067104
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = -1.3486742424241431
+    processed_weight = 0
+    calls = 640
+    paths = [0, 640, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 4
+    [[cases.samples]]
+    seconds = 0.002605304
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = -1.3486742424241431
+    processed_weight = 0
+    calls = 640
+    paths = [0, 640, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 4
+    [[cases.samples]]
+    seconds = 0.002912704
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = -1.3486742424241431
+    processed_weight = 0
+    calls = 640
+    paths = [0, 640, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 5
+    [[cases.samples]]
+    seconds = 0.002597903
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = -1.3486742424241431
+    processed_weight = 0
+    calls = 640
+    paths = [0, 640, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 5
+    [[cases.samples]]
+    seconds = 0.002599803
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = -1.3486742424241431
+    processed_weight = 0
+    calls = 640
+    paths = [0, 640, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 5
+
+    [cases.reference_memory]
+    blocks = 225
+    owned_export_and_scratch_payload_bytes = 3872
+    graph_eligible = false
+    native_reported_bytes = 195424
+    wrapper_julia_graph_bytes = 44816
+[[cases]]
+max_scaled_residual = 1.688658511626588e-17
+qualification_routes = [0, 2, 0, 0, 0, 0, 0]
+matrix_hash = "31c2c25d6a9fa86b5152adfa691b2dafffc7d3e3ca67c651a2caa23f8a2a75d8"
+tolerance = 1.375610736431554e-11
+n = 484
+zero_sign_differences = 0
+queries = 1
+id = "fast0507-1000-B160"
+max_native_relative_difference = 0.0
+
+    [[cases.enclosures]]
+    residual_upper = 4.895068732712077e-16
+    arm = "native"
+    allowed_lower = 3.714148988365197e-10
+    [[cases.enclosures]]
+    residual_upper = 4.895068732712077e-16
+    arm = "full"
+    allowed_lower = 3.714148988365197e-10
+    [[cases.enclosures]]
+    residual_upper = 4.895068732712077e-16
+    arm = "local"
+    allowed_lower = 3.714148988365197e-10
+
+    [cases.candidate_setup]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.000369301
+    bytes = 45520
+    compile_seconds = 0.0
+    events = 18
+
+    [cases.candidate_memory]
+    blocks = 225
+    owned_export_and_scratch_payload_bytes = 3872
+    graph_eligible = false
+    native_reported_bytes = 230544
+    wrapper_julia_graph_bytes = 45152
+
+    [cases.reference_setup]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0005062
+    bytes = 45520
+    compile_seconds = 0.0
+    events = 18
+
+    [[cases.samples]]
+    seconds = 5.8e-5
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = 0.9999999999999998
+    processed_weight = 0
+    calls = 8
+    paths = [0, 8, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 1
+    [[cases.samples]]
+    seconds = 5.74e-5
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = 0.9999999999999998
+    processed_weight = 0
+    calls = 8
+    paths = [0, 8, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 1
+    [[cases.samples]]
+    seconds = 4.34e-5
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = 0.9999999999999998
+    processed_weight = 0
+    calls = 8
+    paths = [0, 8, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 1
+    [[cases.samples]]
+    seconds = 4.51e-5
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = 0.9999999999999998
+    processed_weight = 0
+    calls = 8
+    paths = [0, 8, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 2
+    [[cases.samples]]
+    seconds = 4.09e-5
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = 0.9999999999999998
+    processed_weight = 0
+    calls = 8
+    paths = [0, 8, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 2
+    [[cases.samples]]
+    seconds = 4.0e-5
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = 0.9999999999999998
+    processed_weight = 0
+    calls = 8
+    paths = [0, 8, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 2
+    [[cases.samples]]
+    seconds = 4.0e-5
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = 0.9999999999999998
+    processed_weight = 0
+    calls = 8
+    paths = [0, 8, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 3
+    [[cases.samples]]
+    seconds = 3.95e-5
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = 0.9999999999999998
+    processed_weight = 0
+    calls = 8
+    paths = [0, 8, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 3
+    [[cases.samples]]
+    seconds = 5.3501e-5
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = 0.9999999999999998
+    processed_weight = 0
+    calls = 8
+    paths = [0, 8, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 3
+    [[cases.samples]]
+    seconds = 4.05e-5
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = 0.9999999999999998
+    processed_weight = 0
+    calls = 8
+    paths = [0, 8, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 4
+    [[cases.samples]]
+    seconds = 4.43e-5
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = 0.9999999999999998
+    processed_weight = 0
+    calls = 8
+    paths = [0, 8, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 4
+    [[cases.samples]]
+    seconds = 4.01e-5
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = 0.9999999999999998
+    processed_weight = 0
+    calls = 8
+    paths = [0, 8, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 4
+    [[cases.samples]]
+    seconds = 4.46e-5
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = 0.9999999999999998
+    processed_weight = 0
+    calls = 8
+    paths = [0, 8, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 5
+    [[cases.samples]]
+    seconds = 4.01e-5
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = 0.9999999999999998
+    processed_weight = 0
+    calls = 8
+    paths = [0, 8, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 5
+    [[cases.samples]]
+    seconds = 3.98e-5
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = 0.9999999999999998
+    processed_weight = 0
+    calls = 8
+    paths = [0, 8, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 5
+
+    [cases.reference_memory]
+    blocks = 225
+    owned_export_and_scratch_payload_bytes = 3872
+    graph_eligible = false
+    native_reported_bytes = 230544
+    wrapper_julia_graph_bytes = 45152
+[[cases]]
+max_scaled_residual = 0.0
+qualification_routes = [4, 0, 0, 2, 0, 0, 0]
+matrix_hash = "347f72e564f0618bfcaddf73d21674bb4114bf113ed4dc1bb0692e226d535c64"
+tolerance = 7.275957614183426e-12
+n = 256
+zero_sign_differences = 0
+queries = 3
+id = "coupled256-forced"
+max_native_relative_difference = 0.0
+
+    [[cases.enclosures]]
+    residual_upper = 0.0
+    arm = "native"
+    allowed_lower = 7.73070496506989e-12
+    [[cases.enclosures]]
+    residual_upper = 0.0
+    arm = "full"
+    allowed_lower = 7.73070496506989e-12
+    [[cases.enclosures]]
+    residual_upper = 0.0
+    arm = "local"
+    allowed_lower = 7.73070496506989e-12
+
+    [cases.candidate_setup]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.000197
+    bytes = 92184
+    compile_seconds = 0.0
+    events = 896
+
+    [cases.candidate_memory]
+    blocks = 256
+    owned_export_and_scratch_payload_bytes = 39952
+    graph_eligible = true
+    native_reported_bytes = 43344
+    wrapper_julia_graph_bytes = 51656
+
+    [cases.reference_setup]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 3.68e-5
+    bytes = 13072
+    compile_seconds = 0.0
+    events = 18
+
+    [[cases.samples]]
+    seconds = 4.74e-5
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = 0.25
+    processed_weight = 5104
+    calls = 24
+    paths = [16, 0, 0, 8, 0, 0, 0]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 2560
+    round = 1
+    [[cases.samples]]
+    seconds = 4.49e-5
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = 0.25
+    processed_weight = 0
+    calls = 24
+    paths = [0, 24, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 1
+    [[cases.samples]]
+    seconds = 4.99e-5
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = 0.25
+    processed_weight = 12264
+    calls = 24
+    paths = [0, 0, 0, 0, 0, 0, 24]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 6144
+    round = 1
+    [[cases.samples]]
+    seconds = 4.24e-5
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = 0.25
+    processed_weight = 0
+    calls = 24
+    paths = [0, 24, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 2
+    [[cases.samples]]
+    seconds = 0.0001181
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = 0.25
+    processed_weight = 12264
+    calls = 24
+    paths = [0, 0, 0, 0, 0, 0, 24]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 6144
+    round = 2
+    [[cases.samples]]
+    seconds = 4.1701e-5
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = 0.25
+    processed_weight = 5104
+    calls = 24
+    paths = [16, 0, 0, 8, 0, 0, 0]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 2560
+    round = 2
+    [[cases.samples]]
+    seconds = 4.84e-5
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = 0.25
+    processed_weight = 12264
+    calls = 24
+    paths = [0, 0, 0, 0, 0, 0, 24]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 6144
+    round = 3
+    [[cases.samples]]
+    seconds = 3.7e-5
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = 0.25
+    processed_weight = 5104
+    calls = 24
+    paths = [16, 0, 0, 8, 0, 0, 0]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 2560
+    round = 3
+    [[cases.samples]]
+    seconds = 4.24e-5
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = 0.25
+    processed_weight = 0
+    calls = 24
+    paths = [0, 24, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 3
+    [[cases.samples]]
+    seconds = 3.68e-5
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = 0.25
+    processed_weight = 5104
+    calls = 24
+    paths = [16, 0, 0, 8, 0, 0, 0]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 2560
+    round = 4
+    [[cases.samples]]
+    seconds = 6.19e-5
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = 0.25
+    processed_weight = 0
+    calls = 24
+    paths = [0, 24, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 4
+    [[cases.samples]]
+    seconds = 4.92e-5
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = 0.25
+    processed_weight = 12264
+    calls = 24
+    paths = [0, 0, 0, 0, 0, 0, 24]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 6144
+    round = 4
+    [[cases.samples]]
+    seconds = 4.18e-5
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = 0.25
+    processed_weight = 0
+    calls = 24
+    paths = [0, 24, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 5
+    [[cases.samples]]
+    seconds = 4.79e-5
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = 0.25
+    processed_weight = 12264
+    calls = 24
+    paths = [0, 0, 0, 0, 0, 0, 24]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 6144
+    round = 5
+    [[cases.samples]]
+    seconds = 3.72e-5
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = 0.25
+    processed_weight = 5104
+    calls = 24
+    paths = [16, 0, 0, 8, 0, 0, 0]
+    events = 4
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 208
+    processed_blocks = 2560
+    round = 5
+
+    [cases.reference_memory]
+    blocks = 256
+    owned_export_and_scratch_payload_bytes = 2048
+    graph_eligible = false
+    native_reported_bytes = 43344
+    wrapper_julia_graph_bytes = 12800
+[[cases]]
+max_scaled_residual = 1.6653345369377348e-16
+qualification_routes = [0, 2, 0, 0, 0, 0, 0]
+matrix_hash = "7b7f80dff78fbaf12e407f50e029267aa2e6e5c53f069480713cc68289657f9b"
+tolerance = 7.275957614183426e-12
+n = 256
+zero_sign_differences = 0
+queries = 1
+id = "dense256-native-only"
+max_native_relative_difference = 0.0
+
+    [[cases.enclosures]]
+    residual_upper = 1.2132030439857847e-16
+    arm = "native"
+    allowed_lower = 7.275957614183426e-12
+    [[cases.enclosures]]
+    residual_upper = 1.2132030439857847e-16
+    arm = "full"
+    allowed_lower = 7.275957614183426e-12
+    [[cases.enclosures]]
+    residual_upper = 1.2132030439857847e-16
+    arm = "local"
+    allowed_lower = 7.275957614183426e-12
+
+    [cases.candidate_setup]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.003054404
+    bytes = 1053456
+    compile_seconds = 0.0
+    events = 18
+
+    [cases.candidate_memory]
+    blocks = 1
+    owned_export_and_scratch_payload_bytes = 2048
+    graph_eligible = false
+    native_reported_bytes = 1085808
+    wrapper_julia_graph_bytes = 1053200
+
+    [cases.reference_setup]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.003350605
+    bytes = 1053456
+    compile_seconds = 0.0
+    events = 18
+
+    [[cases.samples]]
+    seconds = 0.0003224
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = 3.988459658598245e-5
+    processed_weight = 0
+    calls = 8
+    paths = [0, 8, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 1
+    [[cases.samples]]
+    seconds = 0.000427701
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = 3.988459658598245e-5
+    processed_weight = 0
+    calls = 8
+    paths = [0, 8, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 1
+    [[cases.samples]]
+    seconds = 0.0002527
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = 3.988459658598245e-5
+    processed_weight = 0
+    calls = 8
+    paths = [0, 8, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 1
+    [[cases.samples]]
+    seconds = 0.0002353
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = 3.988459658598245e-5
+    processed_weight = 0
+    calls = 8
+    paths = [0, 8, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 2
+    [[cases.samples]]
+    seconds = 0.000226901
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = 3.988459658598245e-5
+    processed_weight = 0
+    calls = 8
+    paths = [0, 8, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 2
+    [[cases.samples]]
+    seconds = 0.0002102
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = 3.988459658598245e-5
+    processed_weight = 0
+    calls = 8
+    paths = [0, 8, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 2
+    [[cases.samples]]
+    seconds = 0.0002098
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = 3.988459658598245e-5
+    processed_weight = 0
+    calls = 8
+    paths = [0, 8, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 3
+    [[cases.samples]]
+    seconds = 0.000209501
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = 3.988459658598245e-5
+    processed_weight = 0
+    calls = 8
+    paths = [0, 8, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 3
+    [[cases.samples]]
+    seconds = 0.0002233
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = 3.988459658598245e-5
+    processed_weight = 0
+    calls = 8
+    paths = [0, 8, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 3
+    [[cases.samples]]
+    seconds = 0.0002137
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = 3.988459658598245e-5
+    processed_weight = 0
+    calls = 8
+    paths = [0, 8, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 4
+    [[cases.samples]]
+    seconds = 0.0002344
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = 3.988459658598245e-5
+    processed_weight = 0
+    calls = 8
+    paths = [0, 8, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 4
+    [[cases.samples]]
+    seconds = 0.000220701
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = 3.988459658598245e-5
+    processed_weight = 0
+    calls = 8
+    paths = [0, 8, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 4
+    [[cases.samples]]
+    seconds = 0.0002215
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = 3.988459658598245e-5
+    processed_weight = 0
+    calls = 8
+    paths = [0, 8, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 5
+    [[cases.samples]]
+    seconds = 0.0002124
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = 3.988459658598245e-5
+    processed_weight = 0
+    calls = 8
+    paths = [0, 8, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 5
+    [[cases.samples]]
+    seconds = 0.000209601
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = 3.988459658598245e-5
+    processed_weight = 0
+    calls = 8
+    paths = [0, 8, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 5
+
+    [cases.reference_memory]
+    blocks = 1
+    owned_export_and_scratch_payload_bytes = 2048
+    graph_eligible = false
+    native_reported_bytes = 1085808
+    wrapper_julia_graph_bytes = 1053200
+[[cases]]
+max_scaled_residual = 1.0438943638479747e-16
+qualification_routes = [0, 4, 0, 0, 0, 0, 0]
+matrix_hash = "084e46afad272add136dab48cb88536ce2ecd50a7080472db02e73f48a5c30b3"
+tolerance = 7.275957614183426e-12
+n = 256
+zero_sign_differences = 0
+queries = 2
+id = "irreducible256-native-only"
+max_native_relative_difference = 0.0
+
+    [[cases.enclosures]]
+    residual_upper = 1.1492543028346347e-16
+    arm = "native"
+    allowed_lower = 7.73826926288451e-12
+    [[cases.enclosures]]
+    residual_upper = 1.1492543028346347e-16
+    arm = "full"
+    allowed_lower = 7.73826926288451e-12
+    [[cases.enclosures]]
+    residual_upper = 1.1492543028346347e-16
+    arm = "local"
+    allowed_lower = 7.73826926288451e-12
+
+    [cases.candidate_setup]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 3.16e-5
+    bytes = 17168
+    compile_seconds = 0.0
+    events = 18
+
+    [cases.candidate_memory]
+    blocks = 1
+    owned_export_and_scratch_payload_bytes = 2048
+    graph_eligible = false
+    native_reported_bytes = 49488
+    wrapper_julia_graph_bytes = 16880
+
+    [cases.reference_setup]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001417
+    bytes = 17168
+    compile_seconds = 0.0
+    events = 18
+
+    [[cases.samples]]
+    seconds = 3.83e-5
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = 0.2426542534888806
+    processed_weight = 0
+    calls = 16
+    paths = [0, 16, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 1
+    [[cases.samples]]
+    seconds = 3.44e-5
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = 0.2426542534888806
+    processed_weight = 0
+    calls = 16
+    paths = [0, 16, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 1
+    [[cases.samples]]
+    seconds = 3.27e-5
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = 0.2426542534888806
+    processed_weight = 0
+    calls = 16
+    paths = [0, 16, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 1
+    [[cases.samples]]
+    seconds = 3.16e-5
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = 0.2426542534888806
+    processed_weight = 0
+    calls = 16
+    paths = [0, 16, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 2
+    [[cases.samples]]
+    seconds = 3.15e-5
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = 0.2426542534888806
+    processed_weight = 0
+    calls = 16
+    paths = [0, 16, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 2
+    [[cases.samples]]
+    seconds = 3.16e-5
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = 0.2426542534888806
+    processed_weight = 0
+    calls = 16
+    paths = [0, 16, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 2
+    [[cases.samples]]
+    seconds = 3.15e-5
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = 0.2426542534888806
+    processed_weight = 0
+    calls = 16
+    paths = [0, 16, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 3
+    [[cases.samples]]
+    seconds = 3.14e-5
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = 0.2426542534888806
+    processed_weight = 0
+    calls = 16
+    paths = [0, 16, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 3
+    [[cases.samples]]
+    seconds = 3.16e-5
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = 0.2426542534888806
+    processed_weight = 0
+    calls = 16
+    paths = [0, 16, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 3
+    [[cases.samples]]
+    seconds = 3.17e-5
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = 0.2426542534888806
+    processed_weight = 0
+    calls = 16
+    paths = [0, 16, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 4
+    [[cases.samples]]
+    seconds = 3.17e-5
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = 0.2426542534888806
+    processed_weight = 0
+    calls = 16
+    paths = [0, 16, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 4
+    [[cases.samples]]
+    seconds = 3.15e-5
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = 0.2426542534888806
+    processed_weight = 0
+    calls = 16
+    paths = [0, 16, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 4
+    [[cases.samples]]
+    seconds = 3.17e-5
+    compile_seconds = 0.0
+    arm = "native"
+    checksum = 0.2426542534888806
+    processed_weight = 0
+    calls = 16
+    paths = [0, 16, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 5
+    [[cases.samples]]
+    seconds = 3.15e-5
+    compile_seconds = 0.0
+    arm = "full"
+    checksum = 0.2426542534888806
+    processed_weight = 0
+    calls = 16
+    paths = [0, 16, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 5
+    [[cases.samples]]
+    seconds = 3.15e-5
+    compile_seconds = 0.0
+    arm = "local"
+    checksum = 0.2426542534888806
+    processed_weight = 0
+    calls = 16
+    paths = [0, 16, 0, 0, 0, 0, 0]
+    events = 2
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    bytes = 112
+    processed_blocks = 0
+    round = 5
+
+    [cases.reference_memory]
+    blocks = 1
+    owned_export_and_scratch_payload_bytes = 2048
+    graph_eligible = false
+    native_reported_bytes = 49488
+    wrapper_julia_graph_bytes = 16880
+
+[[preparation]]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 0.118356972
+bytes = 13946040
+stage = "deserialize"
+compile_seconds = 0.117796072
+case = "runtime-30000"
+events = 182071
+[[preparation]]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 0.016918411
+bytes = 8564168
+stage = "assemble-basis"
+compile_seconds = 0.013947909
+case = "runtime-30000-B0"
+events = 25346
+[[preparation]]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 0.009326805
+bytes = 2467920
+stage = "warm-factor-and-private-context"
+compile_seconds = 0.0
+arm = "native"
+case = "runtime-30000-B0"
+events = 18
+[[preparation]]
+gc_seconds = 0.004700102
+recompile_seconds = 0.0
+seconds = 0.027695317
+bytes = 20213696
+stage = "warm-factor-and-private-context"
+compile_seconds = 0.0
+arm = "candidate"
+case = "runtime-30000-B0"
+events = 576934
+[[preparation]]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 0.001486801
+bytes = 7190400
+stage = "assemble-basis"
+compile_seconds = 0.0
+case = "runtime-30000-B80"
+events = 68
+[[preparation]]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 0.012934807
+bytes = 2469328
+stage = "warm-factor-and-private-context"
+compile_seconds = 0.0
+arm = "native"
+case = "runtime-30000-B80"
+events = 18
+[[preparation]]
+gc_seconds = 0.006383703
+recompile_seconds = 0.0
+seconds = 0.029899317
+bytes = 20353504
+stage = "warm-factor-and-private-context"
+compile_seconds = 0.0
+arm = "candidate"
+case = "runtime-30000-B80"
+events = 576922
+[[preparation]]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 0.001074901
+bytes = 7190400
+stage = "assemble-basis"
+compile_seconds = 0.0
+case = "runtime-30000-B160"
+events = 68
+[[preparation]]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 0.016898909
+bytes = 2470736
+stage = "warm-factor-and-private-context"
+compile_seconds = 0.0
+arm = "native"
+case = "runtime-30000-B160"
+events = 18
+[[preparation]]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 0.026091915
+bytes = 20435840
+stage = "warm-factor-and-private-context"
+compile_seconds = 0.0
+arm = "candidate"
+case = "runtime-30000-B160"
+events = 576552
+[[preparation]]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 0.0003593
+bytes = 3915176
+stage = "deserialize"
+compile_seconds = 0.0
+case = "runtime-40000"
+events = 96
+[[preparation]]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 0.001202901
+bytes = 7190400
+stage = "assemble-basis"
+compile_seconds = 0.0
+case = "runtime-40000-B0"
+events = 68
+[[preparation]]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 0.012702705
+bytes = 2620880
+stage = "warm-factor-and-private-context"
+compile_seconds = 0.0
+arm = "native"
+case = "runtime-40000-B0"
+events = 18
+[[preparation]]
+gc_seconds = 0.0006397
+recompile_seconds = 0.0
+seconds = 0.026990911
+bytes = 21422464
+stage = "warm-factor-and-private-context"
+compile_seconds = 0.0
+arm = "candidate"
+case = "runtime-40000-B0"
+events = 571170
+[[preparation]]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 0.001261401
+bytes = 7190400
+stage = "assemble-basis"
+compile_seconds = 0.0
+case = "runtime-40000-B80"
+events = 68
+[[preparation]]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 0.013764006
+bytes = 2623312
+stage = "warm-factor-and-private-context"
+compile_seconds = 0.0
+arm = "native"
+case = "runtime-40000-B80"
+events = 18
+[[preparation]]
+gc_seconds = 0.0003892
+recompile_seconds = 0.0
+seconds = 0.028182211
+bytes = 21578272
+stage = "warm-factor-and-private-context"
+compile_seconds = 0.0
+arm = "candidate"
+case = "runtime-40000-B80"
+events = 571054
+[[preparation]]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 0.001328402
+bytes = 7190400
+stage = "assemble-basis"
+compile_seconds = 0.0
+case = "runtime-40000-B160"
+events = 68
+[[preparation]]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 0.013035217
+bytes = 2623184
+stage = "warm-factor-and-private-context"
+compile_seconds = 0.0
+arm = "native"
+case = "runtime-40000-B160"
+events = 18
+[[preparation]]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 0.029197639
+bytes = 21067568
+stage = "warm-factor-and-private-context"
+compile_seconds = 0.0
+arm = "candidate"
+case = "runtime-40000-B160"
+events = 571333
+[[preparation]]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 0.000557001
+bytes = 7063816
+stage = "deserialize"
+compile_seconds = 0.0
+case = "fast0507-1000"
+events = 94
+[[preparation]]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 7.04e-5
+bytes = 91952
+stage = "assemble-basis"
+compile_seconds = 0.0
+case = "fast0507-1000-B0"
+events = 32
+[[preparation]]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 0.000385601
+bytes = 44752
+stage = "warm-factor-and-private-context"
+compile_seconds = 0.0
+arm = "native"
+case = "fast0507-1000-B0"
+events = 18
+[[preparation]]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 0.0002771
+bytes = 44752
+stage = "warm-factor-and-private-context"
+compile_seconds = 0.0
+arm = "candidate"
+case = "fast0507-1000-B0"
+events = 18
+[[preparation]]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 0.0001456
+bytes = 91952
+stage = "assemble-basis"
+compile_seconds = 0.0
+case = "fast0507-1000-B80"
+events = 32
+[[preparation]]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 0.000383501
+bytes = 45136
+stage = "warm-factor-and-private-context"
+compile_seconds = 0.0
+arm = "native"
+case = "fast0507-1000-B80"
+events = 18
+[[preparation]]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 0.000374
+bytes = 45136
+stage = "warm-factor-and-private-context"
+compile_seconds = 0.0
+arm = "candidate"
+case = "fast0507-1000-B80"
+events = 18
+[[preparation]]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 0.000153
+bytes = 91952
+stage = "assemble-basis"
+compile_seconds = 0.0
+case = "fast0507-1000-B160"
+events = 32
+[[preparation]]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 0.000693001
+bytes = 45520
+stage = "warm-factor-and-private-context"
+compile_seconds = 0.0
+arm = "native"
+case = "fast0507-1000-B160"
+events = 18
+[[preparation]]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 0.000508001
+bytes = 45520
+stage = "warm-factor-and-private-context"
+compile_seconds = 0.0
+arm = "candidate"
+case = "fast0507-1000-B160"
+events = 18
+[[preparation]]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 2.87e-5
+bytes = 13072
+stage = "warm-factor-and-private-context"
+compile_seconds = 0.0
+arm = "native"
+case = "coupled256-forced"
+events = 18
+[[preparation]]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 0.000168701
+bytes = 92184
+stage = "warm-factor-and-private-context"
+compile_seconds = 0.0
+arm = "candidate"
+case = "coupled256-forced"
+events = 896
+[[preparation]]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 0.003366005
+bytes = 1053456
+stage = "warm-factor-and-private-context"
+compile_seconds = 0.0
+arm = "native"
+case = "dense256-native-only"
+events = 18
+[[preparation]]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 0.003296204
+bytes = 1053456
+stage = "warm-factor-and-private-context"
+compile_seconds = 0.0
+arm = "candidate"
+case = "dense256-native-only"
+events = 18
+[[preparation]]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 9.31e-5
+bytes = 17168
+stage = "warm-factor-and-private-context"
+compile_seconds = 0.0
+arm = "native"
+case = "irreducible256-native-only"
+events = 18
+[[preparation]]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 3.22e-5
+bytes = 17168
+stage = "warm-factor-and-private-context"
+compile_seconds = 0.0
+arm = "candidate"
+case = "irreducible256-native-only"
+events = 18

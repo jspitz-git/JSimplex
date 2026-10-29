@@ -1,0 +1,1432 @@
+{
+  "accepted": true,
+  "checks": {
+    "immutable_manifests": {
+      "source-pins.json": 43,
+      "reviewed-source-pins.json": 52,
+      "launch-pins.json": 58,
+      "launch-pins-2.json": 68
+    },
+    "schedule": {
+      "cases": 12,
+      "queries_per_cycle": 489,
+      "cold_whole_calls": 2934,
+      "warm_whole_calls": 23472,
+      "measured_whole_calls": 58680,
+      "measured_sample_rows": 180,
+      "enclosures": 36
+    },
+    "numeric": {
+      "max_scaled_residual": 1.6653345369377348e-16,
+      "runtime_max_scaled_residual": 3.512045660651377e-18,
+      "max_native_relative_difference": 1.1110745087322487e-11
+    },
+    "comparison_1": {
+      "reason": "exit1",
+      "elapsed_including_launch": 2.1441676010144874,
+      "accepted": false,
+      "checked_groups": 717,
+      "conflicts": []
+    },
+    "comparison_2": {
+      "reason": "exit0",
+      "elapsed_including_launch": 25.171966886962764,
+      "accepted": true,
+      "checked_groups": 719,
+      "conflicts": []
+    },
+    "libraries": {
+      "count": 5,
+      "hashes_match": true
+    },
+    "loadfix_exact_diff": true,
+    "resources": {
+      "count": 25,
+      "keys": [
+        "available_kib",
+        "swap_used_kib",
+        "elapsed",
+        "child_memory"
+      ],
+      "min_available_kib": 22044860,
+      "max_swap_used_kib": 0
+    },
+    "production": {
+      "head": "cd939a1a94549c0242b8f6dc4b65927d06bfe6ce",
+      "master": "c0fa748ffa61ccb7c1caaf248c40324f60bc737b",
+      "changes_outside_diagnostics_and_superpowers_docs": [],
+      "tracked_worktree_changes": [],
+      "staged_changes": []
+    },
+    "exact_case_names": true,
+    "all_runtime_calls_local": true,
+    "report_wording_amendment_exact": true,
+    "report_original_sha256": "0a124cbe6a2ffddb6b96d28281d491acd797711c37a829855ef17f15497df8f5",
+    "report_corrected_sha256": "07387da7369e90f3f3f4bb0ee6cdeff105b7ca21a777af4d550accd9d2535b37"
+  },
+  "cases": [
+    {
+      "id": "runtime-30000-B0",
+      "query_positions": 80,
+      "ratio": 0.8339921957130019,
+      "min": 0.8110522819837761,
+      "max": 0.8552653654731868,
+      "local_full_ratio": 0.5160781205726311,
+      "saved_us": 30.36407968749998,
+      "extra_setup_ms": 18.368512,
+      "amortization_calls_conditional": 604.942161562097,
+      "extra_payload_MiB": 5.530731201171875,
+      "local_blocks": 3169.625,
+      "local_weight": 63578.25,
+      "full_blocks": 22130.0,
+      "full_weight": 167241.0,
+      "zero_sign_differences": 2869650
+    },
+    {
+      "id": "runtime-30000-B80",
+      "query_positions": 80,
+      "ratio": 0.8845341822273562,
+      "min": 0.8235575307949127,
+      "max": 0.9220101603383952,
+      "local_full_ratio": 0.5401544380033114,
+      "saved_us": 25.908920312499983,
+      "extra_setup_ms": 16.96451,
+      "amortization_calls_conditional": 654.7748727227096,
+      "extra_payload_MiB": 5.664791107177734,
+      "local_blocks": 3332.35,
+      "local_weight": 73995.1,
+      "full_blocks": 22087.0,
+      "full_weight": 176102.0,
+      "zero_sign_differences": 2834108
+    },
+    {
+      "id": "runtime-30000-B160",
+      "query_positions": 1,
+      "ratio": 0.7637917198753489,
+      "min": 0.6689802771311886,
+      "max": 0.8279379397150073,
+      "local_full_ratio": 0.5376074188357637,
+      "saved_us": 43.5,
+      "extra_setup_ms": 9.193006,
+      "amortization_calls_conditional": 211.33347126436783,
+      "extra_payload_MiB": 5.748058319091797,
+      "local_blocks": 3470.0,
+      "local_weight": 83382.0,
+      "full_blocks": 22075.0,
+      "full_weight": 181580.0,
+      "zero_sign_differences": 35062
+    },
+    {
+      "id": "runtime-40000-B0",
+      "query_positions": 80,
+      "ratio": 0.801630670421349,
+      "min": 0.7893748788352439,
+      "max": 0.8171849013481453,
+      "local_full_ratio": 0.5359904929584052,
+      "saved_us": 44.386581250000006,
+      "extra_setup_ms": 14.288205999999999,
+      "amortization_calls_conditional": 321.9037285057857,
+      "extra_payload_MiB": 6.662353515625,
+      "local_blocks": 3168.925,
+      "local_weight": 117226.15,
+      "full_blocks": 21170.0,
+      "full_weight": 243083.0,
+      "zero_sign_differences": 2687986
+    },
+    {
+      "id": "runtime-40000-B80",
+      "query_positions": 80,
+      "ratio": 0.7931386360027015,
+      "min": 0.7557130897548208,
+      "max": 0.8190850715694162,
+      "local_full_ratio": 0.5607269555728168,
+      "saved_us": 50.480334374999984,
+      "extra_setup_ms": 14.418204999999999,
+      "amortization_calls_conditional": 285.620235652411,
+      "extra_payload_MiB": 6.809116363525391,
+      "local_blocks": 3256.375,
+      "local_weight": 123484.375,
+      "full_blocks": 21201.0,
+      "full_weight": 252647.0,
+      "zero_sign_differences": 2685476
+    },
+    {
+      "id": "runtime-40000-B160",
+      "query_positions": 1,
+      "ratio": 0.901100241150869,
+      "min": 0.8901979697882311,
+      "max": 1.2513893364153565,
+      "local_full_ratio": 0.6318934243156399,
+      "saved_us": 23.125124999999993,
+      "extra_setup_ms": 16.162422000000003,
+      "amortization_calls_conditional": 698.9117680444973,
+      "extra_payload_MiB": 6.316322326660156,
+      "local_blocks": 3856.0,
+      "local_weight": 118121.0,
+      "full_blocks": 21248.0,
+      "full_weight": 220269.0,
+      "zero_sign_differences": 31770
+    },
+    {
+      "id": "fast0507-1000-B0",
+      "query_positions": 80,
+      "ratio": 0.9842162504355505,
+      "min": 0.9504522017933053,
+      "max": 1.0289755010848616,
+      "local_full_ratio": 1.0024596972024895,
+      "saved_us": 0.06843749999999993,
+      "extra_setup_ms": -0.108501,
+      "amortization_calls_conditional": null,
+      "extra_payload_MiB": 0.0,
+      "local_blocks": 0.0,
+      "local_weight": 0.0,
+      "full_blocks": 0.0,
+      "full_weight": 0.0,
+      "zero_sign_differences": 0
+    },
+    {
+      "id": "fast0507-1000-B80",
+      "query_positions": 80,
+      "ratio": 0.8925737047087517,
+      "min": 0.8419352587978758,
+      "max": 0.9163041817798906,
+      "local_full_ratio": 1.0007313591000127,
+      "saved_us": 0.5303125,
+      "extra_setup_ms": -0.00950100000000003,
+      "amortization_calls_conditional": null,
+      "extra_payload_MiB": 0.0,
+      "local_blocks": 0.0,
+      "local_weight": 0.0,
+      "full_blocks": 0.0,
+      "full_weight": 0.0,
+      "zero_sign_differences": 0
+    },
+    {
+      "id": "fast0507-1000-B160",
+      "query_positions": 1,
+      "ratio": 0.8923766816143497,
+      "min": 0.7383039569353843,
+      "max": 1.0104529616724738,
+      "local_full_ratio": 0.9925187032418953,
+      "saved_us": 0.6375000000000002,
+      "extra_setup_ms": -0.18499999999999994,
+      "amortization_calls_conditional": null,
+      "extra_payload_MiB": 0.0,
+      "local_blocks": 0.0,
+      "local_weight": 0.0,
+      "full_blocks": 0.0,
+      "full_weight": 0.0,
+      "zero_sign_differences": 0
+    },
+    {
+      "id": "coupled256-forced",
+      "query_positions": 3,
+      "ratio": 0.8899521531100479,
+      "min": 0.5945072697899838,
+      "max": 1.0556792873051224,
+      "local_full_ratio": 0.7644628099173554,
+      "saved_us": 0.21666666666666654,
+      "extra_setup_ms": 0.14000100000000001,
+      "amortization_calls_conditional": null,
+      "extra_payload_MiB": 0.0361480712890625,
+      "local_blocks": 106.66666666666667,
+      "local_weight": 212.66666666666666,
+      "full_blocks": 256.0,
+      "full_weight": 511.0,
+      "zero_sign_differences": 0
+    },
+    {
+      "id": "dense256-native-only",
+      "query_positions": 1,
+      "ratio": 0.9116894197952218,
+      "min": 0.7537976296524909,
+      "max": 0.9462799097065463,
+      "local_full_ratio": 0.9868220338983049,
+      "saved_us": 3.025000000000002,
+      "extra_setup_ms": -0.06980099999999997,
+      "amortization_calls_conditional": null,
+      "extra_payload_MiB": 0.0,
+      "local_blocks": 0.0,
+      "local_weight": 0.0,
+      "full_blocks": 0.0,
+      "full_weight": 0.0,
+      "zero_sign_differences": 0
+    },
+    {
+      "id": "irreducible256-native-only",
+      "query_positions": 2,
+      "ratio": 1.0,
+      "min": 0.9936708860759492,
+      "max": 1.1133720930232558,
+      "local_full_ratio": 1.0031746031746032,
+      "saved_us": 0.006249999999999867,
+      "extra_setup_ms": -0.0609,
+      "amortization_calls_conditional": null,
+      "extra_payload_MiB": 0.0,
+      "local_blocks": 0.0,
+      "local_weight": 0.0,
+      "full_blocks": 0.0,
+      "full_weight": 0.0,
+      "zero_sign_differences": 0
+    }
+  ],
+  "bindings": {
+    "source-pins.json": {
+      "count": 43,
+      "manifest_sha256": "cf048189a14565d635206f5828d40f75f13aefbfbd7df72ad6f19937be97f94f",
+      "all_match": true,
+      "entries": [
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/.superpowers/basis-chain-cost/histories/fast0507-1000.bin",
+          "checked_path": "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/.superpowers/basis-chain-cost/histories/fast0507-1000.bin",
+          "sha256": "da17a20746d94a36d5c48adc5e5af21865934ee89bf44538725f7d744b017c7d"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/.superpowers/basis-chain-cost/histories/runtime-30000.bin",
+          "checked_path": "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/.superpowers/basis-chain-cost/histories/runtime-30000.bin",
+          "sha256": "eff13aefe6693665694e74d6fc5c6f111d15e52752a093a600d4093211ebd28c"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/.superpowers/basis-chain-cost/histories/runtime-40000.bin",
+          "checked_path": "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/.superpowers/basis-chain-cost/histories/runtime-40000.bin",
+          "sha256": "a36fa7fc4ead36fee38361478bc98c04739bd5b756d51d4a1322ddf34ccf053c"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/.superpowers/basis-chain-cost/julia.sh",
+          "checked_path": "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/.superpowers/basis-chain-cost/julia.sh",
+          "sha256": "ac2f1d4826c8584f0772e57ea3701360770776ad2571a325ec64ecd0943ae3b3"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+          "checked_path": "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+          "sha256": "4335574f0823def6bd2e7968a5d7f2775c2b6874329ee3e1d4b2a8e119021702"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/PLAN.md",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/PLAN.md.before-review",
+          "sha256": "eb5beaf94245858ab1e13272873ed0f22464d8b6b20542e01814441dd8becc03"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/candidate.jl",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/candidate.jl.before-review",
+          "sha256": "3b1533a2eae5a2a9f8042c2b01c95d9839a652226e0aa7d90ac2f943b4564502"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/command.json",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/command.json",
+          "sha256": "c91d970191047aa368ca6531a4cfcef7f263338525abb292473ab623205c3376"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/driver.jl",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/driver.jl.before-review",
+          "sha256": "e2a7994c7fbb9d912f05aabffa898ad9c73e0888fb360320701bb7b986e46ed1"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/export.jl",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/export.jl",
+          "sha256": "e7bcdfb789cfa87657b0dc7c6e7a4fbbb1397d35a67a213382a2b6cbe2e8b744"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/guard/entry_gate.py",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/guard/entry_gate.py",
+          "sha256": "6b1f569959d53c2d37faa0e8f6a8ebda6887ef8b6e5602db8e0b15ae5f530ff9"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/guard/guard_reviewed.py",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/guard/guard_reviewed.py",
+          "sha256": "92f1c19ded9615f8a1f8cab70bf5209d8dc9db734e9592c3bbf3f5852ee9aa67"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/guard/supervisor_reviewed.py",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/guard/supervisor_reviewed.py",
+          "sha256": "f983198c245079eafa712d1b4752a6ac56456aa91058fc469245fa77759bf0ec"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/historical-groups.json",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/historical-groups.json",
+          "sha256": "701ee4338b76005419b32b291ac015103b44250c7cedb217ff8eca7a14168bac"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/host-before-review.json",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/host-before-review.json",
+          "sha256": "d2a1df291aadbe7dec1aca16d44350cc907cb511566bd19a9dba94dda3d2c985"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/inputs.toml",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/inputs.toml",
+          "sha256": "6234dd0ec57ac95c854f4d27f6655fed0693d1f08a64710140e307fab562208a"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/library-pins.toml",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/library-pins.toml",
+          "sha256": "7af8047c8f8c39aa2cb87ac7b314454b3fafafdc09e522f125323cce5fdf86e0"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/run.py",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/run.py",
+          "sha256": "dcc84f235fbcb9f2a55ba3e97fa14f628880b7c66617141c06b5914154596691"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/vendor/KLU/LICENSE",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/vendor/KLU/LICENSE",
+          "sha256": "19a4c6219260ba8bf64a90ca9641da3247744c7bcf90ea43b2c816793d33d17e"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/vendor/KLU/Project.toml",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/vendor/KLU/Project.toml",
+          "sha256": "5105279e28e7d565a81f8fdb688b5b2f5fc4e29b6e960df4157bf7792c7d41d7"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/vendor/KLU/src/KLU.jl",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/vendor/KLU/src/KLU.jl",
+          "sha256": "12b02ec9286953c970d1f6bd802054eb383e7f5555478795f343058cbd29dd50"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/vendor/KLU/src/wrappers.jl",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/vendor/KLU/src/wrappers.jl",
+          "sha256": "80741e95df39ddb3f53664d478eee3e632149685820b87d894f1fef319276603"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/vendor-provenance.json",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/vendor-provenance.json",
+          "sha256": "0ec2ad6d4f18aa742a250cf8c63b09cd261a91567380f129d91bb25deee2bcdc"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/julia",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/julia",
+          "sha256": "ca0ca02a2fbae8ecf7291a76b2231d02df953b3f1bc6f2a2ec41801f5a21cf2a"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libamd.so.3.3.3",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libamd.so.3.3.3",
+          "sha256": "25a9b19bb63f9dfc72ae0264d26eb08731aeda57aa60b381b17b3ab0e65fc2b1"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libbtf.so.2.3.2",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libbtf.so.2.3.2",
+          "sha256": "c1097bc81dd7495ca2fa81033878e60fe59a73ebbb6aa89f9c171b51ee3197ba"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libcamd.so.3.3.3",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libcamd.so.3.3.3",
+          "sha256": "6b7cf7ef19357bdb60d3da856e43f9da6cd92a3ad5b74a1ca7f3b568ab240ef4"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libccolamd.so.3.3.4",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libccolamd.so.3.3.4",
+          "sha256": "18447e56bfefb5ae19ee21cfdf3565d2ec158002c7d9a4ea3f7648a5208f41d2"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libcholmod.so.5.3.1",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libcholmod.so.5.3.1",
+          "sha256": "95746e0e07fd77314397f00c755f13f2ca2ef9f1b6718609b591eddaac2b05fd"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libcolamd.so.3.3.4",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libcolamd.so.3.3.4",
+          "sha256": "dae6956a8349a85a3c1f8517b6edead1ade57411bc7d57d22199102b6960682d"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libjulia-internal.so.1.13.0",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libjulia-internal.so.1.13.0",
+          "sha256": "1e01d92bd7431b31fd31b9c95bc3df796c7fbacbcc84bdbb3e9067aa0c0ec780"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libklu.so.2.3.5",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libklu.so.2.3.5",
+          "sha256": "4bee1c4607475cc1a618d47b372f86e6dfb2ed2c994e024f551aaaf16719f430"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libsuitesparseconfig.so.7.10.1",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libsuitesparseconfig.so.7.10.1",
+          "sha256": "ec7f4fb7af921ede7a836e9314bb530c34bd1119216ad8d029ca9d0be0c496bc"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libumfpack.so.6.3.5",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libumfpack.so.6.3.5",
+          "sha256": "ab4db5e6b6930084f804ce6712858a41779b992af6619bed0ad7f55dcecfc949"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/sys.so",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/sys.so",
+          "sha256": "84f975d243930d424ff384c568c2c7844412a528299c126085358aa8ac39f246"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/libjulia.so.1.13.0",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/libjulia.so.1.13.0",
+          "sha256": "66bb2b41b09db16fd79d6c80aab47a7f2e33ce6bd9e04d62dcac5482b778a73d"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/SparseArrays/src/solvers/umfpack.jl",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/SparseArrays/src/solvers/umfpack.jl",
+          "sha256": "6d40eb41958765d47b9ef60fb08fd6b61c0ee850979e3601343ce67fbe6ac84d"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/SuiteSparse_jll/Project.toml",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/SuiteSparse_jll/Project.toml",
+          "sha256": "2bf8656a8aaf79e553f6d06f11084bc0c77f585eecc0ffb02b521f6a0141d97a"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/SuiteSparse_jll/src/SuiteSparse_jll.jl",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/SuiteSparse_jll/src/SuiteSparse_jll.jl",
+          "sha256": "4998ab196ce26809b63a6f49cbd807de91b65b767c1ec69bb83c4a6cb2788ec0"
+        },
+        {
+          "bound_path": "/home/jspitz/JSimplex.jl/LocalPreferences.toml",
+          "checked_path": "/home/jspitz/JSimplex.jl/LocalPreferences.toml",
+          "sha256": "172f3f5c30b44e8fbaf126aeb0b32bba900c83069215e9aaed3b4c3314119e54"
+        },
+        {
+          "bound_path": "/home/jspitz/JSimplex.jl/Manifest.toml",
+          "checked_path": "/home/jspitz/JSimplex.jl/Manifest.toml",
+          "sha256": "bfa0397481a520ef9e793c224c9cd856b151973c6a65060132e2e792c6e13ae3"
+        },
+        {
+          "bound_path": "/home/jspitz/JSimplex.jl/Project.toml",
+          "checked_path": "/home/jspitz/JSimplex.jl/Project.toml",
+          "sha256": "8a9881836acdf490c9d2fe593372b1a067510eecdcdb21dfb8f713b53bed7d1c"
+        },
+        {
+          "bound_path": "/usr/bin/bash",
+          "checked_path": "/usr/bin/bash",
+          "sha256": "01c006568543d6b6ab9f0a57dd44b9d779d1edc437a5f5d2db0215887c19dbeb"
+        }
+      ]
+    },
+    "reviewed-source-pins.json": {
+      "count": 52,
+      "manifest_sha256": "f89d3a563968d342b154a889f5857a30748c162d848239a4c83f063c4ad771df",
+      "all_match": true,
+      "entries": [
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/.superpowers/basis-chain-cost/histories/fast0507-1000.bin",
+          "checked_path": "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/.superpowers/basis-chain-cost/histories/fast0507-1000.bin",
+          "sha256": "da17a20746d94a36d5c48adc5e5af21865934ee89bf44538725f7d744b017c7d"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/.superpowers/basis-chain-cost/histories/runtime-30000.bin",
+          "checked_path": "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/.superpowers/basis-chain-cost/histories/runtime-30000.bin",
+          "sha256": "eff13aefe6693665694e74d6fc5c6f111d15e52752a093a600d4093211ebd28c"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/.superpowers/basis-chain-cost/histories/runtime-40000.bin",
+          "checked_path": "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/.superpowers/basis-chain-cost/histories/runtime-40000.bin",
+          "sha256": "a36fa7fc4ead36fee38361478bc98c04739bd5b756d51d4a1322ddf34ccf053c"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/.superpowers/basis-chain-cost/julia.sh",
+          "checked_path": "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/.superpowers/basis-chain-cost/julia.sh",
+          "sha256": "ac2f1d4826c8584f0772e57ea3701360770776ad2571a325ec64ecd0943ae3b3"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+          "checked_path": "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+          "sha256": "4335574f0823def6bd2e7968a5d7f2775c2b6874329ee3e1d4b2a8e119021702"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/PLAN.md",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/PLAN.md",
+          "sha256": "a2d7c79b437c67274d9a36eb11e938d4e6eb6517a22a7bd1179800a130e35eb1"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/PLAN.md.before-review",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/PLAN.md.before-review",
+          "sha256": "eb5beaf94245858ab1e13272873ed0f22464d8b6b20542e01814441dd8becc03"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/REVIEW-ADMISSION-BINDINGS.json",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/REVIEW-ADMISSION-BINDINGS.json",
+          "sha256": "c27f67217bdaf2d972593d68cec2351208edc4eafa2dd681cae43fb13c5a3c3d"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/REVIEW-ADMISSION-CHECKS.json",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/REVIEW-ADMISSION-CHECKS.json",
+          "sha256": "9de85a7b37af3e29c80df6d397f9448051349501689c3bcd75e90a0c37819be6"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/REVIEW-ADMISSION.md",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/REVIEW-ADMISSION.md",
+          "sha256": "cc9e714e4b88c2cf39361c7d3abd1c8b2c30096393a7fbed5edf9ef7ad88a7da"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/REVIEW-FIX.md",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/REVIEW-FIX.md",
+          "sha256": "044e73c55727d34ec03b0f9f797dd96bba3954d2afb17506519e3b0617bc775d"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/candidate.jl",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/candidate.jl",
+          "sha256": "5d456f95fc309b4b8d488d418dd2bd477168759ba8dbf7a392cccb2d6fd4b3a6"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/candidate.jl.before-review",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/candidate.jl.before-review",
+          "sha256": "3b1533a2eae5a2a9f8042c2b01c95d9839a652226e0aa7d90ac2f943b4564502"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/command.json",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/command.json",
+          "sha256": "c91d970191047aa368ca6531a4cfcef7f263338525abb292473ab623205c3376"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/driver.jl",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/driver.jl",
+          "sha256": "ee2d1f856315a711b89a13df692fa7d216b6cbff27d593192133c45378a8e76e"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/driver.jl.before-review",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/driver.jl.before-review",
+          "sha256": "e2a7994c7fbb9d912f05aabffa898ad9c73e0888fb360320701bb7b986e46ed1"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/export.jl",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/export.jl",
+          "sha256": "e7bcdfb789cfa87657b0dc7c6e7a4fbbb1397d35a67a213382a2b6cbe2e8b744"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/guard/entry_gate.py",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/guard/entry_gate.py",
+          "sha256": "6b1f569959d53c2d37faa0e8f6a8ebda6887ef8b6e5602db8e0b15ae5f530ff9"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/guard/guard_reviewed.py",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/guard/guard_reviewed.py",
+          "sha256": "92f1c19ded9615f8a1f8cab70bf5209d8dc9db734e9592c3bbf3f5852ee9aa67"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/guard/supervisor_reviewed.py",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/guard/supervisor_reviewed.py",
+          "sha256": "f983198c245079eafa712d1b4752a6ac56456aa91058fc469245fa77759bf0ec"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/historical-groups.json",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/historical-groups.json",
+          "sha256": "701ee4338b76005419b32b291ac015103b44250c7cedb217ff8eca7a14168bac"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/host-before-review.json",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/host-before-review.json",
+          "sha256": "d2a1df291aadbe7dec1aca16d44350cc907cb511566bd19a9dba94dda3d2c985"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/inputs.toml",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/inputs.toml",
+          "sha256": "6234dd0ec57ac95c854f4d27f6655fed0693d1f08a64710140e307fab562208a"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/library-pins.toml",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/library-pins.toml",
+          "sha256": "7af8047c8f8c39aa2cb87ac7b314454b3fafafdc09e522f125323cce5fdf86e0"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/run.py",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/run.py",
+          "sha256": "dcc84f235fbcb9f2a55ba3e97fa14f628880b7c66617141c06b5914154596691"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/source-pins.json",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/source-pins.json",
+          "sha256": "cf048189a14565d635206f5828d40f75f13aefbfbd7df72ad6f19937be97f94f"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/vendor/KLU/LICENSE",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/vendor/KLU/LICENSE",
+          "sha256": "19a4c6219260ba8bf64a90ca9641da3247744c7bcf90ea43b2c816793d33d17e"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/vendor/KLU/Project.toml",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/vendor/KLU/Project.toml",
+          "sha256": "5105279e28e7d565a81f8fdb688b5b2f5fc4e29b6e960df4157bf7792c7d41d7"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/vendor/KLU/src/KLU.jl",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/vendor/KLU/src/KLU.jl",
+          "sha256": "12b02ec9286953c970d1f6bd802054eb383e7f5555478795f343058cbd29dd50"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/vendor/KLU/src/wrappers.jl",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/vendor/KLU/src/wrappers.jl",
+          "sha256": "80741e95df39ddb3f53664d478eee3e632149685820b87d894f1fef319276603"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/vendor-provenance.json",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/vendor-provenance.json",
+          "sha256": "0ec2ad6d4f18aa742a250cf8c63b09cd261a91567380f129d91bb25deee2bcdc"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/verify.py",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/verify.py",
+          "sha256": "e1514d9684d4af9a74948bff8a39bfdcca699505e29af4009533ba2dadb6bf2a"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/julia",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/julia",
+          "sha256": "ca0ca02a2fbae8ecf7291a76b2231d02df953b3f1bc6f2a2ec41801f5a21cf2a"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libamd.so.3.3.3",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libamd.so.3.3.3",
+          "sha256": "25a9b19bb63f9dfc72ae0264d26eb08731aeda57aa60b381b17b3ab0e65fc2b1"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libbtf.so.2.3.2",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libbtf.so.2.3.2",
+          "sha256": "c1097bc81dd7495ca2fa81033878e60fe59a73ebbb6aa89f9c171b51ee3197ba"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libcamd.so.3.3.3",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libcamd.so.3.3.3",
+          "sha256": "6b7cf7ef19357bdb60d3da856e43f9da6cd92a3ad5b74a1ca7f3b568ab240ef4"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libccolamd.so.3.3.4",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libccolamd.so.3.3.4",
+          "sha256": "18447e56bfefb5ae19ee21cfdf3565d2ec158002c7d9a4ea3f7648a5208f41d2"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libcholmod.so.5.3.1",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libcholmod.so.5.3.1",
+          "sha256": "95746e0e07fd77314397f00c755f13f2ca2ef9f1b6718609b591eddaac2b05fd"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libcolamd.so.3.3.4",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libcolamd.so.3.3.4",
+          "sha256": "dae6956a8349a85a3c1f8517b6edead1ade57411bc7d57d22199102b6960682d"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libjulia-internal.so.1.13.0",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libjulia-internal.so.1.13.0",
+          "sha256": "1e01d92bd7431b31fd31b9c95bc3df796c7fbacbcc84bdbb3e9067aa0c0ec780"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libklu.so.2.3.5",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libklu.so.2.3.5",
+          "sha256": "4bee1c4607475cc1a618d47b372f86e6dfb2ed2c994e024f551aaaf16719f430"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libsuitesparseconfig.so.7.10.1",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libsuitesparseconfig.so.7.10.1",
+          "sha256": "ec7f4fb7af921ede7a836e9314bb530c34bd1119216ad8d029ca9d0be0c496bc"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libumfpack.so.6.3.5",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libumfpack.so.6.3.5",
+          "sha256": "ab4db5e6b6930084f804ce6712858a41779b992af6619bed0ad7f55dcecfc949"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/sys.so",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/sys.so",
+          "sha256": "84f975d243930d424ff384c568c2c7844412a528299c126085358aa8ac39f246"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/libjulia.so.1.13.0",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/libjulia.so.1.13.0",
+          "sha256": "66bb2b41b09db16fd79d6c80aab47a7f2e33ce6bd9e04d62dcac5482b778a73d"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/SparseArrays/src/solvers/umfpack.jl",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/SparseArrays/src/solvers/umfpack.jl",
+          "sha256": "6d40eb41958765d47b9ef60fb08fd6b61c0ee850979e3601343ce67fbe6ac84d"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/SuiteSparse_jll/Project.toml",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/SuiteSparse_jll/Project.toml",
+          "sha256": "2bf8656a8aaf79e553f6d06f11084bc0c77f585eecc0ffb02b521f6a0141d97a"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/SuiteSparse_jll/src/SuiteSparse_jll.jl",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/SuiteSparse_jll/src/SuiteSparse_jll.jl",
+          "sha256": "4998ab196ce26809b63a6f49cbd807de91b65b767c1ec69bb83c4a6cb2788ec0"
+        },
+        {
+          "bound_path": "/home/jspitz/JSimplex.jl/LocalPreferences.toml",
+          "checked_path": "/home/jspitz/JSimplex.jl/LocalPreferences.toml",
+          "sha256": "172f3f5c30b44e8fbaf126aeb0b32bba900c83069215e9aaed3b4c3314119e54"
+        },
+        {
+          "bound_path": "/home/jspitz/JSimplex.jl/Manifest.toml",
+          "checked_path": "/home/jspitz/JSimplex.jl/Manifest.toml",
+          "sha256": "bfa0397481a520ef9e793c224c9cd856b151973c6a65060132e2e792c6e13ae3"
+        },
+        {
+          "bound_path": "/home/jspitz/JSimplex.jl/Project.toml",
+          "checked_path": "/home/jspitz/JSimplex.jl/Project.toml",
+          "sha256": "8a9881836acdf490c9d2fe593372b1a067510eecdcdb21dfb8f713b53bed7d1c"
+        },
+        {
+          "bound_path": "/usr/bin/bash",
+          "checked_path": "/usr/bin/bash",
+          "sha256": "01c006568543d6b6ab9f0a57dd44b9d779d1edc437a5f5d2db0215887c19dbeb"
+        }
+      ]
+    },
+    "launch-pins.json": {
+      "count": 58,
+      "manifest_sha256": "cd2971ce706e9dada1b6b5261275af66ecfeb3dca94fc1f64141dba33b087305",
+      "all_match": true,
+      "entries": [
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/.superpowers/basis-chain-cost/histories/fast0507-1000.bin",
+          "checked_path": "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/.superpowers/basis-chain-cost/histories/fast0507-1000.bin",
+          "sha256": "da17a20746d94a36d5c48adc5e5af21865934ee89bf44538725f7d744b017c7d"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/.superpowers/basis-chain-cost/histories/runtime-30000.bin",
+          "checked_path": "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/.superpowers/basis-chain-cost/histories/runtime-30000.bin",
+          "sha256": "eff13aefe6693665694e74d6fc5c6f111d15e52752a093a600d4093211ebd28c"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/.superpowers/basis-chain-cost/histories/runtime-40000.bin",
+          "checked_path": "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/.superpowers/basis-chain-cost/histories/runtime-40000.bin",
+          "sha256": "a36fa7fc4ead36fee38361478bc98c04739bd5b756d51d4a1322ddf34ccf053c"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/.superpowers/basis-chain-cost/julia.sh",
+          "checked_path": "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/.superpowers/basis-chain-cost/julia.sh",
+          "sha256": "ac2f1d4826c8584f0772e57ea3701360770776ad2571a325ec64ecd0943ae3b3"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+          "checked_path": "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+          "sha256": "4335574f0823def6bd2e7968a5d7f2775c2b6874329ee3e1d4b2a8e119021702"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/PLAN.md",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/PLAN.md",
+          "sha256": "a2d7c79b437c67274d9a36eb11e938d4e6eb6517a22a7bd1179800a130e35eb1"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/PLAN.md.before-review",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/PLAN.md.before-review",
+          "sha256": "eb5beaf94245858ab1e13272873ed0f22464d8b6b20542e01814441dd8becc03"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/REVIEW-ADMISSION-AMENDED-BINDINGS.json",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/REVIEW-ADMISSION-AMENDED-BINDINGS.json",
+          "sha256": "0bc1c3eb2acfdc74dd34c31624d978ad81ad39d99cc2695f766b57198f566d0d"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/REVIEW-ADMISSION-BINDINGS.json",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/REVIEW-ADMISSION-BINDINGS.json",
+          "sha256": "c27f67217bdaf2d972593d68cec2351208edc4eafa2dd681cae43fb13c5a3c3d"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/REVIEW-ADMISSION-CHECKS.json",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/REVIEW-ADMISSION-CHECKS.json",
+          "sha256": "9de85a7b37af3e29c80df6d397f9448051349501689c3bcd75e90a0c37819be6"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/REVIEW-ADMISSION-FINAL-AMENDED.md",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/REVIEW-ADMISSION-FINAL-AMENDED.md",
+          "sha256": "20f2d266b9ee747efe7c315cf8486150f3f4243b54bf9e32578b3c341b801ba8"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/REVIEW-ADMISSION-FINAL.md",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/REVIEW-ADMISSION-FINAL.md",
+          "sha256": "98d427b7165f7c7f5e835cda3e63504bc645e516af3cc41e2b6ba867bf74402f"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/REVIEW-ADMISSION.md",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/REVIEW-ADMISSION.md",
+          "sha256": "cc9e714e4b88c2cf39361c7d3abd1c8b2c30096393a7fbed5edf9ef7ad88a7da"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/REVIEW-FIX.md",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/REVIEW-FIX.md",
+          "sha256": "044e73c55727d34ec03b0f9f797dd96bba3954d2afb17506519e3b0617bc775d"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/REVIEW-FIX.md.before-tests",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/REVIEW-FIX.md.before-tests",
+          "sha256": "74764b465fa31cd2080d5078b778ca57a7f29d75da46ad056423a0701d4c2d7a"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/candidate.jl",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/candidate.jl",
+          "sha256": "5d456f95fc309b4b8d488d418dd2bd477168759ba8dbf7a392cccb2d6fd4b3a6"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/candidate.jl.before-review",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/candidate.jl.before-review",
+          "sha256": "3b1533a2eae5a2a9f8042c2b01c95d9839a652226e0aa7d90ac2f943b4564502"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/command.json",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/command.json",
+          "sha256": "c91d970191047aa368ca6531a4cfcef7f263338525abb292473ab623205c3376"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/driver.jl",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/driver.jl",
+          "sha256": "ee2d1f856315a711b89a13df692fa7d216b6cbff27d593192133c45378a8e76e"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/driver.jl.before-review",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/driver.jl.before-review",
+          "sha256": "e2a7994c7fbb9d912f05aabffa898ad9c73e0888fb360320701bb7b986e46ed1"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/export.jl",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/export.jl",
+          "sha256": "e7bcdfb789cfa87657b0dc7c6e7a4fbbb1397d35a67a213382a2b6cbe2e8b744"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/guard/entry_gate.py",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/guard/entry_gate.py",
+          "sha256": "6b1f569959d53c2d37faa0e8f6a8ebda6887ef8b6e5602db8e0b15ae5f530ff9"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/guard/guard_reviewed.py",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/guard/guard_reviewed.py",
+          "sha256": "92f1c19ded9615f8a1f8cab70bf5209d8dc9db734e9592c3bbf3f5852ee9aa67"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/guard/supervisor_reviewed.py",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/guard/supervisor_reviewed.py",
+          "sha256": "f983198c245079eafa712d1b4752a6ac56456aa91058fc469245fa77759bf0ec"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/historical-groups.json",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/historical-groups.json",
+          "sha256": "701ee4338b76005419b32b291ac015103b44250c7cedb217ff8eca7a14168bac"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/host-before-launch.json",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/host-before-launch.json",
+          "sha256": "844bbc1e4391e6931f930021e181e885b6dc46bb33b2feec8d8a8ebf5ba8ebe6"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/host-before-review.json",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/host-before-review.json",
+          "sha256": "d2a1df291aadbe7dec1aca16d44350cc907cb511566bd19a9dba94dda3d2c985"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/inputs.toml",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/inputs.toml",
+          "sha256": "6234dd0ec57ac95c854f4d27f6655fed0693d1f08a64710140e307fab562208a"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/library-pins.toml",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/library-pins.toml",
+          "sha256": "7af8047c8f8c39aa2cb87ac7b314454b3fafafdc09e522f125323cce5fdf86e0"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/reviewed-source-pins.json",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/reviewed-source-pins.json",
+          "sha256": "f89d3a563968d342b154a889f5857a30748c162d848239a4c83f063c4ad771df"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/run.py",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/run.py",
+          "sha256": "dcc84f235fbcb9f2a55ba3e97fa14f628880b7c66617141c06b5914154596691"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/source-pins.json",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/source-pins.json",
+          "sha256": "cf048189a14565d635206f5828d40f75f13aefbfbd7df72ad6f19937be97f94f"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/vendor/KLU/LICENSE",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/vendor/KLU/LICENSE",
+          "sha256": "19a4c6219260ba8bf64a90ca9641da3247744c7bcf90ea43b2c816793d33d17e"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/vendor/KLU/Project.toml",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/vendor/KLU/Project.toml",
+          "sha256": "5105279e28e7d565a81f8fdb688b5b2f5fc4e29b6e960df4157bf7792c7d41d7"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/vendor/KLU/src/KLU.jl",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/vendor/KLU/src/KLU.jl",
+          "sha256": "12b02ec9286953c970d1f6bd802054eb383e7f5555478795f343058cbd29dd50"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/vendor/KLU/src/wrappers.jl",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/vendor/KLU/src/wrappers.jl",
+          "sha256": "80741e95df39ddb3f53664d478eee3e632149685820b87d894f1fef319276603"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/vendor-provenance.json",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/vendor-provenance.json",
+          "sha256": "0ec2ad6d4f18aa742a250cf8c63b09cd261a91567380f129d91bb25deee2bcdc"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/verify.py",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/verify.py",
+          "sha256": "e1514d9684d4af9a74948bff8a39bfdcca699505e29af4009533ba2dadb6bf2a"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/julia",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/julia",
+          "sha256": "ca0ca02a2fbae8ecf7291a76b2231d02df953b3f1bc6f2a2ec41801f5a21cf2a"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libamd.so.3.3.3",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libamd.so.3.3.3",
+          "sha256": "25a9b19bb63f9dfc72ae0264d26eb08731aeda57aa60b381b17b3ab0e65fc2b1"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libbtf.so.2.3.2",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libbtf.so.2.3.2",
+          "sha256": "c1097bc81dd7495ca2fa81033878e60fe59a73ebbb6aa89f9c171b51ee3197ba"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libcamd.so.3.3.3",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libcamd.so.3.3.3",
+          "sha256": "6b7cf7ef19357bdb60d3da856e43f9da6cd92a3ad5b74a1ca7f3b568ab240ef4"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libccolamd.so.3.3.4",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libccolamd.so.3.3.4",
+          "sha256": "18447e56bfefb5ae19ee21cfdf3565d2ec158002c7d9a4ea3f7648a5208f41d2"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libcholmod.so.5.3.1",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libcholmod.so.5.3.1",
+          "sha256": "95746e0e07fd77314397f00c755f13f2ca2ef9f1b6718609b591eddaac2b05fd"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libcolamd.so.3.3.4",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libcolamd.so.3.3.4",
+          "sha256": "dae6956a8349a85a3c1f8517b6edead1ade57411bc7d57d22199102b6960682d"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libjulia-internal.so.1.13.0",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libjulia-internal.so.1.13.0",
+          "sha256": "1e01d92bd7431b31fd31b9c95bc3df796c7fbacbcc84bdbb3e9067aa0c0ec780"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libklu.so.2.3.5",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libklu.so.2.3.5",
+          "sha256": "4bee1c4607475cc1a618d47b372f86e6dfb2ed2c994e024f551aaaf16719f430"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libsuitesparseconfig.so.7.10.1",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libsuitesparseconfig.so.7.10.1",
+          "sha256": "ec7f4fb7af921ede7a836e9314bb530c34bd1119216ad8d029ca9d0be0c496bc"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libumfpack.so.6.3.5",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libumfpack.so.6.3.5",
+          "sha256": "ab4db5e6b6930084f804ce6712858a41779b992af6619bed0ad7f55dcecfc949"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/sys.so",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/sys.so",
+          "sha256": "84f975d243930d424ff384c568c2c7844412a528299c126085358aa8ac39f246"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/libjulia.so.1.13.0",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/libjulia.so.1.13.0",
+          "sha256": "66bb2b41b09db16fd79d6c80aab47a7f2e33ce6bd9e04d62dcac5482b778a73d"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/SparseArrays/src/solvers/umfpack.jl",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/SparseArrays/src/solvers/umfpack.jl",
+          "sha256": "6d40eb41958765d47b9ef60fb08fd6b61c0ee850979e3601343ce67fbe6ac84d"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/SuiteSparse_jll/Project.toml",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/SuiteSparse_jll/Project.toml",
+          "sha256": "2bf8656a8aaf79e553f6d06f11084bc0c77f585eecc0ffb02b521f6a0141d97a"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/SuiteSparse_jll/src/SuiteSparse_jll.jl",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/SuiteSparse_jll/src/SuiteSparse_jll.jl",
+          "sha256": "4998ab196ce26809b63a6f49cbd807de91b65b767c1ec69bb83c4a6cb2788ec0"
+        },
+        {
+          "bound_path": "/home/jspitz/JSimplex.jl/LocalPreferences.toml",
+          "checked_path": "/home/jspitz/JSimplex.jl/LocalPreferences.toml",
+          "sha256": "172f3f5c30b44e8fbaf126aeb0b32bba900c83069215e9aaed3b4c3314119e54"
+        },
+        {
+          "bound_path": "/home/jspitz/JSimplex.jl/Manifest.toml",
+          "checked_path": "/home/jspitz/JSimplex.jl/Manifest.toml",
+          "sha256": "bfa0397481a520ef9e793c224c9cd856b151973c6a65060132e2e792c6e13ae3"
+        },
+        {
+          "bound_path": "/home/jspitz/JSimplex.jl/Project.toml",
+          "checked_path": "/home/jspitz/JSimplex.jl/Project.toml",
+          "sha256": "8a9881836acdf490c9d2fe593372b1a067510eecdcdb21dfb8f713b53bed7d1c"
+        },
+        {
+          "bound_path": "/usr/bin/bash",
+          "checked_path": "/usr/bin/bash",
+          "sha256": "01c006568543d6b6ab9f0a57dd44b9d779d1edc437a5f5d2db0215887c19dbeb"
+        }
+      ]
+    },
+    "launch-pins-2.json": {
+      "count": 68,
+      "manifest_sha256": "11845a3d389442454d5da8488f1da00d47ae04dfac8283e43ef0c738a39b7150",
+      "all_match": true,
+      "entries": [
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/.superpowers/basis-chain-cost/histories/fast0507-1000.bin",
+          "checked_path": "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/.superpowers/basis-chain-cost/histories/fast0507-1000.bin",
+          "sha256": "da17a20746d94a36d5c48adc5e5af21865934ee89bf44538725f7d744b017c7d"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/.superpowers/basis-chain-cost/histories/runtime-30000.bin",
+          "checked_path": "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/.superpowers/basis-chain-cost/histories/runtime-30000.bin",
+          "sha256": "eff13aefe6693665694e74d6fc5c6f111d15e52752a093a600d4093211ebd28c"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/.superpowers/basis-chain-cost/histories/runtime-40000.bin",
+          "checked_path": "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/.superpowers/basis-chain-cost/histories/runtime-40000.bin",
+          "sha256": "a36fa7fc4ead36fee38361478bc98c04739bd5b756d51d4a1322ddf34ccf053c"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/.superpowers/basis-chain-cost/julia.sh",
+          "checked_path": "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/.superpowers/basis-chain-cost/julia.sh",
+          "sha256": "ac2f1d4826c8584f0772e57ea3701360770776ad2571a325ec64ecd0943ae3b3"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+          "checked_path": "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+          "sha256": "4335574f0823def6bd2e7968a5d7f2775c2b6874329ee3e1d4b2a8e119021702"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/LOADFIX-ADMISSION.md",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/LOADFIX-ADMISSION.md",
+          "sha256": "30d6d8990d77edf43d38ee186ed8473c82cc84b1f90a19cfa2a9e17e921f6ab3"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/PLAN.md",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/PLAN.md",
+          "sha256": "a2d7c79b437c67274d9a36eb11e938d4e6eb6517a22a7bd1179800a130e35eb1"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/PLAN.md.before-review",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/PLAN.md.before-review",
+          "sha256": "eb5beaf94245858ab1e13272873ed0f22464d8b6b20542e01814441dd8becc03"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/REVIEW-ADMISSION-AMENDED-BINDINGS.json",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/REVIEW-ADMISSION-AMENDED-BINDINGS.json",
+          "sha256": "0bc1c3eb2acfdc74dd34c31624d978ad81ad39d99cc2695f766b57198f566d0d"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/REVIEW-ADMISSION-BINDINGS.json",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/REVIEW-ADMISSION-BINDINGS.json",
+          "sha256": "c27f67217bdaf2d972593d68cec2351208edc4eafa2dd681cae43fb13c5a3c3d"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/REVIEW-ADMISSION-CHECKS.json",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/REVIEW-ADMISSION-CHECKS.json",
+          "sha256": "9de85a7b37af3e29c80df6d397f9448051349501689c3bcd75e90a0c37819be6"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/REVIEW-ADMISSION-FINAL-AMENDED.md",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/REVIEW-ADMISSION-FINAL-AMENDED.md",
+          "sha256": "20f2d266b9ee747efe7c315cf8486150f3f4243b54bf9e32578b3c341b801ba8"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/REVIEW-ADMISSION-FINAL.md",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/REVIEW-ADMISSION-FINAL.md",
+          "sha256": "98d427b7165f7c7f5e835cda3e63504bc645e516af3cc41e2b6ba867bf74402f"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/REVIEW-ADMISSION.md",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/REVIEW-ADMISSION.md",
+          "sha256": "cc9e714e4b88c2cf39361c7d3abd1c8b2c30096393a7fbed5edf9ef7ad88a7da"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/REVIEW-FIX.md",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/REVIEW-FIX.md",
+          "sha256": "044e73c55727d34ec03b0f9f797dd96bba3954d2afb17506519e3b0617bc775d"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/REVIEW-FIX.md.before-tests",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/REVIEW-FIX.md.before-tests",
+          "sha256": "74764b465fa31cd2080d5078b778ca57a7f29d75da46ad056423a0701d4c2d7a"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/REVIEW-LOADFIX-ADMISSION.md",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/REVIEW-LOADFIX-ADMISSION.md",
+          "sha256": "89e71ff12b1ba3f65766676e823b91da77ceabee6a71ca412beea5f455694396"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/REVIEW-LOADFIX-BINDINGS.json",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/REVIEW-LOADFIX-BINDINGS.json",
+          "sha256": "a9c6b15e08fa3766f062a9b409bd46ac3cc9cd6d653f7ca7d13b11ed62cdd8f4"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/REVIEW-LOADFIX-CHECKS.json",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/REVIEW-LOADFIX-CHECKS.json",
+          "sha256": "af30d078af3299a0c59cf5451e5c2f81f0875369bb0b21e70039991e16e7d176"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/candidate-loadfix.jl",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/candidate-loadfix.jl",
+          "sha256": "1f83850b83cbfae4564f17509c95e0b7b306b359a2dad051bf182871f3eecc2a"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/candidate.jl",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/candidate.jl",
+          "sha256": "5d456f95fc309b4b8d488d418dd2bd477168759ba8dbf7a392cccb2d6fd4b3a6"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/candidate.jl.before-review",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/candidate.jl.before-review",
+          "sha256": "3b1533a2eae5a2a9f8042c2b01c95d9839a652226e0aa7d90ac2f943b4564502"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/command-2.json",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/command-2.json",
+          "sha256": "7f4235bc1f3b6a8d1e77f9deab7baf734dd79265cba91e20317460202b463a38"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/command.json",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/command.json",
+          "sha256": "c91d970191047aa368ca6531a4cfcef7f263338525abb292473ab623205c3376"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/driver-loadfix.jl",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/driver-loadfix.jl",
+          "sha256": "7e1d77d6bced0d5c44f302eef0c029cf9d33ce34705e67484b885de89910e8dd"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/driver.jl",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/driver.jl",
+          "sha256": "ee2d1f856315a711b89a13df692fa7d216b6cbff27d593192133c45378a8e76e"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/driver.jl.before-review",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/driver.jl.before-review",
+          "sha256": "e2a7994c7fbb9d912f05aabffa898ad9c73e0888fb360320701bb7b986e46ed1"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/export.jl",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/export.jl",
+          "sha256": "e7bcdfb789cfa87657b0dc7c6e7a4fbbb1397d35a67a213382a2b6cbe2e8b744"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/guard/entry_gate.py",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/guard/entry_gate.py",
+          "sha256": "6b1f569959d53c2d37faa0e8f6a8ebda6887ef8b6e5602db8e0b15ae5f530ff9"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/guard/guard_reviewed.py",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/guard/guard_reviewed.py",
+          "sha256": "92f1c19ded9615f8a1f8cab70bf5209d8dc9db734e9592c3bbf3f5852ee9aa67"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/guard/supervisor_reviewed.py",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/guard/supervisor_reviewed.py",
+          "sha256": "f983198c245079eafa712d1b4752a6ac56456aa91058fc469245fa77759bf0ec"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/historical-groups.json",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/historical-groups.json",
+          "sha256": "701ee4338b76005419b32b291ac015103b44250c7cedb217ff8eca7a14168bac"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/host-before-launch-2.json",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/host-before-launch-2.json",
+          "sha256": "74791af52b5c31b63e0a6f09786f0b6c1cde7996b6e564164c61aa0441d67076"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/host-before-launch.json",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/host-before-launch.json",
+          "sha256": "844bbc1e4391e6931f930021e181e885b6dc46bb33b2feec8d8a8ebf5ba8ebe6"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/host-before-review.json",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/host-before-review.json",
+          "sha256": "d2a1df291aadbe7dec1aca16d44350cc907cb511566bd19a9dba94dda3d2c985"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/inputs.toml",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/inputs.toml",
+          "sha256": "6234dd0ec57ac95c854f4d27f6655fed0693d1f08a64710140e307fab562208a"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/launch-pins.json",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/launch-pins.json",
+          "sha256": "cd2971ce706e9dada1b6b5261275af66ecfeb3dca94fc1f64141dba33b087305"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/library-pins.toml",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/library-pins.toml",
+          "sha256": "7af8047c8f8c39aa2cb87ac7b314454b3fafafdc09e522f125323cce5fdf86e0"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/reviewed-source-pins.json",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/reviewed-source-pins.json",
+          "sha256": "f89d3a563968d342b154a889f5857a30748c162d848239a4c83f063c4ad771df"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/run.py",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/run.py",
+          "sha256": "dcc84f235fbcb9f2a55ba3e97fa14f628880b7c66617141c06b5914154596691"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/source-pins.json",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/source-pins.json",
+          "sha256": "cf048189a14565d635206f5828d40f75f13aefbfbd7df72ad6f19937be97f94f"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/vendor/KLU/LICENSE",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/vendor/KLU/LICENSE",
+          "sha256": "19a4c6219260ba8bf64a90ca9641da3247744c7bcf90ea43b2c816793d33d17e"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/vendor/KLU/Project.toml",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/vendor/KLU/Project.toml",
+          "sha256": "5105279e28e7d565a81f8fdb688b5b2f5fc4e29b6e960df4157bf7792c7d41d7"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/vendor/KLU/src/KLU.jl",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/vendor/KLU/src/KLU.jl",
+          "sha256": "12b02ec9286953c970d1f6bd802054eb383e7f5555478795f343058cbd29dd50"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/vendor/KLU/src/wrappers.jl",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/vendor/KLU/src/wrappers.jl",
+          "sha256": "80741e95df39ddb3f53664d478eee3e632149685820b87d894f1fef319276603"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/vendor-provenance.json",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/vendor-provenance.json",
+          "sha256": "0ec2ad6d4f18aa742a250cf8c63b09cd261a91567380f129d91bb25deee2bcdc"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/verify-loadfix.py",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/verify-loadfix.py",
+          "sha256": "0b4b5a14bd334d8b5f544e892c5af0d92c83237967a7de442b0c4650d00ef4ef"
+        },
+        {
+          "bound_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/verify.py",
+          "checked_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/verify.py",
+          "sha256": "e1514d9684d4af9a74948bff8a39bfdcca699505e29af4009533ba2dadb6bf2a"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/julia",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/julia",
+          "sha256": "ca0ca02a2fbae8ecf7291a76b2231d02df953b3f1bc6f2a2ec41801f5a21cf2a"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libamd.so.3.3.3",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libamd.so.3.3.3",
+          "sha256": "25a9b19bb63f9dfc72ae0264d26eb08731aeda57aa60b381b17b3ab0e65fc2b1"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libbtf.so.2.3.2",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libbtf.so.2.3.2",
+          "sha256": "c1097bc81dd7495ca2fa81033878e60fe59a73ebbb6aa89f9c171b51ee3197ba"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libcamd.so.3.3.3",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libcamd.so.3.3.3",
+          "sha256": "6b7cf7ef19357bdb60d3da856e43f9da6cd92a3ad5b74a1ca7f3b568ab240ef4"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libccolamd.so.3.3.4",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libccolamd.so.3.3.4",
+          "sha256": "18447e56bfefb5ae19ee21cfdf3565d2ec158002c7d9a4ea3f7648a5208f41d2"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libcholmod.so.5.3.1",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libcholmod.so.5.3.1",
+          "sha256": "95746e0e07fd77314397f00c755f13f2ca2ef9f1b6718609b591eddaac2b05fd"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libcolamd.so.3.3.4",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libcolamd.so.3.3.4",
+          "sha256": "dae6956a8349a85a3c1f8517b6edead1ade57411bc7d57d22199102b6960682d"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libjulia-internal.so.1.13.0",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libjulia-internal.so.1.13.0",
+          "sha256": "1e01d92bd7431b31fd31b9c95bc3df796c7fbacbcc84bdbb3e9067aa0c0ec780"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libklu.so.2.3.5",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libklu.so.2.3.5",
+          "sha256": "4bee1c4607475cc1a618d47b372f86e6dfb2ed2c994e024f551aaaf16719f430"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libsuitesparseconfig.so.7.10.1",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libsuitesparseconfig.so.7.10.1",
+          "sha256": "ec7f4fb7af921ede7a836e9314bb530c34bd1119216ad8d029ca9d0be0c496bc"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libumfpack.so.6.3.5",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libumfpack.so.6.3.5",
+          "sha256": "ab4db5e6b6930084f804ce6712858a41779b992af6619bed0ad7f55dcecfc949"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/sys.so",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/sys.so",
+          "sha256": "84f975d243930d424ff384c568c2c7844412a528299c126085358aa8ac39f246"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/libjulia.so.1.13.0",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/libjulia.so.1.13.0",
+          "sha256": "66bb2b41b09db16fd79d6c80aab47a7f2e33ce6bd9e04d62dcac5482b778a73d"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/SparseArrays/src/solvers/umfpack.jl",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/SparseArrays/src/solvers/umfpack.jl",
+          "sha256": "6d40eb41958765d47b9ef60fb08fd6b61c0ee850979e3601343ce67fbe6ac84d"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/SuiteSparse_jll/Project.toml",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/SuiteSparse_jll/Project.toml",
+          "sha256": "2bf8656a8aaf79e553f6d06f11084bc0c77f585eecc0ffb02b521f6a0141d97a"
+        },
+        {
+          "bound_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/SuiteSparse_jll/src/SuiteSparse_jll.jl",
+          "checked_path": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/SuiteSparse_jll/src/SuiteSparse_jll.jl",
+          "sha256": "4998ab196ce26809b63a6f49cbd807de91b65b767c1ec69bb83c4a6cb2788ec0"
+        },
+        {
+          "bound_path": "/home/jspitz/JSimplex.jl/LocalPreferences.toml",
+          "checked_path": "/home/jspitz/JSimplex.jl/LocalPreferences.toml",
+          "sha256": "172f3f5c30b44e8fbaf126aeb0b32bba900c83069215e9aaed3b4c3314119e54"
+        },
+        {
+          "bound_path": "/home/jspitz/JSimplex.jl/Manifest.toml",
+          "checked_path": "/home/jspitz/JSimplex.jl/Manifest.toml",
+          "sha256": "bfa0397481a520ef9e793c224c9cd856b151973c6a65060132e2e792c6e13ae3"
+        },
+        {
+          "bound_path": "/home/jspitz/JSimplex.jl/Project.toml",
+          "checked_path": "/home/jspitz/JSimplex.jl/Project.toml",
+          "sha256": "8a9881836acdf490c9d2fe593372b1a067510eecdcdb21dfb8f713b53bed7d1c"
+        },
+        {
+          "bound_path": "/usr/bin/bash",
+          "checked_path": "/usr/bin/bash",
+          "sha256": "01c006568543d6b6ab9f0a57dd44b9d779d1edc437a5f5d2db0215887c19dbeb"
+        }
+      ]
+    }
+  },
+  "limits": "Recorded summaries checked independently; original output vectors and captured query IDs are not serialized in results. No Julia or benchmark executed.",
+  "reviewed_artifacts": {
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/REPORT.md": "07387da7369e90f3f3f4bb0ee6cdeff105b7ca21a777af4d550accd9d2535b37",
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/PLAN.md": "a2d7c79b437c67274d9a36eb11e938d4e6eb6517a22a7bd1179800a130e35eb1",
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/LOADFIX-ADMISSION.md": "30d6d8990d77edf43d38ee186ed8473c82cc84b1f90a19cfa2a9e17e921f6ab3",
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/REVIEW-ADMISSION-FINAL-AMENDED.md": "20f2d266b9ee747efe7c315cf8486150f3f4243b54bf9e32578b3c341b801ba8",
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/REVIEW-LOADFIX-ADMISSION.md": "89e71ff12b1ba3f65766676e823b91da77ceabee6a71ca412beea5f455694396",
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/candidate-loadfix.jl": "1f83850b83cbfae4564f17509c95e0b7b306b359a2dad051bf182871f3eecc2a",
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/driver-loadfix.jl": "7e1d77d6bced0d5c44f302eef0c029cf9d33ce34705e67484b885de89910e8dd",
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/export.jl": "e7bcdfb789cfa87657b0dc7c6e7a4fbbb1397d35a67a213382a2b6cbe2e8b744",
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/verify-loadfix.py": "0b4b5a14bd334d8b5f544e892c5af0d92c83237967a7de442b0c4650d00ef4ef",
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/results-2.toml": "0a6ccff8e7a3e39786df38bece635d8684f14479075dd6216e4433737697ada9",
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/analysis-2.json": "e0aba9657cf1c8f642de2de1b66ec02559195d93b25a49008d6c2c92226156df",
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/samples-2.csv": "bef2a5ae9f1d8259192aadd6120f7df404fdb0fc7077f51a83fcb57dc9045bc5",
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/REPORT.md.before-result-review": "0a124cbe6a2ffddb6b96d28281d491acd797711c37a829855ef17f15497df8f5"
+  },
+  "findings": {
+    "critical": [],
+    "important": [],
+    "minor_resolved": [
+      "REPORT.md labels query-position counts as distinct queries; unique entering-column IDs are not recorded/established. Relabel as query positions/window."
+    ],
+    "minor": []
+  }
+}

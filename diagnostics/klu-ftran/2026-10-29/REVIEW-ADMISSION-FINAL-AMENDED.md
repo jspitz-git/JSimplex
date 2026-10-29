@@ -1,0 +1,23 @@
+# Independent final admission — bounded test amendment
+
+**Accepted for exactly one unchanged fixed diagnostic attempt under a shared ceiling <=1800s, conditional on fresh launch pins and immediately preceding host preflight. No Critical or Important finding remains.** This document supersedes REVIEW-ADMISSION-FINAL.md for launch binding, because a test-only driver amendment arrived while that earlier final review was being saved. Preserve both; neither old evidence nor reviewed bytes were rewritten by this reviewer.
+
+The accepted executable fixes remain exactly those independently reviewed in REVIEW-ADMISSION-FINAL.md: UInt32(0) epoch initialization and eliminating the full control's redundant n-element work clear while retaining local clearing. The corrected PLAN descriptions of L/U sorting, native-order F and exported-only work counters are unchanged. No numerical expectations, eligibility threshold, input, measured case/count, scheduling, guard or production code changed.
+
+I independently read the exact driver.jl.before-review/current diff. It only adds a50-row dense entering column to the already forced GraphContext microtest, asserts route3, checks equality with the independent native reference on the simple upper-chain matrix, and rejects dense_ftran! destination c2.work. These are three additional cold assertions and two additional small solves; no timed window changes. This closes the eligible dense-producer fallback coverage gap for correctness. Timed dense256 still intentionally measures NativeOnly eligibility bypass, and unknown-dense fallback remains untimed. No Julia/import/query/compile/native numerical work was executed for this review.
+
+All **52/52 reviewed-source-pins.json bindings** independently match resolved inventory files and SHA-256. Its SHA-256 is `f89d3a563968d342b154a889f5857a30748c162d848239a4c83f063c4ad771df`. All **43/43 original bindings** also match when only candidate.jl, PLAN.md and driver.jl are mapped to their preserved `.before-review` files; every other original binding stays live. Initial source-pins.json remains `cf048189a14565d635206f5828d40f75f13aefbfbd7df72ad6f19937be97f94f`. Complete recheck evidence is REVIEW-ADMISSION-AMENDED-BINDINGS.json.
+
+Current exact hashes:
+
+- candidate.jl: `5d456f95fc309b4b8d488d418dd2bd477168759ba8dbf7a392cccb2d6fd4b3a6`
+- PLAN.md: `a2d7c79b437c67274d9a36eb11e938d4e6eb6517a22a7bd1179800a130e35eb1`
+- driver.jl: `ee2d1f856315a711b89a13df692fa7d216b6cbff27d593192133c45378a8e76e`
+- verify.py: `e1514d9684d4af9a74948bff8a39bfdcca699505e29af4009533ba2dadb6bf2a`
+- REVIEW-FIX.md: `044e73c55727d34ec03b0f9f797dd96bba3954d2afb17506519e3b0617bc775d`
+
+The initial review's mathematical/alias/lifetime/guard analysis and the earlier final's offline-verifier limits remain applicable. The fixed schedule is12 cases/489 queries per cycle,2934 cold whole calls,23472 warm and58680 measured, plus separately bounded tiny microtests/setup. No full residual/hash/certification scan enters timing. Compile/recompile must be zero in measured samples. Verify.py checks recorded scalar numeric evidence and exact names/aggregate/sample counts; it does not independently recompute vectors or replay query scheduling. Native counters0 do not mean zero work; budget fallback costs sunk exported work plus a full native solve. Native plus owned exports duplicates factor storage. Both costs must appear in results reporting.
+
+**No unnecessary NEW production work or memory cost was introduced: production code is unchanged.** The one material avoidable diagnostic scan was removed. No other material avoidable diagnostic work/retained memory was found for the bounded stated scope. Setup, compilation, dense fills/scatters, source rereads, heap work, allocations/GC, factor/export duplication and fallback must remain charged. There is no measured speed or numerical-success claim before execution.
+
+Create/verify fresh immutable launch-pins.json including these current sources, verify.py, this amended final review and frozen provenance/evidence. Launch only the reviewed bytecode-disabled Python `run.py comparison-1 command.json launch-pins.json 1800 0` (or smaller shared ceiling) after fresh host check. Retain one Julia/BLAS thread, existing modules, heap hint2GiB, VM8GiB, RAM>=6GiB/swap<=1GiB, full historic PGID/session absence, sole-owner lock, gate publication/parent-death signal and PIDFD cleanup. Require actual ordinary Test success, numerical/enclosure/count/compilation/library/pin checks and complete postflight group/session closure before accepting results. This admission authorizes no retry, timeout extension, production change or end-to-end solver performance conclusion.

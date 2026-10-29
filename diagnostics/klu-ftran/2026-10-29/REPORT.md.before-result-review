@@ -1,0 +1,54 @@
+# Fixed-base graph-local KLU FTRAN — results and decision
+
+The isolated FTRAN spike is numerically qualified on the captured fixed bases and shows a useful repeated-call saving on the four long runtime windows. It is **not admitted to production**: its one-off preparation is expensive, retained exports duplicate native factors, signed zeros differ, and neither complete update-chain integration nor whole-solver speed was measured. The next useful step is bounded source attribution/removal of setup cost before considering integration, not a dynamic SCC/update project or an automatic rollout.
+
+## What ran
+
+One successful guarded comparison-2 process: 25.172s inclusive, ordinary Test **5022/5022**, exit0, 138 offline checks, 68 immutable launch bindings unchanged. Twelve fixed cases, 489 query columns per cold cycle; 2934 cold, 23472 warm and **58680 measured whole calls**, plus bounded microtests. Native reference, all-block exported Julia control, and local exported Julia candidate; same pinned KLU2.3.5 tol1/AMD/BTF/scaleSUM policy, fresh private factors. Two warm rounds and five measured rounds, each8 fixed-window repeats, rotating arm order; measured compile/recompile and GC were all zero. This is original entering-column FTRAN on a fixed **full** KLU base, before PFI/ordinary triangular update history; no BTRAN, direct-lower-only backend, public LP solve or changed production policy.
+
+The separately admitted first process comparison-1 failed in2.144s while including candidate.jl: ambiguous Julia `-1./...` syntax. Main, input loading, factors, tests and benchmark were not reached. Its exit1/rejected supervisor/58 unchanged pins/raw source and all reviews remain frozen. Separate candidate-loadfix.jl changes exactly that expression to `-1.0 / ...`; driver-loadfix.jl changes only include target, verifier/command only fresh filenames. REVIEW-LOADFIX-ADMISSION.md authorizes comparison-2 specifically. No failed numerical run was relabeled or discarded.
+
+## Whole-call time
+
+Ratios are paired local/native time, five rounds; <1 is faster. Calls include RHS fill/scatter, overlap guards, work clear, sparse gather/scale, heap/dependency propagation, block solves, final full Q scatter and scalar route/checksum observations. The all-block control avoids a redundant full work clear found and removed in admission review. L/U exports are sorted; F keeps native extraction order. Both exported arms use identical order within visited blocks. Native packed order can differ.
+
+| fixed base | distinct queries | native µs/call median | local µs/call median | paired local/native median (range) | local/full median |
+|---|---:|---:|---:|---:|---:|
+| runtime-30000-B0 | 80 | 182.46 | 152.10 | 0.8340 (0.8111–0.8553) | 0.5161 |
+| runtime-30000-B80 | 80 | 189.82 | 163.91 | 0.8845 (0.8236–0.9220) | 0.5402 |
+| runtime-30000-B160 | 1 | 212.31 | 168.81 | 0.7638 (0.6690–0.8279) | 0.5376 |
+| runtime-40000-B0 | 80 | 223.76 | 179.37 | 0.8016 (0.7894–0.8172) | 0.5360 |
+| runtime-40000-B80 | 80 | 244.03 | 193.55 | 0.7931 (0.7557–0.8191) | 0.5607 |
+| runtime-40000-B160 | 1 | 241.11 | 217.99 | 0.9011 (0.8902–1.2514) | 0.6319 |
+
+The four80-column runtime windows give paired medians **0.793–0.885**, about12–21% less repeated-call time; every one of their measured pairs was faster. The B160 windows contain only one distinct subsequent query, repeated8 times per sample: timings are short, one runtime40000 pair is1.2514 (slower), and these rows are not representative80-column evidence. Local/all-block exported medians0.516–0.632 show that skipping work has an effect independent of using Julia instead of C, but exported full/native1.407–1.637 also shows the full Julia control itself is slower than native.
+
+All runtime query calls selected the local path, no budget/nonfinite fallback. The coupled256 forced control took local for2 of3 queries and native budget fallback for1; the partial exported work plus native solve remained timed. `processed_blocks/weight` report only exported Julia work, not total native work; native paths with0 counters still perform a full native solve. Full weights are source-derived coefficient/division visits, not independent flop instrumentation.
+
+Default fast0507(n484), dense256 and irreducible sparse256 bypass export entirely using NativeOnly. Their observed local/native medians0.892–1.000 are **not optimization gains**: the method is identical, factors are independent, and candidate full/local share a context used twice per round versus one reference use. They reveal timing/cache/context variation. Full/local also share exported buffers in eligible cases, so cache effects/order and five imperfectly balanced rounds limit native comparisons. No end-to-end or universal speedup is claimed.
+
+## Setup, allocations and retained memory
+
+Warm factor+context preparation was measured separately once per arm/case, with zero compilation; this single setup observation is not a paired setup benchmark. Candidate runtime preparation26.1–29.9ms versus native9.3–16.9ms; extra9.2–18.4ms. Aggregate allocation traffic20.2–21.6MB and approximately571–577thousand events versus native2.47–2.62MB/18events. These counters can include native allocations via Julia callbacks; their precise allocation-site attribution is **not captured**. Do not assign them to a particular loop or allocator without evidence.
+
+Measured native batches allocate112B/2events, eligible candidate208B/4events. Both numbers are invariant across batches of8 and640 calls in these data: the observed extra96B/2events is per batch, not evidence of96B per solve, and there is no allocation-growth signal per repeated solve. The batch explicitly creates a7-element route counter vector and returns scalar statistics. This is whole-call+batch accounting, not a separate isolated zero-allocation solve measurement. All cold checks/digests/directed bounds/GC/setup occur outside those windows.
+
+Runtime candidate private export+scratch primitive payload6.03–7.37MB versus reference RHS0.228MB, extra **5.53–6.81MiB**. Julia-reachable wrapper graph grows from2.47–2.62MB to8.27–9.76MB (includes headers/native input CSC owners). Native reported retained size is unchanged per pair,6.44–7.80MB, additional to Julia graph and excluding unspecified hidden/native allocator or OS retention effects. The native factor is intentionally retained for BTRAN/fallback; exports cannot be advertised as free. One-process peak RSS644592KiB covers compilation, captures and checks too; it is not per-context native memory or a free-balance proof.
+
+A rough arithmetic amortization of the single observed extra setup time against each case's median per-call saving gives about211–699 FTRANs per fixed base, about286–655 for the four long windows. This is a conditional estimate, not a measured public-solver break-even: reuse frequency, actual refactorization, non-entering RHS, BTRAN/update histories and mixed-call caches were not exercised. At80 solves the additional setup cost would exceed the observed repeated-call saving. Therefore the current implementation does **not** establish a net speedup for the demonstrated80-column lifecycle.
+
+## Numerical and ownership evidence
+
+Every cold query/cycle/arm passed original-B finite scaled residual <=min(1e-10,128*n*eps64). Maximum across all controls/cases1.6654e-16; runtime maxima<=3.513e-18. Local/native maximum relative difference1.1111e-11 (limit1e-6). First query of each case/arm has a separate256-bit directed residual enclosure:36 bounds pass; this is a diagnostic oracle, not increased production precision. Both cold cycles and before/after A/B/export hashes passed. No public certificate or complete hidden trajectory was tested.
+
+Local vs full exported results match nonzero bits; both-zero values are allowed by this spike's oracle. Runtime signed-zero mismatches are numerous (approximately2.69–2.87million over the160 long-window comparisons per case), and are explicitly counted. They come within an omission experiment; this is **not** signed-zero or general scalar-observability equivalence. This limitation alone prevents automatic production replacement under a stronger original contract. Small bypass arms have identical local/native results; this does not expand optimized precision/backend scope.
+
+Cold microtests cover dependency order, partial budget fallback, epoch rollover, private and partial unsafe_wrap alias rejection before mutation, source preservation, independent scratch, actual new-factor replacement invalidation, singular replacement preservation, Inf/NaN/-zero and scaling-overflow fallback with later reuse, eligible dense-column fallback, unknown-support fallback/alias rejection and an intentionally perturbed output rejected by the residual oracle. Contexts are single caller, own private arrays/indices; arbitrary external field mutation/concurrent use is excluded. No copy/update lifecycle generality, native rollback/free, or callback ownership proof is inferred.
+
+The offline verifier checks all case/count/stat/pin/guard constraints and recorded numeric summaries. It does not independently recompute output vectors or replay captured query columns (vectors are not serialized); correctness relies on ordinary Test plus source-bound actual calls. All old artifacts are preserved. Source43 bindings map only candidate/PLAN/driver to their before-review copies; reviewed52, launch1=58 and launch2=68 remain unchanged. Superseded final review maps its old driver to driver.jl.before-review and its old fix text to REVIEW-FIX.md.before-tests, whose exact old review hash verifies the reconstructed text. Only REVIEW-ADMISSION-FINAL-AMENDED.md and then distinct REVIEW-LOADFIX-ADMISSION.md are operative admissions.
+
+## Decision and remaining work
+
+Keep the candidate isolated. This experiment found a concrete repeated-call saving on runtime with numerical residual qualification, together with enough setup/memory/observability cost to withhold integration. Investigate preparation allocation sites from source first; a future measured preparation change needs its own specific candidate/review. If net lifecycle saving becomes plausible, qualify normal full-base FTRAN/update-chain lifetime and signed-zero contract explicitly before production work. No threshold tuning, dynamic block maintenance, new LP solve, BTRAN optimization or repeat measurement was performed here. Resource guard collected25 samples, minimum available RAM22044860KiB, maximum swap0KiB; full719 historical/current groups AND sessions absent after run, no Julia. No production/permanent test/environment/CI/master change; HH reuse remains disabled.
+
+Raw results: results-2.toml; 180 measured sample records in samples-2.csv; analysis-2.json; successful comparison-2 guard log/process/resources, failed comparison-1 evidence, immutable manifests and independent reviews accompany this report.

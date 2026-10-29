@@ -1,0 +1,20 @@
+ERROR: LoadError: ParseError:
+# Error @ /home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/candidate.jl:145:42
+        else
+            pos=c.rowpos[e-size(A,2)];z=-1./p.Rs[pos];isfinite(z)||return native!(dest,c,5)
+#                                        └┘ ── ambiguous `.` syntax; add whitespace to clarify (eg `1.+2` might be `1.0+2` or `1 .+ 2`)
+Stacktrace:
+ [1] top-level scope
+   @ ~/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/candidate.jl:145
+ [2] include(mapexpr::Function, mod::Module, _path::String)
+   @ Base ./Base.jl:310
+ [3] top-level scope
+   @ ~/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/driver.jl:4
+ [4] include(mod::Module, _path::String)
+   @ Base ./Base.jl:309
+ [5] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:344
+ [6] _start()
+   @ Base ./client.jl:577
+in expression starting at /home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/candidate.jl:145
+in expression starting at /home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-ftran/2026-10-29/driver.jl:4
