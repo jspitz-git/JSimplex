@@ -1,0 +1,6957 @@
+loaded_libraries = ["/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libamd.so.3.3.3", "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libsuitesparseconfig.so.7.10.1", "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libcolamd.so.3.3.4", "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libbtf.so.2.3.2", "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libklu.so.2.3.5", "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libumfpack.so.6.3.5"]
+scope = "fixed-basis backend comparison, not simplex/update speedup"
+KLU_version = [2, 3, 5]
+completed = true
+
+[[samples]]
+arm = "UMFPACK-one"
+measured = false
+transpose_calls = 8
+output_hash = "d3132226f58c47ef931f2682c354324299d60e2c72c2a1a20f431de027a8a0ba"
+forward_calls = 16
+round = 1
+residuals = [8.265543090869397e-20, 9.82811732140347e-19, 1.0463155521520411e-17]
+case = "runtime-30000-B0"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0016386
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0146186
+    bytes = 23961136
+    compile_seconds = 0.0
+    events = 83
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0043753
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = false
+transpose_calls = 8
+output_hash = "454030f359db29fad9f03817ea80c489ce3da959515ef52ecacdaa389a5ad777"
+forward_calls = 16
+round = 1
+residuals = [1.5587035163078875e-19, 1.965623464280662e-18, 8.216823920433733e-18]
+case = "runtime-30000-B0"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0018439
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0098318
+    bytes = 13564360
+    compile_seconds = 0.0
+    events = 1310
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0035689
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = false
+transpose_calls = 8
+output_hash = "454030f359db29fad9f03817ea80c489ce3da959515ef52ecacdaa389a5ad777"
+forward_calls = 16
+round = 2
+residuals = [1.5587035163078875e-19, 1.965623464280662e-18, 8.216823920433733e-18]
+case = "runtime-30000-B0"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0016749
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0101415
+    bytes = 13564408
+    compile_seconds = 0.0
+    events = 1310
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.003324
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = false
+transpose_calls = 8
+output_hash = "d3132226f58c47ef931f2682c354324299d60e2c72c2a1a20f431de027a8a0ba"
+forward_calls = 16
+round = 2
+residuals = [8.265543090869397e-20, 9.82811732140347e-19, 1.0463155521520411e-17]
+case = "runtime-30000-B0"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0016699
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0128894
+    bytes = 23957360
+    compile_seconds = 0.0
+    events = 83
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0045433
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "d3132226f58c47ef931f2682c354324299d60e2c72c2a1a20f431de027a8a0ba"
+forward_calls = 64
+round = 3
+residuals = [8.265543090869397e-20, 9.82811732140347e-19, 1.0463155521520411e-17]
+case = "runtime-30000-B0"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0062258
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0120004
+    bytes = 23957360
+    compile_seconds = 0.0
+    events = 83
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0171876
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "454030f359db29fad9f03817ea80c489ce3da959515ef52ecacdaa389a5ad777"
+forward_calls = 64
+round = 3
+residuals = [1.5587035163078875e-19, 1.965623464280662e-18, 8.216823920433733e-18]
+case = "runtime-30000-B0"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0067251
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0106957
+    bytes = 13564456
+    compile_seconds = 0.0
+    events = 1310
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0131503
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "454030f359db29fad9f03817ea80c489ce3da959515ef52ecacdaa389a5ad777"
+forward_calls = 64
+round = 4
+residuals = [1.5587035163078875e-19, 1.965623464280662e-18, 8.216823920433733e-18]
+case = "runtime-30000-B0"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0061337
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0105497
+    bytes = 13564344
+    compile_seconds = 0.0
+    events = 1310
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.013098401
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "d3132226f58c47ef931f2682c354324299d60e2c72c2a1a20f431de027a8a0ba"
+forward_calls = 64
+round = 4
+residuals = [8.265543090869397e-20, 9.82811732140347e-19, 1.0463155521520411e-17]
+case = "runtime-30000-B0"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0080693
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0117977
+    bytes = 23957312
+    compile_seconds = 0.0
+    events = 83
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0157577
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "d3132226f58c47ef931f2682c354324299d60e2c72c2a1a20f431de027a8a0ba"
+forward_calls = 64
+round = 5
+residuals = [8.265543090869397e-20, 9.82811732140347e-19, 1.0463155521520411e-17]
+case = "runtime-30000-B0"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.006114
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0124378
+    bytes = 23957312
+    compile_seconds = 0.0
+    events = 83
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.015394
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "454030f359db29fad9f03817ea80c489ce3da959515ef52ecacdaa389a5ad777"
+forward_calls = 64
+round = 5
+residuals = [1.5587035163078875e-19, 1.965623464280662e-18, 8.216823920433733e-18]
+case = "runtime-30000-B0"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0082158
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.010195
+    bytes = 13564440
+    compile_seconds = 0.0
+    events = 1310
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0124529
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "454030f359db29fad9f03817ea80c489ce3da959515ef52ecacdaa389a5ad777"
+forward_calls = 64
+round = 6
+residuals = [1.5587035163078875e-19, 1.965623464280662e-18, 8.216823920433733e-18]
+case = "runtime-30000-B0"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0071768
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0100007
+    bytes = 13564264
+    compile_seconds = 0.0
+    events = 1310
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0123869
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "d3132226f58c47ef931f2682c354324299d60e2c72c2a1a20f431de027a8a0ba"
+forward_calls = 64
+round = 6
+residuals = [8.265543090869397e-20, 9.82811732140347e-19, 1.0463155521520411e-17]
+case = "runtime-30000-B0"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0066181
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0120632
+    bytes = 23957312
+    compile_seconds = 0.0
+    events = 83
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0156742
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "d3132226f58c47ef931f2682c354324299d60e2c72c2a1a20f431de027a8a0ba"
+forward_calls = 64
+round = 7
+residuals = [8.265543090869397e-20, 9.82811732140347e-19, 1.0463155521520411e-17]
+case = "runtime-30000-B0"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0063563
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0114392
+    bytes = 23957312
+    compile_seconds = 0.0
+    events = 83
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.015711
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "454030f359db29fad9f03817ea80c489ce3da959515ef52ecacdaa389a5ad777"
+forward_calls = 64
+round = 7
+residuals = [1.5587035163078875e-19, 1.965623464280662e-18, 8.216823920433733e-18]
+case = "runtime-30000-B0"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0067041
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0101738
+    bytes = 13564440
+    compile_seconds = 0.0
+    events = 1310
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0137778
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = false
+transpose_calls = 8
+output_hash = "ebb003a446729ae9b6f3f3ae6f6ac38224945a1b8a2c67e65859450176891165"
+forward_calls = 16
+round = 1
+residuals = [1.250680747257658e-18, 8.25357247286665e-19, 1.4700772145929557e-17]
+case = "runtime-30000-B80"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0017165
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0122949
+    bytes = 24485936
+    compile_seconds = 0.0
+    events = 83
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0040944
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = false
+transpose_calls = 8
+output_hash = "8211bd7cebad3affc3558be63b70f9ef3ae9be2ebe46e2c45cdc009172efde13"
+forward_calls = 16
+round = 1
+residuals = [3.9954956815760785e-19, 1.1555001462013233e-18, 1.662857985466913e-17]
+case = "runtime-30000-B80"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0018077
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0104646
+    bytes = 13681976
+    compile_seconds = 0.0
+    events = 1283
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0040067
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = false
+transpose_calls = 8
+output_hash = "8211bd7cebad3affc3558be63b70f9ef3ae9be2ebe46e2c45cdc009172efde13"
+forward_calls = 16
+round = 2
+residuals = [3.9954956815760785e-19, 1.1555001462013233e-18, 1.662857985466913e-17]
+case = "runtime-30000-B80"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0020088
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0100516
+    bytes = 13681864
+    compile_seconds = 0.0
+    events = 1283
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0035714
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = false
+transpose_calls = 8
+output_hash = "ebb003a446729ae9b6f3f3ae6f6ac38224945a1b8a2c67e65859450176891165"
+forward_calls = 16
+round = 2
+residuals = [1.250680747257658e-18, 8.25357247286665e-19, 1.4700772145929557e-17]
+case = "runtime-30000-B80"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0016152
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0132988
+    bytes = 24485936
+    compile_seconds = 0.0
+    events = 83
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0047318
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "ebb003a446729ae9b6f3f3ae6f6ac38224945a1b8a2c67e65859450176891165"
+forward_calls = 64
+round = 3
+residuals = [1.250680747257658e-18, 8.25357247286665e-19, 1.4700772145929557e-17]
+case = "runtime-30000-B80"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0062331
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0126365
+    bytes = 24485936
+    compile_seconds = 0.0
+    events = 83
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.016364
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "8211bd7cebad3affc3558be63b70f9ef3ae9be2ebe46e2c45cdc009172efde13"
+forward_calls = 64
+round = 3
+residuals = [3.9954956815760785e-19, 1.1555001462013233e-18, 1.662857985466913e-17]
+case = "runtime-30000-B80"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0068786
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.014557
+    bytes = 13681928
+    compile_seconds = 0.0
+    events = 1283
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0131213
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "8211bd7cebad3affc3558be63b70f9ef3ae9be2ebe46e2c45cdc009172efde13"
+forward_calls = 64
+round = 4
+residuals = [3.9954956815760785e-19, 1.1555001462013233e-18, 1.662857985466913e-17]
+case = "runtime-30000-B80"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.007204
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0108675
+    bytes = 13681896
+    compile_seconds = 0.0
+    events = 1283
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.013743
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "ebb003a446729ae9b6f3f3ae6f6ac38224945a1b8a2c67e65859450176891165"
+forward_calls = 64
+round = 4
+residuals = [1.250680747257658e-18, 8.25357247286665e-19, 1.4700772145929557e-17]
+case = "runtime-30000-B80"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0064132
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0130689
+    bytes = 24485936
+    compile_seconds = 0.0
+    events = 83
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0157279
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "ebb003a446729ae9b6f3f3ae6f6ac38224945a1b8a2c67e65859450176891165"
+forward_calls = 64
+round = 5
+residuals = [1.250680747257658e-18, 8.25357247286665e-19, 1.4700772145929557e-17]
+case = "runtime-30000-B80"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0067938
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.013095
+    bytes = 24485936
+    compile_seconds = 0.0
+    events = 83
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.016285001
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "8211bd7cebad3affc3558be63b70f9ef3ae9be2ebe46e2c45cdc009172efde13"
+forward_calls = 64
+round = 5
+residuals = [3.9954956815760785e-19, 1.1555001462013233e-18, 1.662857985466913e-17]
+case = "runtime-30000-B80"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0073252
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0106906
+    bytes = 13681928
+    compile_seconds = 0.0
+    events = 1283
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0131432
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "8211bd7cebad3affc3558be63b70f9ef3ae9be2ebe46e2c45cdc009172efde13"
+forward_calls = 64
+round = 6
+residuals = [3.9954956815760785e-19, 1.1555001462013233e-18, 1.662857985466913e-17]
+case = "runtime-30000-B80"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0064722
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0108398
+    bytes = 13681880
+    compile_seconds = 0.0
+    events = 1283
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0131896
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "ebb003a446729ae9b6f3f3ae6f6ac38224945a1b8a2c67e65859450176891165"
+forward_calls = 64
+round = 6
+residuals = [1.250680747257658e-18, 8.25357247286665e-19, 1.4700772145929557e-17]
+case = "runtime-30000-B80"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0066203
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0123347
+    bytes = 24485936
+    compile_seconds = 0.0
+    events = 83
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0164091
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "ebb003a446729ae9b6f3f3ae6f6ac38224945a1b8a2c67e65859450176891165"
+forward_calls = 64
+round = 7
+residuals = [1.250680747257658e-18, 8.25357247286665e-19, 1.4700772145929557e-17]
+case = "runtime-30000-B80"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0067391
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0118837
+    bytes = 24485936
+    compile_seconds = 0.0
+    events = 83
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0164486
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "8211bd7cebad3affc3558be63b70f9ef3ae9be2ebe46e2c45cdc009172efde13"
+forward_calls = 64
+round = 7
+residuals = [3.9954956815760785e-19, 1.1555001462013233e-18, 1.662857985466913e-17]
+case = "runtime-30000-B80"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0079317
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0114774
+    bytes = 13681944
+    compile_seconds = 0.0
+    events = 1283
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0154708
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = false
+transpose_calls = 8
+output_hash = "3069408dc274f4a312cd4012142cd71b218c0e124789ee89daf66dfb7007bce3"
+forward_calls = 16
+round = 1
+residuals = [1.9740342296325816e-20, 8.16210992086387e-19, 8.829960598202357e-18]
+case = "runtime-30000-B160"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0017834
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0136345
+    bytes = 27317232
+    compile_seconds = 0.0
+    events = 84
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0041423
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = false
+transpose_calls = 8
+output_hash = "88054f19c09c6ef5a761b2fb44c507f716bc5d44a071fe89b82e27e26d265d4b"
+forward_calls = 16
+round = 1
+residuals = [8.225142623469085e-19, 4.897265952518331e-19, 1.8291628277381727e-18]
+case = "runtime-30000-B160"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0018049
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0105663
+    bytes = 13709904
+    compile_seconds = 0.0
+    events = 1309
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0034609
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = false
+transpose_calls = 8
+output_hash = "88054f19c09c6ef5a761b2fb44c507f716bc5d44a071fe89b82e27e26d265d4b"
+forward_calls = 16
+round = 2
+residuals = [8.225142623469085e-19, 4.897265952518331e-19, 1.8291628277381727e-18]
+case = "runtime-30000-B160"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0018036
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0094691
+    bytes = 13709904
+    compile_seconds = 0.0
+    events = 1309
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.00349
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = false
+transpose_calls = 8
+output_hash = "3069408dc274f4a312cd4012142cd71b218c0e124789ee89daf66dfb7007bce3"
+forward_calls = 16
+round = 2
+residuals = [1.9740342296325816e-20, 8.16210992086387e-19, 8.829960598202357e-18]
+case = "runtime-30000-B160"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0016637
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0143546
+    bytes = 27317232
+    compile_seconds = 0.0
+    events = 84
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0043018
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "3069408dc274f4a312cd4012142cd71b218c0e124789ee89daf66dfb7007bce3"
+forward_calls = 64
+round = 3
+residuals = [1.9740342296325816e-20, 8.16210992086387e-19, 8.829960598202357e-18]
+case = "runtime-30000-B160"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.006261
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0142134
+    bytes = 27317232
+    compile_seconds = 0.0
+    events = 84
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.015819401
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "88054f19c09c6ef5a761b2fb44c507f716bc5d44a071fe89b82e27e26d265d4b"
+forward_calls = 64
+round = 3
+residuals = [8.225142623469085e-19, 4.897265952518331e-19, 1.8291628277381727e-18]
+case = "runtime-30000-B160"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0067175
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0108073
+    bytes = 13709920
+    compile_seconds = 0.0
+    events = 1309
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0141592
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "88054f19c09c6ef5a761b2fb44c507f716bc5d44a071fe89b82e27e26d265d4b"
+forward_calls = 64
+round = 4
+residuals = [8.225142623469085e-19, 4.897265952518331e-19, 1.8291628277381727e-18]
+case = "runtime-30000-B160"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0074357
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0123069
+    bytes = 13709904
+    compile_seconds = 0.0
+    events = 1309
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0127284
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "3069408dc274f4a312cd4012142cd71b218c0e124789ee89daf66dfb7007bce3"
+forward_calls = 64
+round = 4
+residuals = [1.9740342296325816e-20, 8.16210992086387e-19, 8.829960598202357e-18]
+case = "runtime-30000-B160"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0064235
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.013286401
+    bytes = 27317232
+    compile_seconds = 0.0
+    events = 84
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0159376
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "3069408dc274f4a312cd4012142cd71b218c0e124789ee89daf66dfb7007bce3"
+forward_calls = 64
+round = 5
+residuals = [1.9740342296325816e-20, 8.16210992086387e-19, 8.829960598202357e-18]
+case = "runtime-30000-B160"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0063708
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0129315
+    bytes = 27317232
+    compile_seconds = 0.0
+    events = 84
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0174622
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "88054f19c09c6ef5a761b2fb44c507f716bc5d44a071fe89b82e27e26d265d4b"
+forward_calls = 64
+round = 5
+residuals = [8.225142623469085e-19, 4.897265952518331e-19, 1.8291628277381727e-18]
+case = "runtime-30000-B160"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0068211
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0140975
+    bytes = 13709920
+    compile_seconds = 0.0
+    events = 1309
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0153469
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "88054f19c09c6ef5a761b2fb44c507f716bc5d44a071fe89b82e27e26d265d4b"
+forward_calls = 64
+round = 6
+residuals = [8.225142623469085e-19, 4.897265952518331e-19, 1.8291628277381727e-18]
+case = "runtime-30000-B160"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0069774
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0107032
+    bytes = 13709904
+    compile_seconds = 0.0
+    events = 1309
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0137341
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "3069408dc274f4a312cd4012142cd71b218c0e124789ee89daf66dfb7007bce3"
+forward_calls = 64
+round = 6
+residuals = [1.9740342296325816e-20, 8.16210992086387e-19, 8.829960598202357e-18]
+case = "runtime-30000-B160"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0065277
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0176123
+    bytes = 27317232
+    compile_seconds = 0.0
+    events = 84
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0187025
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "3069408dc274f4a312cd4012142cd71b218c0e124789ee89daf66dfb7007bce3"
+forward_calls = 64
+round = 7
+residuals = [1.9740342296325816e-20, 8.16210992086387e-19, 8.829960598202357e-18]
+case = "runtime-30000-B160"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0120129
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.014324001
+    bytes = 27317232
+    compile_seconds = 0.0
+    events = 84
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0167178
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "88054f19c09c6ef5a761b2fb44c507f716bc5d44a071fe89b82e27e26d265d4b"
+forward_calls = 64
+round = 7
+residuals = [8.225142623469085e-19, 4.897265952518331e-19, 1.8291628277381727e-18]
+case = "runtime-30000-B160"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0076292
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0103379
+    bytes = 13709920
+    compile_seconds = 0.0
+    events = 1309
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0153845
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = false
+transpose_calls = 8
+output_hash = "244895e43c7ae4f5f6bc016bd188ee4f8769395ec61c3aa0e2b2039af22e9a9a"
+forward_calls = 16
+round = 1
+residuals = [1.3950104608391537e-19, 1.748552851753642e-18, 8.114411015638338e-18]
+case = "runtime-40000-B0"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0020287
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0170849
+    bytes = 29161584
+    compile_seconds = 0.0
+    events = 84
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.004958801
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = false
+transpose_calls = 8
+output_hash = "76eeb07d2b16846681189974be9c8d11d05bf4507fde40c4109027dda4572f1f"
+forward_calls = 16
+round = 1
+residuals = [6.9750523041957445e-19, 1.7485528517536202e-19, 3.373370876306186e-18]
+case = "runtime-40000-B0"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0021633
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0150978
+    bytes = 15245576
+    compile_seconds = 0.0
+    events = 1614
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.004651
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = false
+transpose_calls = 8
+output_hash = "76eeb07d2b16846681189974be9c8d11d05bf4507fde40c4109027dda4572f1f"
+forward_calls = 16
+round = 2
+residuals = [6.9750523041957445e-19, 1.7485528517536202e-19, 3.373370876306186e-18]
+case = "runtime-40000-B0"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0021528
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0143499
+    bytes = 15245688
+    compile_seconds = 0.0
+    events = 1614
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0043404
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = false
+transpose_calls = 8
+output_hash = "244895e43c7ae4f5f6bc016bd188ee4f8769395ec61c3aa0e2b2039af22e9a9a"
+forward_calls = 16
+round = 2
+residuals = [1.3950104608391537e-19, 1.748552851753642e-18, 8.114411015638338e-18]
+case = "runtime-40000-B0"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.002282801
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0168267
+    bytes = 29161584
+    compile_seconds = 0.0
+    events = 84
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0066174
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "244895e43c7ae4f5f6bc016bd188ee4f8769395ec61c3aa0e2b2039af22e9a9a"
+forward_calls = 64
+round = 3
+residuals = [1.3950104608391537e-19, 1.748552851753642e-18, 8.114411015638338e-18]
+case = "runtime-40000-B0"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0076012
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.015252
+    bytes = 29161584
+    compile_seconds = 0.0
+    events = 84
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0209639
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "76eeb07d2b16846681189974be9c8d11d05bf4507fde40c4109027dda4572f1f"
+forward_calls = 64
+round = 3
+residuals = [6.9750523041957445e-19, 1.7485528517536202e-19, 3.373370876306186e-18]
+case = "runtime-40000-B0"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.008119801
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.015921
+    bytes = 15245608
+    compile_seconds = 0.0
+    events = 1614
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0158866
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "76eeb07d2b16846681189974be9c8d11d05bf4507fde40c4109027dda4572f1f"
+forward_calls = 64
+round = 4
+residuals = [6.9750523041957445e-19, 1.7485528517536202e-19, 3.373370876306186e-18]
+case = "runtime-40000-B0"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.008290201
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.012927401
+    bytes = 15245640
+    compile_seconds = 0.0
+    events = 1614
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.015890601
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "244895e43c7ae4f5f6bc016bd188ee4f8769395ec61c3aa0e2b2039af22e9a9a"
+forward_calls = 64
+round = 4
+residuals = [1.3950104608391537e-19, 1.748552851753642e-18, 8.114411015638338e-18]
+case = "runtime-40000-B0"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.007655601
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.015371501
+    bytes = 29161584
+    compile_seconds = 0.0
+    events = 84
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.019489101
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "244895e43c7ae4f5f6bc016bd188ee4f8769395ec61c3aa0e2b2039af22e9a9a"
+forward_calls = 64
+round = 5
+residuals = [1.3950104608391537e-19, 1.748552851753642e-18, 8.114411015638338e-18]
+case = "runtime-40000-B0"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0081808
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.016095301
+    bytes = 29161584
+    compile_seconds = 0.0
+    events = 84
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.019647902
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "76eeb07d2b16846681189974be9c8d11d05bf4507fde40c4109027dda4572f1f"
+forward_calls = 64
+round = 5
+residuals = [6.9750523041957445e-19, 1.7485528517536202e-19, 3.373370876306186e-18]
+case = "runtime-40000-B0"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0086552
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.013229401
+    bytes = 15245720
+    compile_seconds = 0.0
+    events = 1614
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.016258602
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "76eeb07d2b16846681189974be9c8d11d05bf4507fde40c4109027dda4572f1f"
+forward_calls = 64
+round = 6
+residuals = [6.9750523041957445e-19, 1.7485528517536202e-19, 3.373370876306186e-18]
+case = "runtime-40000-B0"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.008155001
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.014087101
+    bytes = 15245672
+    compile_seconds = 0.0
+    events = 1614
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.015280001
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "244895e43c7ae4f5f6bc016bd188ee4f8769395ec61c3aa0e2b2039af22e9a9a"
+forward_calls = 64
+round = 6
+residuals = [1.3950104608391537e-19, 1.748552851753642e-18, 8.114411015638338e-18]
+case = "runtime-40000-B0"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0080438
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.015968001
+    bytes = 29161584
+    compile_seconds = 0.0
+    events = 84
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.018958602
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "244895e43c7ae4f5f6bc016bd188ee4f8769395ec61c3aa0e2b2039af22e9a9a"
+forward_calls = 64
+round = 7
+residuals = [1.3950104608391537e-19, 1.748552851753642e-18, 8.114411015638338e-18]
+case = "runtime-40000-B0"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.007804901
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.016412601
+    bytes = 29161584
+    compile_seconds = 0.0
+    events = 84
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.019755602
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "76eeb07d2b16846681189974be9c8d11d05bf4507fde40c4109027dda4572f1f"
+forward_calls = 64
+round = 7
+residuals = [6.9750523041957445e-19, 1.7485528517536202e-19, 3.373370876306186e-18]
+case = "runtime-40000-B0"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.008162601
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.013893501
+    bytes = 15245592
+    compile_seconds = 0.0
+    events = 1614
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.016043001
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = false
+transpose_calls = 8
+output_hash = "81b0497055090439d827d88918864b643825f362390e42eb4382d547c191cd16"
+forward_calls = 16
+round = 1
+residuals = [1.1349081256870979e-19, 3.837506463381002e-18, 1.774636566529164e-17]
+case = "runtime-40000-B80"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.001928401
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.017101601
+    bytes = 28783456
+    compile_seconds = 0.0
+    events = 84
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0049055
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = false
+transpose_calls = 8
+output_hash = "57394453b2c3457d01b422a2b6a8d04b0f828c06f9d9c1ee81226118d84a66c8"
+forward_calls = 16
+round = 1
+residuals = [3.4047243770612945e-19, 3.68991006094327e-19, 4.626532662600453e-18]
+case = "runtime-40000-B80"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0023676
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.017411602
+    bytes = 15520112
+    compile_seconds = 0.0
+    events = 1615
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0049353
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = false
+transpose_calls = 8
+output_hash = "57394453b2c3457d01b422a2b6a8d04b0f828c06f9d9c1ee81226118d84a66c8"
+forward_calls = 16
+round = 2
+residuals = [3.4047243770612945e-19, 3.68991006094327e-19, 4.626532662600453e-18]
+case = "runtime-40000-B80"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0026511
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.016124902
+    bytes = 15520224
+    compile_seconds = 0.0
+    events = 1615
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0066754
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = false
+transpose_calls = 8
+output_hash = "81b0497055090439d827d88918864b643825f362390e42eb4382d547c191cd16"
+forward_calls = 16
+round = 2
+residuals = [1.1349081256870979e-19, 3.837506463381002e-18, 1.774636566529164e-17]
+case = "runtime-40000-B80"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.002184601
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.019300802
+    bytes = 28783456
+    compile_seconds = 0.0
+    events = 84
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0057349
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "81b0497055090439d827d88918864b643825f362390e42eb4382d547c191cd16"
+forward_calls = 64
+round = 3
+residuals = [1.1349081256870979e-19, 3.837506463381002e-18, 1.774636566529164e-17]
+case = "runtime-40000-B80"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0074591
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.019923001
+    bytes = 28783456
+    compile_seconds = 0.0
+    events = 84
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.020368702
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "57394453b2c3457d01b422a2b6a8d04b0f828c06f9d9c1ee81226118d84a66c8"
+forward_calls = 64
+round = 3
+residuals = [3.4047243770612945e-19, 3.68991006094327e-19, 4.626532662600453e-18]
+case = "runtime-40000-B80"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.009319201
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.035787703
+    bytes = 15520208
+    compile_seconds = 0.0
+    events = 1615
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.018955101
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "57394453b2c3457d01b422a2b6a8d04b0f828c06f9d9c1ee81226118d84a66c8"
+forward_calls = 64
+round = 4
+residuals = [3.4047243770612945e-19, 3.68991006094327e-19, 4.626532662600453e-18]
+case = "runtime-40000-B80"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.009493701
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.016984102
+    bytes = 15520192
+    compile_seconds = 0.0
+    events = 1615
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.020542701
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "81b0497055090439d827d88918864b643825f362390e42eb4382d547c191cd16"
+forward_calls = 64
+round = 4
+residuals = [1.1349081256870979e-19, 3.837506463381002e-18, 1.774636566529164e-17]
+case = "runtime-40000-B80"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0075889
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.015304201
+    bytes = 28783456
+    compile_seconds = 0.0
+    events = 84
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.019141102
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "81b0497055090439d827d88918864b643825f362390e42eb4382d547c191cd16"
+forward_calls = 64
+round = 5
+residuals = [1.1349081256870979e-19, 3.837506463381002e-18, 1.774636566529164e-17]
+case = "runtime-40000-B80"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.007278501
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.016047901
+    bytes = 28783456
+    compile_seconds = 0.0
+    events = 84
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.019095402
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "57394453b2c3457d01b422a2b6a8d04b0f828c06f9d9c1ee81226118d84a66c8"
+forward_calls = 64
+round = 5
+residuals = [3.4047243770612945e-19, 3.68991006094327e-19, 4.626532662600453e-18]
+case = "runtime-40000-B80"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.010100301
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.015518901
+    bytes = 15520160
+    compile_seconds = 0.0
+    events = 1615
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.017340501
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "57394453b2c3457d01b422a2b6a8d04b0f828c06f9d9c1ee81226118d84a66c8"
+forward_calls = 64
+round = 6
+residuals = [3.4047243770612945e-19, 3.68991006094327e-19, 4.626532662600453e-18]
+case = "runtime-40000-B80"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.009222701
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.014674801
+    bytes = 15520192
+    compile_seconds = 0.0
+    events = 1615
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.016795101
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "81b0497055090439d827d88918864b643825f362390e42eb4382d547c191cd16"
+forward_calls = 64
+round = 6
+residuals = [1.1349081256870979e-19, 3.837506463381002e-18, 1.774636566529164e-17]
+case = "runtime-40000-B80"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0084145
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.015802601
+    bytes = 28783456
+    compile_seconds = 0.0
+    events = 84
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.019074902
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "81b0497055090439d827d88918864b643825f362390e42eb4382d547c191cd16"
+forward_calls = 64
+round = 7
+residuals = [1.1349081256870979e-19, 3.837506463381002e-18, 1.774636566529164e-17]
+case = "runtime-40000-B80"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.007624201
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.015733002
+    bytes = 28783456
+    compile_seconds = 0.0
+    events = 84
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.019405301
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "57394453b2c3457d01b422a2b6a8d04b0f828c06f9d9c1ee81226118d84a66c8"
+forward_calls = 64
+round = 7
+residuals = [3.4047243770612945e-19, 3.68991006094327e-19, 4.626532662600453e-18]
+case = "runtime-40000-B80"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.008620601
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.014516801
+    bytes = 15520192
+    compile_seconds = 0.0
+    events = 1615
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.016930301
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = false
+transpose_calls = 8
+output_hash = "bb0b5ad7421a27fae6a8d99e823f076c13f2a1bf26f0f486bde7fb06716c438e"
+forward_calls = 16
+round = 1
+residuals = [1.9308446606425538e-19, 1.6285546883013579e-18, 1.2504566291332141e-17]
+case = "runtime-40000-B160"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.001825401
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.015158701
+    bytes = 27490016
+    compile_seconds = 0.0
+    events = 84
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0047877
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = false
+transpose_calls = 8
+output_hash = "1fa06762c06bf46a0b8b22dcdef5a5cc0a935e671425fe479fe12d9c8ebce5ed"
+forward_calls = 16
+round = 1
+residuals = [3.8616893212851014e-19, 1.3959040185440285e-18, 4.4829434609841936e-18]
+case = "runtime-40000-B160"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0020206
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.014024002
+    bytes = 15124624
+    compile_seconds = 0.0
+    events = 1626
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0043216
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = false
+transpose_calls = 8
+output_hash = "1fa06762c06bf46a0b8b22dcdef5a5cc0a935e671425fe479fe12d9c8ebce5ed"
+forward_calls = 16
+round = 2
+residuals = [3.8616893212851014e-19, 1.3959040185440285e-18, 4.4829434609841936e-18]
+case = "runtime-40000-B160"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.002452701
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.012665701
+    bytes = 15124688
+    compile_seconds = 0.0
+    events = 1626
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0044254
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = false
+transpose_calls = 8
+output_hash = "bb0b5ad7421a27fae6a8d99e823f076c13f2a1bf26f0f486bde7fb06716c438e"
+forward_calls = 16
+round = 2
+residuals = [1.9308446606425538e-19, 1.6285546883013579e-18, 1.2504566291332141e-17]
+case = "runtime-40000-B160"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0019445
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.013943602
+    bytes = 27490016
+    compile_seconds = 0.0
+    events = 84
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0047047
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "bb0b5ad7421a27fae6a8d99e823f076c13f2a1bf26f0f486bde7fb06716c438e"
+forward_calls = 64
+round = 3
+residuals = [1.9308446606425538e-19, 1.6285546883013579e-18, 1.2504566291332141e-17]
+case = "runtime-40000-B160"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0071634
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.015181301
+    bytes = 27490016
+    compile_seconds = 0.0
+    events = 84
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.018438502
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "1fa06762c06bf46a0b8b22dcdef5a5cc0a935e671425fe479fe12d9c8ebce5ed"
+forward_calls = 64
+round = 3
+residuals = [3.8616893212851014e-19, 1.3959040185440285e-18, 4.4829434609841936e-18]
+case = "runtime-40000-B160"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.007768401
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.011924601
+    bytes = 15124688
+    compile_seconds = 0.0
+    events = 1626
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.016213501
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "1fa06762c06bf46a0b8b22dcdef5a5cc0a935e671425fe479fe12d9c8ebce5ed"
+forward_calls = 64
+round = 4
+residuals = [3.8616893212851014e-19, 1.3959040185440285e-18, 4.4829434609841936e-18]
+case = "runtime-40000-B160"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.007369501
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.012032101
+    bytes = 15124736
+    compile_seconds = 0.0
+    events = 1626
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.015276101
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "bb0b5ad7421a27fae6a8d99e823f076c13f2a1bf26f0f486bde7fb06716c438e"
+forward_calls = 64
+round = 4
+residuals = [1.9308446606425538e-19, 1.6285546883013579e-18, 1.2504566291332141e-17]
+case = "runtime-40000-B160"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.007577301
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.018217501
+    bytes = 27490016
+    compile_seconds = 0.0
+    events = 84
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.018017401
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "bb0b5ad7421a27fae6a8d99e823f076c13f2a1bf26f0f486bde7fb06716c438e"
+forward_calls = 64
+round = 5
+residuals = [1.9308446606425538e-19, 1.6285546883013579e-18, 1.2504566291332141e-17]
+case = "runtime-40000-B160"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0074856
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.014979301
+    bytes = 27490016
+    compile_seconds = 0.0
+    events = 84
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.018391202
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "1fa06762c06bf46a0b8b22dcdef5a5cc0a935e671425fe479fe12d9c8ebce5ed"
+forward_calls = 64
+round = 5
+residuals = [3.8616893212851014e-19, 1.3959040185440285e-18, 4.4829434609841936e-18]
+case = "runtime-40000-B160"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.010243401
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.014267901
+    bytes = 15124640
+    compile_seconds = 0.0
+    events = 1626
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.017841802
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "1fa06762c06bf46a0b8b22dcdef5a5cc0a935e671425fe479fe12d9c8ebce5ed"
+forward_calls = 64
+round = 6
+residuals = [3.8616893212851014e-19, 1.3959040185440285e-18, 4.4829434609841936e-18]
+case = "runtime-40000-B160"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.009432401
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.013955301
+    bytes = 15124720
+    compile_seconds = 0.0
+    events = 1626
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.016536401
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "bb0b5ad7421a27fae6a8d99e823f076c13f2a1bf26f0f486bde7fb06716c438e"
+forward_calls = 64
+round = 6
+residuals = [1.9308446606425538e-19, 1.6285546883013579e-18, 1.2504566291332141e-17]
+case = "runtime-40000-B160"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0083684
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.017334301
+    bytes = 27490016
+    compile_seconds = 0.0
+    events = 84
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.040338504
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "bb0b5ad7421a27fae6a8d99e823f076c13f2a1bf26f0f486bde7fb06716c438e"
+forward_calls = 64
+round = 7
+residuals = [1.9308446606425538e-19, 1.6285546883013579e-18, 1.2504566291332141e-17]
+case = "runtime-40000-B160"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.007343901
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.016172401
+    bytes = 27490016
+    compile_seconds = 0.0
+    events = 84
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.019016802
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "1fa06762c06bf46a0b8b22dcdef5a5cc0a935e671425fe479fe12d9c8ebce5ed"
+forward_calls = 64
+round = 7
+residuals = [3.8616893212851014e-19, 1.3959040185440285e-18, 4.4829434609841936e-18]
+case = "runtime-40000-B160"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.008262
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.012771101
+    bytes = 15124640
+    compile_seconds = 0.0
+    events = 1626
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.016112101
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = false
+transpose_calls = 8
+output_hash = "55b784ed59d86f21d2e545f67bc2f0c092f664581663c142bc26ece0026d61ec"
+forward_calls = 16
+round = 1
+residuals = [2.4330236965867075e-17, 3.731991576188885e-17, 6.003285679082327e-17]
+case = "fast0507-1000-B0"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 4.58e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0005909
+    bytes = 674288
+    compile_seconds = 0.0
+    events = 84
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 7.27e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = false
+transpose_calls = 8
+output_hash = "afdfcff4de1c4b0ab9d5089cba9e90eaf21b6398d6639fd3c25d82da8529e447"
+forward_calls = 16
+round = 1
+residuals = [2.797977251074718e-17, 4.306144126371817e-17, 3.2745194613176125e-17]
+case = "fast0507-1000-B0"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 5.07e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0004485
+    bytes = 367584
+    compile_seconds = 0.0
+    events = 51
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 7.12e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = false
+transpose_calls = 8
+output_hash = "afdfcff4de1c4b0ab9d5089cba9e90eaf21b6398d6639fd3c25d82da8529e447"
+forward_calls = 16
+round = 2
+residuals = [2.797977251074718e-17, 4.306144126371817e-17, 3.2745194613176125e-17]
+case = "fast0507-1000-B0"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 4.12e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0004743
+    bytes = 367584
+    compile_seconds = 0.0
+    events = 51
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 7.31e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = false
+transpose_calls = 8
+output_hash = "55b784ed59d86f21d2e545f67bc2f0c092f664581663c142bc26ece0026d61ec"
+forward_calls = 16
+round = 2
+residuals = [2.4330236965867075e-17, 3.731991576188885e-17, 6.003285679082327e-17]
+case = "fast0507-1000-B0"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 4.37e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0005763
+    bytes = 674288
+    compile_seconds = 0.0
+    events = 84
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 7.18e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "55b784ed59d86f21d2e545f67bc2f0c092f664581663c142bc26ece0026d61ec"
+forward_calls = 64
+round = 3
+residuals = [2.4330236965867075e-17, 3.731991576188885e-17, 6.003285679082327e-17]
+case = "fast0507-1000-B0"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001323
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0005746
+    bytes = 674288
+    compile_seconds = 0.0
+    events = 84
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.000245701
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "afdfcff4de1c4b0ab9d5089cba9e90eaf21b6398d6639fd3c25d82da8529e447"
+forward_calls = 64
+round = 3
+residuals = [2.797977251074718e-17, 4.306144126371817e-17, 3.2745194613176125e-17]
+case = "fast0507-1000-B0"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001359
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0004369
+    bytes = 367584
+    compile_seconds = 0.0
+    events = 51
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.000246
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "afdfcff4de1c4b0ab9d5089cba9e90eaf21b6398d6639fd3c25d82da8529e447"
+forward_calls = 64
+round = 4
+residuals = [2.797977251074718e-17, 4.306144126371817e-17, 3.2745194613176125e-17]
+case = "fast0507-1000-B0"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001365
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0003901
+    bytes = 367584
+    compile_seconds = 0.0
+    events = 51
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0002636
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "55b784ed59d86f21d2e545f67bc2f0c092f664581663c142bc26ece0026d61ec"
+forward_calls = 64
+round = 4
+residuals = [2.4330236965867075e-17, 3.731991576188885e-17, 6.003285679082327e-17]
+case = "fast0507-1000-B0"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001268
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0005591
+    bytes = 674288
+    compile_seconds = 0.0
+    events = 84
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0002539
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "55b784ed59d86f21d2e545f67bc2f0c092f664581663c142bc26ece0026d61ec"
+forward_calls = 64
+round = 5
+residuals = [2.4330236965867075e-17, 3.731991576188885e-17, 6.003285679082327e-17]
+case = "fast0507-1000-B0"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001233
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0005422
+    bytes = 674288
+    compile_seconds = 0.0
+    events = 84
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.000227
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "afdfcff4de1c4b0ab9d5089cba9e90eaf21b6398d6639fd3c25d82da8529e447"
+forward_calls = 64
+round = 5
+residuals = [2.797977251074718e-17, 4.306144126371817e-17, 3.2745194613176125e-17]
+case = "fast0507-1000-B0"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001393
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0004172
+    bytes = 367584
+    compile_seconds = 0.0
+    events = 51
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0002534
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "afdfcff4de1c4b0ab9d5089cba9e90eaf21b6398d6639fd3c25d82da8529e447"
+forward_calls = 64
+round = 6
+residuals = [2.797977251074718e-17, 4.306144126371817e-17, 3.2745194613176125e-17]
+case = "fast0507-1000-B0"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001392
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0004286
+    bytes = 367584
+    compile_seconds = 0.0
+    events = 51
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0002556
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "55b784ed59d86f21d2e545f67bc2f0c092f664581663c142bc26ece0026d61ec"
+forward_calls = 64
+round = 6
+residuals = [2.4330236965867075e-17, 3.731991576188885e-17, 6.003285679082327e-17]
+case = "fast0507-1000-B0"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001259
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0005562
+    bytes = 674288
+    compile_seconds = 0.0
+    events = 84
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0002274
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "55b784ed59d86f21d2e545f67bc2f0c092f664581663c142bc26ece0026d61ec"
+forward_calls = 64
+round = 7
+residuals = [2.4330236965867075e-17, 3.731991576188885e-17, 6.003285679082327e-17]
+case = "fast0507-1000-B0"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001276
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0006045
+    bytes = 674288
+    compile_seconds = 0.0
+    events = 84
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0002335
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "afdfcff4de1c4b0ab9d5089cba9e90eaf21b6398d6639fd3c25d82da8529e447"
+forward_calls = 64
+round = 7
+residuals = [2.797977251074718e-17, 4.306144126371817e-17, 3.2745194613176125e-17]
+case = "fast0507-1000-B0"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001444
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0003972
+    bytes = 367584
+    compile_seconds = 0.0
+    events = 51
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0002462
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = false
+transpose_calls = 8
+output_hash = "391aef9cd26aa58230c9b558712e921997bf9db764d69782816e70c24d0b8555"
+forward_calls = 16
+round = 1
+residuals = [4.4408920985006455e-17, 5.981311191745758e-17, 7.922305032012911e-17]
+case = "fast0507-1000-B80"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 8.55e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0005423
+    bytes = 612944
+    compile_seconds = 0.0
+    events = 83
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 8.65e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = false
+transpose_calls = 8
+output_hash = "ece512a2152447ccb0478efb6c5fb7b13da816ff31b52133dc16eceb31904af6"
+forward_calls = 16
+round = 1
+residuals = [3.272552563783004e-17, 2.981338911773568e-17, 6.575134883634335e-17]
+case = "fast0507-1000-B80"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 4.73e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0004355
+    bytes = 435664
+    compile_seconds = 0.0
+    events = 46
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 8.3e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = false
+transpose_calls = 8
+output_hash = "ece512a2152447ccb0478efb6c5fb7b13da816ff31b52133dc16eceb31904af6"
+forward_calls = 16
+round = 2
+residuals = [3.272552563783004e-17, 2.981338911773568e-17, 6.575134883634335e-17]
+case = "fast0507-1000-B80"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 4.56e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0004176
+    bytes = 435664
+    compile_seconds = 0.0
+    events = 46
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 8.18e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = false
+transpose_calls = 8
+output_hash = "391aef9cd26aa58230c9b558712e921997bf9db764d69782816e70c24d0b8555"
+forward_calls = 16
+round = 2
+residuals = [4.4408920985006455e-17, 5.981311191745758e-17, 7.922305032012911e-17]
+case = "fast0507-1000-B80"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 4.81e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0005762
+    bytes = 612944
+    compile_seconds = 0.0
+    events = 83
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 9.27e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "391aef9cd26aa58230c9b558712e921997bf9db764d69782816e70c24d0b8555"
+forward_calls = 64
+round = 3
+residuals = [4.4408920985006455e-17, 5.981311191745758e-17, 7.922305032012911e-17]
+case = "fast0507-1000-B80"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001423
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0005733
+    bytes = 612944
+    compile_seconds = 0.0
+    events = 83
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0002892
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "ece512a2152447ccb0478efb6c5fb7b13da816ff31b52133dc16eceb31904af6"
+forward_calls = 64
+round = 3
+residuals = [3.272552563783004e-17, 2.981338911773568e-17, 6.575134883634335e-17]
+case = "fast0507-1000-B80"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001673
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0004469
+    bytes = 435664
+    compile_seconds = 0.0
+    events = 46
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0003082
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "ece512a2152447ccb0478efb6c5fb7b13da816ff31b52133dc16eceb31904af6"
+forward_calls = 64
+round = 4
+residuals = [3.272552563783004e-17, 2.981338911773568e-17, 6.575134883634335e-17]
+case = "fast0507-1000-B80"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001669
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0004293
+    bytes = 435664
+    compile_seconds = 0.0
+    events = 46
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0002942
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "391aef9cd26aa58230c9b558712e921997bf9db764d69782816e70c24d0b8555"
+forward_calls = 64
+round = 4
+residuals = [4.4408920985006455e-17, 5.981311191745758e-17, 7.922305032012911e-17]
+case = "fast0507-1000-B80"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001491
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.000593
+    bytes = 612944
+    compile_seconds = 0.0
+    events = 83
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0002928
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "391aef9cd26aa58230c9b558712e921997bf9db764d69782816e70c24d0b8555"
+forward_calls = 64
+round = 5
+residuals = [4.4408920985006455e-17, 5.981311191745758e-17, 7.922305032012911e-17]
+case = "fast0507-1000-B80"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001433
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0005528
+    bytes = 612944
+    compile_seconds = 0.0
+    events = 83
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0003006
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "ece512a2152447ccb0478efb6c5fb7b13da816ff31b52133dc16eceb31904af6"
+forward_calls = 64
+round = 5
+residuals = [3.272552563783004e-17, 2.981338911773568e-17, 6.575134883634335e-17]
+case = "fast0507-1000-B80"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001607
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0004314
+    bytes = 435664
+    compile_seconds = 0.0
+    events = 46
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0002917
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "ece512a2152447ccb0478efb6c5fb7b13da816ff31b52133dc16eceb31904af6"
+forward_calls = 64
+round = 6
+residuals = [3.272552563783004e-17, 2.981338911773568e-17, 6.575134883634335e-17]
+case = "fast0507-1000-B80"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001605
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0004505
+    bytes = 435664
+    compile_seconds = 0.0
+    events = 46
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.000304
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "391aef9cd26aa58230c9b558712e921997bf9db764d69782816e70c24d0b8555"
+forward_calls = 64
+round = 6
+residuals = [4.4408920985006455e-17, 5.981311191745758e-17, 7.922305032012911e-17]
+case = "fast0507-1000-B80"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001453
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0005815
+    bytes = 612944
+    compile_seconds = 0.0
+    events = 83
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0002908
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "391aef9cd26aa58230c9b558712e921997bf9db764d69782816e70c24d0b8555"
+forward_calls = 64
+round = 7
+residuals = [4.4408920985006455e-17, 5.981311191745758e-17, 7.922305032012911e-17]
+case = "fast0507-1000-B80"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001424
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0005605
+    bytes = 612944
+    compile_seconds = 0.0
+    events = 83
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0002875
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "ece512a2152447ccb0478efb6c5fb7b13da816ff31b52133dc16eceb31904af6"
+forward_calls = 64
+round = 7
+residuals = [3.272552563783004e-17, 2.981338911773568e-17, 6.575134883634335e-17]
+case = "fast0507-1000-B80"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001715
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0004499
+    bytes = 435664
+    compile_seconds = 0.0
+    events = 46
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0002986
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = false
+transpose_calls = 8
+output_hash = "8177e90d25f75f5e6b44917657b9c9018dda5049d21cd1e5ed8af6ea50bc83ba"
+forward_calls = 16
+round = 1
+residuals = [1.594901799237922e-17, 3.885245572434422e-17, 1.0199293472140278e-16]
+case = "fast0507-1000-B160"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 4.98e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0006439
+    bytes = 737024
+    compile_seconds = 0.0
+    events = 84
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 8.66e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = false
+transpose_calls = 8
+output_hash = "d455a847453a62c4316103683c769d7a3231d8281becdf48e844377e18b1da9f"
+forward_calls = 16
+round = 1
+residuals = [1.688658511626588e-17, 4.024004342878511e-17, 1.4640921274523944e-16]
+case = "fast0507-1000-B160"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 5.42e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0004737
+    bytes = 446112
+    compile_seconds = 0.0
+    events = 46
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 9.39e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = false
+transpose_calls = 8
+output_hash = "d455a847453a62c4316103683c769d7a3231d8281becdf48e844377e18b1da9f"
+forward_calls = 16
+round = 2
+residuals = [1.688658511626588e-17, 4.024004342878511e-17, 1.4640921274523944e-16]
+case = "fast0507-1000-B160"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 5.58e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0004991
+    bytes = 446112
+    compile_seconds = 0.0
+    events = 46
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 9.54e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = false
+transpose_calls = 8
+output_hash = "8177e90d25f75f5e6b44917657b9c9018dda5049d21cd1e5ed8af6ea50bc83ba"
+forward_calls = 16
+round = 2
+residuals = [1.594901799237922e-17, 3.885245572434422e-17, 1.0199293472140278e-16]
+case = "fast0507-1000-B160"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 4.99e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0006412
+    bytes = 737024
+    compile_seconds = 0.0
+    events = 84
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 8.28e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "8177e90d25f75f5e6b44917657b9c9018dda5049d21cd1e5ed8af6ea50bc83ba"
+forward_calls = 64
+round = 3
+residuals = [1.594901799237922e-17, 3.885245572434422e-17, 1.0199293472140278e-16]
+case = "fast0507-1000-B160"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001548
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.000623
+    bytes = 737024
+    compile_seconds = 0.0
+    events = 84
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0002665
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "d455a847453a62c4316103683c769d7a3231d8281becdf48e844377e18b1da9f"
+forward_calls = 64
+round = 3
+residuals = [1.688658511626588e-17, 4.024004342878511e-17, 1.4640921274523944e-16]
+case = "fast0507-1000-B160"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.000203
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0005217
+    bytes = 446112
+    compile_seconds = 0.0
+    events = 46
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0003588
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "d455a847453a62c4316103683c769d7a3231d8281becdf48e844377e18b1da9f"
+forward_calls = 64
+round = 4
+residuals = [1.688658511626588e-17, 4.024004342878511e-17, 1.4640921274523944e-16]
+case = "fast0507-1000-B160"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0002031
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0004875
+    bytes = 446112
+    compile_seconds = 0.0
+    events = 46
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0003591
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "8177e90d25f75f5e6b44917657b9c9018dda5049d21cd1e5ed8af6ea50bc83ba"
+forward_calls = 64
+round = 4
+residuals = [1.594901799237922e-17, 3.885245572434422e-17, 1.0199293472140278e-16]
+case = "fast0507-1000-B160"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001465
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0005986
+    bytes = 737024
+    compile_seconds = 0.0
+    events = 84
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0002759
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "8177e90d25f75f5e6b44917657b9c9018dda5049d21cd1e5ed8af6ea50bc83ba"
+forward_calls = 64
+round = 5
+residuals = [1.594901799237922e-17, 3.885245572434422e-17, 1.0199293472140278e-16]
+case = "fast0507-1000-B160"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001493
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0006188
+    bytes = 737024
+    compile_seconds = 0.0
+    events = 84
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0002687
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "d455a847453a62c4316103683c769d7a3231d8281becdf48e844377e18b1da9f"
+forward_calls = 64
+round = 5
+residuals = [1.688658511626588e-17, 4.024004342878511e-17, 1.4640921274523944e-16]
+case = "fast0507-1000-B160"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.000203
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0004856
+    bytes = 446112
+    compile_seconds = 0.0
+    events = 46
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0004322
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "d455a847453a62c4316103683c769d7a3231d8281becdf48e844377e18b1da9f"
+forward_calls = 64
+round = 6
+residuals = [1.688658511626588e-17, 4.024004342878511e-17, 1.4640921274523944e-16]
+case = "fast0507-1000-B160"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001964
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.000460201
+    bytes = 446112
+    compile_seconds = 0.0
+    events = 46
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.000343
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "8177e90d25f75f5e6b44917657b9c9018dda5049d21cd1e5ed8af6ea50bc83ba"
+forward_calls = 64
+round = 6
+residuals = [1.594901799237922e-17, 3.885245572434422e-17, 1.0199293472140278e-16]
+case = "fast0507-1000-B160"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001602
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.000625
+    bytes = 737024
+    compile_seconds = 0.0
+    events = 84
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.000271
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "8177e90d25f75f5e6b44917657b9c9018dda5049d21cd1e5ed8af6ea50bc83ba"
+forward_calls = 64
+round = 7
+residuals = [1.594901799237922e-17, 3.885245572434422e-17, 1.0199293472140278e-16]
+case = "fast0507-1000-B160"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001766
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0007023
+    bytes = 737024
+    compile_seconds = 0.0
+    events = 84
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0003683
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "d455a847453a62c4316103683c769d7a3231d8281becdf48e844377e18b1da9f"
+forward_calls = 64
+round = 7
+residuals = [1.688658511626588e-17, 4.024004342878511e-17, 1.4640921274523944e-16]
+case = "fast0507-1000-B160"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0002026
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0005167
+    bytes = 446112
+    compile_seconds = 0.0
+    events = 46
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0003549
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = false
+transpose_calls = 8
+output_hash = "877e6d6c18517e8efb7f73e7bbe9b9191d31c13a26919e921efbb78931e06d3f"
+forward_calls = 16
+round = 1
+residuals = [0.0, 1.0149991272739852e-16, 0.0]
+case = "irreducible-sparse256"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.7e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001713
+    bytes = 296240
+    compile_seconds = 0.0
+    events = 84
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 3.4e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = false
+transpose_calls = 8
+output_hash = "8aa4e8327d7828fa5dab3250381aa8167936d951aaf6627afb478f99a4841a40"
+forward_calls = 16
+round = 1
+residuals = [0.0, 2.029998254547971e-16, 0.0]
+case = "irreducible-sparse256"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.33e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001161
+    bytes = 138032
+    compile_seconds = 0.0
+    events = 46
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 3.37e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = false
+transpose_calls = 8
+output_hash = "8aa4e8327d7828fa5dab3250381aa8167936d951aaf6627afb478f99a4841a40"
+forward_calls = 16
+round = 2
+residuals = [0.0, 2.029998254547971e-16, 0.0]
+case = "irreducible-sparse256"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.45e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001336
+    bytes = 138032
+    compile_seconds = 0.0
+    events = 46
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 3.39e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = false
+transpose_calls = 8
+output_hash = "877e6d6c18517e8efb7f73e7bbe9b9191d31c13a26919e921efbb78931e06d3f"
+forward_calls = 16
+round = 2
+residuals = [0.0, 1.0149991272739852e-16, 0.0]
+case = "irreducible-sparse256"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.69e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001783
+    bytes = 296240
+    compile_seconds = 0.0
+    events = 84
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 3.26e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "877e6d6c18517e8efb7f73e7bbe9b9191d31c13a26919e921efbb78931e06d3f"
+forward_calls = 64
+round = 3
+residuals = [0.0, 1.0149991272739852e-16, 0.0]
+case = "irreducible-sparse256"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 6.07e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001794
+    bytes = 296240
+    compile_seconds = 0.0
+    events = 84
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001234
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "8aa4e8327d7828fa5dab3250381aa8167936d951aaf6627afb478f99a4841a40"
+forward_calls = 64
+round = 3
+residuals = [0.0, 2.029998254547971e-16, 0.0]
+case = "irreducible-sparse256"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 5.01e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001124
+    bytes = 138032
+    compile_seconds = 0.0
+    events = 46
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001524
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "8aa4e8327d7828fa5dab3250381aa8167936d951aaf6627afb478f99a4841a40"
+forward_calls = 64
+round = 4
+residuals = [0.0, 2.029998254547971e-16, 0.0]
+case = "irreducible-sparse256"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 4.95e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001164
+    bytes = 138032
+    compile_seconds = 0.0
+    events = 46
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001263
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "877e6d6c18517e8efb7f73e7bbe9b9191d31c13a26919e921efbb78931e06d3f"
+forward_calls = 64
+round = 4
+residuals = [0.0, 1.0149991272739852e-16, 0.0]
+case = "irreducible-sparse256"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 6.1e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001788
+    bytes = 296240
+    compile_seconds = 0.0
+    events = 84
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001306
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "877e6d6c18517e8efb7f73e7bbe9b9191d31c13a26919e921efbb78931e06d3f"
+forward_calls = 64
+round = 5
+residuals = [0.0, 1.0149991272739852e-16, 0.0]
+case = "irreducible-sparse256"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 5.96e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001601
+    bytes = 296240
+    compile_seconds = 0.0
+    events = 84
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001182
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "8aa4e8327d7828fa5dab3250381aa8167936d951aaf6627afb478f99a4841a40"
+forward_calls = 64
+round = 5
+residuals = [0.0, 2.029998254547971e-16, 0.0]
+case = "irreducible-sparse256"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 5.15e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001145
+    bytes = 138032
+    compile_seconds = 0.0
+    events = 46
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001296
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "8aa4e8327d7828fa5dab3250381aa8167936d951aaf6627afb478f99a4841a40"
+forward_calls = 64
+round = 6
+residuals = [0.0, 2.029998254547971e-16, 0.0]
+case = "irreducible-sparse256"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 5.17e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001213
+    bytes = 138032
+    compile_seconds = 0.0
+    events = 46
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001294
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "877e6d6c18517e8efb7f73e7bbe9b9191d31c13a26919e921efbb78931e06d3f"
+forward_calls = 64
+round = 6
+residuals = [0.0, 1.0149991272739852e-16, 0.0]
+case = "irreducible-sparse256"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 6.09e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.000184
+    bytes = 296240
+    compile_seconds = 0.0
+    events = 84
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001189
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "877e6d6c18517e8efb7f73e7bbe9b9191d31c13a26919e921efbb78931e06d3f"
+forward_calls = 64
+round = 7
+residuals = [0.0, 1.0149991272739852e-16, 0.0]
+case = "irreducible-sparse256"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 6.06e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001649
+    bytes = 296240
+    compile_seconds = 0.0
+    events = 84
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001189
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "8aa4e8327d7828fa5dab3250381aa8167936d951aaf6627afb478f99a4841a40"
+forward_calls = 64
+round = 7
+residuals = [0.0, 2.029998254547971e-16, 0.0]
+case = "irreducible-sparse256"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 5.08e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001413
+    bytes = 138032
+    compile_seconds = 0.0
+    events = 46
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001266
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = false
+transpose_calls = 8
+output_hash = "37d3ed6c6a79950e37d83b84fcccb87e2a909163323e8b1556062e55e891ccba"
+forward_calls = 16
+round = 1
+residuals = [1.1988967381689757e-14, 5.1035621089543444e-15, 3.362867788255168e-15]
+case = "irreducible-dense256"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0002411
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0015594
+    bytes = 6958096
+    compile_seconds = 0.0
+    events = 87
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0004603
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = false
+transpose_calls = 8
+output_hash = "ec00999e9df998b27f06f55c5582df0ff5878820d6547f07d9c90427304bd2e3"
+forward_calls = 16
+round = 1
+residuals = [1.1988967381689757e-14, 5.103562108954346e-15, 3.5798270004006634e-15]
+case = "irreducible-dense256"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0003357
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0033621
+    bytes = 3335472
+    compile_seconds = 0.0
+    events = 46
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0005578
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = false
+transpose_calls = 8
+output_hash = "ec00999e9df998b27f06f55c5582df0ff5878820d6547f07d9c90427304bd2e3"
+forward_calls = 16
+round = 2
+residuals = [1.1988967381689757e-14, 5.103562108954346e-15, 3.5798270004006634e-15]
+case = "irreducible-dense256"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0003174
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0060356
+    bytes = 3335472
+    compile_seconds = 0.0
+    events = 46
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0004577
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = false
+transpose_calls = 8
+output_hash = "37d3ed6c6a79950e37d83b84fcccb87e2a909163323e8b1556062e55e891ccba"
+forward_calls = 16
+round = 2
+residuals = [1.1988967381689757e-14, 5.1035621089543444e-15, 3.362867788255168e-15]
+case = "irreducible-dense256"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0002158
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0014563
+    bytes = 6958096
+    compile_seconds = 0.0
+    events = 87
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0004527
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "37d3ed6c6a79950e37d83b84fcccb87e2a909163323e8b1556062e55e891ccba"
+forward_calls = 64
+round = 3
+residuals = [1.1988967381689757e-14, 5.1035621089543444e-15, 3.362867788255168e-15]
+case = "irreducible-dense256"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0008513
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0014439
+    bytes = 6958096
+    compile_seconds = 0.0
+    events = 87
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0017953
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "ec00999e9df998b27f06f55c5582df0ff5878820d6547f07d9c90427304bd2e3"
+forward_calls = 64
+round = 3
+residuals = [1.1988967381689757e-14, 5.103562108954346e-15, 3.5798270004006634e-15]
+case = "irreducible-dense256"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0014871
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0031239
+    bytes = 3335472
+    compile_seconds = 0.0
+    events = 46
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.001731
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "ec00999e9df998b27f06f55c5582df0ff5878820d6547f07d9c90427304bd2e3"
+forward_calls = 64
+round = 4
+residuals = [1.1988967381689757e-14, 5.103562108954346e-15, 3.5798270004006634e-15]
+case = "irreducible-dense256"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.001282
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0035089
+    bytes = 3335472
+    compile_seconds = 0.0
+    events = 46
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0017973
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "37d3ed6c6a79950e37d83b84fcccb87e2a909163323e8b1556062e55e891ccba"
+forward_calls = 64
+round = 4
+residuals = [1.1988967381689757e-14, 5.1035621089543444e-15, 3.362867788255168e-15]
+case = "irreducible-dense256"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0008577
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0014879
+    bytes = 6958096
+    compile_seconds = 0.0
+    events = 87
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0017659
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "37d3ed6c6a79950e37d83b84fcccb87e2a909163323e8b1556062e55e891ccba"
+forward_calls = 64
+round = 5
+residuals = [1.1988967381689757e-14, 5.1035621089543444e-15, 3.362867788255168e-15]
+case = "irreducible-dense256"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0008527
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0014778
+    bytes = 6958096
+    compile_seconds = 0.0
+    events = 87
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0017677
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "ec00999e9df998b27f06f55c5582df0ff5878820d6547f07d9c90427304bd2e3"
+forward_calls = 64
+round = 5
+residuals = [1.1988967381689757e-14, 5.103562108954346e-15, 3.5798270004006634e-15]
+case = "irreducible-dense256"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0012793
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.003402
+    bytes = 3335472
+    compile_seconds = 0.0
+    events = 46
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0017981
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "ec00999e9df998b27f06f55c5582df0ff5878820d6547f07d9c90427304bd2e3"
+forward_calls = 64
+round = 6
+residuals = [1.1988967381689757e-14, 5.103562108954346e-15, 3.5798270004006634e-15]
+case = "irreducible-dense256"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0012817
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0033811
+    bytes = 3335472
+    compile_seconds = 0.0
+    events = 46
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0018028
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "37d3ed6c6a79950e37d83b84fcccb87e2a909163323e8b1556062e55e891ccba"
+forward_calls = 64
+round = 6
+residuals = [1.1988967381689757e-14, 5.1035621089543444e-15, 3.362867788255168e-15]
+case = "irreducible-dense256"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0008849
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0015463
+    bytes = 6958096
+    compile_seconds = 0.0
+    events = 87
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0018161
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "37d3ed6c6a79950e37d83b84fcccb87e2a909163323e8b1556062e55e891ccba"
+forward_calls = 64
+round = 7
+residuals = [1.1988967381689757e-14, 5.1035621089543444e-15, 3.362867788255168e-15]
+case = "irreducible-dense256"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0008846
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0014499
+    bytes = 6958096
+    compile_seconds = 0.0
+    events = 87
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0018162
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "ec00999e9df998b27f06f55c5582df0ff5878820d6547f07d9c90427304bd2e3"
+forward_calls = 64
+round = 7
+residuals = [1.1988967381689757e-14, 5.103562108954346e-15, 3.5798270004006634e-15]
+case = "irreducible-dense256"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0016903
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0034534
+    bytes = 3335472
+    compile_seconds = 0.0
+    events = 46
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0017837
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = false
+transpose_calls = 8
+output_hash = "2b398b61e8962046bfd5044ad2207ac34ee7d1d808913d4cc45c86e0e89481c0"
+forward_calls = 16
+round = 1
+residuals = [4.247588207344521e-16, 4.00925615336793e-16, 2.160275030220827e-16]
+case = "coupled-blocks256"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 2.38e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0002595
+    bytes = 493176
+    compile_seconds = 0.0
+    events = 86
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 4.78e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = false
+transpose_calls = 8
+output_hash = "cefc40213243ef0d9e8da8c2e1106f0d77bae7ac037526481cd9031563204a1d"
+forward_calls = 16
+round = 1
+residuals = [4.247588207344521e-16, 4.00925615336793e-16, 2.160275030220827e-16]
+case = "coupled-blocks256"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 2.15e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001402
+    bytes = 187408
+    compile_seconds = 0.0
+    events = 201
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 3.7e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = false
+transpose_calls = 8
+output_hash = "cefc40213243ef0d9e8da8c2e1106f0d77bae7ac037526481cd9031563204a1d"
+forward_calls = 16
+round = 2
+residuals = [4.247588207344521e-16, 4.00925615336793e-16, 2.160275030220827e-16]
+case = "coupled-blocks256"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 2.1e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001506
+    bytes = 187408
+    compile_seconds = 0.0
+    events = 201
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 3.67e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = false
+transpose_calls = 8
+output_hash = "2b398b61e8962046bfd5044ad2207ac34ee7d1d808913d4cc45c86e0e89481c0"
+forward_calls = 16
+round = 2
+residuals = [4.247588207344521e-16, 4.00925615336793e-16, 2.160275030220827e-16]
+case = "coupled-blocks256"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 2.44e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0002647
+    bytes = 493176
+    compile_seconds = 0.0
+    events = 86
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 4.71e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "2b398b61e8962046bfd5044ad2207ac34ee7d1d808913d4cc45c86e0e89481c0"
+forward_calls = 64
+round = 3
+residuals = [4.247588207344521e-16, 4.00925615336793e-16, 2.160275030220827e-16]
+case = "coupled-blocks256"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 9.53e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0002515
+    bytes = 493176
+    compile_seconds = 0.0
+    events = 86
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001835
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "cefc40213243ef0d9e8da8c2e1106f0d77bae7ac037526481cd9031563204a1d"
+forward_calls = 64
+round = 3
+residuals = [4.247588207344521e-16, 4.00925615336793e-16, 2.160275030220827e-16]
+case = "coupled-blocks256"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 8.47e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.000162
+    bytes = 187408
+    compile_seconds = 0.0
+    events = 201
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001501
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "cefc40213243ef0d9e8da8c2e1106f0d77bae7ac037526481cd9031563204a1d"
+forward_calls = 64
+round = 4
+residuals = [4.247588207344521e-16, 4.00925615336793e-16, 2.160275030220827e-16]
+case = "coupled-blocks256"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 8.69e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001491
+    bytes = 187408
+    compile_seconds = 0.0
+    events = 201
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001469
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "2b398b61e8962046bfd5044ad2207ac34ee7d1d808913d4cc45c86e0e89481c0"
+forward_calls = 64
+round = 4
+residuals = [4.247588207344521e-16, 4.00925615336793e-16, 2.160275030220827e-16]
+case = "coupled-blocks256"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 8.84e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0002623
+    bytes = 493176
+    compile_seconds = 0.0
+    events = 86
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001837
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "2b398b61e8962046bfd5044ad2207ac34ee7d1d808913d4cc45c86e0e89481c0"
+forward_calls = 64
+round = 5
+residuals = [4.247588207344521e-16, 4.00925615336793e-16, 2.160275030220827e-16]
+case = "coupled-blocks256"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 8.72e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0002667
+    bytes = 493176
+    compile_seconds = 0.0
+    events = 86
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001836
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "cefc40213243ef0d9e8da8c2e1106f0d77bae7ac037526481cd9031563204a1d"
+forward_calls = 64
+round = 5
+residuals = [4.247588207344521e-16, 4.00925615336793e-16, 2.160275030220827e-16]
+case = "coupled-blocks256"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0003373
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0003281
+    bytes = 187408
+    compile_seconds = 0.0
+    events = 201
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0006202
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "cefc40213243ef0d9e8da8c2e1106f0d77bae7ac037526481cd9031563204a1d"
+forward_calls = 64
+round = 6
+residuals = [4.247588207344521e-16, 4.00925615336793e-16, 2.160275030220827e-16]
+case = "coupled-blocks256"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 8.35e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001403
+    bytes = 187408
+    compile_seconds = 0.0
+    events = 201
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001396
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "2b398b61e8962046bfd5044ad2207ac34ee7d1d808913d4cc45c86e0e89481c0"
+forward_calls = 64
+round = 6
+residuals = [4.247588207344521e-16, 4.00925615336793e-16, 2.160275030220827e-16]
+case = "coupled-blocks256"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 8.81e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0008838
+    bytes = 493176
+    compile_seconds = 0.0
+    events = 86
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001788
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "UMFPACK-one"
+measured = true
+transpose_calls = 32
+output_hash = "2b398b61e8962046bfd5044ad2207ac34ee7d1d808913d4cc45c86e0e89481c0"
+forward_calls = 64
+round = 7
+residuals = [4.247588207344521e-16, 4.00925615336793e-16, 2.160275030220827e-16]
+case = "coupled-blocks256"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 9.17e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0002893
+    bytes = 493176
+    compile_seconds = 0.0
+    events = 86
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001936
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+[[samples]]
+arm = "KLU-BTF-AMD-one"
+measured = true
+transpose_calls = 32
+output_hash = "cefc40213243ef0d9e8da8c2e1106f0d77bae7ac037526481cd9031563204a1d"
+forward_calls = 64
+round = 7
+residuals = [4.247588207344521e-16, 4.00925615336793e-16, 2.160275030220827e-16]
+case = "coupled-blocks256"
+
+    [samples.btran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 8.4e-5
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+    [samples.factor]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001446
+    bytes = 187408
+    compile_seconds = 0.0
+    events = 201
+
+    [samples.ftran]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001441
+    bytes = 0
+    compile_seconds = 0.0
+    events = 0
+
+[[cases]]
+matrix_sha256 = "7b6ab789d7f49d73ec163eee3e2c5c5e9207dadd5f66a3b31972755b367c6d5c"
+n = 28453
+id = "runtime-30000-B0"
+rhs_sha256 = "20607fcb0d1c92f0ebbd00eea4ca7ce3cd37a1bd5a60f4d0b58d4784868d2674"
+nnz = 125743
+tolerance = 1.0e-10
+[[cases]]
+matrix_sha256 = "7d2e2388dbb7112dd7668bc04192c414ce9d6c9398508c2c7a76f4157bbdf5ca"
+n = 28453
+id = "runtime-30000-B80"
+rhs_sha256 = "d3358fa86ca1562ffad6dc80eed7251fac5e5f4c4c32b16fdcb500d41ca36a2f"
+nnz = 125829
+tolerance = 1.0e-10
+[[cases]]
+matrix_sha256 = "970f57c6fc4af37ffe793928b71027da87d195b65fdcba3786f5265877eadda5"
+n = 28453
+id = "runtime-30000-B160"
+rhs_sha256 = "33480992d774247b6a0eb58bbf85b761623c067bf5b15af9b21484f053945bf9"
+nnz = 125914
+tolerance = 1.0e-10
+[[cases]]
+matrix_sha256 = "65be11957a298fee9564049af897741efe5f6b3a143848bbc0faa49f6f8d4eaa"
+n = 28453
+id = "runtime-40000-B0"
+rhs_sha256 = "f67e75f3b71b28d4624671a3329c68c841e5685e7f60339c2e2d639c747e7019"
+nnz = 135304
+tolerance = 1.0e-10
+[[cases]]
+matrix_sha256 = "b02f82e749e724265bccbc8f0150a9313d8526f32b76c80dc42ee20a2982e74e"
+n = 28453
+id = "runtime-40000-B80"
+rhs_sha256 = "acf7292d95583b44c68b450c4df4b9524bdf174a0f3c493eafba4c35002bd3c2"
+nnz = 135454
+tolerance = 1.0e-10
+[[cases]]
+matrix_sha256 = "22aa4e442de4cd1524dc507fd12f5c32fcce39e83d714ad8ea0cbdfa2525173a"
+n = 28453
+id = "runtime-40000-B160"
+rhs_sha256 = "5afc38b28f5575ec82688dcbe97e36a366a8f8a0658cc5da76190f1245fe0c48"
+nnz = 135441
+tolerance = 1.0e-10
+[[cases]]
+matrix_sha256 = "0e398ddd414841461a2d495305bc3d200e7096f714848ce5b897890d676bde48"
+n = 484
+id = "fast0507-1000-B0"
+rhs_sha256 = "15440f8290a42adc6efba950cd9aca5aafafba75595c951b3f625ad82fe42bb1"
+nnz = 2263
+tolerance = 1.375610736431554e-11
+[[cases]]
+matrix_sha256 = "935ce045111ca20318d36671aca97eb891b136daace6a1ba9ae19b4a3a8bf350"
+n = 484
+id = "fast0507-1000-B80"
+rhs_sha256 = "5499f5281c28f2120b71aea3ae16d1de51f668562470145a9f97b1a031e2b82a"
+nnz = 2284
+tolerance = 1.375610736431554e-11
+[[cases]]
+matrix_sha256 = "31c2c25d6a9fa86b5152adfa691b2dafffc7d3e3ca67c651a2caa23f8a2a75d8"
+n = 484
+id = "fast0507-1000-B160"
+rhs_sha256 = "13e1a067fa10719f350507dbb009154ae328d0682f69c6d08221d5af0bece6bf"
+nnz = 2305
+tolerance = 1.375610736431554e-11
+[[cases]]
+matrix_sha256 = "88eadb037bc3c8e48d53fdbfea0f8b92e5a11ac5f2df75dae095c3194d1483ae"
+n = 256
+id = "irreducible-sparse256"
+rhs_sha256 = "c2a63b7b813c4cd232883892adf5df8e96eb2262292782c997b31cb8783656ca"
+nnz = 512
+tolerance = 7.275957614183426e-12
+[[cases]]
+matrix_sha256 = "c15820f80fd8f77bc6919f87d84f178c2f68192a3257ea53fcff16b721603b6a"
+n = 256
+id = "irreducible-dense256"
+rhs_sha256 = "c2a63b7b813c4cd232883892adf5df8e96eb2262292782c997b31cb8783656ca"
+nnz = 65536
+tolerance = 7.275957614183426e-12
+[[cases]]
+matrix_sha256 = "8b9892e1ccf3734107248b6673087dde3bf1067929c2970d6786024832bcf4c6"
+n = 256
+id = "coupled-blocks256"
+rhs_sha256 = "c2a63b7b813c4cd232883892adf5df8e96eb2262292782c997b31cb8783656ca"
+nnz = 2296
+tolerance = 7.275957614183426e-12
+
+[[qualification]]
+known_point_error = [2.1270873951095837e-11, 1.9716450694318155e-12]
+arm = "UMFPACK-one"
+passed = true
+residuals = [8.265543090869397e-20, 9.82811732140347e-19, 1.0463155521520411e-17]
+case = "runtime-30000-B0"
+
+    [qualification.rss_factor_held]
+    VmPeak = 954695680
+    VmSwap = 0
+    VmRSS = 492437504
+    VmHWM = 496730112
+
+    [qualification.metadata]
+    julia_graph_bytes = 2696128
+    L_nnz = 81267
+    native_size_unit = 16.0
+    input_values_independent = true
+    max_block = -1
+    U_nnz = 157276
+    control = [1.0, 0.2, 0.2, 1.0, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0]
+    coupling_nnz = 0
+    growth = 1.190424061544332
+    native_peak_bytes = 10184432
+    native_current_bytes = 5860336
+    blocks = -1
+
+    [qualification.rss_after_release]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 514187264
+    VmHWM = 582471680
+
+    [qualification.rss_before]
+    VmPeak = 954695680
+    VmSwap = 0
+    VmRSS = 482541568
+    VmHWM = 496730112
+
+    [[qualification.directed]]
+    residual_upper = 6.382943785311047e-17
+    passed = true
+    allowed_lower = 7.149312574765002e-8
+    [[qualification.directed]]
+    residual_upper = 2.413685661332181e-11
+    passed = true
+    allowed_lower = 0.0037016029501082603
+    [[qualification.directed]]
+    residual_upper = 5.424571439915237e-12
+    passed = true
+    allowed_lower = 5.215413456689796e-5
+[[qualification]]
+known_point_error = [6.699418797495582e-12, 5.5579429947272274e-12]
+arm = "KLU-BTF-AMD-one"
+passed = true
+residuals = [1.5587035163078875e-19, 1.965623464280662e-18, 8.216823920433733e-18]
+case = "runtime-30000-B0"
+
+    [qualification.rss_factor_held]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 514293760
+    VmHWM = 582471680
+
+    [qualification.metadata]
+    julia_graph_bytes = 2239960
+    L_nnz = 67139
+    input_values_independent = true
+    max_block = 3767
+    U_nnz = 65209
+    coupling_nnz = 63346
+    growth = 1.154600685590062
+    matching_work = 762239.0
+    native_peak_bytes = 6865384
+    status = 0
+    native_current_bytes = 6444648
+    blocks = 22130
+
+        [qualification.metadata.control]
+        maxwork = 10.0
+        scale = 1
+        btf = 1
+        tol = 1.0
+        ordering = 0
+
+    [qualification.rss_after_release]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 515751936
+    VmHWM = 582471680
+
+    [qualification.rss_before]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 514293760
+    VmHWM = 582471680
+
+    [[qualification.directed]]
+    residual_upper = 4.997734484179042e-17
+    passed = true
+    allowed_lower = 7.149312574765e-8
+    [[qualification.directed]]
+    residual_upper = 4.1439957155658675e-11
+    passed = true
+    allowed_lower = 0.00370160295010832
+    [[qualification.directed]]
+    residual_upper = 4.285413404588051e-12
+    passed = true
+    allowed_lower = 5.215413456689773e-5
+[[qualification]]
+known_point_error = [2.854185776612894e-10, 1.0997314170424488e-12]
+arm = "UMFPACK-one"
+passed = true
+residuals = [1.250680747257658e-18, 8.25357247286665e-19, 1.4700772145929557e-17]
+case = "runtime-30000-B80"
+
+    [qualification.rss_factor_held]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 517070848
+    VmHWM = 582471680
+
+    [qualification.metadata]
+    julia_graph_bytes = 2697504
+    L_nnz = 83664
+    native_size_unit = 16.0
+    input_values_independent = true
+    max_block = -1
+    U_nnz = 156538
+    control = [1.0, 0.2, 0.2, 1.0, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0]
+    coupling_nnz = 0
+    growth = 1.1988495177543144
+    native_peak_bytes = 10186416
+    native_current_bytes = 5876032
+    blocks = -1
+
+    [qualification.rss_after_release]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 519233536
+    VmHWM = 613527552
+
+    [qualification.rss_before]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 517070848
+    VmHWM = 582471680
+
+    [[qualification.directed]]
+    residual_upper = 1.2218857378561448e-12
+    passed = true
+    allowed_lower = 0.00013357146408597573
+    [[qualification.directed]]
+    residual_upper = 4.032056890740944e-11
+    passed = true
+    allowed_lower = 0.017631050404180514
+    [[qualification.directed]]
+    residual_upper = 9.49226596778812e-12
+    passed = true
+    allowed_lower = 6.340815264130055e-5
+[[qualification]]
+known_point_error = [2.416382649528259e-10, 1.0563216967796052e-12]
+arm = "KLU-BTF-AMD-one"
+passed = true
+residuals = [3.9954956815760785e-19, 1.1555001462013233e-18, 1.662857985466913e-17]
+case = "runtime-30000-B80"
+
+    [qualification.rss_factor_held]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 519217152
+    VmHWM = 613527552
+
+    [qualification.metadata]
+    julia_graph_bytes = 2241336
+    L_nnz = 72396
+    input_values_independent = true
+    max_block = 3833
+    U_nnz = 68891
+    coupling_nnz = 63268
+    growth = 1.154600685590062
+    matching_work = 799985.0
+    native_peak_bytes = 6973112
+    status = 0
+    native_current_bytes = 6585736
+    blocks = 22087
+
+        [qualification.metadata.control]
+        maxwork = 10.0
+        scale = 1
+        btf = 1
+        tol = 1.0
+        ordering = 0
+
+    [qualification.rss_after_release]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 519266304
+    VmHWM = 614731776
+
+    [qualification.rss_before]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 519217152
+    VmHWM = 613527552
+
+    [[qualification.directed]]
+    residual_upper = 5.930388710180898e-13
+    passed = true
+    allowed_lower = 0.00013357146408597652
+    [[qualification.directed]]
+    residual_upper = 4.487034250096383e-11
+    passed = true
+    allowed_lower = 0.017631050404180632
+    [[qualification.directed]]
+    residual_upper = 1.172621840863401e-11
+    passed = true
+    allowed_lower = 6.340815264130083e-5
+[[qualification]]
+known_point_error = [2.4329316339333218e-11, 8.257838857161914e-13]
+arm = "UMFPACK-one"
+passed = true
+residuals = [1.9740342296325816e-20, 8.16210992086387e-19, 8.829960598202357e-18]
+case = "runtime-30000-B160"
+
+    [qualification.rss_factor_held]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 521891840
+    VmHWM = 614731776
+
+    [qualification.metadata]
+    julia_graph_bytes = 2698864
+    L_nnz = 83684
+    native_size_unit = 16.0
+    input_values_independent = true
+    max_block = -1
+    U_nnz = 160989
+    control = [1.0, 0.2, 0.2, 1.0, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0]
+    coupling_nnz = 0
+    growth = 1.0156889664904305
+    native_peak_bytes = 10190640
+    native_current_bytes = 5959296
+    blocks = -1
+
+    [qualification.rss_after_release]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 491716608
+    VmHWM = 622895104
+
+    [qualification.rss_before]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 519254016
+    VmHWM = 614731776
+
+    [[qualification.directed]]
+    residual_upper = 2.347200350181371e-15
+    passed = true
+    allowed_lower = 5.061719331729212e-6
+    [[qualification.directed]]
+    residual_upper = 5.319335451379001e-12
+    passed = true
+    allowed_lower = 0.004457154880740294
+    [[qualification.directed]]
+    residual_upper = 2.380562526668963e-12
+    passed = true
+    allowed_lower = 2.719869947503587e-5
+[[qualification]]
+known_point_error = [3.626987599147924e-12, 1.7825879661259592e-12]
+arm = "KLU-BTF-AMD-one"
+passed = true
+residuals = [8.225142623469085e-19, 4.897265952518331e-19, 1.8291628277381727e-18]
+case = "runtime-30000-B160"
+
+    [qualification.rss_factor_held]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 492929024
+    VmHWM = 622895104
+
+    [qualification.metadata]
+    julia_graph_bytes = 2242696
+    L_nnz = 79726
+    input_values_independent = true
+    max_block = 3675
+    U_nnz = 67019
+    coupling_nnz = 63288
+    growth = 1.3371851669057457
+    matching_work = 652888.0
+    native_peak_bytes = 6958712
+    status = 0
+    native_current_bytes = 6673192
+    blocks = 22075
+
+        [qualification.metadata.control]
+        maxwork = 10.0
+        scale = 1
+        btf = 1
+        tol = 1.0
+        ordering = 0
+
+    [qualification.rss_after_release]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 493576192
+    VmHWM = 622895104
+
+    [qualification.rss_before]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 491716608
+    VmHWM = 622895104
+
+    [[qualification.directed]]
+    residual_upper = 7.246317073170491e-15
+    passed = true
+    allowed_lower = 5.061719331729215e-6
+    [[qualification.directed]]
+    residual_upper = 1.626237191986189e-11
+    passed = true
+    allowed_lower = 0.004457154880740286
+    [[qualification.directed]]
+    residual_upper = 7.189995564893319e-13
+    passed = true
+    allowed_lower = 2.7198699475035906e-5
+[[qualification]]
+known_point_error = [2.806573029534576e-11, 2.6207036540881745e-11]
+arm = "UMFPACK-one"
+passed = true
+residuals = [1.3950104608391537e-19, 1.748552851753642e-18, 8.114411015638338e-18]
+case = "runtime-40000-B0"
+
+    [qualification.rss_factor_held]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 497184768
+    VmHWM = 622895104
+
+    [qualification.metadata]
+    julia_graph_bytes = 2849104
+    L_nnz = 101304
+    native_size_unit = 16.0
+    input_values_independent = true
+    max_block = -1
+    U_nnz = 200767
+    control = [1.0, 0.2, 0.2, 1.0, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0]
+    coupling_nnz = 0
+    growth = 1.9566103430244413
+    native_peak_bytes = 10446192
+    native_current_bytes = 6549472
+    blocks = -1
+
+    [qualification.rss_after_release]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 498212864
+    VmHWM = 622895104
+
+    [qualification.rss_before]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 493846528
+    VmHWM = 622895104
+
+    [[qualification.directed]]
+    residual_upper = 1.7763568394002505e-14
+    passed = true
+    allowed_lower = 2.037383247528285e-5
+    [[qualification.directed]]
+    residual_upper = 2.847768203604838e-10
+    passed = true
+    allowed_lower = 0.01664452431480421
+    [[qualification.directed]]
+    residual_upper = 5.395209867876842e-12
+    passed = true
+    allowed_lower = 9.957780603103041e-5
+[[qualification]]
+known_point_error = [2.710220936563701e-11, 2.7717383943581808e-11]
+arm = "KLU-BTF-AMD-one"
+passed = true
+residuals = [6.9750523041957445e-19, 1.7485528517536202e-19, 3.373370876306186e-18]
+case = "runtime-40000-B0"
+
+    [qualification.rss_factor_held]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 498651136
+    VmHWM = 622895104
+
+    [qualification.metadata]
+    julia_graph_bytes = 2392936
+    L_nnz = 103468
+    input_values_independent = true
+    max_block = 4603
+    U_nnz = 98693
+    coupling_nnz = 69375
+    growth = 1.9550541384849998
+    matching_work = 797905.0
+    native_peak_bytes = 8171400
+    status = 0
+    native_current_bytes = 7642760
+    blocks = 21170
+
+        [qualification.metadata.control]
+        maxwork = 10.0
+        scale = 1
+        btf = 1
+        tol = 1.0
+        ordering = 0
+
+    [qualification.rss_after_release]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 498700288
+    VmHWM = 622895104
+
+    [qualification.rss_before]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 498212864
+    VmHWM = 622895104
+
+    [[qualification.directed]]
+    residual_upper = 1.0286065068812287e-13
+    passed = true
+    allowed_lower = 2.037383247528292e-5
+    [[qualification.directed]]
+    residual_upper = 1.7536238136810472e-11
+    passed = true
+    allowed_lower = 0.01664452431480442
+    [[qualification.directed]]
+    residual_upper = 9.338980737401081e-12
+    passed = true
+    allowed_lower = 9.957780603103091e-5
+[[qualification]]
+known_point_error = [4.030775713204093e-12, 7.622596998047015e-12]
+arm = "UMFPACK-one"
+passed = true
+residuals = [1.1349081256870979e-19, 3.837506463381002e-18, 1.774636566529164e-17]
+case = "runtime-40000-B80"
+
+    [qualification.rss_factor_held]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 501854208
+    VmHWM = 622895104
+
+    [qualification.metadata]
+    julia_graph_bytes = 2851504
+    L_nnz = 99300
+    native_size_unit = 16.0
+    input_values_independent = true
+    max_block = -1
+    U_nnz = 190262
+    control = [1.0, 0.2, 0.2, 1.0, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0]
+    coupling_nnz = 0
+    growth = 1.956610343024441
+    native_peak_bytes = 10449200
+    native_current_bytes = 6456400
+    blocks = -1
+
+    [qualification.rss_after_release]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 498769920
+    VmHWM = 622895104
+
+    [qualification.rss_before]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 498696192
+    VmHWM = 622895104
+
+    [[qualification.directed]]
+    residual_upper = 7.891160822479327e-12
+    passed = true
+    allowed_lower = 0.003205527147749697
+    [[qualification.directed]]
+    residual_upper = 7.67349327963671e-11
+    passed = true
+    allowed_lower = 0.0024648153660971088
+    [[qualification.directed]]
+    residual_upper = 7.18005211091638e-12
+    passed = true
+    allowed_lower = 0.00010977082613425764
+[[qualification]]
+known_point_error = [3.0977775899998505e-11, 2.9435343051886775e-12]
+arm = "KLU-BTF-AMD-one"
+passed = true
+residuals = [3.4047243770612945e-19, 3.68991006094327e-19, 4.626532662600453e-18]
+case = "runtime-40000-B80"
+
+    [qualification.rss_factor_held]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 499052544
+    VmHWM = 622895104
+
+    [qualification.metadata]
+    julia_graph_bytes = 2395336
+    L_nnz = 107149
+    input_values_independent = true
+    max_block = 4666
+    U_nnz = 104484
+    coupling_nnz = 69467
+    growth = 1.956610343024441
+    matching_work = 820327.0
+    native_peak_bytes = 8479928
+    status = 0
+    native_current_bytes = 7796280
+    blocks = 21201
+
+        [qualification.metadata.control]
+        maxwork = 10.0
+        scale = 1
+        btf = 1
+        tol = 1.0
+        ordering = 0
+
+    [qualification.rss_after_release]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 499101696
+    VmHWM = 622895104
+
+    [qualification.rss_before]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 498769920
+    VmHWM = 622895104
+
+    [[qualification.directed]]
+    residual_upper = 5.326116172750871e-12
+    passed = true
+    allowed_lower = 0.003205527147749696
+    [[qualification.directed]]
+    residual_upper = 1.2630547869114892e-11
+    passed = true
+    allowed_lower = 0.002464815366097109
+    [[qualification.directed]]
+    residual_upper = 3.0577209375725433e-12
+    passed = true
+    allowed_lower = 0.00010977082613425762
+[[qualification]]
+known_point_error = [1.143004552117688e-9, 1.0089863111684139e-9]
+arm = "UMFPACK-one"
+passed = true
+residuals = [1.9308446606425538e-19, 1.6285546883013579e-18, 1.2504566291332141e-17]
+case = "runtime-40000-B160"
+
+    [qualification.rss_factor_held]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 502112256
+    VmHWM = 622895104
+
+    [qualification.metadata]
+    julia_graph_bytes = 2851296
+    L_nnz = 96782
+    native_size_unit = 16.0
+    input_values_independent = true
+    max_block = -1
+    U_nnz = 186974
+    control = [1.0, 0.2, 0.2, 1.0, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0]
+    coupling_nnz = 0
+    growth = 1.956610343024441
+    native_peak_bytes = 10448656
+    native_current_bytes = 6357552
+    blocks = -1
+
+    [qualification.rss_after_release]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 499126272
+    VmHWM = 622895104
+
+    [qualification.rss_before]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 499089408
+    VmHWM = 622895104
+
+    [[qualification.directed]]
+    residual_upper = 7.667098054298105e-11
+    passed = true
+    allowed_lower = 0.030146216368383005
+    [[qualification.directed]]
+    residual_upper = 2.0205873453405756e-10
+    passed = true
+    allowed_lower = 0.050038678998156505
+    [[qualification.directed]]
+    residual_upper = 6.772544527324058e-10
+    passed = true
+    allowed_lower = 0.005416057118285357
+[[qualification]]
+known_point_error = [5.944152670078751e-10, 4.2352529816547246e-10]
+arm = "KLU-BTF-AMD-one"
+passed = true
+residuals = [3.8616893212851014e-19, 1.3959040185440285e-18, 4.4829434609841936e-18]
+case = "runtime-40000-B160"
+
+    [qualification.rss_factor_held]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 499367936
+    VmHWM = 622895104
+
+    [qualification.metadata]
+    julia_graph_bytes = 2395128
+    L_nnz = 92721
+    input_values_independent = true
+    max_block = 4589
+    U_nnz = 86434
+    coupling_nnz = 69567
+    growth = 1.956610343024441
+    matching_work = 795300.0
+    native_peak_bytes = 8076248
+    status = 0
+    native_current_bytes = 7278984
+    blocks = 21248
+
+        [qualification.metadata.control]
+        maxwork = 10.0
+        scale = 1
+        btf = 1
+        tol = 1.0
+        ordering = 0
+
+    [qualification.rss_after_release]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 499417088
+    VmHWM = 622895104
+
+    [qualification.rss_before]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 499126272
+    VmHWM = 622895104
+
+    [[qualification.directed]]
+    residual_upper = 1.9063833461613094e-10
+    passed = true
+    allowed_lower = 0.030146216368383053
+    [[qualification.directed]]
+    residual_upper = 4.405152293935209e-11
+    passed = true
+    allowed_lower = 0.05003867899815624
+    [[qualification.directed]]
+    residual_upper = 3.592141002542778e-10
+    passed = true
+    allowed_lower = 0.005416057118285371
+[[qualification]]
+known_point_error = [1.8096635301390052e-14, 3.8413716652030416e-14]
+arm = "UMFPACK-one"
+passed = true
+residuals = [2.4330236965867075e-17, 3.731991576188885e-17, 6.003285679082327e-17]
+case = "fast0507-1000-B0"
+
+    [qualification.rss_factor_held]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 499630080
+    VmHWM = 622895104
+
+    [qualification.metadata]
+    julia_graph_bytes = 49192
+    L_nnz = 2620
+    native_size_unit = 16.0
+    input_values_independent = true
+    max_block = -1
+    U_nnz = 2504
+    control = [1.0, 0.2, 0.2, 1.0, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0]
+    coupling_nnz = 0
+    growth = 1.0
+    native_peak_bytes = 263056
+    native_current_bytes = 117280
+    blocks = -1
+
+    [qualification.rss_after_release]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 499785728
+    VmHWM = 622895104
+
+    [qualification.rss_before]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 499408896
+    VmHWM = 622895104
+
+    [[qualification.directed]]
+    residual_upper = 5.569262999489848e-15
+    passed = true
+    allowed_lower = 3.766263472033844e-9
+    [[qualification.directed]]
+    residual_upper = 3.312905505481467e-13
+    passed = true
+    allowed_lower = 1.0214325955988526e-7
+    [[qualification.directed]]
+    residual_upper = 3.552713678800501e-15
+    passed = true
+    allowed_lower = 8.395193600125997e-10
+[[qualification]]
+known_point_error = [1.865174681370263e-14, 4.729550084903167e-14]
+arm = "KLU-BTF-AMD-one"
+passed = true
+residuals = [2.797977251074718e-17, 4.306144126371817e-17, 3.2745194613176125e-17]
+case = "fast0507-1000-B0"
+
+    [qualification.rss_factor_held]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 499826688
+    VmHWM = 622895104
+
+    [qualification.metadata]
+    julia_graph_bytes = 40528
+    L_nnz = 3284
+    input_values_independent = true
+    max_block = 228
+    U_nnz = 3010
+    coupling_nnz = 885
+    growth = 1.0
+    matching_work = 9688.0
+    native_peak_bytes = 240768
+    status = 0
+    native_current_bytes = 169600
+    blocks = 253
+
+        [qualification.metadata.control]
+        maxwork = 10.0
+        scale = 1
+        btf = 1
+        tol = 1.0
+        ordering = 0
+
+    [qualification.rss_after_release]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 499961856
+    VmHWM = 622895104
+
+    [qualification.rss_before]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 499785728
+    VmHWM = 622895104
+
+    [[qualification.directed]]
+    residual_upper = 7.049916206369744e-15
+    passed = true
+    allowed_lower = 3.766263472033838e-9
+    [[qualification.directed]]
+    residual_upper = 2.8073376956427865e-13
+    passed = true
+    allowed_lower = 1.0214325955988461e-7
+    [[qualification.directed]]
+    residual_upper = 1.9877855297201586e-15
+    passed = true
+    allowed_lower = 8.395193600126049e-10
+[[qualification]]
+known_point_error = [3.319566843629218e-14, 4.1300296516055823e-14]
+arm = "UMFPACK-one"
+passed = true
+residuals = [4.4408920985006455e-17, 5.981311191745758e-17, 7.922305032012911e-17]
+case = "fast0507-1000-B80"
+
+    [qualification.rss_factor_held]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 500015104
+    VmHWM = 622895104
+
+    [qualification.metadata]
+    julia_graph_bytes = 49528
+    L_nnz = 3559
+    native_size_unit = 16.0
+    input_values_independent = true
+    max_block = -1
+    U_nnz = 3698
+    control = [1.0, 0.2, 0.2, 1.0, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0]
+    coupling_nnz = 0
+    growth = 1.0
+    native_peak_bytes = 278096
+    native_current_bytes = 137072
+    blocks = -1
+
+    [qualification.rss_after_release]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 500166656
+    VmHWM = 622895104
+
+    [qualification.rss_before]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 500006912
+    VmHWM = 622895104
+
+    [[qualification.directed]]
+    residual_upper = 1.136904478896735e-15
+    passed = true
+    allowed_lower = 3.4390268410788694e-10
+    [[qualification.directed]]
+    residual_upper = 1.354472090042691e-13
+    passed = true
+    allowed_lower = 3.278494142833205e-8
+    [[qualification.directed]]
+    residual_upper = 1.4710455076283324e-15
+    passed = true
+    allowed_lower = 2.6024835619864785e-10
+[[qualification]]
+known_point_error = [1.9539925233402755e-14, 6.716849298982197e-14]
+arm = "KLU-BTF-AMD-one"
+passed = true
+residuals = [3.272552563783004e-17, 2.981338911773568e-17, 6.575134883634335e-17]
+case = "fast0507-1000-B80"
+
+    [qualification.rss_factor_held]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 500183040
+    VmHWM = 622895104
+
+    [qualification.metadata]
+    julia_graph_bytes = 40864
+    L_nnz = 4347
+    input_values_independent = true
+    max_block = 260
+    U_nnz = 3651
+    coupling_nnz = 769
+    growth = 1.0
+    matching_work = 8849.0
+    native_peak_bytes = 303936
+    status = 0
+    native_current_bytes = 195424
+    blocks = 225
+
+        [qualification.metadata.control]
+        maxwork = 10.0
+        scale = 1
+        btf = 1
+        tol = 1.0
+        ordering = 0
+
+    [qualification.rss_after_release]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 500281344
+    VmHWM = 622895104
+
+    [qualification.rss_before]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 500166656
+    VmHWM = 622895104
+
+    [[qualification.directed]]
+    residual_upper = 8.181381409457399e-16
+    passed = true
+    allowed_lower = 3.439026841078841e-10
+    [[qualification.directed]]
+    residual_upper = 6.927791673660977e-14
+    passed = true
+    allowed_lower = 3.278494142833225e-8
+    [[qualification.directed]]
+    residual_upper = 1.27675647831893e-15
+    passed = true
+    allowed_lower = 2.602483561986439e-10
+[[qualification]]
+known_point_error = [1.3988810110276972e-14, 6.5503158452884236e-15]
+arm = "UMFPACK-one"
+passed = true
+residuals = [1.594901799237922e-17, 3.885245572434422e-17, 1.0199293472140278e-16]
+case = "fast0507-1000-B160"
+
+    [qualification.rss_factor_held]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 500334592
+    VmHWM = 622895104
+
+    [qualification.metadata]
+    julia_graph_bytes = 49864
+    L_nnz = 2953
+    native_size_unit = 16.0
+    input_values_independent = true
+    max_block = -1
+    U_nnz = 3350
+    control = [1.0, 0.2, 0.2, 1.0, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0]
+    coupling_nnz = 0
+    growth = 1.0
+    native_peak_bytes = 283072
+    native_current_bytes = 130112
+    blocks = -1
+
+    [qualification.rss_after_release]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 500449280
+    VmHWM = 622895104
+
+    [qualification.rss_before]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 500305920
+    VmHWM = 622895104
+
+    [[qualification.directed]]
+    residual_upper = 2.9683936907640424e-16
+    passed = true
+    allowed_lower = 3.714148988365197e-10
+    [[qualification.directed]]
+    residual_upper = 2.603472992745992e-14
+    passed = true
+    allowed_lower = 8.805121046374709e-9
+    [[qualification.directed]]
+    residual_upper = 3.3757718842508666e-15
+    passed = true
+    allowed_lower = 4.641917228587134e-10
+[[qualification]]
+known_point_error = [1.0796918914479647e-14, 1.4988010832439613e-14]
+arm = "KLU-BTF-AMD-one"
+passed = true
+residuals = [1.688658511626588e-17, 4.024004342878511e-17, 1.4640921274523944e-16]
+case = "fast0507-1000-B160"
+
+    [qualification.rss_factor_held]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 500457472
+    VmHWM = 622895104
+
+    [qualification.metadata]
+    julia_graph_bytes = 41200
+    L_nnz = 5668
+    input_values_independent = true
+    max_block = 260
+    U_nnz = 4517
+    coupling_nnz = 777
+    growth = 1.0
+    matching_work = 11575.0
+    native_peak_bytes = 313664
+    status = 0
+    native_current_bytes = 230544
+    blocks = 225
+
+        [qualification.metadata.control]
+        maxwork = 10.0
+        scale = 1
+        btf = 1
+        tol = 1.0
+        ordering = 0
+
+    [qualification.rss_after_release]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 500662272
+    VmHWM = 622895104
+
+    [qualification.rss_before]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 500449280
+    VmHWM = 622895104
+
+    [[qualification.directed]]
+    residual_upper = 4.895068732712077e-16
+    passed = true
+    allowed_lower = 3.714148988365197e-10
+    [[qualification.directed]]
+    residual_upper = 2.4341639814906557e-14
+    passed = true
+    allowed_lower = 8.805121046374704e-9
+    [[qualification.directed]]
+    residual_upper = 4.912736883966318e-15
+    passed = true
+    allowed_lower = 4.641917228587135e-10
+[[qualification]]
+known_point_error = [1.1102230246251565e-16, 0.0]
+arm = "UMFPACK-one"
+passed = true
+residuals = [0.0, 1.0149991272739852e-16, 0.0]
+case = "irreducible-sparse256"
+
+    [qualification.rss_factor_held]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 500805632
+    VmHWM = 622895104
+
+    [qualification.metadata]
+    julia_graph_bytes = 15704
+    L_nnz = 489
+    native_size_unit = 16.0
+    input_values_independent = true
+    max_block = -1
+    U_nnz = 492
+    control = [1.0, 0.2, 0.2, 1.0, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0]
+    coupling_nnz = 0
+    growth = 1.0
+    native_peak_bytes = 148496
+    native_current_bytes = 49536
+    blocks = -1
+
+    [qualification.rss_after_release]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 500822016
+    VmHWM = 622895104
+
+    [qualification.rss_before]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 500695040
+    VmHWM = 622895104
+
+    [[qualification.directed]]
+    residual_upper = 2.7755575615628914e-17
+    passed = true
+    allowed_lower = 7.745374234453324e-12
+    [[qualification.directed]]
+    residual_upper = 1.0408340855860843e-16
+    passed = true
+    allowed_lower = 7.958564152816882e-12
+    [[qualification.directed]]
+    residual_upper = 5.0e-324
+    passed = true
+    allowed_lower = 7.503331289626658e-12
+[[qualification]]
+known_point_error = [3.3306690738754696e-16, 0.0]
+arm = "KLU-BTF-AMD-one"
+passed = true
+residuals = [0.0, 2.029998254547971e-16, 0.0]
+case = "irreducible-sparse256"
+
+    [qualification.rss_factor_held]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 500850688
+    VmHWM = 622895104
+
+    [qualification.metadata]
+    julia_graph_bytes = 10688
+    L_nnz = 511
+    input_values_independent = true
+    max_block = 256
+    U_nnz = 511
+    coupling_nnz = 0
+    growth = 1.0
+    matching_work = 0.0
+    native_peak_bytes = 78896
+    status = 0
+    native_current_bytes = 49488
+    blocks = 1
+
+        [qualification.metadata.control]
+        maxwork = 10.0
+        scale = 1
+        btf = 1
+        tol = 1.0
+        ordering = 0
+
+    [qualification.rss_after_release]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 500850688
+    VmHWM = 622895104
+
+    [qualification.rss_before]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 500822016
+    VmHWM = 622895104
+
+    [[qualification.directed]]
+    residual_upper = 2.7755575615628914e-17
+    passed = true
+    allowed_lower = 7.745374234453324e-12
+    [[qualification.directed]]
+    residual_upper = 2.0296264668928643e-16
+    passed = true
+    allowed_lower = 7.95856415281688e-12
+    [[qualification.directed]]
+    residual_upper = 5.0e-324
+    passed = true
+    allowed_lower = 7.503331289626658e-12
+[[qualification]]
+known_point_error = [7.771561172376096e-16, 7.771561172376096e-16]
+arm = "UMFPACK-one"
+passed = true
+residuals = [1.1988967381689757e-14, 5.1035621089543444e-15, 3.362867788255168e-15]
+case = "irreducible-dense256"
+
+    [qualification.rss_factor_held]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 500912128
+    VmHWM = 622895104
+
+    [qualification.metadata]
+    julia_graph_bytes = 1056088
+    L_nnz = 32896
+    native_size_unit = 16.0
+    input_values_independent = true
+    max_block = -1
+    U_nnz = 32896
+    control = [1.0, 0.2, 0.2, 1.0, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0]
+    coupling_nnz = 0
+    growth = 0.999999986031554
+    native_peak_bytes = 3222320
+    native_current_bytes = 560272
+    blocks = -1
+
+    [qualification.rss_after_release]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 501157888
+    VmHWM = 622895104
+
+    [qualification.rss_before]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 500862976
+    VmHWM = 622895104
+
+    [[qualification.directed]]
+    residual_upper = 9.39714953529687e-15
+    passed = true
+    allowed_lower = 7.276832311967308e-12
+    [[qualification.directed]]
+    residual_upper = 2.822017106961553e-15
+    passed = true
+    allowed_lower = 7.914017207011348e-12
+    [[qualification.directed]]
+    residual_upper = 1.3174502521442605e-15
+    passed = true
+    allowed_lower = 7.446501662299572e-12
+[[qualification]]
+known_point_error = [1.4432899320127035e-15, 1.2212453270876722e-15]
+arm = "KLU-BTF-AMD-one"
+passed = true
+residuals = [1.1988967381689757e-14, 5.103562108954346e-15, 3.5798270004006634e-15]
+case = "irreducible-dense256"
+
+    [qualification.rss_factor_held]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 501157888
+    VmHWM = 622895104
+
+    [qualification.metadata]
+    julia_graph_bytes = 1051072
+    L_nnz = 32896
+    input_values_independent = true
+    max_block = 256
+    U_nnz = 32896
+    coupling_nnz = 0
+    growth = 0.999999986031554
+    matching_work = 0.0
+    native_peak_bytes = 1187992
+    status = 0
+    native_current_bytes = 1085808
+    blocks = 1
+
+        [qualification.metadata.control]
+        maxwork = 10.0
+        scale = 1
+        btf = 1
+        tol = 1.0
+        ordering = 0
+
+    [qualification.rss_after_release]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 501190656
+    VmHWM = 622895104
+
+    [qualification.rss_before]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 501157888
+    VmHWM = 622895104
+
+    [[qualification.directed]]
+    residual_upper = 8.504925686240658e-15
+    passed = true
+    allowed_lower = 7.276832311967308e-12
+    [[qualification.directed]]
+    residual_upper = 3.2661755617550536e-15
+    passed = true
+    allowed_lower = 7.914017207011345e-12
+    [[qualification.directed]]
+    residual_upper = 1.09540566169489e-15
+    passed = true
+    allowed_lower = 7.44650166229957e-12
+[[qualification]]
+known_point_error = [3.3306690738754696e-16, 3.3306690738754696e-16]
+arm = "UMFPACK-one"
+passed = true
+residuals = [4.247588207344521e-16, 4.00925615336793e-16, 2.160275030220827e-16]
+case = "coupled-blocks256"
+
+    [qualification.rss_factor_held]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 501288960
+    VmHWM = 622895104
+
+    [qualification.metadata]
+    julia_graph_bytes = 44248
+    L_nnz = 2246
+    native_size_unit = 16.0
+    input_values_independent = true
+    max_block = -1
+    U_nnz = 1174
+    control = [1.0, 0.2, 0.2, 1.0, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0]
+    coupling_nnz = 0
+    growth = 0.9999973862127168
+    native_peak_bytes = 210384
+    native_current_bytes = 68608
+    blocks = -1
+
+    [qualification.rss_after_release]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 501374976
+    VmHWM = 622895104
+
+    [qualification.rss_before]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 501190656
+    VmHWM = 622895104
+
+    [[qualification.directed]]
+    residual_upper = 2.7863995832877464e-16
+    passed = true
+    allowed_lower = 7.607079853452432e-12
+    [[qualification.directed]]
+    residual_upper = 5.522790341369599e-16
+    passed = true
+    allowed_lower = 8.05928617225156e-12
+    [[qualification.directed]]
+    residual_upper = 2.6238306673035967e-16
+    passed = true
+    allowed_lower = 7.478617820840544e-12
+[[qualification]]
+known_point_error = [2.220446049250313e-16, 2.220446049250313e-16]
+arm = "KLU-BTF-AMD-one"
+passed = true
+residuals = [4.247588207344521e-16, 4.00925615336793e-16, 2.160275030220827e-16]
+case = "coupled-blocks256"
+
+    [qualification.rss_factor_held]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 501374976
+    VmHWM = 622895104
+
+    [qualification.metadata]
+    julia_graph_bytes = 39232
+    L_nnz = 1152
+    input_values_independent = true
+    max_block = 8
+    U_nnz = 1152
+    coupling_nnz = 248
+    growth = 0.999996678588515
+    matching_work = 0.0
+    native_peak_bytes = 68576
+    status = 0
+    native_current_bytes = 68320
+    blocks = 32
+
+        [qualification.metadata.control]
+        maxwork = 10.0
+        scale = 1
+        btf = 1
+        tol = 1.0
+        ordering = 0
+
+    [qualification.rss_after_release]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 501387264
+    VmHWM = 622895104
+
+    [qualification.rss_before]
+    VmPeak = 1194299392
+    VmSwap = 0
+    VmRSS = 501374976
+    VmHWM = 622895104
+
+    [[qualification.directed]]
+    residual_upper = 3.344763702117781e-16
+    passed = true
+    allowed_lower = 7.607079853452432e-12
+    [[qualification.directed]]
+    residual_upper = 4.748805515486509e-16
+    passed = true
+    allowed_lower = 8.05928617225156e-12
+    [[qualification.directed]]
+    residual_upper = 2.6238306673035967e-16
+    passed = true
+    allowed_lower = 7.478617820840544e-12
+
+[counts]
+transpose = 4272
+forward = 8522
+builds = 196
+
+[[preparation]]
+gc_seconds = 0.041823
+recompile_seconds = 0.0
+seconds = 0.382970696
+bytes = 135759440
+stage = "load-and-assemble-all-bases"
+compile_seconds = 0.222813797
+events = 314873

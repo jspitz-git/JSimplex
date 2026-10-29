@@ -1,0 +1,66 @@
+{
+  "command": [
+    "/bin/bash",
+    "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+    "--compiled-modules=existing",
+    "--threads=1",
+    "--gcthreads=1,0",
+    "--heap-size-hint=2G",
+    "--history-file=no",
+    "--project=/home/jspitz/JSimplex.jl",
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-block-reach/2026-10-29/driver.jl",
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-block-reach/2026-10-29/results-1.toml",
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/.superpowers/klu-block-reach/2026-10-29-a"
+  ],
+  "cwd": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl",
+  "started": 1793290524.0466397,
+  "runner": {
+    "pid": 337648,
+    "pgid": 337648,
+    "sid": 337648,
+    "start_ticks": 26018507,
+    "boot_id": "781795f4-f7af-4c3b-9ce9-45c7cae76ecb",
+    "command": "/usr/bin/python3 -B /home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-block-reach/2026-10-29/guard/guard_reviewed.py run /home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-block-reach/2026-10-29/launch-pins.json /home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-block-reach/2026-10-29/reach-1/guard --expected-exit 0 --seconds 1790 --deadline 261975.077511695 -- /bin/bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --compiled-modules=existing --threads=1 --gcthreads=1,0 --heap-size-hint=2G --history-file=no --project=/home/jspitz/JSimplex.jl /home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-block-reach/2026-10-29/driver.jl /home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-block-reach/2026-10-29/results-1.toml /home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/.superpowers/klu-block-reach/2026-10-29-a "
+  },
+  "pins_sha256": "ad4b6c169ad2bcb37909aa15d17db9b6af8dac3b884f50c3ea0bf370253097e5",
+  "reason": "exit0",
+  "returncode": 0,
+  "gate_command": [
+    "/usr/bin/python3",
+    "-B",
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-block-reach/2026-10-29/guard/entry_gate.py",
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-block-reach/2026-10-29/reach-1/guard",
+    "337648",
+    "26018507",
+    "781795f4-f7af-4c3b-9ce9-45c7cae76ecb",
+    "261975.077511695",
+    "--",
+    "/bin/bash",
+    "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+    "--compiled-modules=existing",
+    "--threads=1",
+    "--gcthreads=1,0",
+    "--heap-size-hint=2G",
+    "--history-file=no",
+    "--project=/home/jspitz/JSimplex.jl",
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-block-reach/2026-10-29/driver.jl",
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-block-reach/2026-10-29/results-1.toml",
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/.superpowers/klu-block-reach/2026-10-29-a"
+  ],
+  "child": {
+    "pid": 337649,
+    "pgid": 337649,
+    "sid": 337649,
+    "start_ticks": 26018523,
+    "boot_id": "781795f4-f7af-4c3b-9ce9-45c7cae76ecb",
+    "command": "/usr/bin/python3 -B /home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-block-reach/2026-10-29/guard/entry_gate.py /home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-block-reach/2026-10-29/reach-1/guard 337648 26018507 781795f4-f7af-4c3b-9ce9-45c7cae76ecb 261975.077511695 -- /bin/bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --compiled-modules=existing --threads=1 --gcthreads=1,0 --heap-size-hint=2G --history-file=no --project=/home/jspitz/JSimplex.jl /home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-block-reach/2026-10-29/driver.jl /home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-block-reach/2026-10-29/results-1.toml /home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/.superpowers/klu-block-reach/2026-10-29-a "
+  },
+  "elapsed_including_launch": 23.15723697602516,
+  "child_maxrss_kib": 560772,
+  "terminal_memory": {
+    "available_kib": 22633444,
+    "swap_used_kib": 0
+  },
+  "ended": 1793290547.0780952,
+  "pins_unchanged": true
+}
