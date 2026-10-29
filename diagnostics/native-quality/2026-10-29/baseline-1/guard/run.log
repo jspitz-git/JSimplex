@@ -1,0 +1,52 @@
+ERROR: LoadError: Some tests did not pass: 16325 passed, 1 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/native-quality/2026-10-29/baseline-driver.jl:4
+
+Multiprecision unit perturb and residual: Test Failed at /home/jspitz/JSimplex.jl/test/generic_unit_perturb_residual_tests.jl:581
+  Expression: all(((after[k])["events"] < (before[k])["events"] for k = 1:3)) && median((x["bytes"] for x = after)) < median((x["bytes"] for x = before))
+  Stacktrace:
+    [1] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+    [2] allocation_gate(::Type{Rational{BigInt}}, scope::Symbol, arm::Symbol, n::Int64, density::Symbol, shape::Symbol, mode::Symbol)
+      @ Main.GenericUnitPerturbResidualTests ~/JSimplex.jl/test/generic_unit_perturb_residual_tests.jl:581
+    [3] (::Main.GenericUnitPerturbResidualTests.var"#39#40")()
+      @ Main.GenericUnitPerturbResidualTests ~/JSimplex.jl/test/generic_unit_perturb_residual_tests.jl:602
+    [4] setrounding_raw(f::Main.GenericUnitPerturbResidualTests.var"#39#40", ::Type{BigFloat}, r::Base.MPFR.MPFRRoundingMode)
+      @ Base.MPFR ./mpfr.jl:250
+    [5] setrounding
+      @ ./mpfr.jl:255 [inlined]
+    [6] #37
+      @ ~/JSimplex.jl/test/generic_unit_perturb_residual_tests.jl:592 [inlined]
+    [7] setprecision(f::Main.GenericUnitPerturbResidualTests.var"#37#38", ::Type{BigFloat}, prec::Int64; base::Int64)
+      @ Base.MPFR ./mpfr.jl:1214
+    [8] setprecision(f::Function, ::Type{BigFloat}, prec::Int64)
+      @ Base.MPFR ./mpfr.jl:1213
+    [9] top-level scope
+      @ ~/JSimplex.jl/test/generic_unit_perturb_residual_tests.jl:585
+   [10] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [11] macro expansion
+      @ ~/JSimplex.jl/test/generic_unit_perturb_residual_tests.jl:591 [inlined]
+Test Summary:                              |  Pass  Fail  Total     Time
+Unchanged235 legacy allocation baseline    | 16325     1  16326  1m37.0s
+  Multiprecision unit perturb and residual |  9637     1   9638  1m05.0s
+    unit perturb residual BigFloat         |   509          509     5.8s
+    unit perturb residual BigFloat         |   509          509     0.0s
+    unit perturb residual BigFloat         |   509          509     0.1s
+    unit perturb residual BigFloat         |   509          509     0.1s
+    unit perturb residual BigFloat         |   509          509     0.1s
+    unit perturb residual BigFloat         |   509          509     0.1s
+    unit perturb residual BigFloat         |   509          509     0.1s
+    unit perturb residual BigFloat         |   509          509     0.1s
+    unit perturb residual BigFloat         |   509          509     0.1s
+    unit perturb residual BigFloat         |   509          509     0.0s
+    unit perturb residual BigFloat         |   509          509     0.0s
+    unit perturb residual BigFloat         |   509          509     0.1s
+    unit perturb residual BigFloat         |   509          509     0.0s
+    unit perturb residual BigFloat         |   509          509     0.1s
+    unit perturb residual BigFloat         |   509          509     0.1s
+    unit perturb residual Float32          |   477          477     4.3s
+    unit perturb residual Float64          |   477          477     4.5s
+    unit perturb residual Rational{BigInt} |   459          459    10.5s
+    unit perturb residual Rational{Int64}  |   430          430     4.0s
+  Generic dual comparisons                 |  6688         6688    31.6s
+RNG of the outermost testset: Random.Xoshiro(0x61c0c1da421b9f02, 0xee6db90f1b58a4fa, 0x8e0254024c2e51f6, 0x8b313e53b354f0cf, 0xc16e455cf85fbd67)

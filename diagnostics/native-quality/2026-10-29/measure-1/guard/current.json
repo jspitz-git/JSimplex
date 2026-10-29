@@ -1,0 +1,56 @@
+{
+  "command": [
+    "/bin/bash",
+    "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+    "--compiled-modules=existing",
+    "--threads=1",
+    "--gcthreads=1,0",
+    "--heap-size-hint=2G",
+    "--history-file=no",
+    "--project=/home/jspitz/JSimplex.jl",
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/native-quality/2026-10-29/driver-admitted.jl",
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/native-quality/2026-10-29/measurement-1.toml"
+  ],
+  "cwd": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl",
+  "started": 1793263853.69552,
+  "runner": {
+    "pid": 290789,
+    "pgid": 290789,
+    "sid": 290789,
+    "start_ticks": 23351484,
+    "boot_id": "781795f4-f7af-4c3b-9ce9-45c7cae76ecb",
+    "command": "/usr/bin/python3 -B /home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/native-quality/2026-10-29/guard/guard_reviewed.py run /home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/native-quality/2026-10-29/pins-final.json /home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/native-quality/2026-10-29/measure-1/guard --expected-exit 0 --seconds 1790 --deadline 235304.842392784 -- /bin/bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --compiled-modules=existing --threads=1 --gcthreads=1,0 --heap-size-hint=2G --history-file=no --project=/home/jspitz/JSimplex.jl /home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/native-quality/2026-10-29/driver-admitted.jl /home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/native-quality/2026-10-29/measurement-1.toml "
+  },
+  "pins_sha256": "eaf5add688d2e6a4929755a8e7b4a849e6931ff4a9f245ba6278cc9c021c96cf",
+  "reason": "launch_error",
+  "returncode": null,
+  "gate_command": [
+    "/usr/bin/python3",
+    "-B",
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/native-quality/2026-10-29/guard/entry_gate.py",
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/native-quality/2026-10-29/measure-1/guard",
+    "290789",
+    "23351484",
+    "781795f4-f7af-4c3b-9ce9-45c7cae76ecb",
+    "235304.842392784",
+    "--",
+    "/bin/bash",
+    "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+    "--compiled-modules=existing",
+    "--threads=1",
+    "--gcthreads=1,0",
+    "--heap-size-hint=2G",
+    "--history-file=no",
+    "--project=/home/jspitz/JSimplex.jl",
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/native-quality/2026-10-29/driver-admitted.jl",
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/native-quality/2026-10-29/measurement-1.toml"
+  ],
+  "child": {
+    "pid": 290790,
+    "pgid": 290790,
+    "sid": 290790,
+    "start_ticks": 23351488,
+    "boot_id": "781795f4-f7af-4c3b-9ce9-45c7cae76ecb",
+    "command": "/usr/bin/python3 -B /home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/native-quality/2026-10-29/guard/entry_gate.py /home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/native-quality/2026-10-29/measure-1/guard 290789 23351484 781795f4-f7af-4c3b-9ce9-45c7cae76ecb 235304.842392784 -- /bin/bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --compiled-modules=existing --threads=1 --gcthreads=1,0 --heap-size-hint=2G --history-file=no --project=/home/jspitz/JSimplex.jl /home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/native-quality/2026-10-29/driver-admitted.jl /home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/native-quality/2026-10-29/measurement-1.toml "
+  }
+}

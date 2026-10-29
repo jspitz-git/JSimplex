@@ -1,0 +1,10 @@
+Vectorize native solve-quality finite checks
+
+Reuse the existing Float32/Float64 SIMD boolean reduction for quality input
+and working-vector validation. Preserve generic fallback, numerical checks,
+arithmetic, and alias rejection. Add permanent finite/nonfinite regressions.
+
+Short whole-function paired measurements show sparse gains with matched
+allocation counts. Native numerical/regression checks pass; two legacy
+Rational allocation gates remain failed and unresolved, with independent
+source review excluding the changed path from their timed kernels.

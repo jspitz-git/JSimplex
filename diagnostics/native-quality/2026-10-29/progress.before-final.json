@@ -1,0 +1,26 @@
+{
+  "base": "235eedf33901fe8c4cc06a3d8c3508ef2fcbb718",
+  "worktree": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl",
+  "phase": "focused-green-1 active; no production commit or master integration",
+  "active_exec_session": 47260,
+  "adopted": "A native SIMD finite validators only",
+  "rejected": [
+    "B local CSC terms",
+    "AB"
+  ],
+  "measure": "measure-1 complete;3456 windows;6434 equivalence checks; no paired allocation increase",
+  "full_attempts": {
+    "green-1": "wall_time1790s incomplete",
+    "green-2": "agent interrupted536s scope correction incomplete"
+  },
+  "focused_scope": "19 entire unchanged files; native_quality_finite_tests new328 checks",
+  "observed_failures": [
+    "generic_unit_perturb_residual_tests.jl:581 Rational{BigInt} allocation gate",
+    "generic_dual_comparisons_tests.jl:709 Rational{BigInt} allocation gate"
+  ],
+  "next": "After candidate cleanup, ONE independently admitted unchanged235 baseline of two complete original files using command-baseline.json/pins-baseline.json/run-tests.py1800s; no candidate retry fishing or gate changes",
+  "reviewer": "native_quality_integration_review",
+  "integration_condition": "Independent final judgment after candidate completeness/baseline causality; then source-only commit, actual master19-file verification, reviewed push. No all19-pass or full-suite-pass claim if legacy allocation gates fail.",
+  "user_changes": "Old K legacy-allocation-task1 work unchanged. Main has pre-existing .vscode/settings.json edit and untracked Manifest/LocalPreferences; preserve. W env copies only locally untracked.",
+  "no_automation": true
+}

@@ -1,0 +1,203 @@
+Completed native_quality_finite
+Completed generic_quality_devex
+Completed numeric
+Completed compensated_transpose_work
+Completed generic_quality_local
+
+Multiprecision unit perturb and residual: Test Failed at /home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/test/generic_unit_perturb_residual_tests.jl:581
+  Expression: all(((after[k])["events"] < (before[k])["events"] for k = 1:3)) && median((x["bytes"] for x = after)) < median((x["bytes"] for x = before))
+  Stacktrace:
+    [1] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+    [2] allocation_gate(::Type{Rational{BigInt}}, scope::Symbol, arm::Symbol, n::Int64, density::Symbol, shape::Symbol, mode::Symbol)
+      @ Main.GenericUnitPerturbResidualTests ~/.codex/worktrees/native-quality-scans/JSimplex.jl/test/generic_unit_perturb_residual_tests.jl:581
+    [3] (::Main.GenericUnitPerturbResidualTests.var"#39#40")()
+      @ Main.GenericUnitPerturbResidualTests ~/.codex/worktrees/native-quality-scans/JSimplex.jl/test/generic_unit_perturb_residual_tests.jl:601
+    [4] setrounding_raw(f::Main.GenericUnitPerturbResidualTests.var"#39#40", ::Type{BigFloat}, r::Base.MPFR.MPFRRoundingMode)
+      @ Base.MPFR ./mpfr.jl:250
+    [5] setrounding
+      @ ./mpfr.jl:255 [inlined]
+    [6] #37
+      @ ~/.codex/worktrees/native-quality-scans/JSimplex.jl/test/generic_unit_perturb_residual_tests.jl:592 [inlined]
+    [7] setprecision(f::Main.GenericUnitPerturbResidualTests.var"#37#38", ::Type{BigFloat}, prec::Int64; base::Int64)
+      @ Base.MPFR ./mpfr.jl:1214
+    [8] setprecision(f::Function, ::Type{BigFloat}, prec::Int64)
+      @ Base.MPFR ./mpfr.jl:1213
+    [9] top-level scope
+      @ ~/.codex/worktrees/native-quality-scans/JSimplex.jl/test/generic_unit_perturb_residual_tests.jl:585
+   [10] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [11] macro expansion
+      @ ~/.codex/worktrees/native-quality-scans/JSimplex.jl/test/generic_unit_perturb_residual_tests.jl:591 [inlined]
+Completed generic_unit_perturb_residual
+
+Whole-call allocation gates: Test Failed at /home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/test/generic_dual_comparisons_tests.jl:709
+  Expression: all((100 * (after[i])[1] < 97 * (before[i])[1] && 100 * (after[i])[2] < 97 * (before[i])[2] for i = eachindex(before)))
+   Evaluated: all(Base.Generator{Base.OneTo{Int64}, Main.GenericDualComparisonsTests.var"#42#43"{Vector{Tuple{Int64, Int64}}, Vector{Tuple{Int64, Int64}}}}(Main.GenericDualComparisonsTests.var"#42#43"{Vector{Tuple{Int64, Int64}}, Vector{Tuple{Int64, Int64}}}([(1404608, 41720), (1420816, 41720), (1409264, 41720)], [(1459616, 43736), (1460896, 43736), (1463344, 43736)]), Base.OneTo(3)))
+  Stacktrace:
+    [1] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+    [2] allocation_gate_batched(::Type{Rational{BigInt}}, scope::Symbol, pattern::Symbol; other::Symbol, expect_saving::Bool)
+      @ Main.GenericDualComparisonsTests ~/.codex/worktrees/native-quality-scans/JSimplex.jl/test/generic_dual_comparisons_tests.jl:709
+    [3] allocation_gate_batched
+      @ ~/.codex/worktrees/native-quality-scans/JSimplex.jl/test/generic_dual_comparisons_tests.jl:668 [inlined]
+    [4] allocation_gate(::Type{Rational{BigInt}}, scope::Symbol, pattern::Symbol)
+      @ Main.GenericDualComparisonsTests ~/.codex/worktrees/native-quality-scans/JSimplex.jl/test/generic_dual_comparisons_tests.jl:719
+    [5] (::Main.GenericDualComparisonsTests.var"#59#60")()
+      @ Main.GenericDualComparisonsTests ~/.codex/worktrees/native-quality-scans/JSimplex.jl/test/generic_dual_comparisons_tests.jl:746
+    [6] setrounding_raw(f::Main.GenericDualComparisonsTests.var"#59#60", ::Type{BigFloat}, r::Base.MPFR.MPFRRoundingMode)
+      @ Base.MPFR ./mpfr.jl:250
+    [7] setrounding
+      @ ./mpfr.jl:255 [inlined]
+    [8] #57
+      @ ~/.codex/worktrees/native-quality-scans/JSimplex.jl/test/generic_dual_comparisons_tests.jl:745 [inlined]
+    [9] setprecision(f::Main.GenericDualComparisonsTests.var"#57#58", ::Type{BigFloat}, prec::Int64; base::Int64)
+      @ Base.MPFR ./mpfr.jl:1214
+   [10] setprecision(f::Function, ::Type{BigFloat}, prec::Int64)
+      @ Base.MPFR ./mpfr.jl:1213
+   [11] top-level scope
+      @ ~/.codex/worktrees/native-quality-scans/JSimplex.jl/test/generic_dual_comparisons_tests.jl:739
+   [12] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [13] macro expansion
+      @ ~/.codex/worktrees/native-quality-scans/JSimplex.jl/test/generic_dual_comparisons_tests.jl:744 [inlined]
+   [14] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [15] macro expansion
+      @ ~/.codex/worktrees/native-quality-scans/JSimplex.jl/test/generic_dual_comparisons_tests.jl:744 [inlined]
+Completed generic_dual_comparisons
+Completed simplex_numerics
+Completed native_residual
+Completed native_residual_mode
+Completed pivot_retry
+Completed primal_update
+Completed basis_recovery
+Completed simplex_phase_one
+Completed native_reliable_price
+Completed native_dual_tableau
+Completed native_pivot_integration
+Completed native_cleanup_recovery
+Completed native_certificate_recovery
+ERROR: LoadError: Some tests did not pass: 54014 passed, 2 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/native-quality/2026-10-29/focused-driver.jl:4
+Test Summary:                                                            |  Pass  Fail  Total      Time
+Candidate complete affected regressions                                  | 54014     2  54016  23m04.5s
+  Native quality finite validation                                       |   328          328      1.8s
+  BigFloat residual, quality and Devex regressions                       |  9471         9471     21.4s
+  Numeric policy and tagged bounds                                       |    18           18      0.1s
+  Bound equality and hashed collection lookup                            |   345          345      2.2s
+  Transposed compensated accumulation preserves term order and storage   |   266          266      0.3s
+  BigFloat invocation-local quality regressions                          | 16583        16583     16.1s
+  Multiprecision unit perturb and residual                               |  9637     1   9638     55.4s
+    unit perturb residual BigFloat                                       |   509          509      5.9s
+    unit perturb residual BigFloat                                       |   509          509      0.1s
+    unit perturb residual BigFloat                                       |   509          509      0.1s
+    unit perturb residual BigFloat                                       |   509          509      0.1s
+    unit perturb residual BigFloat                                       |   509          509      0.1s
+    unit perturb residual BigFloat                                       |   509          509      0.1s
+    unit perturb residual BigFloat                                       |   509          509      0.1s
+    unit perturb residual BigFloat                                       |   509          509      0.1s
+    unit perturb residual BigFloat                                       |   509          509      0.1s
+    unit perturb residual BigFloat                                       |   509          509      0.1s
+    unit perturb residual BigFloat                                       |   509          509      0.1s
+    unit perturb residual BigFloat                                       |   509          509      0.1s
+    unit perturb residual BigFloat                                       |   509          509      0.1s
+    unit perturb residual BigFloat                                       |   509          509      0.1s
+    unit perturb residual BigFloat                                       |   509          509      0.1s
+    unit perturb residual Float32                                        |   477          477      3.3s
+    unit perturb residual Float64                                        |   477          477      3.2s
+    unit perturb residual Rational{BigInt}                               |   459          459     10.1s
+    unit perturb residual Rational{Int64}                                |   430          430      3.0s
+  Generic dual comparisons                                               |  6687     1   6688     32.2s
+    Whole dual comparisons BigFloat                                      |   342          342      0.7s
+    Whole dual comparisons BigFloat                                      |   342          342      0.0s
+    Whole dual comparisons BigFloat                                      |   342          342      0.0s
+    Whole dual comparisons BigFloat                                      |   342          342      0.1s
+    Whole dual comparisons BigFloat                                      |   342          342      0.0s
+    Whole dual comparisons BigFloat                                      |   342          342      0.0s
+    Whole dual comparisons BigFloat                                      |   342          342      0.0s
+    Whole dual comparisons BigFloat                                      |   342          342      0.1s
+    Whole dual comparisons BigFloat                                      |   342          342      0.0s
+    Whole dual comparisons BigFloat                                      |   342          342      0.0s
+    Whole dual comparisons BigFloat                                      |   342          342      0.0s
+    Whole dual comparisons BigFloat                                      |   342          342      0.0s
+    Whole dual comparisons BigFloat                                      |   342          342      0.0s
+    Whole dual comparisons BigFloat                                      |   342          342      0.0s
+    Whole dual comparisons BigFloat                                      |   342          342      0.0s
+    Whole dual comparisons Rational{BigInt}                              |   120          120      0.3s
+    Whole dual comparisons Float32                                       |   217          217      0.4s
+    Whole dual comparisons Float64                                       |   217          217      0.4s
+    Whole dual comparisons Rational{Int64}                               |   119          119      0.2s
+    Whole-call allocation gates                                          |   860     1    861     22.9s
+    Unchanged native and fixed-rational costs                            |    24           24      0.2s
+  Shared simplex numerical quality                                       |    93           93      0.6s
+  Numerical strategy propagation                                         |    32           32     27.2s
+  Long residuals use bounded native scratch                              |    20           20      0.1s
+  Native residual acceptance agrees with exact input arithmetic          |    48           48      0.5s
+  Compensated pricing audits retain sparse traversal                     |    12           12      0.3s
+  Native acceptance boundary falls back to an exact-input check          |    36           36      0.0s
+  Direct wide refinement retains exceptional-range recovery              |     9            9      0.0s
+  Native residual bounds require gradual underflow                       |     7            7      0.0s
+  Pivot agreement requires a separated, signed estimate                  |    10           10      0.0s
+  Staged simplex application owns candidate state                        |   192          192   1m37.8s
+  Pivot validation checks independent basis solves                       |    18           18      1.1s
+  Primal bound flips preserve the basis and prices                       |    53           53      0.4s
+  Flip updates retain stored precision and reject aliased directions     |     5            5      0.1s
+  A completed flip has one FTRAN and no hidden recomputation             |   132          132     43.7s
+  A deadline before flip commit preserves the live state                 |     8            8      5.5s
+  Flip chains use periodic independent audits                            |   560          560     18.4s
+  A zero flip changes no bound state or counter                          |     4            4      0.0s
+  Unsafe flip predictions leave live values untouched                    |     6            6      0.1s
+  Reverse flips and audits preserve completed work                       |    12           12      9.6s
+  Boxed public solves retain Phase I and original-model certification    |    92           92   1m00.2s
+  Flip observers see a complete step and retain exception provenance     |     6            6     19.5s
+  The integrated flip retains a stored high-precision bound              |     4            4      0.9s
+  Incremental reduced costs use the old unit leaving column              |    13           13      0.1s
+  Incremental pivots agree with an independent basis solve               |    81           81      1.9s
+  Incremental pivots share validated rows with pricing                   |   336          336     17.6s
+  Pivot and mixed chains retain values and prices through audits         |  2184         2184      7.4s
+  Pivot audits correct drift and publish only a verified step            |    32           32     22.4s
+  Pivot deadlines and overflow cannot publish partial values             |     7            7      6.0s
+  Integrated pivots and corrected audits preserve stored precision       |    48           48     39.0s
+  Independent incremental pivots reprice before certification            |   147          147      3.8s
+  A recomputed infeasible point cannot certify unboundedness             |     2            2      2.8s
+  Coupled pivots agree with independent dense reference solves           |  4464         4464   1m34.7s
+  Reverse and free entering pivots retain the signed step                |    32           32      5.6s
+  Price audits measure backward error without cancellation bias          |    16           16      0.2s
+  Implicit pricing residuals match an explicit system in both directions |    31           31      0.6s
+  Verified audit corrections do not discard a valid new basis            |    28           28      8.3s
+  Unreliable or infeasible audited pivots still roll back atomically     |    56           56      1.8s
+  Discarded recovery candidates retain the triggering pivot pair         |     3            3      0.0s
+  Basis checkpoints own working data and preserve consumed work          |    44           44      1.3s
+  Repair failures preserve the live basis and the saved checkpoint       |    19           19      2.2s
+  Recovery rejection pairs belong to one basis generation                |     4            4      0.0s
+  Exhausted pivot refresh repairs the basis before resuming dual         |    12           12      2.5s
+  Recovery checkpoints are explicitly opt-in and phase-local             |     5            5      0.0s
+  Exhausted repair restores perturbations without replaying the budget   |     5            5      0.3s
+  Recovery rebuilds edge weights and respects stored precision           |    28           28      2.3s
+  Checkpoint validation, deadlines and observer failures are atomic      |    15           15      1.6s
+  Verified history is bounded and repair changes a singular basis        |    52           52      1.6s
+  Recovery never combines trigger coordinates from different candidates  |     8            8      0.2s
+  Modern phase-one interfaces                                            |     3            3      0.0s
+  General-basis phase one appends signed basic columns                   |   110          110      2.9s
+  Phase one restores an original-dimension owned workspace               |   520          520   8m34.7s
+  Zero basic artificials leave through verified exchanges                |    12           12     10.9s
+  Reliable BTRAN can still require price recovery                        |   160          160     32.8s
+  Forced reliable refinement must improve the residual                   |   100          100      3.7s
+  Reliable price refinement keeps policy limits and publication atomic   |    76           76     31.9s
+  Native dual tableau recovery retains small pivot information           |    32           32     13.3s
+  Native tableau recovery publishes only a complete consistent proposal  |    19           19      1.8s
+  Recovered pivot factors solve the published basis                      |    12           12     11.9s
+  Split tableau pricing retains native Float32 and Float64 corrections   |     8            8      0.1s
+  Native pivot policy public integration                                 |    48           48     55.3s
+  Native pivot policy private recovery                                   |   114          114      2.2s
+  Native cleanup repairs a feasible basis before restarting              |    88           88     34.6s
+  Native cleanup keeps rejected and interrupted corrections private      |    12           12      0.5s
+  Native cleanup preserves tiny nonzero equations                        |    16           16      0.6s
+  Native cleanup observes the correction budget and arithmetic mode      |     4            4      0.7s
+  Native cleanup publishes corrected dual prices with the primal point   |    32           32      0.7s
+  Terminal certificate repairs native stationarity in both algorithms    |   160          160      4.5s
+  Certificate recovery preserves genuine rejection and policy limits     |    64           64      0.0s
+  Certificate recovery keeps interrupted witnesses private               |    52           52      1.7s
+  Successful certificates never attempt native recovery                  |     6            6      0.0s
+RNG of the outermost testset: Xoshiro(0x95e503da354d35d6, 0xba716923ed742128, 0x61f2b7a6a9c2928e, 0xeadc488fb9e42b33, 0x1afcd17563b3a479)
