@@ -1,0 +1,7 @@
+# Explicit diagnostic assembly cost
+
+The PLAN's one B assembly means the independent captured B0 construction. In addition, the driver explicitly calls production `_basis_matrix!` once per arm to compare its hash, and actual `refine_basis_solve!` calls it again per arm. That is six production assembly invocations, three first allocations and three reuses of the owned CSC storage, in addition to the independent assembly: seven invocations total. Storage reuse still performs basis validation, counting and filling O(n+nnzB) work; it is not a zero-work cache hit. At most the independent B and the current arm's owned assembled B are live beyond the shared algebraic holder. These are diagnostic costs, with no extra factorization or basis solve.
+
+The frozen source-pins inventory's original PLAN remains byte-identical. This note and the post-inventory auditor are additional concrete-admission/launch bindings, never retroactive pins in the original inventory.
+
+The diagnostic author found that compensated replay mutates the temporary `raw.terms`. The current driver captures `raw_max_terms` before that replay, so the displayed raw term count describes the original full component pass. Original driver bytes are preserved as `driver.before-review.jl`; ONLY the old source-pins driver key maps to this byte-identical preserved file. Actual launch uses and freshly pins corrected `driver.jl`. No arithmetic/solve/test expectation changed.

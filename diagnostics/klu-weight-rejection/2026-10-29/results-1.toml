@@ -1,0 +1,796 @@
+A_hash = "ff82faa10b2b241ae8ad37c48c766cebddc59a7f5b67d3f2c27ce28298667f45"
+loaded_libraries = ["/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libamd.so.3.3.3", "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libsuitesparseconfig.so.7.10.1", "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libcolamd.so.3.3.4", "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libbtf.so.2.3.2", "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libklu.so.2.3.5", "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libumfpack.so.6.3.5"]
+n = 28453
+matrix_hash = "7b6ab789d7f49d73ec163eee3e2c5c5e9207dadd5f66a3b31972755b367c6d5c"
+scope = "one captured runtime-30000 B0, unit RHS row 1; diagnostic, not benchmark or LP solve"
+completed = true
+nnz = 125743
+
+[witness]
+path = "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/.superpowers/klu-weight-rejection/2026-10-29/first-rhs.bin"
+bytes = 3870038
+sha256 = "3e8bf2b4c22471872fc8f72b0c7511b3fca7967139aa01a037b74ce341aaf66d"
+
+[[arms]]
+stop_calls = 1
+name = "native-KLU"
+correction_calls = 1
+
+    [arms.initial]
+    raw_roundoff = 2.331468351712883e-14
+    diagnostic_oracle_bits = 137
+    oracle_max_absolute = "9.843200473452773380245162115897983312606812e-17"
+    oracle_max_ratio = "1.0"
+    raw_unsafe_range = false
+    first_oracle_bad_column = 582
+    point_hash = "a74dcbcbc12dcf865bc21912dd6f6576af7ca819cea23185733fa8ed26e499a6"
+    label = "initial"
+    raw_max_terms = 105
+    residual_hash = "1809e2b1af821716adbdf7a1fb7b62891b1b70cd5d2139c64944f1144150b0ac"
+    max_oracle_ratio_column = 582
+    branch = "compensated"
+
+        [arms.initial.quality]
+        reliable = false
+        relative_error = 1.0
+        finite = true
+        absolute_error = 9.843200473452773e-17
+
+        [[arms.initial.selected_equations]]
+        rhs_bits = "0000000000000000"
+        wide_ratio = "1.0"
+        solution_bits = ["3ba929ed6cc1e781", "bb30b78b8053b9af", "8000000000000000"]
+        original_basis_variable = 27457
+        wide_residual = "-2.678288209370529426279126521690222910095269e-21"
+        coefficients_bits = ["3ff0000000000000", "bff029eac711549a", "bff0000000000000"]
+        rows = [477, 582, 8154]
+        column = 582
+        wide_scale = "2.678288209370529426279126521690222910095269e-21"
+        [[arms.initial.selected_equations]]
+        rhs_bits = "3ff0000000000000"
+        wide_ratio = "4.921600236726386447901092156496748501509316e-17"
+        solution_bits = ["bf1fb9736b813c5f", "3fefff023464a3f7"]
+        original_basis_variable = 23820
+        wide_residual = "-9.843200473452773380245162115897983312606812e-17"
+        coefficients_bits = ["bff0000000000000", "3ff0000000000000"]
+        rows = [352, 1634]
+        column = 1
+        wide_scale = "2.000000000000000098432004734527733802451621"
+
+    [[arms.corrections]]
+    correction_rhs_hash = "1809e2b1af821716adbdf7a1fb7b62891b1b70cd5d2139c64944f1144150b0ac"
+    changed_components = 541
+    accepted = false
+    gate = "quality_not_improved"
+    index = 1
+    correction_hash = "cbedbc6654513e62d5ebbdb97fe3b5407f5d61f745719e8c4b2ddce052f25a6c"
+
+        [arms.corrections.trial]
+        raw_roundoff = 2.331468351712883e-14
+        diagnostic_oracle_bits = 137
+        oracle_max_absolute = "1.252253509220757621278607985004782676696777e-17"
+        oracle_max_ratio = "1.0"
+        raw_unsafe_range = false
+        first_oracle_bad_column = 78
+        point_hash = "2d29cbadcea0ef36952460771bd359ad6ed4ca754ae029ba8f154ee59b0f0e84"
+        label = "trial-correction-1"
+        raw_max_terms = 105
+        residual_hash = "2fea898d89130ad956b3a78cbec9fb0802d9ecadb8627e76755f62989733ec22"
+        max_oracle_ratio_column = 2933
+        branch = "compensated"
+
+            [arms.corrections.trial.quality]
+            reliable = false
+            relative_error = 1.0
+            finite = true
+            absolute_error = 1.2522535092207576e-17
+
+            [[arms.corrections.trial.selected_equations]]
+            rhs_bits = "0000000000000000"
+            wide_ratio = "1.0"
+            solution_bits = ["3888000000000000", "8000000000000000", "b72a02f3725a1310"]
+            original_basis_variable = 24186
+            wide_residual = "2.256949445178096994553135485904932892464578e-36"
+            coefficients_bits = ["bff0000000000000", "bff0000000000000", "3fe0000000000000"]
+            rows = [13, 489, 1504]
+            column = 2933
+            wide_scale = "2.256949445178096994553135485904932892464578e-36"
+            [[arms.corrections.trial.selected_equations]]
+            rhs_bits = "0000000000000000"
+            wide_ratio = "0.04761904761904761904761904761904761904761891"
+            solution_bits = ["b736000000000000", "b744000000000000"]
+            original_basis_variable = 24597
+            wide_residual = "-8.968310171678829253911869333055463240193676e-44"
+            coefficients_bits = ["bff0000000000000", "3fe0000000000000"]
+            rows = [1008, 1563]
+            column = 78
+            wide_scale = "1.883345136052554143321492559941647280440672e-42"
+            [[arms.corrections.trial.selected_equations]]
+            rhs_bits = "3ff0000000000000"
+            wide_ratio = "6.261267546103788145596511208916465949397173e-18"
+            solution_bits = ["bf1fb9736b813c64", "3fefff023464a3f6"]
+            original_basis_variable = 23820
+            wide_residual = "1.252253509220757621278607985004782676696777e-17"
+            coefficients_bits = ["bff0000000000000", "3ff0000000000000"]
+            rows = [352, 1634]
+            column = 1
+            wide_scale = "1.99999999999999998747746490779242378721392"
+
+        [arms.corrections.before]
+        raw_roundoff = 2.331468351712883e-14
+        diagnostic_oracle_bits = 137
+        oracle_max_absolute = "9.843200473452773380245162115897983312606812e-17"
+        oracle_max_ratio = "1.0"
+        raw_unsafe_range = false
+        first_oracle_bad_column = 582
+        point_hash = "a74dcbcbc12dcf865bc21912dd6f6576af7ca819cea23185733fa8ed26e499a6"
+        label = "before-correction-1"
+        raw_max_terms = 105
+        residual_hash = "1809e2b1af821716adbdf7a1fb7b62891b1b70cd5d2139c64944f1144150b0ac"
+        max_oracle_ratio_column = 582
+        branch = "compensated"
+
+            [arms.corrections.before.quality]
+            reliable = false
+            relative_error = 1.0
+            finite = true
+            absolute_error = 9.843200473452773e-17
+
+            [[arms.corrections.before.selected_equations]]
+            rhs_bits = "0000000000000000"
+            wide_ratio = "1.0"
+            solution_bits = ["3ba929ed6cc1e781", "bb30b78b8053b9af", "8000000000000000"]
+            original_basis_variable = 27457
+            wide_residual = "-2.678288209370529426279126521690222910095269e-21"
+            coefficients_bits = ["3ff0000000000000", "bff029eac711549a", "bff0000000000000"]
+            rows = [477, 582, 8154]
+            column = 582
+            wide_scale = "2.678288209370529426279126521690222910095269e-21"
+            [[arms.corrections.before.selected_equations]]
+            rhs_bits = "3ff0000000000000"
+            wide_ratio = "4.921600236726386447901092156496748501509316e-17"
+            solution_bits = ["bf1fb9736b813c5f", "3fefff023464a3f7"]
+            original_basis_variable = 23820
+            wide_residual = "-9.843200473452773380245162115897983312606812e-17"
+            coefficients_bits = ["bff0000000000000", "3ff0000000000000"]
+            rows = [352, 1634]
+            column = 1
+            wide_scale = "2.000000000000000098432004734527733802451621"
+
+    [arms.policy]
+    refactor_timing = true
+    stable_ratio = false
+    precision_boosting = false
+    max_precision_memory_bytes = 1073741824
+    recovery = false
+    max_refinements = 3
+    incremental_primal = false
+    partial_pricing = false
+    adaptive_primal_perturbation = false
+    pivot_error_tolerance = 1.4901161193847656e-8
+    lp_refinement = false
+    adaptive_refactor = false
+    sparse_pricing = false
+    solve_tolerance = 5.684341886080802e-14
+    max_lp_refinements = 8
+    adaptive_stalling = false
+    max_pivot_candidates = 8
+    pivot_validation = false
+    adaptive_pricing = false
+    feasibility_recovery = false
+    max_recovery_rounds = 2
+    adaptive_dual_perturbation = false
+    solve_refinement = false
+    hypersparse = false
+    incremental_primal_pivots = false
+    phase_one = false
+    crash = false
+    max_precision_bits = 512
+    stagnation_window = 64
+
+    [arms.final]
+    raw_roundoff = 2.331468351712883e-14
+    diagnostic_oracle_bits = 137
+    oracle_max_absolute = "9.843200473452773380245162115897983312606812e-17"
+    oracle_max_ratio = "1.0"
+    raw_unsafe_range = false
+    first_oracle_bad_column = 582
+    point_hash = "a74dcbcbc12dcf865bc21912dd6f6576af7ca819cea23185733fa8ed26e499a6"
+    label = "final"
+    raw_max_terms = 105
+    residual_hash = "1809e2b1af821716adbdf7a1fb7b62891b1b70cd5d2139c64944f1144150b0ac"
+    max_oracle_ratio_column = 582
+    branch = "compensated"
+
+        [arms.final.quality]
+        reliable = false
+        relative_error = 1.0
+        finite = true
+        absolute_error = 9.843200473452773e-17
+
+        [[arms.final.selected_equations]]
+        rhs_bits = "0000000000000000"
+        wide_ratio = "1.0"
+        solution_bits = ["3ba929ed6cc1e781", "bb30b78b8053b9af", "8000000000000000"]
+        original_basis_variable = 27457
+        wide_residual = "-2.678288209370529426279126521690222910095269e-21"
+        coefficients_bits = ["3ff0000000000000", "bff029eac711549a", "bff0000000000000"]
+        rows = [477, 582, 8154]
+        column = 582
+        wide_scale = "2.678288209370529426279126521690222910095269e-21"
+        [[arms.final.selected_equations]]
+        rhs_bits = "3ff0000000000000"
+        wide_ratio = "4.921600236726386447901092156496748501509316e-17"
+        solution_bits = ["bf1fb9736b813c5f", "3fefff023464a3f7"]
+        original_basis_variable = 23820
+        wide_residual = "-9.843200473452773380245162115897983312606812e-17"
+        coefficients_bits = ["bff0000000000000", "3ff0000000000000"]
+        rows = [352, 1634]
+        column = 1
+        wide_scale = "2.000000000000000098432004734527733802451621"
+
+    [arms.controls]
+    maxwork = 10.0
+    scale = 1
+    btf = 1
+    tol = 1.0
+    ordering = 0
+    initial_path = 2
+[[arms]]
+stop_calls = 1
+name = "local-KLU"
+correction_calls = 1
+
+    [arms.initial]
+    raw_roundoff = 2.331468351712883e-14
+    diagnostic_oracle_bits = 137
+    oracle_max_absolute = "9.843200473452773380245162115897983312606812e-17"
+    oracle_max_ratio = "1.0"
+    raw_unsafe_range = false
+    first_oracle_bad_column = 582
+    point_hash = "c39422103caf7bef389d4489027b57956318eaaa93ba7ccab2f3f722203ffea6"
+    label = "initial"
+    raw_max_terms = 105
+    residual_hash = "c2ba39644ebfa18549e68ec285b4818823fb2c72d2a66862d79fe453a0383245"
+    max_oracle_ratio_column = 2933
+    branch = "compensated"
+
+        [arms.initial.quality]
+        reliable = false
+        relative_error = 1.0
+        finite = true
+        absolute_error = 9.843200473452773e-17
+
+        [[arms.initial.selected_equations]]
+        rhs_bits = "0000000000000000"
+        wide_ratio = "1.0"
+        solution_bits = ["bbbc175efae7da51", "0000000000000000", "3722ffa0cdb33e83"]
+        original_basis_variable = 24186
+        wide_residual = "-5.948562682124840238440247687663906064279345e-21"
+        coefficients_bits = ["bff0000000000000", "bff0000000000000", "3fe0000000000000"]
+        rows = [13, 489, 1504]
+        column = 2933
+        wide_scale = "5.948562682124840238440247687663906064279345e-21"
+        [[arms.initial.selected_equations]]
+        rhs_bits = "0000000000000000"
+        wide_ratio = "0.273813257226373137942362418591164229560635"
+        solution_bits = ["3ba0aa006c043c89", "3b92ceba49404fdf", "0000000000000000"]
+        original_basis_variable = 27457
+        wide_residual = "-7.585253033913855070059104389899313362956726e-22"
+        coefficients_bits = ["3ff0000000000000", "bff029eac711549a", "bff0000000000000"]
+        rows = [477, 582, 8154]
+        column = 582
+        wide_scale = "2.770228553120348649220175257487457713466476e-21"
+        [[arms.initial.selected_equations]]
+        rhs_bits = "3ff0000000000000"
+        wide_ratio = "4.921600236726386447901092156496748501509316e-17"
+        solution_bits = ["bf1fb9736b813c5f", "3fefff023464a3f7"]
+        original_basis_variable = 23820
+        wide_residual = "-9.843200473452773380245162115897983312606812e-17"
+        coefficients_bits = ["bff0000000000000", "3ff0000000000000"]
+        rows = [352, 1634]
+        column = 1
+        wide_scale = "2.000000000000000098432004734527733802451621"
+
+    [[arms.corrections]]
+    correction_rhs_hash = "c2ba39644ebfa18549e68ec285b4818823fb2c72d2a66862d79fe453a0383245"
+    changed_components = 542
+    accepted = false
+    gate = "quality_not_improved"
+    index = 1
+    correction_hash = "f3b7a5fa0294f8ec01b8d12d3486f0c03a4fb252fa8fa3fc8a81999ae8df425d"
+
+        [arms.corrections.trial]
+        raw_roundoff = 2.331468351712883e-14
+        diagnostic_oracle_bits = 137
+        oracle_max_absolute = "1.252253509220757621278607985004782676696777e-17"
+        oracle_max_ratio = "1.0"
+        raw_unsafe_range = false
+        first_oracle_bad_column = 78
+        point_hash = "b90e93db730940770d295a2a15ae1817f809a1fbbd996c391d80655e630f4f56"
+        label = "trial-correction-1"
+        raw_max_terms = 105
+        residual_hash = "c0171d44a358ab9aca288e364dc4d743d6009a524ff32f7f6838425dbd7486d0"
+        max_oracle_ratio_column = 2106
+        branch = "compensated"
+
+            [arms.corrections.trial.quality]
+            reliable = false
+            relative_error = 1.0
+            finite = true
+            absolute_error = 1.2522535092207576e-17
+
+            [[arms.corrections.trial.selected_equations]]
+            rhs_bits = "0000000000000000"
+            wide_ratio = "1.0"
+            solution_bits = ["0000000000000000", "b880000000000000"]
+            original_basis_variable = 23073
+            wide_residual = "-1.847081719453400640009642241788040858216203e-36"
+            coefficients_bits = ["3ff0000000000000", "bff3a43c164a88ff"]
+            rows = [2700, 2724]
+            column = 2106
+            wide_scale = "1.847081719453400640009642241788040858216203e-36"
+            [[arms.corrections.trial.selected_equations]]
+            rhs_bits = "0000000000000000"
+            wide_ratio = "0.05882352941176470588235294117647058823529416"
+            solution_bits = ["b722000000000000", "b730000000000000"]
+            original_basis_variable = 24597
+            wide_residual = "-4.484155085839414626955934666527731620096838e-44"
+            coefficients_bits = ["bff0000000000000", "3fe0000000000000"]
+            rows = [1008, 1563]
+            column = 78
+            wide_scale = "7.623063645927004865825088933097143754164625e-43"
+            [[arms.corrections.trial.selected_equations]]
+            rhs_bits = "3ff0000000000000"
+            wide_ratio = "6.261267546103788145596511208916465949397173e-18"
+            solution_bits = ["bf1fb9736b813c64", "3fefff023464a3f6"]
+            original_basis_variable = 23820
+            wide_residual = "1.252253509220757621278607985004782676696777e-17"
+            coefficients_bits = ["bff0000000000000", "3ff0000000000000"]
+            rows = [352, 1634]
+            column = 1
+            wide_scale = "1.99999999999999998747746490779242378721392"
+
+        [arms.corrections.before]
+        raw_roundoff = 2.331468351712883e-14
+        diagnostic_oracle_bits = 137
+        oracle_max_absolute = "9.843200473452773380245162115897983312606812e-17"
+        oracle_max_ratio = "1.0"
+        raw_unsafe_range = false
+        first_oracle_bad_column = 582
+        point_hash = "c39422103caf7bef389d4489027b57956318eaaa93ba7ccab2f3f722203ffea6"
+        label = "before-correction-1"
+        raw_max_terms = 105
+        residual_hash = "c2ba39644ebfa18549e68ec285b4818823fb2c72d2a66862d79fe453a0383245"
+        max_oracle_ratio_column = 2933
+        branch = "compensated"
+
+            [arms.corrections.before.quality]
+            reliable = false
+            relative_error = 1.0
+            finite = true
+            absolute_error = 9.843200473452773e-17
+
+            [[arms.corrections.before.selected_equations]]
+            rhs_bits = "0000000000000000"
+            wide_ratio = "1.0"
+            solution_bits = ["bbbc175efae7da51", "0000000000000000", "3722ffa0cdb33e83"]
+            original_basis_variable = 24186
+            wide_residual = "-5.948562682124840238440247687663906064279345e-21"
+            coefficients_bits = ["bff0000000000000", "bff0000000000000", "3fe0000000000000"]
+            rows = [13, 489, 1504]
+            column = 2933
+            wide_scale = "5.948562682124840238440247687663906064279345e-21"
+            [[arms.corrections.before.selected_equations]]
+            rhs_bits = "0000000000000000"
+            wide_ratio = "0.273813257226373137942362418591164229560635"
+            solution_bits = ["3ba0aa006c043c89", "3b92ceba49404fdf", "0000000000000000"]
+            original_basis_variable = 27457
+            wide_residual = "-7.585253033913855070059104389899313362956726e-22"
+            coefficients_bits = ["3ff0000000000000", "bff029eac711549a", "bff0000000000000"]
+            rows = [477, 582, 8154]
+            column = 582
+            wide_scale = "2.770228553120348649220175257487457713466476e-21"
+            [[arms.corrections.before.selected_equations]]
+            rhs_bits = "3ff0000000000000"
+            wide_ratio = "4.921600236726386447901092156496748501509316e-17"
+            solution_bits = ["bf1fb9736b813c5f", "3fefff023464a3f7"]
+            original_basis_variable = 23820
+            wide_residual = "-9.843200473452773380245162115897983312606812e-17"
+            coefficients_bits = ["bff0000000000000", "3ff0000000000000"]
+            rows = [352, 1634]
+            column = 1
+            wide_scale = "2.000000000000000098432004734527733802451621"
+
+    [arms.policy]
+    refactor_timing = true
+    stable_ratio = false
+    precision_boosting = false
+    max_precision_memory_bytes = 1073741824
+    recovery = false
+    max_refinements = 3
+    incremental_primal = false
+    partial_pricing = false
+    adaptive_primal_perturbation = false
+    pivot_error_tolerance = 1.4901161193847656e-8
+    lp_refinement = false
+    adaptive_refactor = false
+    sparse_pricing = false
+    solve_tolerance = 5.684341886080802e-14
+    max_lp_refinements = 8
+    adaptive_stalling = false
+    max_pivot_candidates = 8
+    pivot_validation = false
+    adaptive_pricing = false
+    feasibility_recovery = false
+    max_recovery_rounds = 2
+    adaptive_dual_perturbation = false
+    solve_refinement = false
+    hypersparse = false
+    incremental_primal_pivots = false
+    phase_one = false
+    crash = false
+    max_precision_bits = 512
+    stagnation_window = 64
+
+    [arms.final]
+    raw_roundoff = 2.331468351712883e-14
+    diagnostic_oracle_bits = 137
+    oracle_max_absolute = "9.843200473452773380245162115897983312606812e-17"
+    oracle_max_ratio = "1.0"
+    raw_unsafe_range = false
+    first_oracle_bad_column = 582
+    point_hash = "c39422103caf7bef389d4489027b57956318eaaa93ba7ccab2f3f722203ffea6"
+    label = "final"
+    raw_max_terms = 105
+    residual_hash = "c2ba39644ebfa18549e68ec285b4818823fb2c72d2a66862d79fe453a0383245"
+    max_oracle_ratio_column = 2933
+    branch = "compensated"
+
+        [arms.final.quality]
+        reliable = false
+        relative_error = 1.0
+        finite = true
+        absolute_error = 9.843200473452773e-17
+
+        [[arms.final.selected_equations]]
+        rhs_bits = "0000000000000000"
+        wide_ratio = "1.0"
+        solution_bits = ["bbbc175efae7da51", "0000000000000000", "3722ffa0cdb33e83"]
+        original_basis_variable = 24186
+        wide_residual = "-5.948562682124840238440247687663906064279345e-21"
+        coefficients_bits = ["bff0000000000000", "bff0000000000000", "3fe0000000000000"]
+        rows = [13, 489, 1504]
+        column = 2933
+        wide_scale = "5.948562682124840238440247687663906064279345e-21"
+        [[arms.final.selected_equations]]
+        rhs_bits = "0000000000000000"
+        wide_ratio = "0.273813257226373137942362418591164229560635"
+        solution_bits = ["3ba0aa006c043c89", "3b92ceba49404fdf", "0000000000000000"]
+        original_basis_variable = 27457
+        wide_residual = "-7.585253033913855070059104389899313362956726e-22"
+        coefficients_bits = ["3ff0000000000000", "bff029eac711549a", "bff0000000000000"]
+        rows = [477, 582, 8154]
+        column = 582
+        wide_scale = "2.770228553120348649220175257487457713466476e-21"
+        [[arms.final.selected_equations]]
+        rhs_bits = "3ff0000000000000"
+        wide_ratio = "4.921600236726386447901092156496748501509316e-17"
+        solution_bits = ["bf1fb9736b813c5f", "3fefff023464a3f7"]
+        original_basis_variable = 23820
+        wide_residual = "-9.843200473452773380245162115897983312606812e-17"
+        coefficients_bits = ["bff0000000000000", "3ff0000000000000"]
+        rows = [352, 1634]
+        column = 1
+        wide_scale = "2.000000000000000098432004734527733802451621"
+
+    [arms.controls]
+    maxwork = 10.0
+    scale = 1
+    btf = 1
+    tol = 1.0
+    ordering = 0
+    initial_path = 1
+[[arms]]
+stop_calls = 1
+name = "UMFPACK"
+correction_calls = 1
+
+    [arms.initial]
+    raw_roundoff = 2.331468351712883e-14
+    diagnostic_oracle_bits = 137
+    oracle_max_absolute = "9.833713704443525216447596903890371322631836e-17"
+    oracle_max_ratio = "1.0"
+    raw_unsafe_range = false
+    first_oracle_bad_column = 1255
+    point_hash = "3c41e91eb8a03c687e16c7cc16d1d3d93f402a9c3ac6f131d3934f226edc7483"
+    label = "initial"
+    raw_max_terms = 105
+    residual_hash = "93a0c439e8500310dbcce219f85b9905ab2970f512c44a8f400d79eb4416cb87"
+    max_oracle_ratio_column = 5741
+    branch = "compensated"
+
+        [arms.initial.quality]
+        reliable = false
+        relative_error = 1.0
+        finite = true
+        absolute_error = 9.833713704443525e-17
+
+        [[arms.initial.selected_equations]]
+        rhs_bits = "0000000000000000"
+        wide_ratio = "1.0"
+        solution_bits = ["8000000000000000", "38718364700bb6f8"]
+        original_basis_variable = 24108
+        wide_residual = "-8.234691190530272477072399729640704343532415e-37"
+        coefficients_bits = ["bff0000000000000", "3ff0000000000000"]
+        rows = [477, 1961]
+        column = 5741
+        wide_scale = "8.234691190530272477072399729640704343532415e-37"
+        [[arms.initial.selected_equations]]
+        rhs_bits = "0000000000000000"
+        wide_ratio = "0.980299833448797820114711867744105656371704"
+        solution_bits = ["38718364700bb6f8", "0000000000000000", "bb750e9a2726b343", "3bba00c014464024", "bba94bedefbedd68", "8000000000000000", "8000000000000000"]
+        original_basis_variable = 13836
+        wide_residual = "-6.772187519816362407645730496631942860210708e-21"
+        coefficients_bits = ["bff43aa18644749b", "bfcec781ce0fb1be", "3fcf40f66a550870", "3fe82fc2656abde4", "bff0000000000000", "bfff2b1a1d6b2876", "bfff40f66a550870"]
+        rows = [1961, 2044, 2300, 2348, 5874, 13073, 15719]
+        column = 1255
+        wide_scale = "6.908281822298281045468843472647735728387879e-21"
+        [[arms.initial.selected_equations]]
+        rhs_bits = "3ff0000000000000"
+        wide_ratio = "4.916856852221762366468985399544198512310707e-17"
+        solution_bits = ["bf1fb9736b813c58", "3fefff023464a3f7"]
+        original_basis_variable = 23820
+        wide_residual = "-9.833713704443525216447596903890371322631836e-17"
+        coefficients_bits = ["bff0000000000000", "3ff0000000000000"]
+        rows = [352, 1634]
+        column = 1
+        wide_scale = "2.000000000000000098337137044435252164475969"
+
+    [[arms.corrections]]
+    correction_rhs_hash = "93a0c439e8500310dbcce219f85b9905ab2970f512c44a8f400d79eb4416cb87"
+    changed_components = 522
+    accepted = false
+    gate = "quality_not_improved"
+    index = 1
+    correction_hash = "9dc2ee580926898e6cf6c9f782c68838e5991d614b98d635c02864a50270ede4"
+
+        [arms.corrections.trial]
+        raw_roundoff = 2.331468351712883e-14
+        diagnostic_oracle_bits = 137
+        oracle_max_absolute = "1.252253509220757621278607985004782676696777e-17"
+        oracle_max_ratio = "1.0"
+        raw_unsafe_range = false
+        first_oracle_bad_column = 1008
+        point_hash = "c9f24a693473e73ea1671f76ca1276ef949ac5b5e1ac11059c3ae46009b0ad8d"
+        label = "trial-correction-1"
+        raw_max_terms = 105
+        residual_hash = "6e7d38305c87a1786fd0c19b827d26484bea891ffc39f724f4d10ad2ca7287de"
+        max_oracle_ratio_column = 4444
+        branch = "compensated"
+
+            [arms.corrections.trial.quality]
+            reliable = false
+            relative_error = 1.0
+            finite = true
+            absolute_error = 1.2522535092207576e-17
+
+            [[arms.corrections.trial.selected_equations]]
+            rhs_bits = "0000000000000000"
+            wide_ratio = "1.0"
+            solution_bits = ["b872000000000000", "3840000000000000"]
+            original_basis_variable = 22680
+            wide_residual = "-9.403954806578300063749892297777965422549324e-37"
+            coefficients_bits = ["bff0000000000000", "3ff0000000000000"]
+            rows = [2700, 3526]
+            column = 4444
+            wide_scale = "9.403954806578300063749892297777965422549324e-37"
+            [[arms.corrections.trial.selected_equations]]
+            rhs_bits = "0000000000000000"
+            wide_ratio = "0.227734216952087210204239587116762160096638"
+            solution_bits = ["b86e000000000000", "b86c000000000000", "b888000000000000", "8000000000000000", "8000000000000000", "3884000000000000", "8000000000000000"]
+            original_basis_variable = 13824
+            wide_residual = "1.023338294343376015695703784141283777496291e-36"
+            coefficients_bits = ["bfd5861a60d4562e", "3fd5861a60d4562e", "bfe53cf2cf95d4e9", "3fe53cf2cf95d4e9", "bff0000000000000", "bff5953d9d809522", "3ff5770c50f13435"]
+            rows = [2300, 2301, 2348, 2349, 5862, 10044, 13069]
+            column = 1008
+            wide_scale = "4.493564067970845181855886616884510983006096e-36"
+            [[arms.corrections.trial.selected_equations]]
+            rhs_bits = "3ff0000000000000"
+            wide_ratio = "6.261267546103788145596511208916465949397173e-18"
+            solution_bits = ["bf1fb9736b813c64", "3fefff023464a3f6"]
+            original_basis_variable = 23820
+            wide_residual = "1.252253509220757621278607985004782676696777e-17"
+            coefficients_bits = ["bff0000000000000", "3ff0000000000000"]
+            rows = [352, 1634]
+            column = 1
+            wide_scale = "1.99999999999999998747746490779242378721392"
+
+        [arms.corrections.before]
+        raw_roundoff = 2.331468351712883e-14
+        diagnostic_oracle_bits = 137
+        oracle_max_absolute = "9.833713704443525216447596903890371322631836e-17"
+        oracle_max_ratio = "1.0"
+        raw_unsafe_range = false
+        first_oracle_bad_column = 1255
+        point_hash = "3c41e91eb8a03c687e16c7cc16d1d3d93f402a9c3ac6f131d3934f226edc7483"
+        label = "before-correction-1"
+        raw_max_terms = 105
+        residual_hash = "93a0c439e8500310dbcce219f85b9905ab2970f512c44a8f400d79eb4416cb87"
+        max_oracle_ratio_column = 5741
+        branch = "compensated"
+
+            [arms.corrections.before.quality]
+            reliable = false
+            relative_error = 1.0
+            finite = true
+            absolute_error = 9.833713704443525e-17
+
+            [[arms.corrections.before.selected_equations]]
+            rhs_bits = "0000000000000000"
+            wide_ratio = "1.0"
+            solution_bits = ["8000000000000000", "38718364700bb6f8"]
+            original_basis_variable = 24108
+            wide_residual = "-8.234691190530272477072399729640704343532415e-37"
+            coefficients_bits = ["bff0000000000000", "3ff0000000000000"]
+            rows = [477, 1961]
+            column = 5741
+            wide_scale = "8.234691190530272477072399729640704343532415e-37"
+            [[arms.corrections.before.selected_equations]]
+            rhs_bits = "0000000000000000"
+            wide_ratio = "0.980299833448797820114711867744105656371704"
+            solution_bits = ["38718364700bb6f8", "0000000000000000", "bb750e9a2726b343", "3bba00c014464024", "bba94bedefbedd68", "8000000000000000", "8000000000000000"]
+            original_basis_variable = 13836
+            wide_residual = "-6.772187519816362407645730496631942860210708e-21"
+            coefficients_bits = ["bff43aa18644749b", "bfcec781ce0fb1be", "3fcf40f66a550870", "3fe82fc2656abde4", "bff0000000000000", "bfff2b1a1d6b2876", "bfff40f66a550870"]
+            rows = [1961, 2044, 2300, 2348, 5874, 13073, 15719]
+            column = 1255
+            wide_scale = "6.908281822298281045468843472647735728387879e-21"
+            [[arms.corrections.before.selected_equations]]
+            rhs_bits = "3ff0000000000000"
+            wide_ratio = "4.916856852221762366468985399544198512310707e-17"
+            solution_bits = ["bf1fb9736b813c58", "3fefff023464a3f7"]
+            original_basis_variable = 23820
+            wide_residual = "-9.833713704443525216447596903890371322631836e-17"
+            coefficients_bits = ["bff0000000000000", "3ff0000000000000"]
+            rows = [352, 1634]
+            column = 1
+            wide_scale = "2.000000000000000098337137044435252164475969"
+
+    [arms.policy]
+    refactor_timing = true
+    stable_ratio = false
+    precision_boosting = false
+    max_precision_memory_bytes = 1073741824
+    recovery = false
+    max_refinements = 3
+    incremental_primal = false
+    partial_pricing = false
+    adaptive_primal_perturbation = false
+    pivot_error_tolerance = 1.4901161193847656e-8
+    lp_refinement = false
+    adaptive_refactor = false
+    sparse_pricing = false
+    solve_tolerance = 5.684341886080802e-14
+    max_lp_refinements = 8
+    adaptive_stalling = false
+    max_pivot_candidates = 8
+    pivot_validation = false
+    adaptive_pricing = false
+    feasibility_recovery = false
+    max_recovery_rounds = 2
+    adaptive_dual_perturbation = false
+    solve_refinement = false
+    hypersparse = false
+    incremental_primal_pivots = false
+    phase_one = false
+    crash = false
+    max_precision_bits = 512
+    stagnation_window = 64
+
+    [arms.final]
+    raw_roundoff = 2.331468351712883e-14
+    diagnostic_oracle_bits = 137
+    oracle_max_absolute = "9.833713704443525216447596903890371322631836e-17"
+    oracle_max_ratio = "1.0"
+    raw_unsafe_range = false
+    first_oracle_bad_column = 1255
+    point_hash = "3c41e91eb8a03c687e16c7cc16d1d3d93f402a9c3ac6f131d3934f226edc7483"
+    label = "final"
+    raw_max_terms = 105
+    residual_hash = "93a0c439e8500310dbcce219f85b9905ab2970f512c44a8f400d79eb4416cb87"
+    max_oracle_ratio_column = 5741
+    branch = "compensated"
+
+        [arms.final.quality]
+        reliable = false
+        relative_error = 1.0
+        finite = true
+        absolute_error = 9.833713704443525e-17
+
+        [[arms.final.selected_equations]]
+        rhs_bits = "0000000000000000"
+        wide_ratio = "1.0"
+        solution_bits = ["8000000000000000", "38718364700bb6f8"]
+        original_basis_variable = 24108
+        wide_residual = "-8.234691190530272477072399729640704343532415e-37"
+        coefficients_bits = ["bff0000000000000", "3ff0000000000000"]
+        rows = [477, 1961]
+        column = 5741
+        wide_scale = "8.234691190530272477072399729640704343532415e-37"
+        [[arms.final.selected_equations]]
+        rhs_bits = "0000000000000000"
+        wide_ratio = "0.980299833448797820114711867744105656371704"
+        solution_bits = ["38718364700bb6f8", "0000000000000000", "bb750e9a2726b343", "3bba00c014464024", "bba94bedefbedd68", "8000000000000000", "8000000000000000"]
+        original_basis_variable = 13836
+        wide_residual = "-6.772187519816362407645730496631942860210708e-21"
+        coefficients_bits = ["bff43aa18644749b", "bfcec781ce0fb1be", "3fcf40f66a550870", "3fe82fc2656abde4", "bff0000000000000", "bfff2b1a1d6b2876", "bfff40f66a550870"]
+        rows = [1961, 2044, 2300, 2348, 5874, 13073, 15719]
+        column = 1255
+        wide_scale = "6.908281822298281045468843472647735728387879e-21"
+        [[arms.final.selected_equations]]
+        rhs_bits = "3ff0000000000000"
+        wide_ratio = "4.916856852221762366468985399544198512310707e-17"
+        solution_bits = ["bf1fb9736b813c58", "3fefff023464a3f7"]
+        original_basis_variable = 23820
+        wide_residual = "-9.833713704443525216447596903890371322631836e-17"
+        coefficients_bits = ["bff0000000000000", "3ff0000000000000"]
+        rows = [352, 1634]
+        column = 1
+        wide_scale = "2.000000000000000098337137044435252164475969"
+
+    [arms.controls]
+    IRSTEP = 0.0
+    control = [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0]
+
+[[preparation]]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 0.11334361
+bytes = 13927216
+stage = "deserialize"
+compile_seconds = 0.11113251
+events = 181451
+[[preparation]]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 0.048433004
+bytes = 9809448
+stage = "assemble-B0"
+compile_seconds = 0.045760404
+events = 47243
+[[preparation]]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 0.124106311
+bytes = 37543168
+stage = "algebraic-holder"
+compile_seconds = 0.120056511
+events = 446206
+[[preparation]]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 0.0089555
+bytes = 2468672
+stage = "private-factor-and-context"
+compile_seconds = 0.0
+arm = "native-KLU"
+events = 27
+[[preparation]]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 0.243802321
+bytes = 84051480
+stage = "private-factor-and-context"
+compile_seconds = 0.233071719
+arm = "local-KLU"
+events = 1229466
+[[preparation]]
+gc_seconds = 0.0
+recompile_seconds = 0.0
+seconds = 0.011110109
+bytes = 23957440
+stage = "private-factor-and-context"
+compile_seconds = 0.0
+arm = "UMFPACK"
+events = 85
