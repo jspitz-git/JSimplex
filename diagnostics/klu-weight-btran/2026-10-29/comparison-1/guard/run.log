@@ -1,0 +1,15 @@
+ERROR: LoadError: ParseError:
+# Error @ /home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-weight-btran/2026-10-29/driver.jl:134:116
+            if round>2
+                record=merge(stat(t),Dict("case"=>id,"arm"=>name,"round"=>round-2,"stages"=>Dict(string(k)=>stat(v)for(k,v)in pairs(stages))))
+#                                                                                                                  └ ── Expected space before `for` in generator
+Stacktrace:
+ [1] top-level scope
+   @ ~/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-weight-btran/2026-10-29/driver.jl:134
+ [2] include(mod::Module, _path::String)
+   @ Base ./Base.jl:309
+ [3] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:344
+ [4] _start()
+   @ Base ./client.jl:577
+in expression starting at /home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/klu-weight-btran/2026-10-29/driver.jl:134

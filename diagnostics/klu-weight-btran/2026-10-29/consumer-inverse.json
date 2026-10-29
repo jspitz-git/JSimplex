@@ -1,0 +1,16 @@
+{
+  "source": "src/simplex_recovery.jl/_rebuild_recovery_weights!",
+  "source_sha256": "e910f93b48cccd5ae482c7d19b6c2b1d1914aed4fa344fb63fceb3ba0a794350",
+  "qualification_names": [
+    "SimplexWorkspace",
+    "_weight_pricing",
+    "transpose_solve!",
+    "refine_basis_solve!",
+    "_typed_ratio"
+  ],
+  "changes": [
+    "function name/rows/mode parameters",
+    "for row in rows instead of1:m",
+    "three unit fill/solve statements replaced by private unit producer/solver; same fill/one preserved inside it"
+  ]
+}
