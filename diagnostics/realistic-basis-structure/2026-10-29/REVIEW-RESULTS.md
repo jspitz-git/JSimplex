@@ -1,0 +1,9 @@
+# Independent realistic result review
+
+Reviewer /root/long_chain_review ACCEPTED exploratoryrealistic evidence; independently recomputedrawtimings/shape/work/resource ratios, noJulia/remeasurement/edits.2703tests32cold192windows160measured101unchangedpins711postgroups. All76savedwitnesses also independentlychecked separately byreviewer:177138176bytes, matching/nonzerodiag/CSC/strongforward-reversereach/DAG/dimensions/hash. Suppliedverifier additionallychecksdepth/details. AllheadlineBTFcores/spikemedians/BG-local ratios verified.72GCwindows2.75908481s retained. Detachedhash/summarysize work may affectsubsequentGC, notobserverneutral.
+
+Runtimecontains many othernonsingletonblocks, notonlylargestcore. Earlymediumsingleton/depth2/couplings6000–6480 is notdiagonalnorfullmodelclaim. SpikedSCCvsrotation gap is not a safe-operation-skipping count; match/permutation mustpreservenumericpivot/cache/historycontracts. NativevsMarkowitz policiesdiffer, notpureorderingcomparison. Source/tape/phases/sampling/hotprefix/lifecyclelimits remain. No productionpromotion/betterdefault.
+
+Budget224cycles336mainbuilds+128referenceLUs192referencesolves,35840updates71680F35840B; measured240builds.320spiked+12basis+516sanitygraphcalls. Unnecessarywork/memory: data supportavoidableoriginalBGrotation/historycosts, matchedbyte/historyreductions; graphfullrebuild remains expensive detached diagnosticwork, not a productionstrategy. No unnecessaryNEWproductionwork/memory introduced.
+
+Bindings: results-1.toml17a17fd1b54eb606e842cab2512d085e0f132e6533a28694a9ae58539e48b8ad; analysis-1.json5e5e8c7144c88ece4e30127833f65fa5b1607cfeb5e34571daa8273927685ca8; witness-verification.json5f228aec1aec35ffc30ff30ad6d7f0c4e47af3961e6c59df44320c4827a1584c.
