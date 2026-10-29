@@ -1,0 +1,33 @@
+{
+  "accepted": false,
+  "scope": "Independent source/analytic assessment review; no Julia, solver or numerical execution",
+  "findings": [
+    {
+      "priority": "P2",
+      "file": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/dual-weight-validity-contract/2026-10-30/REPORT.md",
+      "line": 70,
+      "title": "Include the full variable-state validation scan in the rebuild work ledger",
+      "evidence": [
+        "src/simplex.jl:266-269 calls _validate_basis for every _basis_matrix! assembly",
+        "src/simplex.jl:247-255 fills basic_mask and scans all N=m+n basis.states",
+        "src/simplex_recovery.jl:27 calls _basis_matrix! per refinement invocation",
+        "src/simplex_recovery.jl:140-145 invokes refinement per rebuilt row"
+      ],
+      "required_correction": "Per-row validation/count/fill is O(N+m+nnzB), with m rows contributing O(mN+m\u00b2+m*nnzB) before quality passes and basis solves."
+    }
+  ],
+  "bindings": {
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/dual-weight-validity-contract/2026-10-30/REPORT.md": "3f868de04891ec87959fc8d37babcfb2608505d6ca56331b544ede6a1f69cb28"
+  },
+  "checks": {
+    "source_consumer_chain_supported": true,
+    "analytic_counterexample_supported": true,
+    "all_24_readtime_bindings_match": true,
+    "all_71_production_files_match_committed_master": true,
+    "work_ledger_dimension_complete": false
+  },
+  "notes": [
+    "The inspected current draft already qualifies 3m as the pinned max_refinements=3 default and gives the general m*policy.max_refinements bound.",
+    "Prospective finite-unreliable classification must preserve hidden nonfinite correction/trial provenance: _refine_basis_solve! can return an earlier finite quality at simplex_recovery.jl:440,446,449. No implementation is admitted here."
+  ]
+}
