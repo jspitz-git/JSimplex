@@ -1,0 +1,41 @@
+# Independent KLU/UMFPACK admission review — corrected source
+
+Decision: **ACCEPT one launch of this exact fixed comparison, under the reviewed guard and an absolute shared limit of at most 1800 seconds.** This admits execution, not numerical success or a performance conclusion. The user-authorized work is the fixed fresh-factor/FTRAN/BTRAN comparison on the saved bases and three 256-row structural controls. No Julia or native numerical execution was performed by this reviewer.
+
+This follow-up incorporates the complete numerical/API/ABI/work/memory/resource review in `REVIEW-ADMISSION.md` / `REVIEW-ADMISSION-INITIAL.md` (both SHA-256 `fc9bda15ae4747038567a71bbf9f29e13f3cb76236f49520e2461172a51af7be`). That initial review rejected the original KLU scale indexing, and remains preserved unchanged. Its original 45-binding manifest SHA-256 is `45785c95299c6d29162ede626bcab335399db443c0ab54cae4ef330d8d06e670`.
+
+## Exact accepted bindings and bounded correction
+
+The accepted `reviewed-source-pins.json` SHA-256 is **`038d6c973524085f8fef17d2c09664739a40ebb2ed48a01f5e17d2c9a90bf74a`**. All **51** inventory entries were independently rehashed and resolved-path checked: zero differences. Comparing original manifest bindings shows exactly two changed originals (`driver.jl`, `PLAN.md`) and **43 unchanged originals**. `review-fix.json` SHA-256 `9dda311f26cc2f286844bacb0c72a2715d2b91f294e7a28bdadb44649ca2c58c` records that change and preserved original paths.
+
+- Accepted `driver.jl`: **`8e7fbf6575b4d25d77d2a9f435851e7e95706f13a943194007157bb6669572ca`**.
+- Accepted `PLAN.md`: `dddb8617c1acbb7ca5290c360f5eb58f630c000b5f1995e664072a30eac8a595`.
+- Preserved `driver.before-review.jl`: `5ec0a0bbeeffac38e091ae6135adbf30fa567287568f298201466b7ddfee7217`.
+- Preserved `PLAN.before-review.md`: `bf44aff683a3991d17f78f96c947bad00f746fca831eba8ab0da87c3fcbb2231`.
+- Unchanged `command.json`: `f846ca7893c0680ea68500a5e98e40f39ee34c31321bb3756614161beb5e9e97`.
+
+The full driver diff was reviewed. It only corrects cold KLU metadata: `original_scale[p[k]]=s[k]` undoes the native pivot-row ordering before dividing each original matrix entry by its scale. The vendored `f.p` getter returns the extracted final row permutation and increments its indices into Julia's one-based convention, so the mapping is correct. The intended growth threshold, matrix/RHS bytes, arithmetic precision, controls, solve/factor paths and timed windows are unchanged. `common.memusage` and `common.mempeak` are now copied to integers **before** metadata exports/sorts, so recorded native factor memory excludes those subsequent cold diagnostic operations. The plan documents these facts. The important finding is resolved; no remaining important or critical issue was found in the admitted source.
+
+## Numerical and workload checks retained
+
+The static ABI comparison is to the saved version-matched upstream KLU 2.3.5 header, not installed-build proof. Installed native library hashes and the runtime KLU version/loaded-library checks remain mandatory. Both factor constructors own CSC arrays. Poisoned caller values, known-point forward/transpose solves, complete native coupling solves, directed 256-bit residual qualification, ordinary per-sample residuals, immutable input hashes, factor fill/growth gates, and measured compile/recompile-zero assertions remain intact. This was static Julia/API inspection, not a Julia parse or runtime qualification.
+
+UMFPACK pivot tolerance 1/refinement 0 and KLU diagonal preference tolerance 1/BTF/AMD/row-sum scaling/maxwork 10 remain distinct backend policies; equal numerical pivot rules must not be claimed. Controls must be checked in results.
+
+The unchanged literal workload is **12 cases, 196 factor attempts, 8522 FTRAN and 4272 BTRAN**, comprising **24 cold qualifications, 48 warm samples and 120 measured samples**. There are no extra reference factors/solves, no original MPS parsing/public solve, and no numerical use of medium or excluded large inputs. Sparse/dense irreducible controls must each produce one 256-row block with empty F; the coupled control must have 32 blocks with coupling. Runtime case/count/qualification completeness must be independently checked after exit. A failed case must reject the comparison rather than disappear from analysis.
+
+## Explicit work and memory finding
+
+There are no production-code changes and no unnecessary production work or retained-memory increase. The accepted correction adds cold O(n) permutation export/mapping storage and an O(n) scatter once per KLU cold qualification (12 times); it adds no measured-loop work or extra factor/solve. Correct scaling is required for the numerical gate.
+
+**Avoidable cold metadata work remains, and is nonblocking for this fixed experiment.** There are five KLU property accesses L/U/F/Rs/p, but at most five native sort/extract calls: when F is empty its getter allocates an empty CSC representation and skips native sort/extract, leaving four calls. For nonempty F there are five. Each native `_extract!` invokes sort first. UMFPACK L/U/Rs uses three separate property getters. A combined extraction could reduce work, but changing the pinned wrapper is unnecessary here. All these exports/scans stay outside timed windows and are bounded to cold qualification; the updated memory snapshot precedes them. The plan's five should be read as property-access count, not five unconditional native calls.
+
+Per-sample residual/norm/hash certification scans remain outside windows, with O(nnz+n) work and O(n) residual scratch. Recomputing matrix infinity norm for both forward RHSs is avoidable cold validation work, acceptable for this small fixed run and not a speedup claim. Both fresh factors copy O(n+nnz) owned CSC storage and do fresh symbolic/numeric work. KLU's adapter copies one n-element RHS per native destructive solve, while UMFPACK's three-argument API has separate RHS/output buffers. Their full API costs are intentionally measured. Output buffers are reused across repetitions; no extra hot full-array invariants, factorizations, or reference solves were added. Results retain metadata/control copies/hashes, not the factors or extracted matrices. All 12 case matrices are intentionally retained, O(sum(n+nnz)); no update-chain length is involved.
+
+Native factor bytes, Julia object graph size, allocation events and process RSS must be reported separately. GC is excluded only when explicitly forced before samples; any in-window GC is retained. Julia callback/native allocation counts are not pure Julia object counts. RSS after release cannot establish native frees. Cold compilation, preparation, warm work, measured work, and guard/cleanup process cost must remain distinct. No timing, speedup, or allocation advantage is established by this admission; sparse/dense runtime measurements and their uncertainty still require review.
+
+## Conditions already implemented by the concrete launch
+
+Refresh the full host no-Julia/groups-and-sessions/ref check immediately before launch; the reviewed stored snapshot covers all 711 groups, with no conflicts, ample available memory and zero swap. Keep one Julia and one Julia/BLAS thread, 2 GiB heap hint, 8 GiB address-space limit, available memory at least 6 GiB, swap use at most 1 GiB, existing compiled modules only, no Pkg or compilecache workers, owned identity handshake/pidfd cleanup, immutable inputs/runtime/libraries/source, and the absolute shared deadline of at most 1800 seconds. The reviewed command, guard and helper bytes are unchanged.
+
+The coordinator may create the final launch manifest by adding this exact accepted review and the exact reviewed-source-pins manifest to the existing accepted inventory, without changing any accepted source bytes. That additive binding step does not require another numerical review. Use the fresh exclusive `comparison-1` run directory and previously nonexistent `results-1.toml` output. No additional run or enlarged numerical workload is admitted here. Independently review actual exit, full counts/records, numerical gates, measured compilation, controls, loaded native hashes, unchanged pins, resource records and complete group/session cleanup before accepting results or publishing conclusions.
