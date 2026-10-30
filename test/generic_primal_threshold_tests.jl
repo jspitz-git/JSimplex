@@ -73,7 +73,14 @@ function _primal_ratio(workspace::SimplexWorkspace{T}, entering::Int, direction:
         bound = movement > zero(T) ? workspace.upper[index] : workspace.lower[index]
         isfinite(bound) || continue
         raw_step = (bound_value(bound) - workspace.primal[index]) / movement
-        isfinite(raw_step) || return nothing, -1, BASIC
+        if !isfinite(raw_step)
+            # Preserve the intentional overflow contract: a positive ratio
+            # overflow from finite operands may lose to another finite bound.
+            # Invalid operands and negative overflow still reject the step.
+            raw_step > zero(T) && isfinite(movement) &&
+                isfinite(bound_value(bound) - workspace.primal[index]) ||
+                return nothing, -1, BASIC
+        end
         if raw_step < zero(T)
             violation = movement > zero(T) ?
                 _upper_violation(bound, workspace.primal[index]) :
@@ -95,6 +102,8 @@ function _primal_ratio(workspace::SimplexWorkspace{T}, entering::Int, direction:
         end
     end
     has_step || return nothing, strict_row, strict_state
+    # Overflow alone cannot certify an unbounded direction or a usable step.
+    isfinite(strict_step) || return nothing, -1, BASIC
     strict_row == 0 && return strict_step, strict_row, strict_state
     has_relaxed_limit || return strict_step, strict_row, strict_state
 
