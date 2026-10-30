@@ -1,0 +1,67 @@
+{
+  "scope": "ONE actual locally integrated master verification; no performance rerun or full-suite claim",
+  "production_commit": "d48f08659877ca3775e1dc3d22df1b4fa1e028a9",
+  "diagnostic_head": "1def46e5f9bd44ce757f162e141ba4d2af18319a",
+  "remote_master_before": "c0fa748ffa61ccb7c1caaf248c40324f60bc737b",
+  "command": [
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/julia",
+    "--startup-file=no",
+    "--history-file=no",
+    "--color=no",
+    "--compiled-modules=existing",
+    "--pkgimages=existing",
+    "--threads=1",
+    "--gcthreads=1,0",
+    "--heap-size-hint=2G",
+    "--check-bounds=yes",
+    "--project=/home/jspitz/JSimplex.jl",
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/dual-recovery-devex-production-integration/2026-10-30/verify.jl"
+  ],
+  "environment": {
+    "JULIA_DEPOT_PATH": "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/.superpowers/memory-probe/depot:/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/.superpowers/precompiled-full/depot:/home/jspitz/JSimplex.jl/.worktrees/ft-numerical-recovery/.superpowers/ft-recovery/depot:/home/jspitz/JSimplex.jl/.worktrees/simplex-legacy-stability/.superpowers/stability/depot:/home/jspitz/JSimplex.jl/.worktrees/simplex-performance/.superpowers/performance/depot:/home/jspitz/JSimplex.jl/.worktrees/simplex-modernization/.superpowers/sdd/2026-09-22-simplex-modernization/julia-depot:/home/jspitz/.julia",
+    "JULIA_LOAD_PATH": "@:@stdlib",
+    "JULIA_PKG_OFFLINE": "true",
+    "JULIA_PKG_PRECOMPILE_AUTO": "0",
+    "JULIA_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "JULIA_IMAGE_THREADS": "1",
+    "JULIA_NUM_PRECOMPILE_TASKS": "1"
+  },
+  "expected_summary": {
+    "Pass": 5776,
+    "Total": 5776
+  },
+  "summary_derivation": "source-matched GREEN2 aggregate5774 plus2 explicit endpoint final-work assertions; no assertion removed",
+  "ordered_test_files": [
+    "refinement_outcome_tests.jl",
+    "refinement_reference_comparison_tests.jl",
+    "recovery_weight_tests.jl",
+    "recovery_devex_fallback_tests.jl",
+    "recovery_devex_pivot_tests.jl",
+    "simplex_numerics_tests.jl",
+    "basis_recovery_tests.jl",
+    "dual_weight_validation_tests.jl",
+    "adaptive_pricing_tests.jl",
+    "adaptive_pricing_lifecycle_tests.jl",
+    "partial_pricing_tests.jl",
+    "partial_pricing_edge_tests.jl"
+  ],
+  "known_fixtures": [
+    "/home/jspitz/JSimplex.jl/test/fixtures/solver/netlib/adlittle.mps",
+    "/home/jspitz/JSimplex.jl/test/fixtures/solver/generated/wide-bound129.mps"
+  ],
+  "maximum_processes": 1,
+  "previous_seconds": 1108.3747013349202,
+  "remaining_seconds": 691.6252986650798,
+  "shared_total_seconds": 1800,
+  "inner_cleanup_reserve_seconds": 12,
+  "outer_cleanup_reserve_seconds": 4,
+  "master_push_requires_pass_and_independent_result_review": true,
+  "guard_exact_copies": {
+    "guard_reviewed.py": "92f1c19ded9615f8a1f8cab70bf5209d8dc9db734e9592c3bbf3f5852ee9aa67",
+    "supervisor_reviewed.py": "f983198c245079eafa712d1b4752a6ac56456aa91058fc469245fa77759bf0ec",
+    "entry_gate.py": "6b1f569959d53c2d37faa0e8f6a8ebda6887ef8b6e5602db8e0b15ae5f530ff9"
+  }
+}

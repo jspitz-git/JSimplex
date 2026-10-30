@@ -1,0 +1,14 @@
+from pathlib import Path
+import json,shutil,hashlib
+W=Path('/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl');D=W/'diagnostics/dual-recovery-devex-production-integration/2026-10-30';P=W/'diagnostics/dual-recovery-devex-production-preparation/2026-10-30';OLD=W/'diagnostics/dual-recovery-devex-cost-admission/2026-10-30'
+m=json.loads((P/'manifest.json').read_text());old=json.loads((OLD/'contract.json').read_text());state=json.loads((D/'integration.json').read_text());files=m['ordered_new_includes']+['simplex_numerics_tests.jl','basis_recovery_tests.jl','dual_weight_validation_tests.jl','adaptive_pricing_tests.jl','adaptive_pricing_lifecycle_tests.jl','partial_pricing_tests.jl','partial_pricing_edge_tests.jl']
+def write(p,s):
+ p.parent.mkdir(parents=True,exist_ok=True)
+ with p.open('x') as f:f.write(s)
+for n in ('guard_reviewed.py','supervisor_reviewed.py','entry_gate.py'):
+ p=D/'guard'/n;p.parent.mkdir(parents=True,exist_ok=True)
+ with p.open('xb') as f:f.write((OLD/'guard'/n).read_bytes())
+root='/home/jspitz/JSimplex.jl';code='using JSimplex,Test,LinearAlgebra,SparseArrays,Logging\nconst DEVEX_MASTER_ROOT="'+root+'"\n@assert realpath(pathof(JSimplex))==realpath(joinpath(DEVEX_MASTER_ROOT,"src","JSimplex.jl"))\n@testset "DEVEX_PRODUCTION_MASTER" begin\n'+''.join('    include(joinpath(DEVEX_MASTER_ROOT,"test","'+n+'"))\n' for n in files)+'end\nprintln("DEVEX_PRODUCTION_MASTER_COMPLETED")\n';write(D/'verify.jl',code)
+env={k:v for k,v in old['environments']['candidate-cost'].items() if k!='TASK4_OUTPUT'};command=old['commands']['candidate-cost'][:-3]+['--project='+root,str(D/'verify.jl')]
+contract=dict(scope='ONE actual locally integrated master verification; no performance rerun or full-suite claim',production_commit=state['production_commit'],diagnostic_head=state['diagnostic_head'],remote_master_before=state['remote_master_before'],command=command,environment=env,expected_summary={'Pass':5776,'Total':5776},summary_derivation='source-matched GREEN2 aggregate5774 plus2 explicit endpoint final-work assertions; no assertion removed',ordered_test_files=files,known_fixtures=[root+'/test/fixtures/solver/netlib/adlittle.mps',root+'/test/fixtures/solver/generated/wide-bound129.mps'],maximum_processes=1,previous_seconds=1108.3747013349202,remaining_seconds=691.6252986650798,shared_total_seconds=1800,inner_cleanup_reserve_seconds=12,outer_cleanup_reserve_seconds=4,master_push_requires_pass_and_independent_result_review=True,guard_exact_copies={n:hashlib.sha256((D/'guard'/n).read_bytes()).hexdigest() for n in ('guard_reviewed.py','supervisor_reviewed.py','entry_gate.py')})
+write(D/'contract.json',json.dumps(contract,indent=2)+'\n');shutil.copyfile(__file__,D/'prepare-verification.py');print(json.dumps(dict(prepared=True,ordinary_includes=len(files),expected_assertions=5776,maximum_processes=1,remaining_seconds=contract['remaining_seconds'],Julia=False)))
