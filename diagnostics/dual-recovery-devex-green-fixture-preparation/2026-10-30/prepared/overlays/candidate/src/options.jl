@@ -1,0 +1,311 @@
+"""
+    TerminationStatus
+
+Reason a solve stopped: `OPTIMAL`, `INFEASIBLE`, `UNBOUNDED`,
+`ITERATION_LIMIT`, `TIME_LIMIT`, `NUMERICAL_ERROR`, `INVALID_MODEL`,
+`MIP_NOT_SUPPORTED`, or `ALGORITHM_NOT_SUPPORTED`. Only `OPTIMAL` supplies
+primal values and an objective in a [`Solution`](@ref).
+"""
+@enum TerminationStatus::UInt8 begin
+    OPTIMAL
+    INFEASIBLE
+    UNBOUNDED
+    ITERATION_LIMIT
+    TIME_LIMIT
+    NUMERICAL_ERROR
+    INVALID_MODEL
+    MIP_NOT_SUPPORTED
+    ALGORITHM_NOT_SUPPORTED
+end
+
+@doc "An optimal LP solution is available." OPTIMAL
+@doc "The LP was classified as infeasible." INFEASIBLE
+@doc "The LP objective was classified as unbounded." UNBOUNDED
+@doc "The completed-simplex-step limit was reached." ITERATION_LIMIT
+@doc "The wall-clock deadline was reached." TIME_LIMIT
+@doc "A numerical failure prevented a reliable solution." NUMERICAL_ERROR
+@doc "The supplied model failed validation at solve time." INVALID_MODEL
+@doc "A non-continuous model requires explicit LP relaxation." MIP_NOT_SUPPORTED
+@doc "The requested algorithm is not implemented; use `:dual` or `:primal`." ALGORITHM_NOT_SUPPORTED
+
+"""
+    SolverOptions(::Type{T}; primal_tolerance=nothing, dual_tolerance=nothing,
+                  zero_tolerance=nothing, iteration_limit=100_000,
+                  time_limit=Inf, refactorization_interval=20,
+                  verbose=true, log_level=Logging.Debug, algorithm=:dual,
+                  pricing=:steepest_edge, basis_update=:pfi,
+                  basis_refactorization=:native, scaling=:auto,
+                  presolve=true, simplex_strategy=:legacy, partial_pricing=false,
+                  native_pivot_policy=:default)
+    SolverOptions(; kwargs...)  # Float64 defaults
+    SolverOptions(T, options::SolverOptions)
+
+Configure numerical tolerances, completed-step and wall-clock limits, basis
+refactorization frequency, progress output, and the level used for Julia logging
+messages. With `verbose=true`, `solve` emits `Info`-level row, column, and NNZ
+counts at entry and, when enabled, after presolve. It announces the start of
+presolve and postsolve cleanup when those phases run. Both simplex algorithms
+announce the start of phase I (when needed) and phase II at `Info` level, with
+the algorithm, cumulative iteration count, and elapsed seconds. Every completed basis
+refactorization emits a single-line progress record containing the iteration
+count, original objective value, primal and dual infeasibility sums and counts,
+and elapsed time. Every returned solution also emits an `Info`-level final
+status, total iteration count, and elapsed time.
+`SolverOptions(T; ...)` stores tolerances in the supported floating or rational
+type `T`. Floating defaults are `T(1 // 10^7)` for primal/dual tolerances and
+`T(1 // 10^12)` for zero tolerance; a positive default that rounds to zero is
+clamped to `nextfloat(zero(T))`. Rational defaults are exactly zero.
+`SolverOptions(T, options)` converts and validates existing tolerances, preserving
+their supplied values and the remaining options. It does not reset tolerances
+to `T`'s defaults. [`solve`](@ref) uses problem-typed defaults when options are
+omitted and converts explicit options to the problem's scalar type.
+Floating-point tolerances and the refactorization interval must be positive;
+rational tolerances must be nonnegative. Tolerances must be finite.
+Limits must be nonnegative. `time_limit` remains `Float64` seconds and `Inf`
+disables the deadline; iteration/refactorization limits remain `Int`.
+`algorithm=:dual` and `algorithm=:primal` are implemented; other symbols return
+`ALGORITHM_NOT_SUPPORTED` from [`solve`](@ref).
+`pricing` selects steepest-edge (`:steepest_edge`), Devex (`:devex`),
+Dantzig (`:dantzig`), or automatic (`:auto`) pricing for either simplex algorithm.
+Automatic pricing starts with steepest edge and recovers unreliable weights
+with a fresh Devex reference, reusing the selected pivot's basis solves.
+With the adaptive strategy, stagnation can temporarily select Dantzig; a return
+to Devex requires a two-window cooldown and a fresh reference. The legacy
+strategy retains weight recovery without progress-driven switching.
+Explicit pricing rules retain their documented safety fallbacks.
+Primal steepest-edge
+weights are initialized for a unit basis and updated after each pivot, with
+direct recomputation when a weight cannot be represented safely.
+Legacy dual simplex does not change pricing or perturb costs because of
+zero steps or stagnation. Numerical weight recovery and bounded cost repairs
+needed by the ratio test remain active; original costs are restored before
+optimality certification. Stagnation-driven pricing and perturbations require
+the corresponding adaptive policies.
+`refactorization_interval` is the maximum scheduled basis-update interval for
+legacy simplex. Floating dual simplex can shorten it after repeated inaccurate
+updated solves and recover toward, but never above, the configured value.
+Legacy primal and all rational simplex keep the configured interval. Adaptive
+floating simplex can also lengthen it using numerical and sampled-work evidence,
+with a finite update ceiling and conservative growth after reliable cycles.
+`basis_update` selects product-form (`:pfi`), Forrest–Tomlin
+(`:forrest_tomlin`), Bartels–Golub (`:bartels_golub`), or Suhl–Suhl
+(`:suhl_suhl`) basis updates, or Huangfu–Hall middle product form
+(`:huangfu_hall`). Huangfu–Hall supports the same scalar types with either backend
+(native Float64 requires 64-bit indices); unsupported combinations throw
+`ArgumentError`.
+`basis_refactorization` selects the existing backend (`:native`: UMFPACK for
+`Float64`, dense LU otherwise) or sparse Markowitz elimination followed by a
+dense trailing core (`:markowitz`).
+`presolve=true` applies presolve before scaling and simplex. Set it to `false`
+to solve the original LP directly; postsolve cleanup is then unnecessary.
+`scaling=:auto` applies reversible row and column scaling to floating models
+and leaves rational models unchanged. `:off` disables scaling; `:on` enables it
+for floating models and is invalid for rational models. Scaling uses powers of
+two and keeps a row or column unchanged if scaling would make a nonzero value
+zero or a finite value nonfinite. Simplex tolerances apply in scaled units;
+optimal primal and objective values are checked in the original model's units.
+`simplex_strategy=:legacy` uses fixed iteration policies. `:adaptive` enables
+progress heuristics such as pricing preferences, perturbations, and refactorization
+scheduling. Both strategies use the same default numerical kernel and safeguards;
+selecting a strategy does not change numerical precision or enable an alternative
+pivot-validation, refinement, or incremental-update implementation.
+`partial_pricing=true` independently enables candidate pools for large pricing
+domains. It defaults to `false` in both strategies.
+`native_pivot_policy=:threshold_one` selects pivot tolerance 1 and no iterative
+refinement for managed native Float64 basis factors (PFI/FT/SS/BG). Default
+`:default` retains existing controls. Intent survives precision conversion;
+other precisions keep their existing arithmetic. Markowitz and Huangfu–Hall
+reject the nondefault policy. Auxiliary raw LU safeguards retain their controls.
+AUTO strategy and symmetric pivot tolerance remain unchanged; threshold one is
+not a universal full-partial-pivot guarantee when AUTO selects SYMMETRIC.
+
+```julia
+using JSimplex
+exact = SolverOptions(Rational{BigInt}; time_limit=2.5)
+@assert exact.primal_tolerance == 0
+@assert exact.time_limit === 2.5
+single = SolverOptions(Float32, SolverOptions())
+@assert single.dual_tolerance isa Float32
+```
+"""
+struct SolverOptions{T<:Real,M,R}
+    primal_tolerance::T
+    dual_tolerance::T
+    zero_tolerance::T
+    iteration_limit::Int
+    time_limit::Float64
+    refactorization_interval::Int
+    verbose::Bool
+    log_level::LogLevel
+    algorithm::Symbol
+    pricing::Symbol
+    basis_update::Symbol
+    basis_refactorization::Symbol
+    scaling::Symbol
+    presolve::Bool
+    simplex_strategy::Symbol
+    partial_pricing::Bool
+    native_pivot_policy::Symbol
+end
+
+# Preserve the original positional constructor's default policy.
+SolverOptions{T,M,R}(primal_tolerance, dual_tolerance, zero_tolerance, iteration_limit, time_limit, refactorization_interval, verbose, log_level, algorithm, pricing, basis_update, basis_refactorization, scaling, presolve, simplex_strategy, partial_pricing) where {T,M,R} =
+    SolverOptions{T,M,R}(primal_tolerance, dual_tolerance, zero_tolerance, iteration_limit, time_limit, refactorization_interval, verbose, log_level, algorithm, pricing, basis_update, basis_refactorization, scaling, presolve, simplex_strategy, partial_pricing, :default)
+
+SolverOptions(; kwargs...) = SolverOptions(Float64; kwargs...)
+
+function _positive_tolerance(::Type{T}, ratio) where {T<:AbstractFloat}
+    tolerance = T(ratio)
+    return iszero(tolerance) ? nextfloat(zero(T)) : tolerance
+end
+
+Base.@constprop :aggressive function SolverOptions(::Type{T};
+    primal_tolerance=nothing, dual_tolerance=nothing, zero_tolerance=nothing,
+    iteration_limit::Integer=100_000, time_limit::Real=Inf,
+    refactorization_interval::Integer=20,
+    verbose::Bool=true, log_level::LogLevel=Logging.Debug, algorithm::Symbol=:dual,
+    pricing::Symbol=:steepest_edge, basis_update::Symbol=:pfi,
+    basis_refactorization::Symbol=:native, scaling::Symbol=:auto,
+    presolve::Bool=true, simplex_strategy::Symbol=:legacy, partial_pricing::Bool=false,
+    native_pivot_policy::Symbol=:default,
+) where {T}
+    arguments = (primal_tolerance, dual_tolerance, zero_tolerance, iteration_limit,
+                 time_limit, refactorization_interval, verbose, log_level,
+                 algorithm, pricing, scaling, presolve, simplex_strategy, partial_pricing, native_pivot_policy)
+    if basis_update === :pfi
+        return _validated_refactorization(T, Val(:pfi), basis_refactorization, arguments...)
+    elseif basis_update === :forrest_tomlin
+        return _validated_refactorization(T, Val(:forrest_tomlin), basis_refactorization, arguments...)
+    elseif basis_update === :bartels_golub
+        return _validated_refactorization(T, Val(:bartels_golub), basis_refactorization, arguments...)
+    elseif basis_update === :huangfu_hall
+        return _validated_refactorization(T, Val(:huangfu_hall), basis_refactorization, arguments...)
+    elseif basis_update === :suhl_suhl
+        return _validated_refactorization(T, Val(:suhl_suhl), basis_refactorization, arguments...)
+    end
+    throw(ArgumentError("basis_update must be :pfi, :forrest_tomlin, :bartels_golub, :suhl_suhl, or :huangfu_hall"))
+end
+
+Base.@constprop :aggressive function _validated_refactorization(
+    ::Type{T}, mode::Val, basis_refactorization::Symbol, arguments...,
+) where {T}
+    if basis_refactorization === :native
+        return _validated_options(T, mode, Val(:native), arguments...)
+    elseif basis_refactorization === :markowitz
+        return _validated_options(T, mode, Val(:markowitz), arguments...)
+    end
+    throw(ArgumentError("basis_refactorization must be :native or :markowitz"))
+end
+
+function _validate_huangfu_hall(::Type{T}, ::Val{R}) where {T,R}
+    _supported_value_type(T) && R in (:native,:markowitz) &&
+        (R !== :native || T !== Float64 || Int === Int64) || throw(ArgumentError(
+        "basis_update=:huangfu_hall requires a supported scalar, native or markowitz refactorization, and 64-bit indices for native Float64"))
+    return nothing
+end
+
+function _validated_options(::Type{T}, ::Val{M}, ::Val{R}, primal_tolerance, dual_tolerance,
+                            zero_tolerance, iteration_limit, time_limit,
+                            refactorization_interval, verbose, log_level, algorithm,
+                            pricing, scaling, presolve, simplex_strategy, partial_pricing,
+                            native_pivot_policy::Symbol=:default) where {T,M,R}
+    _supported_value_type(T) || throw(ArgumentError("unsupported solver value type $T"))
+    native_pivot_policy in (:default, :threshold_one) ||
+        throw(ArgumentError("native_pivot_policy must be :default or :threshold_one"))
+    native_pivot_policy === :threshold_one &&
+        !(R === :native && M in (:pfi, :forrest_tomlin, :suhl_suhl, :bartels_golub)) &&
+        throw(ArgumentError("threshold_one requires native PFI/FT/SS/BG basis factors"))
+    M === :huangfu_hall && _validate_huangfu_hall(T, Val(R))
+    defaults = _is_exact(T) === Val(true) ? (zero(T), zero(T), zero(T)) :
+        (_positive_tolerance(T, 1 // 10^7), _positive_tolerance(T, 1 // 10^7),
+         _positive_tolerance(T, 1 // 10^12))
+    # Already-typed BigFloat tolerances retain their stored value and precision.
+    tolerances = map(value -> convert(T, value), (
+        something(primal_tolerance, defaults[1]),
+        something(dual_tolerance, defaults[2]),
+        something(zero_tolerance, defaults[3]),
+    ))
+    all(isfinite, tolerances) || throw(ArgumentError("tolerances must be finite"))
+    if _is_exact(T) === Val(true)
+        all(>=(zero(T)), tolerances) ||
+            throw(ArgumentError("rational tolerances must be nonnegative"))
+    else
+        all(>(zero(T)), tolerances) ||
+            throw(ArgumentError("floating tolerances must be positive"))
+    end
+    iteration_limit >= 0 || throw(ArgumentError("iteration_limit must be nonnegative"))
+    (isfinite(time_limit) || time_limit == Inf) && time_limit >= 0 ||
+        throw(ArgumentError("time_limit must be nonnegative and finite or positive Inf"))
+    converted_time_limit = Float64(time_limit)
+    (isfinite(converted_time_limit) || converted_time_limit == Inf) &&
+        converted_time_limit >= 0 ||
+        throw(ArgumentError("time_limit must be nonnegative and finite or positive Inf"))
+    refactorization_interval > 0 ||
+        throw(ArgumentError("refactorization_interval must be positive"))
+    pricing in (:steepest_edge, :devex, :dantzig, :auto) ||
+        throw(ArgumentError("pricing must be :steepest_edge, :devex, :dantzig, or :auto"))
+    scaling in (:auto, :on, :off) ||
+        throw(ArgumentError("scaling must be :auto, :on, or :off"))
+    _is_exact(T) === Val(true) && scaling === :on &&
+        throw(ArgumentError("scaling=:on requires a floating model"))
+    simplex_strategy in (:legacy,:adaptive) ||
+        throw(ArgumentError("simplex_strategy must be :legacy or :adaptive"))
+    return SolverOptions{T,M,R}(tolerances..., Int(iteration_limit), converted_time_limit,
+                              Int(refactorization_interval), verbose, log_level,
+                              algorithm, pricing, M, R, scaling, presolve, simplex_strategy, partial_pricing, native_pivot_policy)
+end
+
+SolverOptions(::Type{T}, options::SolverOptions{S,M,R}) where {T,S,M,R} =
+    _validated_options(T, Val(M), Val(R), options.primal_tolerance, options.dual_tolerance,
+                       options.zero_tolerance, options.iteration_limit,
+                       options.time_limit, options.refactorization_interval,
+                       options.verbose, options.log_level, options.algorithm,
+                       options.pricing, options.scaling, options.presolve, options.simplex_strategy, options.partial_pricing, options.native_pivot_policy)
+
+"""
+    SolveStatistics(; iterations=0, elapsed_seconds=0.0, refactorizations=0)
+
+Solve counters retained for every termination status: completed simplex steps
+(basis pivots or primal bound flips),
+elapsed wall-clock time in seconds, and full basis factorizations. Counters are
+`Int` and `elapsed_seconds` is `Float64`, independent of model arithmetic.
+"""
+Base.@kwdef struct SolveStatistics
+    iterations::Int = 0
+    elapsed_seconds::Float64 = 0.0
+    refactorizations::Int = 0
+end
+
+"""
+    Solution(status, objective_value, primal, statistics, message)
+    Solution{T}(status, objective_value, primal, statistics, message)
+
+Result of [`solve`](@ref). `status` is a [`TerminationStatus`](@ref),
+`statistics` is a [`SolveStatistics`](@ref), and `message` explains termination.
+For `OPTIMAL`, `primal` contains the original structural variable values and
+`objective_value` includes the original objective sense and constant. Both
+fields are `nothing` for every other status, including resource limits.
+Solving a `LinearProblem{T}` returns the same concrete `Solution{T}` on every
+termination path: `objective_value::Union{Nothing,T}` and
+`primal::Union{Nothing,Vector{T}}`. The constructor infers `T` from a supplied
+objective and primal vector; use `Solution{T}` explicitly when both are `nothing`.
+"""
+struct Solution{T<:Real}
+    status::TerminationStatus
+    objective_value::Union{Nothing,T}
+    primal::Union{Nothing,Vector{T}}
+    statistics::SolveStatistics
+    message::String
+end
+
+function Solution(status::TerminationStatus, objective::T,
+                  primal::Vector{T}, statistics::SolveStatistics,
+                  message::AbstractString) where {T<:Real}
+    return Solution{T}(status, objective, primal, statistics, String(message))
+end
+
+function Solution(status::TerminationStatus, objective::T,
+                  primal::Vector{T}, statistics::SolveStatistics,
+                  message::String) where {T<:Real}
+    return Solution{T}(status, objective, primal, statistics, message)
+end

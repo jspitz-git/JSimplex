@@ -1,0 +1,45 @@
+{
+  "scope": "all15 exact GREEN entry/endpoint/test/helper programs; bounded source-text audit, not Julia parser",
+  "entry": "green.jl",
+  "programs": {
+    "green.jl": "607a549ee0cf4265d2352d00ea4f22c4fc178e45d99391f8cb3361d1067cbe56",
+    "endpoint.jl": "f096cb0dcad172c93a5a3ec085efb3fda2850c00c39bda08fc2b4cfac15e7abe",
+    "tests/adaptive_pricing_lifecycle_tests.jl": "10e77c9bc35956c8078f38df1be42511eea76642753a1a98ef2ed225c19783aa",
+    "tests/adaptive_pricing_tests.jl": "85aefa61753efda394f399ffe28a5e13faa333724dfb88c332186907ab142c4b",
+    "tests/basis_recovery_tests.jl": "1ccfd114462013f40877010b5fc2a9f0547275c6c914ce297c2723270ac37c49",
+    "tests/dual_weight_validation_tests.jl": "e6b3b51b8647f29688d9a2afff6cc2cf7425c6fa5bb9f6e6e23a5e188cef544d",
+    "tests/legacy_rebuild_reference.jl": "87b7c3eedfb87cfc2102316dab5de3adbe51e844b906538a28f608e99d6b2e0f",
+    "tests/partial_pricing_edge_tests.jl": "b9e24fa16c6a381362049420cd008b04460be6752fe56990ad41a8307a22912c",
+    "tests/partial_pricing_tests.jl": "abe7a9883e13a2fcb4032432f7ed24be8402b12f7e0c255fdc9a3b606c18e9e9",
+    "tests/recovery_devex_fallback_tests.jl": "487c92e0b9b10903a3a69b256797e8495bdbb49a26e68c90634c8cc9519794ed",
+    "tests/recovery_weight_tests.jl": "5588cecc7e561b6a7221f0dedf67579ef322f77ea4a129cd58f9e4471d2952ef",
+    "tests/reference.jl": "f72f632a7c86e7d65d43c5f175d54a094dd2d7a2d31d00c51f52de76c7bb63ea",
+    "tests/reference_comparison_tests.jl": "5873d22c1f9d0c3c7d1b66d0309c63ca7c7ee102c45a8f989668df221ac80d7a",
+    "tests/refinement_outcome_tests.jl": "8cfe4f8a2b1c7bf7ca70ad129932cd0e62f3ca3559304954ba9d827372a6e147",
+    "tests/simplex_numerics_tests.jl": "329e09c90f35d5f49878d8859506598f496cc5705c445805aa92b7b79549965e"
+  },
+  "fixtures": {
+    "tests/fixtures/solver/netlib/adlittle.mps": "fec81e24fa91bc545d97239b108b43e6034f37b4bf2455a3f8c179726b44d44c",
+    "tests/fixtures/solver/generated/wide-bound129.mps": "f064cf4716e94f962c26d1098a153809e7fa8158d5f71800edab90c47620ad92"
+  },
+  "output_calls": [
+    {
+      "program": "endpoint.jl",
+      "line": 105,
+      "call": "open",
+      "arguments": "path,\"w\""
+    }
+  ],
+  "original_fixture_sources": {
+    "tests/fixtures/solver/netlib/adlittle.mps": {
+      "path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/test/fixtures/solver/netlib/adlittle.mps",
+      "sha256": "fec81e24fa91bc545d97239b108b43e6034f37b4bf2455a3f8c179726b44d44c",
+      "bytes": 16500
+    },
+    "tests/fixtures/solver/generated/wide-bound129.mps": {
+      "path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/test/fixtures/solver/generated/wide-bound129.mps",
+      "sha256": "f064cf4716e94f962c26d1098a153809e7fa8158d5f71800edab90c47620ad92",
+      "bytes": 3665
+    }
+  }
+}
