@@ -111,6 +111,59 @@ struct SolveQuality{T<:Real}
     reliable::Bool
 end
 
+# Call-local, opt-in status for recovery consumers. No field is added to
+# SolveQuality or any workspace/cache. Default refinement constructs no outcome.
+@enum _RefinementCause::UInt8 begin
+    _refine_reliable = 0
+    _refine_nonfinite_initial_quality
+    _refine_nonfinite_quality
+    _refine_nonfinite_correction
+    _refine_nonfinite_trial
+    _refine_nonfinite_trial_quality
+    _refine_stopped
+    _refine_unchanged
+    _refine_not_improved
+    _refine_limit
+    _refine_not_observed
+end
+
+struct _BasisRefinementOutcome{T<:Real}
+    quality::SolveQuality{T}
+    cause::_RefinementCause
+    invalid_seen::Bool
+end
+
+@inline _refinement_result(::Val{false},quality::SolveQuality,
+                           cause::_RefinementCause,invalid_seen::Bool) = quality
+@inline _refinement_result(::Val{true},quality::SolveQuality{T},
+                           cause::_RefinementCause,invalid_seen::Bool) where T =
+    _BasisRefinementOutcome{T}(quality,cause,invalid_seen)
+
+@inline _refinement_finished(::Val{false},quality::SolveQuality,invalid_seen::Bool) = quality
+@inline function _refinement_finished(::Val{true},quality::SolveQuality,invalid_seen::Bool)
+    cause = quality.reliable ? _refine_reliable :
+            !quality.finite ? _refine_nonfinite_quality : _refine_limit
+    return _refinement_result(Val(true),quality,cause,invalid_seen || !quality.finite)
+end
+
+# Cold recovery result, with no array or workspace reference.
+@enum _RecoveryWeightReason::UInt8 begin
+    _weight_complete = 0
+    _weight_not_needed
+    _weight_finite_inconclusive
+    _weight_stopped
+    _weight_nonfinite_attempt
+    _weight_invalid_norm
+    _weight_ineligible
+end
+struct _RecoveryWeightResult
+    ok::Bool
+    fallback_ready::Bool
+    failed_row::Int
+    reason::_RecoveryWeightReason
+    refinement_cause::_RefinementCause
+end
+
 struct SolveQualityScratch{T,W}
     residual::Vector{T}
     work_residual::Vector{W}

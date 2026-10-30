@@ -7,6 +7,25 @@ Arguments must not overlap each other, the model, or private refinement storage.
 function refine_basis_solve!(destination::AbstractVector{T},ws::SimplexWorkspace{T},
                              rhs::AbstractVector{T},policy::NumericalPolicy{T},stop;
                              transposed::Bool=false)::SolveQuality{T} where {T}
+    return _refine_basis_solve_entry!(destination,ws,rhs,policy,stop,Val(false);transposed)
+end
+
+function _refine_basis_solve_outcome!(destination::AbstractVector{T},ws::SimplexWorkspace{T},
+                                    rhs::AbstractVector{T},policy::NumericalPolicy{T},stop;
+                                    transposed::Bool=false)::_BasisRefinementOutcome{T} where {T}
+    return _refine_basis_solve_entry!(destination,ws,rhs,policy,stop,Val(true);transposed)
+end
+
+@inline _record_refinement_result!(ws,quality::SolveQuality) =
+    _record_refactor_quality!(ws,quality)
+@inline function _record_refinement_result!(ws,result::_BasisRefinementOutcome)
+    _record_refactor_quality!(ws,result.quality)
+    return result
+end
+
+function _refine_basis_solve_entry!(destination::AbstractVector{T},ws::SimplexWorkspace{T},
+                             rhs::AbstractVector{T},policy::NumericalPolicy{T},stop,report::Val;
+                             transposed::Bool=false) where {T}
     m = size(ws.problem.A,1)
     length(destination) == length(rhs) == m || throw(DimensionMismatch("basis solve dimensions"))
     Base.mightalias(destination,rhs) && throw(ArgumentError("basis solve destination aliases RHS"))
@@ -28,10 +47,10 @@ function refine_basis_solve!(destination::AbstractVector{T},ws::SimplexWorkspace
     if T === BigFloat
         bits = _stored_quality_bits(T,B,destination,rhs,policy)
         return setprecision(BigFloat,bits) do
-            _record_refactor_quality!(ws,_refine_basis_solve!(destination,ws,B,rhs,policy,stop,buffers,transposed))
+            _record_refinement_result!(ws,_refine_basis_solve!(destination,ws,B,rhs,policy,stop,buffers,transposed,report))
         end
     end
-    return _record_refactor_quality!(ws,_refine_basis_solve!(destination,ws,B,rhs,policy,stop,buffers,transposed))
+    return _record_refinement_result!(ws,_refine_basis_solve!(destination,ws,B,rhs,policy,stop,buffers,transposed,report))
 end
 
 _checkpoint_model(ws) = (objectid(ws.problem.A),size(ws.problem.A)...)
@@ -87,7 +106,28 @@ end
 _record_recovery!(::Nothing,reason) = nothing
 _record_recovery!(diagnostics::SimplexDiagnostics,reason) = record_event!(diagnostics,reason)
 
-function _recovery_trial(ws::SimplexWorkspace{T},c::BasisCheckpoint{T},stop) where T
+# Cold, call-local pending publication; no copies or new persistent fields.
+struct _RecoveryTrialResult{W}
+    workspace::W
+    devex_fallback::Bool
+    failed_weight_row::Int
+end
+
+_validate_recovery_algorithm(algorithm::Symbol) =
+    algorithm in (:unspecified,:primal,:dual) ? nothing :
+    throw(ArgumentError("Unknown recovery algorithm"))
+_build_recovery_factor(B,options) = _basis_factorization(B,options)
+
+# Strict compatibility, including all existing direct/precision callers.
+function _recovery_trial(ws::SimplexWorkspace,c::BasisCheckpoint,stop)
+    result = _recovery_trial_with_pricing(ws,c,stop)
+    return isnothing(result) ? nothing : result.workspace
+end
+
+function _recovery_trial_with_pricing(ws::SimplexWorkspace{T},c::BasisCheckpoint{T},stop;
+                                     algorithm::Symbol=:unspecified,
+                                     build_factor::F=_build_recovery_factor) where {T,F}
+    _validate_recovery_algorithm(algorithm)
     stop() && return nothing
     m,n = size(ws.problem.A)
     trial = SimplexWorkspace(ws.problem,ws.options,ws.progress,
@@ -113,7 +153,7 @@ function _recovery_trial(ws::SimplexWorkspace{T},c::BasisCheckpoint{T},stop) whe
     try
         trial.factorization = _measure_basis_factorization!(trial) do
             _timed_simplex(ws,:refactorization) do
-                _basis_factorization(B,ws.options)
+                build_factor(B,ws.options)
             end
         end
     finally
@@ -125,29 +165,106 @@ function _recovery_trial(ws::SimplexWorkspace{T},c::BasisCheckpoint{T},stop) whe
     reset_devex!(trial)
     recompute!(trial;caller_guard=stop)
     _finite_workspace(trial) && _recomputed_basis_reliable(trial) || return nothing
-    _rebuild_recovery_weights!(trial,stop) || return nothing
+    weights = _rebuild_recovery_weights_result!(trial,stop;algorithm)
+    if !weights.ok
+        weights.fallback_ready || return nothing
+        # One corresponding post-weight stop, before any state preparation.
+        stop() && return nothing
+        _recovery_weight_scope(trial,algorithm) || return nothing
+        # Refined weight buffers are independent of rho; callbacks may have
+        # invalidated core values since recompute. No additional solve/factor.
+        _finite_workspace(trial) && _recomputed_basis_reliable(trial) || return nothing
+        _prepare_recovery_devex!(trial)
+        return _RecoveryTrialResult(trial,true,weights.failed_row)
+    end
     stop() && return nothing
-    return trial
+    return _RecoveryTrialResult(trial,false,0)
 end
 
-function _rebuild_recovery_weights!(trial::SimplexWorkspace{T},stop) where T
-    # Primal weights remain invalid and are computed on demand. Dual steepest
-    # edge weights belong to basic rows and must match the rebuilt inverse.
-    _weight_pricing(trial,:dual) == :steepest_edge || return true
+# Explicit caller route and maintained geometry, never options/history alone.
+function _recovery_weight_scope(trial::SimplexWorkspace{T},algorithm::Symbol) where T
+    state = trial.scratch.pricing
+    return algorithm == :dual && (T === Float32 || T === Float64) &&
+        _weight_pricing(trial,:dual) == :steepest_edge &&
+        (isnothing(state) || state.algorithm == :dual)
+end
+
+function _failed_recovery_weight(trial,direction,outcome::_BasisRefinementOutcome,row,algorithm)
+    quality,cause = outcome.quality,outcome.cause
+    cause == _refine_stopped &&
+        return _RecoveryWeightResult(false,false,row,_weight_stopped,cause)
+    if outcome.invalid_seen || !quality.finite || cause in (
+        _refine_nonfinite_initial_quality,_refine_nonfinite_quality,
+        _refine_nonfinite_correction,_refine_nonfinite_trial,_refine_nonfinite_trial_quality)
+        return _RecoveryWeightResult(false,false,row,_weight_nonfinite_attempt,cause)
+    end
+    if !_recovery_weight_scope(trial,algorithm) || quality.reliable ||
+       !(cause in (_refine_unchanged,_refine_not_improved,_refine_limit))
+        return _RecoveryWeightResult(false,false,row,_weight_ineligible,cause)
+    end
+    # Same guard as a reliable row: self-dot rejects zero/underflow, overflow,
+    # NaN and Inf under the unchanged real IEEE arithmetic. No second scan.
+    weight = dot(direction,direction)
+    isfinite(weight) && weight > zero(eltype(direction)) ||
+        return _RecoveryWeightResult(false,false,row,_weight_invalid_norm,cause)
+    return _RecoveryWeightResult(false,true,row,_weight_finite_inconclusive,cause)
+end
+
+function _rebuild_recovery_weights_result!(trial::SimplexWorkspace{T},stop;
+                                            algorithm::Symbol=:unspecified) where T
+    _weight_pricing(trial,:dual) == :steepest_edge ||
+        return _RecoveryWeightResult(true,false,0,_weight_not_needed,_refine_not_observed)
     m = length(trial.basis.basic_indices)
     rhs,direction = zeros(T,m),zeros(T,m)
     policy = trial.progress.numerical_policy
+    detailed = _recovery_weight_scope(trial,algorithm)
+    cause = _refine_not_observed
     for row in 1:m
-        stop() && return false
+        stop() && return _RecoveryWeightResult(false,false,row,_weight_stopped,_refine_not_observed)
         fill!(rhs,zero(T))
         rhs[row] = one(T)
         transpose_solve!(direction,trial.factorization,rhs)
-        refine_basis_solve!(direction,trial,rhs,policy,stop;transposed=true).reliable || return false
+        if detailed
+            outcome = _refine_basis_solve_outcome!(direction,trial,rhs,policy,stop;transposed=true)
+            cause = outcome.cause
+            outcome.quality.reliable || return _failed_recovery_weight(trial,direction,outcome,row,algorithm)
+        else
+            refine_basis_solve!(direction,trial,rhs,policy,stop;transposed=true).reliable ||
+                return _RecoveryWeightResult(false,false,row,_weight_ineligible,_refine_not_observed)
+        end
         weight = dot(direction,direction)
-        isfinite(weight) && weight > zero(T) || return false
+        isfinite(weight) && weight > zero(T) ||
+            return _RecoveryWeightResult(false,false,row,_weight_invalid_norm,cause)
         trial.pricing_weights[trial.basis.basic_indices[row]] = max(_typed_ratio(T,1,10^4),weight)
     end
-    return true
+    return _RecoveryWeightResult(true,false,0,_weight_complete,cause)
+end
+
+# All old call sites, including precision transfer, remain strict.
+_rebuild_recovery_weights!(trial::SimplexWorkspace,stop)::Bool =
+    _rebuild_recovery_weights_result!(trial,stop).ok
+
+# State-only preparation on an owned, core-revalidated recovery trial.
+# Task3 owns the post-classification stop/core checks and publication boundary.
+function _prepare_recovery_devex!(trial)::Nothing
+    trial.scratch.recovery_active || throw(ArgumentError("Devex preparation requires a private recovery trial"))
+    _recovery_weight_scope(trial,:dual) || throw(ArgumentError("Ineligible recovery pricing state"))
+    state = trial.scratch.pricing
+    if isnothing(state) && trial.options.pricing == :auto
+        # Auto selection ignores the fixed-mode flag: materialize its existing
+        # fixed-size state lazily, with no monitor/vector allocation.
+        state = PricingState(eltype(trial.costs))
+        state.algorithm = :dual
+        trial.scratch.pricing = state
+    end
+    if !isnothing(state)
+        state.rejected_weights += 1
+        _unreliable_pricing!(state,trial.progress.numerical_policy)
+    end
+    trial.options.pricing == :auto || (trial.dual_devex_fallback = true)
+    reset_devex!(trial) # recovery_active suppresses the existing reset observer
+    _invalidate_pricing_pool!(trial;basis=false,costs=false)
+    return nothing
 end
 
 function _basis_primal_rhs(ws::SimplexWorkspace{T}) where T
@@ -178,7 +295,13 @@ function _recomputed_basis_reliable(ws::SimplexWorkspace{T}) where T
         policy;transposed=true).reliable
 end
 
-function _publish_recovery!(ws,trial,reason,stop)
+function _publish_recovery!(ws,result::_RecoveryTrialResult,reason,stop)
+    return _publish_recovery!(ws,result.workspace,reason,stop;
+        weight_fallback=result.devex_fallback,failed_weight_row=result.failed_weight_row)
+end
+
+function _publish_recovery!(ws,trial,reason,stop;
+                            weight_fallback::Bool=false,failed_weight_row::Int=0)
     data = checkpoint_basis(trial)
     checkpoint = BasisCheckpoint(data.basis,data.costs,data.lower,data.upper,
         _checkpoint_model(ws),_checkpoint_phase(ws),data.perturbed)
@@ -195,6 +318,12 @@ function _publish_recovery!(ws,trial,reason,stop)
     ws.scratch.post_iteration = :none
     ws.scratch.recovery_restored = reason == :restore_checkpoint
     _store_basis_checkpoint!(ws,checkpoint)
+    if weight_fallback
+        # Commit-only records, never observer/logger calls. Pending mode was
+        # already visible to the unchanged prepublication recovery observers.
+        _record_recovery!(ws.progress.diagnostics,:pricing_weight_rejected)
+        _record_recovery!(ws.progress.diagnostics,:pricing_devex)
+    end
     pricing_reset && _record_recovery!(ws.progress.diagnostics,:pricing_reset)
     _record_recovery!(ws.progress.diagnostics,reason)
     _record_recovery!(ws.progress.diagnostics,:checkpoint)
@@ -203,12 +332,14 @@ function _publish_recovery!(ws,trial,reason,stop)
 end
 
 """Rebuild a checkpoint privately; publication never rolls back consumed work."""
-function restore_checkpoint!(ws::SimplexWorkspace{T},c::BasisCheckpoint{T},stop)::Bool where T
+function restore_checkpoint!(ws::SimplexWorkspace{T},c::BasisCheckpoint{T},stop;
+                             algorithm::Symbol=:unspecified)::Bool where T
+    _validate_recovery_algorithm(algorithm)
     _checkpoint_matches(ws,c) || return false
     guard = _guard_stop_callback(stop)
     try
         return _with_recovery_precision(ws,c) do
-            trial = _recovery_trial(ws,c,guard)
+            trial = _recovery_trial_with_pricing(ws,c,guard;algorithm)
             isnothing(trial) && return false
             _publish_recovery!(ws,trial,:restore_checkpoint,guard)
         end
@@ -264,18 +395,21 @@ function _reject_recovery_pair!(ws,row,entering,policy)
 end
 
 """Try bounded column exchanges; numerical recovery does not certify feasibility."""
-function repair_basis!(ws::SimplexWorkspace{T},policy::NumericalPolicy{T},stop)::Bool where T
+function repair_basis!(ws::SimplexWorkspace{T},policy::NumericalPolicy{T},stop;
+                       algorithm::Symbol=:unspecified)::Bool where T
+    _validate_recovery_algorithm(algorithm)
     ws.scratch.recovery_restored = false
     guard = _guard_stop_callback(stop)
     guard() && return false
     policy.max_recovery_rounds == 0 && return false
     original = checkpoint_basis(ws)
     return _with_recovery_precision(ws,original) do
-        _repair_basis!(ws,policy,guard,original)
+        _repair_basis!(ws,policy,guard,original;algorithm)
     end
 end
 
-function _repair_basis!(ws,policy,guard,original)
+function _repair_basis!(ws,policy,guard,original;algorithm::Symbol=:unspecified)
+    _validate_recovery_algorithm(algorithm)
     _sync_recovery_rejections!(ws)
     m,n = size(ws.problem.A)
     m == 0 && return false
@@ -310,7 +444,7 @@ function _repair_basis!(ws,policy,guard,original)
             candidate = BasisCheckpoint(proposed,original.costs,original.lower,original.upper,
                 original.working_model,original.phase,original.perturbed)
             try
-                trial = _recovery_trial(ws,candidate,guard)
+                trial = _recovery_trial_with_pricing(ws,candidate,guard;algorithm)
                 if !isnothing(trial)
                     if _publish_recovery!(ws,trial,:repair,guard)
                         empty!(ws.scratch.recovery_rejections)
@@ -330,7 +464,7 @@ function _repair_basis!(ws,policy,guard,original)
     # failure so a caller cannot mistake restoration for a successful exchange.
     for checkpoint in Iterators.reverse(ws.scratch.checkpoints)
         guard() && return false
-        if restore_checkpoint!(ws,checkpoint,guard)
+        if restore_checkpoint!(ws,checkpoint,guard;algorithm)
             break
         end
     end
@@ -420,55 +554,72 @@ function _clean_homogeneous_terms!(x::AbstractVector{T},B,rhs,transposed,singlet
     return changed
 end
 
-function _refine_basis_solve!(destination::AbstractVector{T},ws,B,rhs,policy,stop,buffers,transposed) where T
+# Preserve the previous private entry as well as the public quality-only API.
+_refine_basis_solve!(destination::AbstractVector{T},ws,B,rhs,policy,stop,buffers,transposed) where T =
+    _refine_basis_solve!(destination,ws,B,rhs,policy,stop,buffers,transposed,Val(false))
+
+function _refine_basis_solve!(destination::AbstractVector{T},ws,B,rhs,policy,stop,buffers,transposed,report::Val{Report}) where {T,Report}
     quality_scratch = transposed ? buffers.row : buffers.column
     saved_rhs = copyto!(buffers.rhs,rhs)
     quality = solve_quality!(quality_scratch,B,destination,saved_rhs,policy;transposed)
-    quality.finite || return quality
+    invalid_seen = false
+    quality.finite || return _refinement_result(report,quality,_refine_nonfinite_initial_quality,true)
     wide = policy.solve_refinement && T === Float64 && !quality.reliable
     if wide && policy.max_refinements > 0
-        stop() && return quality
+        stop() && return _refinement_result(report,quality,_refine_stopped,invalid_seen)
         quality = _refinement_quality!(quality_scratch,B,destination,saved_rhs,policy,transposed,wide)
     end
     for _ in 1:policy.max_refinements
-        (quality.reliable || !quality.finite || stop()) && return quality
+        if quality.reliable
+            return _refinement_result(report,quality,_refine_reliable,invalid_seen)
+        elseif !quality.finite
+            return _refinement_result(report,quality,_refine_nonfinite_quality,true)
+        elseif stop()
+            return _refinement_result(report,quality,_refine_stopped,invalid_seen)
+        end
         _simplex_event!(ws,:correction_attempt)
         correction = _timed_simplex(ws,transposed ? :btran : :ftran) do
             transposed ? transpose_solve!(buffers.correction,ws.factorization,quality_scratch.residual) :
                          _ordinary_forward_solve!(buffers.correction,ws.factorization,quality_scratch.residual)
         end
-        all(isfinite,correction) || return quality
+        all(isfinite,correction) || return _refinement_result(report,quality,_refine_nonfinite_correction,true)
         changed = false
         for i in eachindex(destination)
             buffers.trial[i] = destination[i]+correction[i]
             changed |= buffers.trial[i] != destination[i]
         end
-        all(isfinite,buffers.trial) || return quality
-        !changed && !policy.solve_refinement && return quality
+        all(isfinite,buffers.trial) || return _refinement_result(report,quality,_refine_nonfinite_trial,true)
+        !changed && !policy.solve_refinement && return _refinement_result(report,quality,_refine_unchanged,invalid_seen)
         trial_quality = _refinement_quality!(quality_scratch,B,buffers.trial,saved_rhs,policy,transposed,wide)
-        trial_quality.finite || return quality
+        trial_quality.finite || return _refinement_result(report,quality,_refine_nonfinite_trial_quality,true)
         if policy.solve_refinement && !trial_quality.reliable
             # The correction is no longer needed; reuse its storage to retain
             # the ordinary candidate if homogeneous cleanup does not help.
             copyto!(buffers.correction,buffers.trial)
             if _clean_homogeneous_terms!(buffers.trial,B,saved_rhs,transposed,buffers.singletons,policy)
                 cleaned = _refinement_quality!(quality_scratch,B,buffers.trial,saved_rhs,policy,transposed,wide)
+                if Report
+                    invalid_seen |= !cleaned.finite
+                end
                 if cleaned.finite && (cleaned.reliable || _refinement_error(cleaned) < _refinement_error(trial_quality))
                     trial_quality = cleaned
                 else
                     copyto!(buffers.trial,buffers.correction)
                     trial_quality = _refinement_quality!(quality_scratch,B,buffers.trial,saved_rhs,policy,transposed,wide)
+                    if Report
+                        invalid_seen |= !trial_quality.finite
+                    end
                 end
             end
         end
-        (trial_quality.reliable || _refinement_error(trial_quality) < _refinement_error(quality)) || return quality
-        stop() && return quality
+        (trial_quality.reliable || _refinement_error(trial_quality) < _refinement_error(quality)) || return _refinement_result(report,quality,_refine_not_improved,invalid_seen)
+        stop() && return _refinement_result(report,quality,_refine_stopped,invalid_seen)
         copyto!(destination,buffers.trial)
         _pipeline_changed!(ws,destination)
         quality = trial_quality
         _simplex_event!(ws,:correction)
     end
-    return quality
+    return _refinement_finished(report,quality,invalid_seen)
 end
 
 # A clock-only guard also works inside the callback-free pivot commit window.
