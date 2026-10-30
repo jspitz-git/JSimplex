@@ -71,7 +71,9 @@ end
         JSimplex.SolveContext(time_ns(),Inf,diagnostics,fresh.progress.numerical_policy),0,0;
         target_primal=[1.001,1.0])
     @test !isempty(observed)
-    @test first(observed)==original_indices
+    # An optional feasibility pivot may first try the projected basis. Once
+    # that fails, ordinary cleanup must still restore the inherited basis.
+    @test last(observed)==original_indices
     # This deliberately infeasible model must not be certified optimal. Compare
     # with ordinary cleanup to test rollback independently of its failure status.
     baseline=JSimplex.cleanup_original(fresh.problem,fresh.basis,fresh.options,

@@ -79,8 +79,48 @@ function _projection_bound_state(lower::Bound{T}, upper::Bound{T}, value::T,
     return BASIC  # No original bound can hold this variable nonbasic at its target value.
 end
 
+# Projection can leave one genuinely infeasible basic value even after accurate
+# reconstruction. Try one ordinary dual pivot on the original bounds with zero
+# costs. This is a feasibility problem, not a certificate for the original LP.
+# The caller must certify the original point and discard this basis on failure.
+function _try_postsolve_feasibility_pivot!(workspace::SimplexWorkspace{T}, stop) where {T}
+    stop() && return false
+    original_options = workspace.options
+    workspace.iterations < original_options.iteration_limit || return false
+    _finite_workspace(workspace) || return false
+    _, violations = primal_infeasibility_summary(workspace)
+    violations == 1 || return false
+    original_costs = workspace.costs
+    original_perturbed = workspace.perturbed
+    terminal = nothing
+    try
+        # Keep the caller's total budget; the local attempt can spend one pivot.
+        workspace.options = _remaining_options(original_options;
+            iterations=original_options.iteration_limit-workspace.iterations-1,
+            algorithm=:dual)
+        workspace.costs = zeros(T, length(original_costs))
+        workspace.perturbed = false
+        _simplex_event!(workspace, :feasibility_recovery)
+        _simplex_event!(workspace, :phase_dual)
+        stop() && return false
+        recompute!(workspace; caller_guard=stop)
+        stop() && return false
+        terminal = _dual_optimize!(workspace, stop; perturb_degenerate=false)
+    finally
+        workspace.costs = original_costs
+        workspace.options = original_options
+        workspace.perturbed = original_perturbed
+        # Dual edge weights cannot validate cached primal edge weights.
+        fill!(workspace.scratch.steepest_valid, false)
+    end
+    terminal.status == OPTIMAL && !stop() || return false
+    recompute!(workspace; caller_guard=stop)
+    return !stop() && _finite_workspace(workspace) &&
+        primal_infeasibility(workspace) <= original_options.primal_tolerance
+end
+
 function _project_postsolve_basis!(workspace::SimplexWorkspace{T}, target::Vector{T},
-                                   stop_requested)::Union{Nothing,Int} where {T}
+                                   stop_requested; repair_feasibility::Bool=false)::Union{Nothing,Int} where {T}
     problem, options = workspace.problem, workspace.options
     A = problem.A
     row_count, column_count = size(A)
@@ -175,9 +215,13 @@ function _project_postsolve_basis!(workspace::SimplexWorkspace{T}, target::Vecto
         # Projection can find the right basis while native reconstruction loses
         # feasibility to rounding. Repair it before discarding the exchanges and
         # restarting auxiliary optimization from the old, infeasible basis.
-        native_hint && _try_native_cleanup_recompute!(workspace, stop_requested) || return nothing
-        _finite_workspace(workspace) || return nothing
-        primal_infeasibility(workspace) <= options.primal_tolerance || return nothing
+        native_hint || return nothing
+        reconstructed = _try_native_cleanup_recompute!(workspace, stop_requested)
+        if !(reconstructed && _finite_workspace(workspace) &&
+             primal_infeasibility(workspace) <= options.primal_tolerance)
+            repair_feasibility &&
+                _try_postsolve_feasibility_pivot!(workspace, stop_requested) || return nothing
+        end
         copyto!(projected, 1, workspace.primal, 1, column_count)
         _original_primal_feasible(problem, projected, options.primal_tolerance) || return nothing
     end
@@ -241,7 +285,8 @@ function cleanup_original(problem::LinearProblem{T}, restored_basis::Basis,
         preserve_primal = false
         if !isnothing(target_primal)
             exchanges = try
-                _project_postsolve_basis!(workspace, target_primal, stop_requested)
+                _project_postsolve_basis!(workspace, target_primal, stop_requested;
+                    repair_feasibility=true)
             catch exception
                 exception === stop_requested.exception && rethrow()
                 _is_numerical_exception(exception) || rethrow()

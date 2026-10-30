@@ -1,0 +1,34 @@
+{
+  "method": "Replay captured handoffs on ARM with unpatched HEAD solver.jl and diagnostic-only logging in a private /tmp source copy. No production changes in this investigation.",
+  "intel_replay": {
+    "iterations": 123026,
+    "mode": "unreliable",
+    "terminal_before_wrapper": "basis recomputation could not be verified",
+    "primal_infeasibility": 33956875.66450116,
+    "dual_infeasibility": 0.0,
+    "repeated_signature": true,
+    "rounds_at_exit": 1,
+    "additional_phase_two_pivots": 0,
+    "limitation": "The failed primal/dual residual component and arithmetic origin of the unreliable recomputation have not yet been isolated. This is a replay of the Intel capture, not instrumentation on the Intel machine."
+  },
+  "arm_primal": {
+    "iterations": 119376,
+    "entering_index": 2709,
+    "basic_row": 14742,
+    "basic_variable_index": 6766,
+    "basic_value": 3.140522340679364,
+    "limiting_bound": 0.0,
+    "numerator": -3.140522340679364,
+    "movement": -1.843e-320,
+    "computed_ratio": "Inf",
+    "primal_infeasibility": 0.0,
+    "dual_infeasibility": 0.24381307632684357,
+    "cause": "Finite inputs produce positive division overflow; _primal_ratio rejects any nonfinite raw_step, including a mathematically positive finite bound distance beyond Float64 range."
+  },
+  "arm_fallback": {
+    "iterations": 129576,
+    "terminal_before_wrapper": "basis recomputation could not be verified",
+    "repeated_signature": true
+  },
+  "scope": "The existing ZIP repairs the projected starting basis for the Intel capture. It does not change the ratio overflow guard or the shared recovery verification. Both diagnostic full cleanups reproduce their previous failure iteration totals."
+}

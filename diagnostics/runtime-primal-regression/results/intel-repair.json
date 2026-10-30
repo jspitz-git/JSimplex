@@ -1,0 +1,77 @@
+{
+  "reported_installed_commit": "c0fa748f",
+  "reported_tree_hash": "0550fe3d8f3bd34502ce8c27fe7638a0be409939",
+  "all_reported_source_hashes_match_commit_with_crlf": true,
+  "reported_platform": {
+    "julia": "1.13.3",
+    "architecture": "x86_64",
+    "blas_threads": 6
+  },
+  "replay_platform": {
+    "julia": "1.13.0",
+    "architecture": "aarch64",
+    "blas_threads": 1
+  },
+  "failure": {
+    "variable": "C11893",
+    "index": 11894,
+    "bounds": [
+      0,
+      1e-05
+    ],
+    "value": -1e-05,
+    "handoff_iterations": 112002
+  },
+  "baseline_replay_commit": "861fdf08",
+  "baseline_status": "NUMERICAL_ERROR",
+  "baseline_iterations": 123026,
+  "fixed_status": "OPTIMAL",
+  "fixed_iterations": 113162,
+  "additional_iterations": 1160,
+  "objective": 51425691.76210453,
+  "original_primal_feasible": true,
+  "fix": "One zero-cost dual feasibility pivot on the projected original-model basis, then restore original costs and certify before primal cleanup. Enabled only for one violated basic variable; no tolerance or precision change.",
+  "limits": "At most one completed pivot from the original remaining iteration budget. Time limit and observer exceptions preserved. Unsuccessful attempts discard the trial basis through existing fallback.",
+  "work_and_memory_review": "No unnecessary material work or retained memory found. Recovery-only temporary cost vector O(n+m), two recomputations (four basis solves and nonbasic RHS/price scans), normal guarded dual pivot work, finite/feasibility checks and primal weight-cache invalidation. Original cost vector is retained by reference and restored; no extra cost copy. Successful ordinary projections and ordinary iterations do not enter this helper.",
+  "performance_scope": "No kernel speedup claim. Fewer cleanup pivots reflect a changed recovery trajectory. Timings include compilation and concurrent validation workloads.",
+  "verification": {
+    "new_regression_assertions": 240,
+    "focused_semantic_assertions": 933,
+    "normally_compiled_allocation_assertions": 3,
+    "independent_review": "No actionable correctness finding; budget, exception restoration, pricing validity and recovery-only costs reviewed.",
+    "existing_normally_compiled_assertions": 696,
+    "focused_unique_assertions": 936,
+    "portable_cleanup_replay": "OPTIMAL; 1160 additional iterations; original primal certificate passed; replay.jl cleanup exited 0.",
+    "full_suite": "Incomplete: 600-second timeout sent SIGTERM during LLVM compilation in test/native_cleanup_recovery_tests.jl:21. No suite summary; lingering command interrupted, exit 130. This is not a passing full-suite result.",
+    "user_intel_cleanup_replay": {
+      "additional_iterations": 1160,
+      "bytes": 2459469465,
+      "compile_seconds": 28.6946908,
+      "iterations": 113162,
+      "message": "optimal solution found",
+      "objective": 51425691.76210453,
+      "original_primal_feasible": true,
+      "seconds": 42.6094189,
+      "status": "OPTIMAL"
+    },
+    "user_intel_full_solve": {
+      "status": "OPTIMAL",
+      "objective": 51425691.76210453,
+      "iterations": 113162,
+      "cleanup_start_iteration": 112002,
+      "cleanup_additional_iterations": 1160,
+      "solver_elapsed_seconds": 1481.0815793,
+      "at_time_seconds": 1522.504717,
+      "cleanup_start_seconds": 1466.7043088,
+      "cleanup_duration_seconds_approx": 14.3772705,
+      "julia": "1.13.3",
+      "blas_threads": 6,
+      "source_path_reported": "C:\\Users\\jiri.spitz\\Downloads\\runtime-intel-replay\\src\\JSimplex.jl",
+      "primal_cleanup_started_from_feasible_basis": true,
+      "retry_or_numerical_error_in_log": false,
+      "log_sha256": "dbefed1226a0f5f2e536402f6b4ac8f4ffc2e7906ed0a8c6bb9df8962d335974",
+      "stored_log_note": "Stored log uses LF line endings; log_sha256 describes the original received CRLF file."
+    }
+  },
+  "limitations": "Exact regression-introducing commit remains unproven. Patched snapshot replay and complete MPS solve are now confirmed by user logs on Intel. The separate positive ratio overflow and unreliable basis recomputation paths described in failure-causes.json are not repaired by this change; the full project test suite did not finish."
+}
