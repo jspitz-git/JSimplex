@@ -1,0 +1,10 @@
+Command: /usr/bin/python3 -B /tmp/devex-task4-green-independent-check.py
+Exit code: 1
+Traceback (most recent call last):
+  File "/tmp/devex-task4-green-independent-check.py", line 25, in <module>
+    check('217_pins_and_unique_exact_inventory',len(pins['inventory'])==217 and pins['files']==sorted(pins['inventory']) and not pins['trees'] and not pins['inputs'])
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/devex-task4-green-independent-check.py", line 12, in check
+    if not v:raise AssertionError(k)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 217_pins_and_unique_exact_inventory
