@@ -1,0 +1,50 @@
+{
+  "accepted": true,
+  "scope": "source/raw diagnosis only; GREEN remains NOT ACCEPTED, no rerun or repair",
+  "checks": {
+    "ordinary_exact_result": true,
+    "sole_error_is_missing_existing_dependency": true,
+    "unchanged_test_literal_requires_fixture": true,
+    "fixture_available_only_at_original_path": true,
+    "fixture_omitted_from_pins_and_staging": true,
+    "all_twelve_include_markers": true,
+    "endpoint_all46_pass": true,
+    "endpoint_original_certificates_and_controls": true,
+    "actual_exit_failure_not_timeout": true,
+    "failed_not_relabelled_accepted": true,
+    "shared_budget_not_exhausted": true,
+    "no_cost_or_retry": true
+  },
+  "bindings": {
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/dual-recovery-devex-task4/2026-10-30/tests/simplex_numerics_tests.jl": "329e09c90f35d5f49878d8859506598f496cc5705c445805aa92b7b79549965e",
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/test/simplex_numerics_tests.jl": "329e09c90f35d5f49878d8859506598f496cc5705c445805aa92b7b79549965e",
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/test/fixtures/solver/netlib/adlittle.mps": "fec81e24fa91bc545d97239b108b43e6034f37b4bf2455a3f8c179726b44d44c",
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/dual-recovery-devex-task4/2026-10-30/stage.py": "b9962b3b3dc0fddc641dd26cd203243269ad2c09edc6de77c4f80934e62bf14b",
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/dual-recovery-devex-task4/2026-10-30/ADMISSION-PREPARATION.md": "0f8e8ff86d82ccfad7da8625cbf47ed147e511aa2785a1e79091388f9c890495",
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/dual-recovery-devex-task4/2026-10-30/contract.json": "41c022b9d377e8732e860dad8be472d4fdbd9662dfeb2d41084f43ab5115ebba",
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/.superpowers/dual-recovery-devex-task4/qualification-1/green/guard/run.log": "3f39092c21392fb171535dcfa0667db5b1458d5cc0cd06cb492b2b29ca662451",
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/.superpowers/dual-recovery-devex-task4/qualification-1/green/guard/process.json": "3143547e65caf0545f5e1df3cca1729fbdabc0834e327e38f76fcbebad2c2c41",
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/.superpowers/dual-recovery-devex-task4/qualification-1/green/supervisor.json": "d8283ab81ba1279913d8173586a2145e19706a86f1af5faf612af3cdf27fdd78",
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/.superpowers/dual-recovery-devex-task4/qualification-1/green/completion.json": "bcc766756d1bed313cbd793af9e25efd764c0c098ae388af59a9d593d0671144",
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/.superpowers/dual-recovery-devex-task4/qualification-1/green/result.toml": "4034412063a5dcd70062cde3ce2cfba779f3131d911c7203355cff3b0c9caaec",
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/dual-recovery-devex-task4-green/2026-10-30/postcheck.json": "6fa76ac842b05ace31a586b914441aca792b0829618c8c4f35375ccbd60b4d49"
+  },
+  "missing_path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/dual-recovery-devex-task4/2026-10-30/tests/fixtures/solver/netlib/adlittle.mps",
+  "original_fixture": {
+    "path": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/test/fixtures/solver/netlib/adlittle.mps",
+    "size_bytes": 16500,
+    "sha256": "fec81e24fa91bc545d97239b108b43e6034f37b4bf2455a3f8c179726b44d44c"
+  },
+  "ordinary_summary": {
+    "Pass": 5772,
+    "Fail": 0,
+    "Error": 1,
+    "Broken": 0,
+    "Total": 5773
+  },
+  "expected_unreached_checks": [
+    "Numerical strategy propagation: result.status == OPTIMAL",
+    "Numerical strategy propagation: !isempty(observed) && all(==(7), observed)"
+  ],
+  "remaining_shared_seconds": 1272.0395071510575
+}

@@ -1,0 +1,131 @@
+WARNING: Imported binding StyledStrings.@styled_str was undeclared at import time during import to Markdown.
+WARNING: Imported binding StyledStrings.styled was undeclared at import time during import to Markdown.
+WARNING: Imported binding OpenSpecFun_jll.libopenspecfun was undeclared at import time during import to SpecialFunctions.
+WARNING: Imported binding Bzip2_jll.libbzip2 was undeclared at import time during import to CodecBzip2.
+ERROR: LoadError: Some tests did not pass: 5772 passed, 0 failed, 1 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/dual-recovery-devex-task4/2026-10-30/green.jl:3
+TASK4_INCLUDED tests/refinement_outcome_tests.jl
+TASK4_INCLUDED tests/reference_comparison_tests.jl
+TASK4_INCLUDED tests/recovery_weight_tests.jl
+TASK4_INCLUDED tests/recovery_devex_fallback_tests.jl
+
+Numerical strategy propagation: Error During Test at /home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/dual-recovery-devex-task4/2026-10-30/tests/simplex_numerics_tests.jl:108
+  Got exception outside of a @test
+  SystemError: opening file "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/dual-recovery-devex-task4/2026-10-30/tests/fixtures/solver/netlib/adlittle.mps": No such file or directory
+  Stacktrace:
+    [1] systemerror(p::String, errno::Int32; extrainfo::Nothing)
+      @ Base ./error.jl:186
+    [2] open(fname::String; lock::Bool, read::Bool, write::Nothing, create::Nothing, truncate::Nothing, append::Nothing)
+      @ Base ./iostream.jl:327
+    [3] open
+      @ ./iostream.jl:306 [inlined]
+    [4] open(fname::String, mode::String; lock::Bool)
+      @ Base ./iostream.jl:390
+    [5] open
+      @ ./iostream.jl:389 [inlined]
+    [6] #open#324
+      @ ./io.jl:427 [inlined]
+    [7] open
+      @ ./io.jl:426 [inlined]
+    [8] _parse_mps_file(path::String, ::Type{Float64}; format::Symbol)
+      @ JSimplex ~/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/dual-recovery-devex-task4/2026-10-30/overlays/candidate/src/mps.jl:9
+    [9] _parse_mps_file
+      @ ~/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/dual-recovery-devex-task4/2026-10-30/overlays/candidate/src/mps.jl:8 [inlined]
+   [10] #read_mps#90
+      @ ~/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/dual-recovery-devex-task4/2026-10-30/overlays/candidate/src/mps.jl:68 [inlined]
+   [11] read_mps(path::String)
+      @ JSimplex ~/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/dual-recovery-devex-task4/2026-10-30/overlays/candidate/src/mps.jl:62
+   [12] top-level scope
+      @ ~/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/dual-recovery-devex-task4/2026-10-30/tests/simplex_numerics_tests.jl:109
+   [13] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [14] macro expansion
+      @ ~/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/dual-recovery-devex-task4/2026-10-30/tests/simplex_numerics_tests.jl:129 [inlined]
+   [15] include(mapexpr::Function, mod::Module, _path::String)
+      @ Base ./Base.jl:310
+   [16] top-level scope
+      @ ~/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/dual-recovery-devex-task4/2026-10-30/green.jl:4
+   [17] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [18] macro expansion
+      @ ~/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/dual-recovery-devex-task4/2026-10-30/green.jl:12 [inlined]
+   [19] include(mod::Module, _path::String)
+      @ Base ./Base.jl:309
+   [20] exec_options(opts::Base.JLOptions)
+      @ Base ./client.jl:344
+   [21] _start()
+      @ Base ./client.jl:577
+TASK4_INCLUDED tests/simplex_numerics_tests.jl
+TASK4_INCLUDED tests/basis_recovery_tests.jl
+TASK4_INCLUDED tests/dual_weight_validation_tests.jl
+TASK4_INCLUDED tests/adaptive_pricing_tests.jl
+TASK4_INCLUDED tests/adaptive_pricing_lifecycle_tests.jl
+TASK4_INCLUDED tests/partial_pricing_tests.jl
+TASK4_INCLUDED tests/partial_pricing_edge_tests.jl
+TASK4_INCLUDED endpoint.jl
+Test Summary:                                                                  | Pass  Error  Total     Time
+TASK4_GREEN                                                                    | 5772      1   5773  7m42.7s
+  Refinement outcome matches legacy quality                                    | 1692          1692     2.9s
+  Refinement guards remain checked before numeric work                         |   10            10     0.0s
+  Existing multiprecision and exact API stays unchanged                        |   56            56     3.5s
+  Original source and candidate have the same numeric execution                | 2092          2092     1.9s
+  Recovery weight failure classification                                       |   68            68     0.6s
+  Reliable small norm retains original floor                                   |    6             6     0.0s
+  Partial DSE prefix is discarded                                              |   24            24     0.1s
+  Fixed auto and temporary pricing transitions                                 |   74            74     0.0s
+  Unknown route and unsafe work stay strict                                    |   85            85     0.8s
+  Original strict weight loop matches compatibility wrapper                    |   72            72     0.0s
+  Explicit dual retry scope                                                    |   66            66     1.2s
+  Cancelled or throwing fallback publication                                   |   55            55     1.5s
+  Fallback publishes mode with the basis                                       |  120           120     0.6s
+  Temporary selection and successful DSE retain their own mode                 |   10            10     0.0s
+  Legacy and precision routes remain strict                                    |   32            32    22.4s
+  Shared simplex numerical quality                                             |   93            93     1.4s
+  Numerical strategy propagation                                               |   30      1     31     3.1s
+  Discarded recovery candidates retain the triggering pivot pair               |    3             3     0.1s
+  Basis checkpoints own working data and preserve consumed work                |   44            44     1.7s
+  Repair failures preserve the live basis and the saved checkpoint             |   19            19     3.0s
+  Recovery rejection pairs belong to one basis generation                      |    4             4     0.1s
+  Exhausted pivot refresh repairs the basis before resuming dual               |   12            12     2.8s
+  Recovery checkpoints are explicitly opt-in and phase-local                   |    5             5     0.1s
+  Exhausted repair restores perturbations without replaying the budget         |    5             5     0.6s
+  Recovery rebuilds edge weights and respects stored precision                 |   28            28    13.1s
+  Checkpoint validation, deadlines and observer failures are atomic            |   15            15     2.1s
+  Verified history is bounded and repair changes a singular basis              |   52            52     2.6s
+  Recovery never combines trigger coordinates from different candidates        |    8             8     0.1s
+  Dual weight update validates all state and recovery results                  |   71            71     0.2s
+  Automatic pricing public round trip                                          |   18            18     0.1s
+  Automatic weights recover before selection                                   |   80            80     5.4s
+  Selected weights reuse supplied basis solves                                 |   36            36     0.9s
+  Pricing state is owned across staged and cancelled work                      |    7             7     1.0s
+  Edge quality respects stored weight units                                    |   58            58     0.1s
+  Pricing quality retains stored BigFloat precision                            |    3             3     0.0s
+  Automatic pricing requires cooldown and a valid framework                    |   32            32     0.1s
+  Temporary pricing returns to its prior rule after sustained progress         |   24            24     0.1s
+  Unproductive pricing trials are bounded and cannot immediately repeat        |    7             7     0.0s
+  Disabled adaptive pricing observes without starting a trial                  |   11            11     0.0s
+  Temporary Dantzig maintains dual weights for the current basis               |   11            11     2.9s
+  Trial budgets survive monitor changes and policy changes                     |   12            12     0.0s
+  Real trial pivots preserve weights through refactorization and recovery      |  208           208    16.9s
+  Numerical recovery ends owned trials and survives phase resets               |    8             8     2.8s
+  Cancelled candidates cannot publish pricing lifecycle events                 |   12            12     0.1s
+  Auxiliary handoff publishes a fresh phase only on acceptance                 |   19            19    12.7s
+  Disabled pricing policy takes effect before the next selection               |   18            18     0.0s
+  A disabled-policy algorithm change does not introduce a pricing heuristic    |    3             3     0.0s
+  Both primal phase-I paths retain numerical Devex without the temporary trial |   14            14    29.6s
+  Primal phase construction preserves the safe rule but owns fresh history     |   14            14     0.4s
+  Explicit and automatic weighted rules share productive trial returns         |   24            24     0.0s
+  Devex trials use the same reference updates as fixed Devex                   |   56            56    29.7s
+  Pending auxiliary handoff observer failure preserves published state         |   40            40    12.9s
+  Partial pricing cannot certify an exhausted first block                      |   30            30     1.1s
+  Current scores, validity, and deterministic full scans                       |   16            16     0.0s
+  An absent cached candidate requires a complete current scan                  |    5             5     0.0s
+  Partial pricing is opt-in and keeps small domains on full scans              |    7             7     0.1s
+  Wide coupled LP retains its independent original optimum                     |   60            60  3m16.9s
+  Cancelled pivot and recovery preserve live candidate state                   |   12            12     8.5s
+  Actual perturbation and restoration invalidate pool cost generations         |    8             8     0.1s
+  Partial pricing shares the completed-step limit                              |    2             2    19.7s
+  Partial dual pricing retains extreme eligible scores and recovers weights    |   16            16     5.6s
+  Generated wide pricing calibration has the intended MPS model                |    4             4     0.0s
+  TASK4_POST_FALLBACK                                                          |   46            46    20.2s
+RNG of the outermost testset: Random.Xoshiro(0xd075eec2924a021c, 0x918b760b8090048e, 0x159ac84057f872c2, 0x71406cd144c37f97, 0x09e133dfad2ccab1)
