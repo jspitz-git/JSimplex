@@ -402,7 +402,7 @@ function _retry_simplex_step!(ws::SimplexWorkspace,stop_requested,algorithm::Sym
             end
         end
         if policy.recovery && recovery_rounds < policy.max_recovery_rounds
-            repaired = repair_basis!(ws,policy,stop_requested)
+            repaired = repair_basis!(ws,policy,stop_requested;algorithm)
             stop_requested() && return DualTermination(TIME_LIMIT,"time limit reached during basis recovery")
             if repaired || ws.scratch.recovery_restored
                 ready = algorithm == :dual ?
