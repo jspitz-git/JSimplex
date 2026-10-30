@@ -1,0 +1,1617 @@
+diff --git a/src/simplex_numerics.jl b/src/simplex_numerics.jl
+--- a/src/simplex_numerics.jl
++++ b/src/simplex_numerics.jl
+@@ -111,6 +111,59 @@
+     reliable::Bool
+ end
+ 
++# Call-local, opt-in status for recovery consumers. No field is added to
++# SolveQuality or any workspace/cache. Default refinement constructs no outcome.
++@enum _RefinementCause::UInt8 begin
++    _refine_reliable = 0
++    _refine_nonfinite_initial_quality
++    _refine_nonfinite_quality
++    _refine_nonfinite_correction
++    _refine_nonfinite_trial
++    _refine_nonfinite_trial_quality
++    _refine_stopped
++    _refine_unchanged
++    _refine_not_improved
++    _refine_limit
++    _refine_not_observed
++end
++
++struct _BasisRefinementOutcome{T<:Real}
++    quality::SolveQuality{T}
++    cause::_RefinementCause
++    invalid_seen::Bool
++end
++
++@inline _refinement_result(::Val{false},quality::SolveQuality,
++                           cause::_RefinementCause,invalid_seen::Bool) = quality
++@inline _refinement_result(::Val{true},quality::SolveQuality{T},
++                           cause::_RefinementCause,invalid_seen::Bool) where T =
++    _BasisRefinementOutcome{T}(quality,cause,invalid_seen)
++
++@inline _refinement_finished(::Val{false},quality::SolveQuality,invalid_seen::Bool) = quality
++@inline function _refinement_finished(::Val{true},quality::SolveQuality,invalid_seen::Bool)
++    cause = quality.reliable ? _refine_reliable :
++            !quality.finite ? _refine_nonfinite_quality : _refine_limit
++    return _refinement_result(Val(true),quality,cause,invalid_seen || !quality.finite)
++end
++
++# Cold recovery result, with no array or workspace reference.
++@enum _RecoveryWeightReason::UInt8 begin
++    _weight_complete = 0
++    _weight_not_needed
++    _weight_finite_inconclusive
++    _weight_stopped
++    _weight_nonfinite_attempt
++    _weight_invalid_norm
++    _weight_ineligible
++end
++struct _RecoveryWeightResult
++    ok::Bool
++    fallback_ready::Bool
++    failed_row::Int
++    reason::_RecoveryWeightReason
++    refinement_cause::_RefinementCause
++end
++
+ struct SolveQualityScratch{T,W}
+     residual::Vector{T}
+     work_residual::Vector{W}
+diff --git a/src/simplex_pivot.jl b/src/simplex_pivot.jl
+--- a/src/simplex_pivot.jl
++++ b/src/simplex_pivot.jl
+@@ -402,7 +402,7 @@
+             end
+         end
+         if policy.recovery && recovery_rounds < policy.max_recovery_rounds
+-            repaired = repair_basis!(ws,policy,stop_requested)
++            repaired = repair_basis!(ws,policy,stop_requested;algorithm)
+             stop_requested() && return DualTermination(TIME_LIMIT,"time limit reached during basis recovery")
+             if repaired || ws.scratch.recovery_restored
+                 ready = algorithm == :dual ?
+diff --git a/src/simplex_recovery.jl b/src/simplex_recovery.jl
+--- a/src/simplex_recovery.jl
++++ b/src/simplex_recovery.jl
+@@ -7,6 +7,25 @@
+ function refine_basis_solve!(destination::AbstractVector{T},ws::SimplexWorkspace{T},
+                              rhs::AbstractVector{T},policy::NumericalPolicy{T},stop;
+                              transposed::Bool=false)::SolveQuality{T} where {T}
++    return _refine_basis_solve_entry!(destination,ws,rhs,policy,stop,Val(false);transposed)
++end
++
++function _refine_basis_solve_outcome!(destination::AbstractVector{T},ws::SimplexWorkspace{T},
++                                    rhs::AbstractVector{T},policy::NumericalPolicy{T},stop;
++                                    transposed::Bool=false)::_BasisRefinementOutcome{T} where {T}
++    return _refine_basis_solve_entry!(destination,ws,rhs,policy,stop,Val(true);transposed)
++end
++
++@inline _record_refinement_result!(ws,quality::SolveQuality) =
++    _record_refactor_quality!(ws,quality)
++@inline function _record_refinement_result!(ws,result::_BasisRefinementOutcome)
++    _record_refactor_quality!(ws,result.quality)
++    return result
++end
++
++function _refine_basis_solve_entry!(destination::AbstractVector{T},ws::SimplexWorkspace{T},
++                             rhs::AbstractVector{T},policy::NumericalPolicy{T},stop,report::Val;
++                             transposed::Bool=false) where {T}
+     m = size(ws.problem.A,1)
+     length(destination) == length(rhs) == m || throw(DimensionMismatch("basis solve dimensions"))
+     Base.mightalias(destination,rhs) && throw(ArgumentError("basis solve destination aliases RHS"))
+@@ -28,10 +47,10 @@
+     if T === BigFloat
+         bits = _stored_quality_bits(T,B,destination,rhs,policy)
+         return setprecision(BigFloat,bits) do
+-            _record_refactor_quality!(ws,_refine_basis_solve!(destination,ws,B,rhs,policy,stop,buffers,transposed))
+-        end
+-    end
+-    return _record_refactor_quality!(ws,_refine_basis_solve!(destination,ws,B,rhs,policy,stop,buffers,transposed))
++            _record_refinement_result!(ws,_refine_basis_solve!(destination,ws,B,rhs,policy,stop,buffers,transposed,report))
++        end
++    end
++    return _record_refinement_result!(ws,_refine_basis_solve!(destination,ws,B,rhs,policy,stop,buffers,transposed,report))
+ end
+ 
+ _checkpoint_model(ws) = (objectid(ws.problem.A),size(ws.problem.A)...)
+@@ -87,7 +106,28 @@
+ _record_recovery!(::Nothing,reason) = nothing
+ _record_recovery!(diagnostics::SimplexDiagnostics,reason) = record_event!(diagnostics,reason)
+ 
+-function _recovery_trial(ws::SimplexWorkspace{T},c::BasisCheckpoint{T},stop) where T
++# Cold, call-local pending publication; no copies or new persistent fields.
++struct _RecoveryTrialResult{W}
++    workspace::W
++    devex_fallback::Bool
++    failed_weight_row::Int
++end
++
++_validate_recovery_algorithm(algorithm::Symbol) =
++    algorithm in (:unspecified,:primal,:dual) ? nothing :
++    throw(ArgumentError("Unknown recovery algorithm"))
++_build_recovery_factor(B,options) = _basis_factorization(B,options)
++
++# Strict compatibility, including all existing direct/precision callers.
++function _recovery_trial(ws::SimplexWorkspace,c::BasisCheckpoint,stop)
++    result = _recovery_trial_with_pricing(ws,c,stop)
++    return isnothing(result) ? nothing : result.workspace
++end
++
++function _recovery_trial_with_pricing(ws::SimplexWorkspace{T},c::BasisCheckpoint{T},stop;
++                                     algorithm::Symbol=:unspecified,
++                                     build_factor::F=_build_recovery_factor) where {T,F}
++    _validate_recovery_algorithm(algorithm)
+     stop() && return nothing
+     m,n = size(ws.problem.A)
+     trial = SimplexWorkspace(ws.problem,ws.options,ws.progress,
+@@ -113,7 +153,7 @@
+     try
+         trial.factorization = _measure_basis_factorization!(trial) do
+             _timed_simplex(ws,:refactorization) do
+-                _basis_factorization(B,ws.options)
++                build_factor(B,ws.options)
+             end
+         end
+     finally
+@@ -125,29 +165,106 @@
+     reset_devex!(trial)
+     recompute!(trial;caller_guard=stop)
+     _finite_workspace(trial) && _recomputed_basis_reliable(trial) || return nothing
+-    _rebuild_recovery_weights!(trial,stop) || return nothing
++    weights = _rebuild_recovery_weights_result!(trial,stop;algorithm)
++    if !weights.ok
++        weights.fallback_ready || return nothing
++        # One corresponding post-weight stop, before any state preparation.
++        stop() && return nothing
++        _recovery_weight_scope(trial,algorithm) || return nothing
++        # Refined weight buffers are independent of rho; callbacks may have
++        # invalidated core values since recompute. No additional solve/factor.
++        _finite_workspace(trial) && _recomputed_basis_reliable(trial) || return nothing
++        _prepare_recovery_devex!(trial)
++        return _RecoveryTrialResult(trial,true,weights.failed_row)
++    end
+     stop() && return nothing
+-    return trial
+-end
+-
+-function _rebuild_recovery_weights!(trial::SimplexWorkspace{T},stop) where T
+-    # Primal weights remain invalid and are computed on demand. Dual steepest
+-    # edge weights belong to basic rows and must match the rebuilt inverse.
+-    _weight_pricing(trial,:dual) == :steepest_edge || return true
++    return _RecoveryTrialResult(trial,false,0)
++end
++
++# Explicit caller route and maintained geometry, never options/history alone.
++function _recovery_weight_scope(trial::SimplexWorkspace{T},algorithm::Symbol) where T
++    state = trial.scratch.pricing
++    return algorithm == :dual && (T === Float32 || T === Float64) &&
++        _weight_pricing(trial,:dual) == :steepest_edge &&
++        (isnothing(state) || state.algorithm == :dual)
++end
++
++function _failed_recovery_weight(trial,direction,outcome::_BasisRefinementOutcome,row,algorithm)
++    quality,cause = outcome.quality,outcome.cause
++    cause == _refine_stopped &&
++        return _RecoveryWeightResult(false,false,row,_weight_stopped,cause)
++    if outcome.invalid_seen || !quality.finite || cause in (
++        _refine_nonfinite_initial_quality,_refine_nonfinite_quality,
++        _refine_nonfinite_correction,_refine_nonfinite_trial,_refine_nonfinite_trial_quality)
++        return _RecoveryWeightResult(false,false,row,_weight_nonfinite_attempt,cause)
++    end
++    if !_recovery_weight_scope(trial,algorithm) || quality.reliable ||
++       !(cause in (_refine_unchanged,_refine_not_improved,_refine_limit))
++        return _RecoveryWeightResult(false,false,row,_weight_ineligible,cause)
++    end
++    # Same guard as a reliable row: self-dot rejects zero/underflow, overflow,
++    # NaN and Inf under the unchanged real IEEE arithmetic. No second scan.
++    weight = dot(direction,direction)
++    isfinite(weight) && weight > zero(eltype(direction)) ||
++        return _RecoveryWeightResult(false,false,row,_weight_invalid_norm,cause)
++    return _RecoveryWeightResult(false,true,row,_weight_finite_inconclusive,cause)
++end
++
++function _rebuild_recovery_weights_result!(trial::SimplexWorkspace{T},stop;
++                                            algorithm::Symbol=:unspecified) where T
++    _weight_pricing(trial,:dual) == :steepest_edge ||
++        return _RecoveryWeightResult(true,false,0,_weight_not_needed,_refine_not_observed)
+     m = length(trial.basis.basic_indices)
+     rhs,direction = zeros(T,m),zeros(T,m)
+     policy = trial.progress.numerical_policy
++    detailed = _recovery_weight_scope(trial,algorithm)
++    cause = _refine_not_observed
+     for row in 1:m
+-        stop() && return false
++        stop() && return _RecoveryWeightResult(false,false,row,_weight_stopped,_refine_not_observed)
+         fill!(rhs,zero(T))
+         rhs[row] = one(T)
+         transpose_solve!(direction,trial.factorization,rhs)
+-        refine_basis_solve!(direction,trial,rhs,policy,stop;transposed=true).reliable || return false
++        if detailed
++            outcome = _refine_basis_solve_outcome!(direction,trial,rhs,policy,stop;transposed=true)
++            cause = outcome.cause
++            outcome.quality.reliable || return _failed_recovery_weight(trial,direction,outcome,row,algorithm)
++        else
++            refine_basis_solve!(direction,trial,rhs,policy,stop;transposed=true).reliable ||
++                return _RecoveryWeightResult(false,false,row,_weight_ineligible,_refine_not_observed)
++        end
+         weight = dot(direction,direction)
+-        isfinite(weight) && weight > zero(T) || return false
++        isfinite(weight) && weight > zero(T) ||
++            return _RecoveryWeightResult(false,false,row,_weight_invalid_norm,cause)
+         trial.pricing_weights[trial.basis.basic_indices[row]] = max(_typed_ratio(T,1,10^4),weight)
+     end
+-    return true
++    return _RecoveryWeightResult(true,false,0,_weight_complete,cause)
++end
++
++# All old call sites, including precision transfer, remain strict.
++_rebuild_recovery_weights!(trial::SimplexWorkspace,stop)::Bool =
++    _rebuild_recovery_weights_result!(trial,stop).ok
++
++# State-only preparation on an owned, core-revalidated recovery trial.
++# Task3 owns the post-classification stop/core checks and publication boundary.
++function _prepare_recovery_devex!(trial)::Nothing
++    trial.scratch.recovery_active || throw(ArgumentError("Devex preparation requires a private recovery trial"))
++    _recovery_weight_scope(trial,:dual) || throw(ArgumentError("Ineligible recovery pricing state"))
++    state = trial.scratch.pricing
++    if isnothing(state) && trial.options.pricing == :auto
++        # Auto selection ignores the fixed-mode flag: materialize its existing
++        # fixed-size state lazily, with no monitor/vector allocation.
++        state = PricingState(eltype(trial.costs))
++        state.algorithm = :dual
++        trial.scratch.pricing = state
++    end
++    if !isnothing(state)
++        state.rejected_weights += 1
++        _unreliable_pricing!(state,trial.progress.numerical_policy)
++    end
++    trial.options.pricing == :auto || (trial.dual_devex_fallback = true)
++    reset_devex!(trial) # recovery_active suppresses the existing reset observer
++    _invalidate_pricing_pool!(trial;basis=false,costs=false)
++    return nothing
+ end
+ 
+ function _basis_primal_rhs(ws::SimplexWorkspace{T}) where T
+@@ -178,7 +295,13 @@
+         policy;transposed=true).reliable
+ end
+ 
+-function _publish_recovery!(ws,trial,reason,stop)
++function _publish_recovery!(ws,result::_RecoveryTrialResult,reason,stop)
++    return _publish_recovery!(ws,result.workspace,reason,stop;
++        weight_fallback=result.devex_fallback,failed_weight_row=result.failed_weight_row)
++end
++
++function _publish_recovery!(ws,trial,reason,stop;
++                            weight_fallback::Bool=false,failed_weight_row::Int=0)
+     data = checkpoint_basis(trial)
+     checkpoint = BasisCheckpoint(data.basis,data.costs,data.lower,data.upper,
+         _checkpoint_model(ws),_checkpoint_phase(ws),data.perturbed)
+@@ -195,6 +318,12 @@
+     ws.scratch.post_iteration = :none
+     ws.scratch.recovery_restored = reason == :restore_checkpoint
+     _store_basis_checkpoint!(ws,checkpoint)
++    if weight_fallback
++        # Commit-only records, never observer/logger calls. Pending mode was
++        # already visible to the unchanged prepublication recovery observers.
++        _record_recovery!(ws.progress.diagnostics,:pricing_weight_rejected)
++        _record_recovery!(ws.progress.diagnostics,:pricing_devex)
++    end
+     pricing_reset && _record_recovery!(ws.progress.diagnostics,:pricing_reset)
+     _record_recovery!(ws.progress.diagnostics,reason)
+     _record_recovery!(ws.progress.diagnostics,:checkpoint)
+@@ -203,12 +332,14 @@
+ end
+ 
+ """Rebuild a checkpoint privately; publication never rolls back consumed work."""
+-function restore_checkpoint!(ws::SimplexWorkspace{T},c::BasisCheckpoint{T},stop)::Bool where T
++function restore_checkpoint!(ws::SimplexWorkspace{T},c::BasisCheckpoint{T},stop;
++                             algorithm::Symbol=:unspecified)::Bool where T
++    _validate_recovery_algorithm(algorithm)
+     _checkpoint_matches(ws,c) || return false
+     guard = _guard_stop_callback(stop)
+     try
+         return _with_recovery_precision(ws,c) do
+-            trial = _recovery_trial(ws,c,guard)
++            trial = _recovery_trial_with_pricing(ws,c,guard;algorithm)
+             isnothing(trial) && return false
+             _publish_recovery!(ws,trial,:restore_checkpoint,guard)
+         end
+@@ -264,18 +395,21 @@
+ end
+ 
+ """Try bounded column exchanges; numerical recovery does not certify feasibility."""
+-function repair_basis!(ws::SimplexWorkspace{T},policy::NumericalPolicy{T},stop)::Bool where T
++function repair_basis!(ws::SimplexWorkspace{T},policy::NumericalPolicy{T},stop;
++                       algorithm::Symbol=:unspecified)::Bool where T
++    _validate_recovery_algorithm(algorithm)
+     ws.scratch.recovery_restored = false
+     guard = _guard_stop_callback(stop)
+     guard() && return false
+     policy.max_recovery_rounds == 0 && return false
+     original = checkpoint_basis(ws)
+     return _with_recovery_precision(ws,original) do
+-        _repair_basis!(ws,policy,guard,original)
+-    end
+-end
+-
+-function _repair_basis!(ws,policy,guard,original)
++        _repair_basis!(ws,policy,guard,original;algorithm)
++    end
++end
++
++function _repair_basis!(ws,policy,guard,original;algorithm::Symbol=:unspecified)
++    _validate_recovery_algorithm(algorithm)
+     _sync_recovery_rejections!(ws)
+     m,n = size(ws.problem.A)
+     m == 0 && return false
+@@ -310,7 +444,7 @@
+             candidate = BasisCheckpoint(proposed,original.costs,original.lower,original.upper,
+                 original.working_model,original.phase,original.perturbed)
+             try
+-                trial = _recovery_trial(ws,candidate,guard)
++                trial = _recovery_trial_with_pricing(ws,candidate,guard;algorithm)
+                 if !isnothing(trial)
+                     if _publish_recovery!(ws,trial,:repair,guard)
+                         empty!(ws.scratch.recovery_rejections)
+@@ -330,7 +464,7 @@
+     # failure so a caller cannot mistake restoration for a successful exchange.
+     for checkpoint in Iterators.reverse(ws.scratch.checkpoints)
+         guard() && return false
+-        if restore_checkpoint!(ws,checkpoint,guard)
++        if restore_checkpoint!(ws,checkpoint,guard;algorithm)
+             break
+         end
+     end
+@@ -420,55 +554,72 @@
+     return changed
+ end
+ 
+-function _refine_basis_solve!(destination::AbstractVector{T},ws,B,rhs,policy,stop,buffers,transposed) where T
++# Preserve the previous private entry as well as the public quality-only API.
++_refine_basis_solve!(destination::AbstractVector{T},ws,B,rhs,policy,stop,buffers,transposed) where T =
++    _refine_basis_solve!(destination,ws,B,rhs,policy,stop,buffers,transposed,Val(false))
++
++function _refine_basis_solve!(destination::AbstractVector{T},ws,B,rhs,policy,stop,buffers,transposed,report::Val{Report}) where {T,Report}
+     quality_scratch = transposed ? buffers.row : buffers.column
+     saved_rhs = copyto!(buffers.rhs,rhs)
+     quality = solve_quality!(quality_scratch,B,destination,saved_rhs,policy;transposed)
+-    quality.finite || return quality
++    invalid_seen = false
++    quality.finite || return _refinement_result(report,quality,_refine_nonfinite_initial_quality,true)
+     wide = policy.solve_refinement && T === Float64 && !quality.reliable
+     if wide && policy.max_refinements > 0
+-        stop() && return quality
++        stop() && return _refinement_result(report,quality,_refine_stopped,invalid_seen)
+         quality = _refinement_quality!(quality_scratch,B,destination,saved_rhs,policy,transposed,wide)
+     end
+     for _ in 1:policy.max_refinements
+-        (quality.reliable || !quality.finite || stop()) && return quality
++        if quality.reliable
++            return _refinement_result(report,quality,_refine_reliable,invalid_seen)
++        elseif !quality.finite
++            return _refinement_result(report,quality,_refine_nonfinite_quality,true)
++        elseif stop()
++            return _refinement_result(report,quality,_refine_stopped,invalid_seen)
++        end
+         _simplex_event!(ws,:correction_attempt)
+         correction = _timed_simplex(ws,transposed ? :btran : :ftran) do
+             transposed ? transpose_solve!(buffers.correction,ws.factorization,quality_scratch.residual) :
+                          _ordinary_forward_solve!(buffers.correction,ws.factorization,quality_scratch.residual)
+         end
+-        all(isfinite,correction) || return quality
++        all(isfinite,correction) || return _refinement_result(report,quality,_refine_nonfinite_correction,true)
+         changed = false
+         for i in eachindex(destination)
+             buffers.trial[i] = destination[i]+correction[i]
+             changed |= buffers.trial[i] != destination[i]
+         end
+-        all(isfinite,buffers.trial) || return quality
+-        !changed && !policy.solve_refinement && return quality
++        all(isfinite,buffers.trial) || return _refinement_result(report,quality,_refine_nonfinite_trial,true)
++        !changed && !policy.solve_refinement && return _refinement_result(report,quality,_refine_unchanged,invalid_seen)
+         trial_quality = _refinement_quality!(quality_scratch,B,buffers.trial,saved_rhs,policy,transposed,wide)
+-        trial_quality.finite || return quality
++        trial_quality.finite || return _refinement_result(report,quality,_refine_nonfinite_trial_quality,true)
+         if policy.solve_refinement && !trial_quality.reliable
+             # The correction is no longer needed; reuse its storage to retain
+             # the ordinary candidate if homogeneous cleanup does not help.
+             copyto!(buffers.correction,buffers.trial)
+             if _clean_homogeneous_terms!(buffers.trial,B,saved_rhs,transposed,buffers.singletons,policy)
+                 cleaned = _refinement_quality!(quality_scratch,B,buffers.trial,saved_rhs,policy,transposed,wide)
++                if Report
++                    invalid_seen |= !cleaned.finite
++                end
+                 if cleaned.finite && (cleaned.reliable || _refinement_error(cleaned) < _refinement_error(trial_quality))
+                     trial_quality = cleaned
+                 else
+                     copyto!(buffers.trial,buffers.correction)
+                     trial_quality = _refinement_quality!(quality_scratch,B,buffers.trial,saved_rhs,policy,transposed,wide)
++                    if Report
++                        invalid_seen |= !trial_quality.finite
++                    end
+                 end
+             end
+         end
+-        (trial_quality.reliable || _refinement_error(trial_quality) < _refinement_error(quality)) || return quality
+-        stop() && return quality
++        (trial_quality.reliable || _refinement_error(trial_quality) < _refinement_error(quality)) || return _refinement_result(report,quality,_refine_not_improved,invalid_seen)
++        stop() && return _refinement_result(report,quality,_refine_stopped,invalid_seen)
+         copyto!(destination,buffers.trial)
+         _pipeline_changed!(ws,destination)
+         quality = trial_quality
+         _simplex_event!(ws,:correction)
+     end
+-    return quality
++    return _refinement_finished(report,quality,invalid_seen)
+ end
+ 
+ # A clock-only guard also works inside the callback-free pivot commit window.
+diff --git a/test/recovery_devex_fallback_tests.jl b/test/recovery_devex_fallback_tests.jl
+new file mode 100644
+--- /dev/null
++++ b/test/recovery_devex_fallback_tests.jl
+@@ -0,0 +1,307 @@
++# Dual recovery scope, private ownership and transactional Devex publication.
++# Declared test factors forward genuine solves before injecting failures.
++module RecoveryDevexFallbackTests
++using Test, LinearAlgebra, SparseArrays, JSimplex
++const J=JSimplex
++
++mutable struct RecoveryFactor{T,F}
++    base::F
++    updates::Vector{J.PackedEta{T}}
++    failed_row::Int
++    units::Int
++    corrections::Int
++    forwards::Int
++    backwards::Int
++    awaiting_correction::Bool
++    injected::Bool
++end
++wrap(f::F,row::Int) where F=RecoveryFactor{eltype(f.work),F}(f,f.updates,row,0,0,0,0,false,false)
++J._factor_storage_count(f::RecoveryFactor)=J._factor_storage_count(f.base)
++J._factor_growth_reference(f::RecoveryFactor)=J._factor_growth_reference(f.base)
++J._factor_growth_measure(f::RecoveryFactor)=J._factor_growth_measure(f.base)
++function J.forward_solve!(dest::Vector{T},f::RecoveryFactor{T},rhs::Vector{T}) where T
++    f.forwards+=1
++    J._ordinary_forward_solve!(dest,f.base,rhs)
++end
++function J.transpose_solve!(dest::Vector{T},f::RecoveryFactor{T},rhs::Vector{T}) where T
++    f.backwards+=1
++    J.transpose_solve!(dest,f.base,rhs)
++    if f.awaiting_correction
++        f.corrections+=1;f.awaiting_correction=false
++        fill!(dest,zero(T))
++    elseif count(!iszero,rhs)==1 && any(==(one(T)),rhs)
++        f.units+=1
++        if f.units==f.failed_row && !f.injected
++            dest ./= T(2);f.awaiting_correction=true;f.injected=true
++        end
++    end
++    dest
++end
++mutable struct Builder{F}
++    calls::Int
++    failed_row::Int
++    last::Union{Nothing,F}
++    failure::Union{Nothing,Exception}
++end
++function (b::Builder{F})(B,options) where F
++    b.calls+=1 # before genuine factorization, including throws
++    new=wrap(J._basis_factorization(B,options),b.failed_row)
++    new isa F || error("test factor type changed")
++    b.last=new
++    isnothing(b.failure) || throw(b.failure)
++    new
++end
++mutable struct Observe
++    calls::Int
++    publish_calls::Int
++    reasons::NTuple{3,Symbol}
++    saw_devex::Bool
++    throw_reason::Symbol
++    mutate::Symbol
++    failure::Exception
++    retained_pricing::Union{Nothing,J.PricingState{Float32},J.PricingState{Float64}}
++end
++function (o::Observe)(reason,ws)
++    o.calls+=1
++    if reason==:correction_attempt
++        o.retained_pricing=ws.scratch.pricing
++        if o.mutate==:nonfinite_core
++            ws.primal[end]=eltype(ws.costs)(Inf)
++        elseif o.mutate==:finite_primal
++            ws.primal[ws.basis.basic_indices[1]]+=one(eltype(ws.costs))
++        elseif o.mutate==:finite_rho
++            ws.scratch.rho[1]+=one(eltype(ws.costs))
++        elseif o.mutate==:stale_mode
++            ws.scratch.pricing.algorithm=:primal
++        end
++    elseif reason in (:pricing_reset,:repair,:restore_checkpoint,:checkpoint)
++        o.publish_calls+=1
++        i=o.publish_calls
++        i<=3 && (o.reasons=Base.setindex(o.reasons,reason,i))
++        o.saw_devex &= J._weight_pricing(ws,:dual)==:devex && all(isone,ws.pricing_weights)
++    end
++    reason==o.throw_reason && throw(o.failure)
++    nothing
++end
++function fixture(::Type{T}=Float64;failed_row=2,pricing=:auto) where T
++    # Zero basic costs distinguish recomputed price RHS from unit weight RHS.
++    p=J.LinearProblem(sparse(Matrix{T}(I,2,2)),zeros(T,2);column_lower=fill(nothing,2))
++    options=J.SolverOptions(T;verbose=false,time_limit=Inf,pricing)
++    policy=J.NumericalPolicy(T;solve_refinement=false,recovery=false,adaptive_refactor=false,
++                             refactor_timing=false,hypersparse=false)
++    failure=SingularException(43)
++    observer=Observe(0,0,(:none,:none,:none),true,:never,:none,failure,nothing)
++    diagnostics=J.SimplexDiagnostics(;observer,kernel_timing=true)
++    progress=J.SimplexProgressContext(p;numerical_policy=policy,diagnostics)
++    # One genuine initial factor; trial factory later constructs one more.
++    factor=wrap(J._basis_factorization(p.A,options),0)
++    states=vcat(fill(J.BASIC,2),fill(J.FREE_NONBASIC,2))
++    ws=J.SimplexWorkspace(p,options,progress,zeros(T,4),
++        vcat(p.column_lower,p.row_lower),vcat(p.column_upper,p.row_upper),J.Basis([1,2],states),
++        zeros(T,4),zeros(T,4),T[9,8,7,6],trues(4),factor,J.SimplexScratch(T,2,4),
++        7,0,false,0,false,false,options.refactorization_interval,0,typemax(Int),0,0)
++    state=J.PricingState(T);state.algorithm=:dual;state.switches=4;state.rejected_weights=5;state.resets=6
++    ws.scratch.pricing=state
++    pool=J._pricing_pool!(ws,:dual);append!(pool.indices,[1,2]);pool.valid=true;pool.full_scan=true
++    c=J.checkpoint_basis(ws)
++    builder=Builder{typeof(factor)}(0,failed_row,nothing,nothing)
++    (;ws,c,builder,observer,failure)
++end
++function snapshot(ws)
++    s=ws.scratch.pricing;p=ws.scratch.pricing_pool
++    (;factor=ws.factorization,options=ws.options,policy=ws.progress.numerical_policy,
++      costs=copy(ws.costs),lower=copy(ws.lower),upper=copy(ws.upper),primal=copy(ws.primal),
++      reduced=copy(ws.reduced_costs),weights=copy(ws.pricing_weights),reference=copy(ws.devex_reference),
++      basis=copy(ws.basis.basic_indices),states=copy(ws.basis.states),
++      flags=(ws.dual_pricing_fallback,ws.dual_devex_fallback),
++      pricing=isnothing(s) ? nothing : ntuple(i->getfield(s,i),fieldcount(typeof(s))),
++      pool=isnothing(p) ? nothing : (copy(p.indices),p.valid,p.full_scan,p.basis_generation,p.cost_generation),
++      history=copy(ws.scratch.checkpoints),
++      owners=map(objectid,(ws.costs,ws.lower,ws.upper,ws.primal,ws.reduced_costs,ws.pricing_weights,
++                          ws.devex_reference,ws.basis.basic_indices,ws.basis.states)))
++end
++function construct(f;algorithm=:dual,stop=()->false)
++    guard=J._guard_stop_callback(stop)
++    J._recovery_trial_with_pricing(f.ws,f.c,guard;algorithm,build_factor=f.builder)
++end
++function runtests()
++    # Missing explicit route must never opt in, even when pricing says dual.
++    @testset "Explicit dual retry scope" begin
++        for T in (Float32,Float64),algorithm in (:unspecified,:primal,:dual)
++            f=fixture(T);before=snapshot(f.ws)
++            r=construct(f;algorithm)
++            @test snapshot(f.ws)==before && f.ws.refactorizations==1
++            @test f.builder.calls==1 && f.builder.last!==f.ws.factorization
++            @test (f.builder.last.forwards,f.builder.last.backwards)==(1,4)
++            @test (f.builder.last.units,f.builder.last.corrections)==(2,1)
++            if algorithm==:dual
++                @test r isa J._RecoveryTrialResult && r.devex_fallback && r.failed_weight_row==2
++                @test r.workspace.factorization===f.builder.last
++                @test r.workspace.pricing_weights==ones(T,4)
++                @test J._weight_pricing(r.workspace,:dual)==:devex
++                @test r.workspace.scratch.rho==zeros(T,2)
++                @test r.workspace.basis.basic_indices!==f.ws.basis.basic_indices
++                @test r.workspace.pricing_weights!==f.ws.pricing_weights
++                @test r.workspace.devex_reference!==f.ws.devex_reference
++                @test r.workspace.scratch.pricing!==f.ws.scratch.pricing
++                @test r.workspace.scratch.pricing_pool.indices!==f.ws.scratch.pricing_pool.indices
++            else
++                @test r===nothing
++            end
++            @test f.ws.progress.diagnostics.counts[:pricing_devex]==0
++            @test f.ws.progress.diagnostics.counts[:pricing_weight_rejected]==0
++        end
++        for algorithm in (:bad,),api in (:constructor,:repair,:restore)
++            f=fixture();before=snapshot(f.ws)
++            @test_throws ArgumentError begin
++                if api==:constructor
++                    construct(f;algorithm)
++                elseif api==:repair
++                    J.repair_basis!(f.ws,f.ws.progress.numerical_policy,()->false;algorithm)
++                else
++                    J.restore_checkpoint!(f.ws,f.c,()->false;algorithm)
++                end
++            end
++            @test snapshot(f.ws)==before && f.ws.refactorizations==0
++        end
++    end
++    # Every cancellation/throw is before live adoption, but charged work stays.
++    @testset "Cancelled or throwing fallback publication" begin
++        f=fixture();before=snapshot(f.ws)
++        @test construct(f;stop=()->!isnothing(f.builder.last) && f.builder.last.corrections==1)===nothing
++        @test snapshot(f.ws)==before && f.ws.refactorizations==1
++        @test f.builder.last.corrections==1
++        # F1: an existing callback retained private pricing state, then a later
++        # false stop changes it after classification. Reject, do not throw.
++        for mutate in (false,true)
++            f=fixture();before=snapshot(f.ws);post_calls=Ref(0)
++            r=construct(f;stop=()->begin
++                if !isnothing(f.builder.last) && f.builder.last.corrections==1
++                    post_calls[]+=1
++                    held=something(f.observer.retained_pricing)
++                    mutate && (held.algorithm=:primal)
++                end
++                false
++            end)
++            @test post_calls[]==1
++            @test snapshot(f.ws)==before && f.ws.refactorizations==1
++            @test f.builder.calls==1 && f.builder.last.corrections==1
++            if mutate
++                @test r===nothing
++            else
++                @test r isa J._RecoveryTrialResult && r.devex_fallback
++            end
++            @test f.ws.progress.diagnostics.counts[:pricing_devex]==0
++        end
++        for mode in (:nonfinite_core,:finite_primal,:finite_rho,:stale_mode)
++            f=fixture();f.observer.mutate=mode;before=snapshot(f.ws)
++            @test construct(f)===nothing
++            @test snapshot(f.ws)==before && f.ws.refactorizations==1
++            @test f.builder.last.corrections==1
++            @test f.ws.progress.diagnostics.counts[:pricing_devex]==0
++        end
++        f=fixture();before=snapshot(f.ws)
++        guard=J._guard_stop_callback(()->begin
++            !isnothing(f.builder.last) && f.builder.last.corrections==1 && throw(f.failure)
++            false
++        end)
++        e=try J._recovery_trial_with_pricing(f.ws,f.c,guard;algorithm=:dual,build_factor=f.builder);nothing catch e;e end
++        @test e===f.failure && guard.exception===f.failure
++        @test snapshot(f.ws)==before && f.ws.refactorizations==1
++        f=fixture();before=snapshot(f.ws);f.observer.throw_reason=:correction_attempt
++        e=try construct(f);nothing catch e;e end
++        @test e isa J.DiagnosticObserverFailure && e.cause===f.failure
++        @test snapshot(f.ws)==before && f.builder.last.corrections==0
++        for reason in (:pricing_reset,:repair,:checkpoint)
++            f=fixture();before=snapshot(f.ws);r=construct(f)
++            @test r!==nothing
++            f.observer.throw_reason=reason
++            e=try J._publish_recovery!(f.ws,r,:repair,J._guard_stop_callback(()->false));nothing catch e;e end
++            @test e isa J.DiagnosticObserverFailure && e.cause===f.failure
++            @test snapshot(f.ws)==before && f.ws.refactorizations==1
++            @test f.ws.progress.diagnostics.counts[:pricing_devex]==0
++            @test f.ws.progress.diagnostics.counts[:pricing_weight_rejected]==0
++        end
++        f=fixture();before=snapshot(f.ws);r=construct(f)
++        @test !J._publish_recovery!(f.ws,r,:repair,J._guard_stop_callback(()->true))
++        @test snapshot(f.ws)==before && f.observer.publish_calls==3
++        @test f.ws.progress.diagnostics.counts[:repair]==0
++        f=fixture();before=snapshot(f.ws);r=construct(f)
++        g=J._guard_stop_callback(()->throw(f.failure))
++        e=try J._publish_recovery!(f.ws,r,:repair,g);nothing catch e;e end
++        @test e===f.failure && g.exception===f.failure
++        @test snapshot(f.ws)==before
++        f=fixture();before=snapshot(f.ws);f.builder.failure=f.failure
++        e=try construct(f);nothing catch e;e end
++        @test e===f.failure && snapshot(f.ws)==before
++        @test f.builder.calls==1 && f.ws.refactorizations==1
++    end
++    @testset "Fallback publishes mode with the basis" begin
++        for T in (Float32,Float64),reason in (:repair,:restore_checkpoint),pricing in (:steepest_edge,:auto)
++            f=fixture(T;pricing);before=snapshot(f.ws);r=construct(f)
++            @test J._publish_recovery!(f.ws,r,reason,J._guard_stop_callback(()->false))
++            @test f.ws.factorization===f.builder.last && f.ws.factorization!==before.factor
++            @test f.ws.pricing_weights==ones(T,4) && f.ws.devex_reference==Bool[true,true,false,false]
++            @test J._weight_pricing(f.ws,:dual)==:devex
++            @test f.ws.dual_devex_fallback==(pricing!=:auto)
++            state=f.ws.scratch.pricing
++            @test (state.rejected_weights,state.switches,state.resets)==(6,5,8)
++            @test state.framework_valid && !state.needs_reset && state.weight_quality==:valid
++            @test f.observer.saw_devex && f.observer.reasons==(:pricing_reset,reason,:checkpoint)
++            @test f.observer.calls==4 && f.observer.publish_calls==3
++            @test f.ws.iterations==7 && f.ws.refactorizations==1
++            @test length(f.ws.scratch.checkpoints)==1
++            @test isempty(f.ws.scratch.pricing_pool.indices) && !f.ws.scratch.pricing_pool.valid
++            @test f.ws.scratch.recovery_restored==(reason==:restore_checkpoint)
++            d=f.ws.progress.diagnostics
++            @test (d.counts[:pricing_weight_rejected],d.counts[:pricing_devex],d.counts[:pricing_reset],d.counts[reason],d.counts[:checkpoint])==(1,1,1,1,1)
++            @test (f.builder.last.forwards,f.builder.last.backwards)==(1,4)
++        end
++    end
++    @testset "Temporary selection and successful DSE retain their own mode" begin
++        f=fixture();state=f.ws.scratch.pricing
++        state.active=:dantzig;state.return_mode=:steepest_edge;state.temporary=true
++        before=snapshot(f.ws);r=construct(f)
++        @test snapshot(f.ws)==before && r.devex_fallback
++        @test !r.workspace.scratch.pricing.temporary
++        @test r.workspace.scratch.pricing.active==:devex && r.workspace.scratch.pricing.return_mode==:devex
++        f=fixture(;failed_row=0);r=construct(f)
++        @test r!==nothing && !r.devex_fallback && r.failed_weight_row==0
++        @test J._weight_pricing(r.workspace,:dual)==:steepest_edge
++        @test (f.builder.last.forwards,f.builder.last.backwards)==(1,3)
++        @test J._publish_recovery!(f.ws,r,:repair,J._guard_stop_callback(()->false))
++        @test f.ws.progress.diagnostics.counts[:pricing_devex]==0
++        @test f.ws.progress.diagnostics.counts[:pricing_weight_rejected]==0
++        @test !f.ws.dual_devex_fallback
++    end
++    @testset "Legacy and precision routes remain strict" begin
++        for T in (Float32,Float64,BigFloat,Rational{BigInt})
++            p=J.LinearProblem(sparse(T[1;;]),T[0])
++            options=J.SolverOptions(T;verbose=false,pricing=:steepest_edge,time_limit=Inf)
++            w=J.initialize_workspace(p,options);c=J.checkpoint_basis(w)
++            @test J._recovery_trial(w,c,J._guard_stop_callback(()->false)) isa J.SimplexWorkspace
++            @test J.restore_checkpoint!(w,c,()->false)
++            @test !w.dual_devex_fallback
++            @test J.restore_checkpoint!(w,c,()->false;algorithm=:primal)
++            @test J.restore_checkpoint!(w,c,()->false;algorithm=:dual)
++            @test !w.dual_devex_fallback
++            # Reliable ordinary reconstruction remains DSE; no fallback records.
++            @test J._weight_pricing(w,:dual)==:steepest_edge
++        end
++        # Actual public dual retry with genuine ordinary factories; no seam.
++        for T in (Float32,Float64)
++            p=J.LinearProblem(sparse(T[1 1;1 1]),zeros(T,2);column_lower=T[1,0],row_lower=T[1,2])
++            options=J.SolverOptions(T;verbose=false,pricing=:dantzig,simplex_strategy=:adaptive)
++            policy=J.NumericalPolicy(T;numerical_profile=:checked,simplex_strategy=:adaptive)
++            w=J.initialize_workspace(p,options;progress=J.SimplexProgressContext(p;numerical_policy=policy))
++            w.basis.basic_indices.=[1,2]
++            w.basis.states.=[J.BASIC,J.BASIC,J.AT_LOWER,J.AT_LOWER]
++            w.primal[1]=zero(T)
++            result=J._dual_iteration!(w,J._guard_stop_callback(()->false))
++            @test result isa J.DualTermination && result.status==J.OPTIMAL
++            @test w.basis.basic_indices!=[1,2] && J.primal_infeasibility(w)==zero(T)
++        end
++    end
++end
++end
++Base.invokelatest(RecoveryDevexFallbackTests.runtests)
+diff --git a/test/recovery_devex_pivot_tests.jl b/test/recovery_devex_pivot_tests.jl
+new file mode 100644
+--- /dev/null
++++ b/test/recovery_devex_pivot_tests.jl
+@@ -0,0 +1,93 @@
++module RecoveryDevexPivotTests
++using Test,JSimplex,LinearAlgebra,SparseArrays
++using ..RecoveryDevexFallbackTests
++const J=JSimplex
++const R=RecoveryDevexFallbackTests
++# Additional methods apply ONLY to the declared private test wrapper. They
++# forward existing PFI work; no production method is replaced or instrumented.
++function J.replace_column!(f::R.RecoveryFactor,column,row;zero_tolerance)
++    J.replace_column!(f.base,column,row;zero_tolerance)
++    f.updates=f.base.updates
++    f
++end
++function J.refactorize!(f::R.RecoveryFactor,B)
++    J.refactorize!(f.base,B);f.updates=f.base.updates;f
++end
++J._finite_updated_factor(f::R.RecoveryFactor)=J._finite_updated_factor(f.base)
++J.copy_basis_factorization(f::R.RecoveryFactor)=R.wrap(J.copy_basis_factorization(f.base),0)
++function fixture(::Type{T}) where T
++    # min x1: x>=0, x1>=1, x2>=0. Initial slack basis -I is dual feasible,
++    # backward-error reliable and primal infeasible in row1. Optimum=(1,0),1.
++    p=J.LinearProblem(sparse(Matrix{T}(I,2,2)),T[1,0];row_lower=T[1,0])
++    options=J.SolverOptions(T;verbose=false,time_limit=Inf,pricing=:auto,presolve=false)
++    policy=J.NumericalPolicy(T;solve_refinement=false,recovery=false,adaptive_refactor=false,refactor_timing=false,hypersparse=false)
++    diag=J.SimplexDiagnostics(;kernel_timing=true)
++    context=J.SimplexProgressContext(p;diagnostics=diag,numerical_policy=policy)
++    factor=R.wrap(J._basis_factorization(sparse(-Matrix{T}(I,2,2)),options),0)
++    states=vcat(fill(J.AT_LOWER,2),fill(J.BASIC,2))
++    ws=J.SimplexWorkspace(p,options,context,vcat(p.objective,zeros(T,2)),
++        vcat(p.column_lower,p.row_lower),vcat(p.column_upper,p.row_upper),J.Basis([3,4],states),
++        zeros(T,4),T[1,0,0,0],ones(T,4),falses(4),factor,J.SimplexScratch(T,2,4),
++        0,0,false,0,false,false,options.refactorization_interval,0,typemax(Int),0,0)
++    state=J.PricingState(T);state.algorithm=:dual;ws.scratch.pricing=state
++    J.reset_devex!(ws)
++    c=J.checkpoint_basis(ws);builder=R.Builder{typeof(factor)}(0,1,nothing,nothing)
++    (;ws,c,builder)
++end
++function run_case(::Type{T}) where T
++    f=fixture(T)
++    original=f.ws.factorization;before=f.ws.refactorizations
++    invalid=J.BasisCheckpoint(J.Basis([3,3],f.c.basis.states),f.c.costs,f.c.lower,f.c.upper,
++        f.c.working_model,f.c.phase,f.c.perturbed)
++    @test_throws ArgumentError J._recovery_trial_with_pricing(f.ws,invalid,J._guard_stop_callback(()->false);algorithm=:dual,build_factor=f.builder)
++    @test f.builder.calls==0 && f.ws.factorization===original && f.ws.refactorizations==before
++    pending=J._recovery_trial_with_pricing(f.ws,f.c,J._guard_stop_callback(()->false);algorithm=:dual,build_factor=f.builder)
++    @test pending isa J._RecoveryTrialResult && pending.devex_fallback && pending.failed_weight_row==1
++    @test f.ws.factorization===original && !f.ws.dual_devex_fallback
++    @test f.builder.calls==1 && f.ws.refactorizations==before+1
++    @test (f.builder.last.forwards,f.builder.last.backwards,f.builder.last.units,f.builder.last.corrections)==(1,3,1,1)
++    # Separate diagnostic-only owned state clone, not another recovery solve.
++    # The shared factor is read-only for these quality/reset component calls.
++    probe=J._candidate_workspace(pending.workspace)
++    J._copy_pricing_state!(probe,f.ws)
++    probe.scratch.recovery_active=true
++    count=(f.builder.last.forwards,f.builder.last.backwards)
++    revalidation=(J._finite_workspace(probe) && J._recomputed_basis_reliable(probe))
++    @test revalidation
++    reset=J._prepare_recovery_devex!(probe)
++    @test reset===nothing && J._weight_pricing(probe,:dual)==:devex
++    @test (f.builder.last.forwards,f.builder.last.backwards)==count
++    @test J._publish_recovery!(f.ws,pending,:repair,J._guard_stop_callback(()->false))
++    @test J._weight_pricing(f.ws,:dual)==:devex
++    # Devex must not make an inaccurate selected row pass its actual guard.
++    bad=J.PivotCandidate(1,1,-one(T),T[-1,0],T[-0.5,0])
++    @test J.validate_pivot!(f.ws,bad,f.ws.progress.numerical_policy)==:refresh
++    good=J.PivotCandidate(1,1,-one(T),T[-1,0],T[-1,0])
++    @test J.validate_pivot!(f.ws,good,f.ws.progress.numerical_policy)==:accept
++    calls=(f.builder.last.forwards,f.builder.last.backwards)
++    first=J.dual_iteration!(f.ws,()->false;perturb_degenerate=false)
++    @test first===nothing && f.ws.iterations==1
++    @test f.ws.basis.basic_indices==[1,4] && f.ws.primal[1:2]==T[1,0]
++    @test J._weight_pricing(f.ws,:dual)==:devex && J._finite_workspace(f.ws)
++    @test length(f.ws.factorization.updates)==1
++    terminal=J.dual_iteration!(f.ws,()->false;perturb_degenerate=false)
++    @test terminal isa J.DualTermination && terminal.status==J.OPTIMAL
++    @test f.ws.iterations==1
++    point=copy(f.ws.primal[1:2]);witness=T[1,0]
++    @test J._original_primal_feasible(f.ws.problem,point,f.ws.options.primal_tolerance)
++    @test J._original_witness_certified(f.ws.problem,f.ws.options,f.ws.basis,point,witness)
++    @test !J._original_witness_certified(f.ws.problem,f.ws.options,f.ws.basis,point,T[2,0])
++    @test dot(f.ws.problem.objective,point)==one(T)
++    # Preserve the former raw-record auditor's complete endpoint work oracle.
++    @test calls==(1,3) && (f.builder.last.forwards,f.builder.last.backwards)==(2,4)
++    nothing
++end
++function runtests()
++    @testset "Devex fallback permits a certified dual pivot" begin
++        for T in (Float32,Float64)
++            run_case(T)
++        end
++    end
++end
++end
++Base.invokelatest(RecoveryDevexPivotTests.runtests)
+diff --git a/test/recovery_weight_tests.jl b/test/recovery_weight_tests.jl
+new file mode 100644
+--- /dev/null
++++ b/test/recovery_weight_tests.jl
+@@ -0,0 +1,305 @@
++# Recovery weight eligibility, private Devex state and strict legacy regressions.
++# Include after refinement_outcome_tests.jl.
++module RecoveryWeightTests
++using Test, LinearAlgebra, SparseArrays, JSimplex
++using ..RefinementOutcomeTests
++const J=JSimplex
++const R=RefinementOutcomeTests
++
++# Real delegated solves precede declarations. These faults test classification,
++# not numerical accuracy of a native backend. No production methods overwritten.
++mutable struct WeightProbe{T,F}
++    factor::F
++    updates::Vector{J.PackedEta{T}}
++    failed_row::Int
++    initial::Symbol
++    correction::Symbol
++    unit_calls::Int
++    correction_calls::Int
++    awaiting_correction::Bool
++    failure::Exception
++end
++function J.transpose_solve!(dest::Vector{T},f::WeightProbe{T},rhs::Vector{T}) where T
++    correction=f.awaiting_correction
++    correction ? (f.correction_calls+=1) : (f.unit_calls+=1)
++    ldiv!(dest,transpose(f.factor),rhs)
++    mode=correction ? f.correction : f.unit_calls==f.failed_row ? f.initial : :real
++    if mode==:half
++        dest ./= T(2)
++    elseif mode==:negative
++        dest .*= -one(T)
++    elseif mode==:zero
++        fill!(dest,zero(T))
++    elseif mode==:tiny
++        fill!(dest,zero(T));dest[1]=nextfloat(zero(T))
++    elseif mode==:huge
++        fill!(dest,zero(T));dest[1]=ldexp(one(T),T===Float32 ? 127 : 1023)
++    elseif mode==:inf
++        fill!(dest,T(Inf))
++    elseif mode==:nan
++        fill!(dest,T(NaN))
++    elseif mode==:throw
++        throw(f.failure)
++    end
++    f.awaiting_correction=correction || mode!=:real
++    dest
++end
++mutable struct Guard
++    calls::Int
++    true_at::Int
++    throw_at::Int
++    failure::Exception
++end
++function (g::Guard)()
++    g.calls+=1
++    g.calls==g.throw_at && throw(g.failure)
++    g.calls==g.true_at
++end
++mutable struct Observer
++    calls::Int
++end
++(o::Observer)(reason,ws)=(o.calls+=1;nothing)
++
++function fixture(::Type{T}=Float64;failed_row=1,initial=:half,correction=:zero,
++                 limit=3,pricing=:steepest_edge,state_mode=:none,scale=one(T)) where T
++    A=sparse(scale*Matrix{T}(I,2,2))
++    p=J.LinearProblem(A,zeros(T,2);column_lower=fill(nothing,2))
++    options=J.SolverOptions(T;verbose=false,time_limit=Inf,pricing)
++    policy=J.NumericalPolicy(T;solve_refinement=false,max_refinements=limit,
++                             adaptive_refactor=true,refactor_timing=false)
++    observer=Observer(0);diag=J.SimplexDiagnostics(;observer)
++    context=J.SimplexProgressContext(p;numerical_policy=policy,diagnostics=diag)
++    native=lu(Matrix(A));failure=SingularException(37)
++    factor=WeightProbe{T,typeof(native)}(native,J.PackedEta{T}[],failed_row,
++        initial,correction,0,0,false,failure)
++    states=vcat(fill(J.BASIC,2),fill(J.FREE_NONBASIC,2))
++    ws=J.SimplexWorkspace(p,options,context,zeros(T,4),
++        vcat(p.column_lower,p.row_lower),vcat(p.column_upper,p.row_upper),
++        J.Basis([1,2],states),zeros(T,4),zeros(T,4),T[9,8,7,6],trues(4),factor,
++        J.SimplexScratch(T,2,4),0,0,false,0,false,false,options.refactorization_interval,0,typemax(Int),0,0)
++    ws.scratch.recovery_active=true
++    fill!(ws.scratch.rho,T(3));fill!(ws.scratch.steepest_valid,true)
++    ws.scratch.steepest_initialized=true
++    if state_mode!=:none
++        state=J.PricingState(T);state.algorithm=state_mode==:stale ? :primal : :dual
++        state.switches=4;state.rejected_weights=5;state.resets=6;state.observations=7
++        state.trial_until=11;state.progress_windows=2
++        if state_mode==:temporary
++            state.active=:dantzig;state.return_mode=:steepest_edge;state.temporary=true
++        end
++        ws.scratch.pricing=state
++    end
++    pool=J._pricing_pool!(ws,:dual);append!(pool.indices,[1,2]);pool.valid=true;pool.full_scan=true
++    J._basis_matrix!(ws);J._pivot_quality_buffers(ws)
++    guard=Guard(0,0,0,failure)
++    (;ws,guard,factor,observer)
++end
++fields(r)=(r.ok,r.fallback_ready,r.failed_row,r.reason,r.refinement_cause)
++function untouched_payload(ws)
++    (copy(ws.primal),copy(ws.reduced_costs),copy(ws.costs),copy(ws.lower),copy(ws.upper),
++     copy(ws.basis.basic_indices),copy(ws.basis.states),copy(ws.scratch.rho),ws.options,ws.factorization)
++end
++function owner_ids(ws)
++    map(objectid,(ws.pricing_weights,ws.devex_reference,ws.basis.basic_indices,ws.basis.states,
++                  ws.scratch.rho,ws.scratch.steepest_valid,ws.scratch.pricing_pool.indices))
++end
++function runtests()
++    # Catches accepting a partial DSE rebuild, continuing past a failed row,
++    # classifying unsafe provenance as finite inconclusive, and legacy opt-in.
++    @testset "Recovery weight failure classification" begin
++        for T in (Float32,Float64),row in (1,2)
++            f=fixture(T;failed_row=row);before=untouched_payload(f.ws)
++            result=J._rebuild_recovery_weights_result!(f.ws,f.guard;algorithm=:dual)
++            @test fields(result)==(false,true,row,J._weight_finite_inconclusive,J._refine_unchanged)
++            @test (f.factor.unit_calls,f.factor.correction_calls)==(row,1)
++            @test f.guard.calls==row+1 # row stops plus one refinement stop, no classifier stop
++            @test untouched_payload(f.ws)==before
++            @test f.ws.pricing_weights[1:2]==(row==1 ? T[9,8] : T[1,8])
++            @test !f.ws.dual_devex_fallback
++            @test f.ws.scratch.pricing===nothing
++            for mode in (:negative,:half)
++                g=fixture(T;failed_row=row,correction=mode,limit=1)
++                r=J._rebuild_recovery_weights_result!(g.ws,g.guard;algorithm=:dual)
++                @test r.fallback_ready && r.failed_row==row
++                @test r.refinement_cause==(mode==:negative ? J._refine_not_improved : J._refine_limit)
++                @test (g.factor.unit_calls,g.factor.correction_calls)==(row,1)
++            end
++            h=fixture(T;failed_row=row,limit=0)
++            r=J._rebuild_recovery_weights_result!(h.ws,h.guard;algorithm=:dual)
++            @test r.fallback_ready && r.refinement_cause==J._refine_limit
++            @test (h.factor.unit_calls,h.factor.correction_calls)==(row,0)
++        end
++        for T in (Float32,Float64)
++            f=fixture(T;failed_row=0)
++            r=J._rebuild_recovery_weights_result!(f.ws,f.guard;algorithm=:dual)
++            @test r.ok && !r.fallback_ready && r.failed_row==0 && r.reason==J._weight_complete
++            @test f.ws.pricing_weights==T[1,1,7,6]
++            @test (f.factor.unit_calls,f.factor.correction_calls,f.guard.calls)==(2,0,2)
++            @test !f.ws.dual_devex_fallback
++        end
++    end
++    @testset "Reliable small norm retains original floor" begin
++        for T in (Float32,Float64)
++            f=fixture(T;failed_row=0,scale=T(1024))
++            r=J._rebuild_recovery_weights_result!(f.ws,f.guard;algorithm=:dual)
++            @test r.ok && !r.fallback_ready
++            @test f.ws.pricing_weights[1:2]==fill(T(1)/T(10^4),2)
++            @test (f.factor.unit_calls,f.factor.correction_calls)==(2,0)
++        end
++    end
++    # Catches resetting only the failed row/prefix or mutating live-owned state.
++    @testset "Partial DSE prefix is discarded" begin
++        for T in (Float32,Float64)
++            f=fixture(T;failed_row=2);live=fixture(T;failed_row=0)
++            before=untouched_payload(f.ws);live_weights=copy(live.ws.pricing_weights)
++            ids=owner_ids(f.ws);pool=f.ws.scratch.pricing_pool
++            r=J._rebuild_recovery_weights_result!(f.ws,f.guard;algorithm=:dual)
++            @test r.fallback_ready && f.ws.pricing_weights==T[1,8,7,6]
++            calls=(f.factor.unit_calls,f.factor.correction_calls,f.guard.calls)
++            @test J._prepare_recovery_devex!(f.ws)===nothing
++            @test f.ws.pricing_weights==ones(T,4)
++            @test f.ws.devex_reference==Bool[true,true,false,false]
++            @test f.ws.dual_devex_fallback && J._weight_pricing(f.ws,:dual)==:devex
++            @test untouched_payload(f.ws)==before && owner_ids(f.ws)==ids
++            @test f.ws.scratch.pricing_pool===pool && isempty(pool.indices) && !pool.valid && !pool.full_scan
++            @test (pool.basis_generation,pool.cost_generation)==(UInt(0),UInt(0))
++            @test (f.factor.unit_calls,f.factor.correction_calls,f.guard.calls)==calls
++            @test f.observer.calls==1 # only original correction_attempt; no reset callback
++            @test J.recent_events(f.ws.progress.diagnostics)==[:correction_attempt]
++            @test live.ws.pricing_weights==live_weights && !live.ws.dual_devex_fallback
++        end
++    end
++    # Catches stale temporary Dantzig / wrong algorithm, double counter updates,
++    # lost fixed-mode flag, or an auto-without-state that never becomes Devex.
++    @testset "Fixed auto and temporary pricing transitions" begin
++        for pricing in (:steepest_edge,:auto),mode in (:none,:fixed,:temporary)
++            f=fixture(;pricing,state_mode=mode);ids=owner_ids(f.ws)
++            state=f.ws.scratch.pricing;events=J.recent_events(f.ws.progress.diagnostics)
++            @test J._prepare_recovery_devex!(f.ws)===nothing
++            @test owner_ids(f.ws)==ids && f.observer.calls==0
++            @test J.recent_events(f.ws.progress.diagnostics)==events
++            @test J._effective_pricing(f.ws,:dual)==:devex
++            @test f.ws.pricing_weights==ones(4) && f.ws.devex_reference==Bool[true,true,false,false]
++            @test f.ws.dual_devex_fallback==(pricing!=:auto)
++            current=f.ws.scratch.pricing
++            if mode!=:none || pricing==:auto
++                @test current.algorithm==:dual && current.active==:devex && current.return_mode==:devex
++                @test !current.temporary && current.framework_valid && !current.needs_reset
++                @test current.weight_quality==:valid && current.progress_windows==0
++                @test (current.rejected_weights,current.switches,current.resets)==(mode==:none ? (1,1,1) : (6,5,7))
++                @test !any(f.ws.scratch.steepest_valid) && !f.ws.scratch.steepest_initialized
++                if mode!=:none
++                    @test current===state && current.observations==7 && current.trial_until==11
++                end
++            else
++                @test current===nothing
++            end
++        end
++        for mode in (:stale,),active in (false,true)
++            f=fixture(;state_mode=mode);f.ws.scratch.recovery_active=active
++            weights=copy(f.ws.pricing_weights);state=f.ws.scratch.pricing
++            @test_throws ArgumentError J._prepare_recovery_devex!(f.ws)
++            @test f.ws.pricing_weights==weights && state.active==:steepest_edge
++            @test f.observer.calls==0
++        end
++        f=fixture();f.ws.scratch.recovery_active=false
++        @test_throws ArgumentError J._prepare_recovery_devex!(f.ws)
++        @test f.ws.pricing_weights==[9,8,7,6] && !f.ws.dual_devex_fallback
++    end
++    @testset "Unknown route and unsafe work stay strict" begin
++        for T in (Float32,Float64),algorithm in (:unspecified,:primal,:unknown)
++            f=fixture(T)
++            r=J._rebuild_recovery_weights_result!(f.ws,f.guard;algorithm)
++            @test !r.ok && !r.fallback_ready && r.reason==J._weight_ineligible
++            @test r.refinement_cause==J._refine_not_observed
++            g=fixture(T)
++            @test J._rebuild_recovery_weights!(g.ws,g.guard)===false
++            @test (f.factor.unit_calls,f.factor.correction_calls)==(g.factor.unit_calls,g.factor.correction_calls)
++            @test f.ws.pricing_weights==g.ws.pricing_weights && f.guard.calls==g.guard.calls
++        end
++        for T in (BigFloat,Rational{BigInt})
++            f=fixture(T)
++            r=J._rebuild_recovery_weights_result!(f.ws,f.guard;algorithm=:dual)
++            @test !r.ok && !r.fallback_ready && r.refinement_cause==J._refine_not_observed
++        end
++        for T in (Float32,Float64),mode in (:zero,:tiny,:huge)
++            f=fixture(T;initial=mode)
++            r=J._rebuild_recovery_weights_result!(f.ws,f.guard;algorithm=:dual)
++            @test !r.ok && !r.fallback_ready && r.reason==J._weight_invalid_norm
++            @test f.factor.unit_calls==1 && f.factor.correction_calls==1
++        end
++        for T in (Float32,Float64),mode in (:inf,:nan)
++            f=fixture(T;initial=mode)
++            r=J._rebuild_recovery_weights_result!(f.ws,f.guard;algorithm=:dual)
++            @test !r.fallback_ready && r.reason==J._weight_nonfinite_attempt
++            @test r.refinement_cause==J._refine_nonfinite_initial_quality
++            @test (f.factor.unit_calls,f.factor.correction_calls)==(1,0)
++        end
++        for T in (Float32,Float64)
++            f=fixture(T;correction=:inf)
++            r=J._rebuild_recovery_weights_result!(f.ws,f.guard;algorithm=:dual)
++            @test !r.fallback_ready && r.reason==J._weight_nonfinite_attempt
++            @test r.refinement_cause==J._refine_nonfinite_correction
++            g=fixture(T);g.guard.true_at=2
++            r=J._rebuild_recovery_weights_result!(g.ws,g.guard;algorithm=:dual)
++            @test !r.fallback_ready && r.reason==J._weight_stopped && r.refinement_cause==J._refine_stopped
++            @test (g.factor.unit_calls,g.factor.correction_calls,g.guard.calls)==(1,0,2)
++            h=fixture(T);h.guard.true_at=1
++            r=J._rebuild_recovery_weights_result!(h.ws,h.guard;algorithm=:dual)
++            @test r.reason==J._weight_stopped && r.refinement_cause==J._refine_not_observed
++            @test h.factor.unit_calls==0
++        end
++        for where_throw in (:initial,:correction,:stop)
++            f=fixture(;initial=where_throw==:initial ? :throw : :half,
++                      correction=where_throw==:correction ? :throw : :zero)
++            where_throw==:stop && (f.guard.throw_at=2)
++            caught=try J._rebuild_recovery_weights_result!(f.ws,f.guard;algorithm=:dual);nothing catch e;e end
++            @test caught===f.factor.failure
++            @test !f.ws.dual_devex_fallback
++        end
++        f=fixture(;state_mode=:stale)
++        @test !J._rebuild_recovery_weights_result!(f.ws,f.guard;algorithm=:dual).fallback_ready
++        for pricing in (:devex,:dantzig)
++            f=fixture(;pricing)
++            r=J._rebuild_recovery_weights_result!(f.ws,f.guard;algorithm=:dual)
++            @test r.ok && r.reason==J._weight_not_needed && !r.fallback_ready
++            @test f.factor.unit_calls==0 && f.guard.calls==0
++        end
++        # Component contract catches unknown metadata and invalid proposal erased
++        # by a final finite quality. Task1 separately exercises actual provenance.
++        for cause in (J._refine_not_observed,J._refine_reliable)
++            f=fixture();q=J.SolveQuality(1.0,1/3,true,false)
++            out=J._BasisRefinementOutcome(q,cause,false)
++            r=J._failed_recovery_weight(f.ws,[0.5,0.0],out,1,:dual)
++            @test !r.fallback_ready && r.reason==J._weight_ineligible
++        end
++        for T in (Float32,Float64)
++            sc=R.scenario(:discarded_nonfinite_cleanup,T);f=R.fixture(sc,true)
++            out=J._refine_basis_solve_outcome!(f.point,f.ws,f.rhs,f.policy,f.stop;transposed=true)
++            @test out.quality.finite && out.invalid_seen
++            r=J._failed_recovery_weight(f.ws,f.point,out,1,:dual)
++            @test !r.fallback_ready && r.reason==J._weight_nonfinite_attempt
++        end
++    end
++end
++end
++Base.invokelatest(RecoveryWeightTests.runtests)
++
++# Original whole row-loop reference: no full-module clone or global overwrite.
++include("support/devex_legacy_rebuild_reference.jl")
++function recovery_weight_legacy_comparison()
++    @testset "Original strict weight loop matches compatibility wrapper" begin
++        for T in (Float32,Float64),row in (0,1,2),mode in (:zero,:negative,:inf)
++            old=RecoveryWeightTests.fixture(T;failed_row=row,correction=mode)
++            new=RecoveryWeightTests.fixture(T;failed_row=row,correction=mode)
++            a=LegacyRecoveryWeights._rebuild_recovery_weights!(old.ws,old.guard)
++            b=JSimplex._rebuild_recovery_weights!(new.ws,new.guard)
++            @test a===b
++            @test old.ws.pricing_weights==new.ws.pricing_weights
++            @test (old.factor.unit_calls,old.factor.correction_calls,old.guard.calls)==
++                  (new.factor.unit_calls,new.factor.correction_calls,new.guard.calls)
++            @test JSimplex.recent_events(old.ws.progress.diagnostics)==JSimplex.recent_events(new.ws.progress.diagnostics)
++        end
++    end
++end
++Base.invokelatest(recovery_weight_legacy_comparison)
+diff --git a/test/refinement_outcome_tests.jl b/test/refinement_outcome_tests.jl
+new file mode 100644
+--- /dev/null
++++ b/test/refinement_outcome_tests.jl
+@@ -0,0 +1,259 @@
++# Refinement outcomes, refusal provenance, aliasing and strict API regressions.
++module RefinementOutcomeTests
++using Test, LinearAlgebra, SparseArrays
++using JSimplex
++const J = JSimplex
++
++# Declared fault outputs test the real refinement boundary; they are not
++# evidence about numerical fidelity of the delegated LU or any native backend.
++mutable struct CorrectionProbe{T,F}
++    factor::F
++    updates::Vector{J.PackedEta{T}}
++    mode::Symbol
++    forwards::Int
++    backwards::Int
++    failure::Union{Nothing,Exception}
++end
++function probe_solve!(dest,f::CorrectionProbe{T},rhs,transposed) where T
++    transposed ? (f.backwards+=1) : (f.forwards+=1) # before genuine entry, including throws
++    transposed ? ldiv!(dest,transpose(f.factor),rhs) : ldiv!(dest,f.factor,rhs)
++    if f.mode==:zero
++        fill!(dest,zero(T))
++    elseif f.mode==:negative
++        dest .*= -one(T)
++    elseif f.mode==:half
++        dest ./= T(2)
++    elseif f.mode==:infinite
++        fill!(dest,T(Inf))
++    elseif f.mode==:huge
++        fill!(dest,ldexp(one(T),T===Float32 ? 127 : 1023))
++    elseif f.mode==:throw
++        throw(f.failure)
++    end
++    dest
++end
++J.forward_solve!(dest::Vector{T},f::CorrectionProbe{T},rhs::Vector{T}) where T = probe_solve!(dest,f,rhs,false)
++J.transpose_solve!(dest::Vector{T},f::CorrectionProbe{T},rhs::Vector{T}) where T = probe_solve!(dest,f,rhs,true)
++
++mutable struct StopProbe{W}
++    ws::W
++    calls::Int
++    true_at::Int
++    throw_at::Int
++    poison_basis_at::Int
++    failure::Union{Nothing,Exception}
++end
++function (s::StopProbe)()
++    s.calls+=1
++    if s.calls==s.poison_basis_at
++        s.ws.scratch.basis_matrix.nzval[1]=eltype(s.ws.costs)(Inf)
++    end
++    s.calls==s.throw_at && throw(s.failure)
++    s.calls==s.true_at
++end
++mutable struct ObserverProbe
++    calls::Int
++    reason::Symbol
++    failure::Union{Nothing,Exception}
++end
++function (p::ObserverProbe)(reason,ws)
++    p.calls+=1
++    reason==p.reason && throw(p.failure)
++    nothing
++end
++
++const SIMPLE_CASES = (:reliable,:reliable_zero_limit,:repaired,:repaired_last_iteration,:dense_repaired,:unchanged,:not_improved,
++    :zero_limit,:improved_limit,:initial_nonfinite,:initial_nan,:nonfinite_correction,
++    :nonfinite_trial,:nonfinite_trial_quality,:stop_before,:stop_adoption,
++    :throw_correction,:throw_stop,:throw_observer_attempt,:throw_observer_correction,
++    :discarded_nonfinite_cleanup)
++function scenario(name,::Type{T}) where T
++    B=Matrix{T}(I,2,2);x=zeros(T,2);rhs=T[1,0]
++    mode=:real;limit=3;refine=false;want=:reliable;invalid=false;calls=0;stops=0
++    true_at=0;throw_at=0;poison=0;observer_reason=:never;failure=nothing;identity_delegate=false
++    expected_point=T[1,0]
++    if name in (:reliable,:reliable_zero_limit)
++        x=T[1,0]
++        name==:reliable_zero_limit && (limit=0)
++    elseif name in (:repaired,:repaired_last_iteration,:dense_repaired)
++        calls=1;stops=2
++        name==:repaired_last_iteration && (limit=1)
++        if name==:dense_repaired
++            B=T[2 0.125;0.25 3];rhs=T[1.875,-2.75];expected_point=T[1,-1]
++        end
++    elseif name==:unchanged
++        mode=:zero;want=:unchanged;calls=1;stops=1;expected_point=copy(x)
++    elseif name==:not_improved
++        mode=:negative;want=:not_improved;calls=1;stops=1;expected_point=copy(x)
++    elseif name==:zero_limit
++        limit=0;want=:limit;expected_point=copy(x)
++    elseif name==:improved_limit
++        mode=:half;limit=1;want=:limit;calls=1;stops=2;expected_point=T[0.5,0]
++    elseif name in (:initial_nonfinite,:initial_nan)
++        x=T[name==:initial_nan ? NaN : Inf,0];want=:nonfinite_initial_quality;invalid=true;expected_point=copy(x)
++    elseif name==:nonfinite_correction
++        mode=:infinite;want=:nonfinite_correction;invalid=true;calls=1;stops=1;expected_point=copy(x)
++    elseif name==:nonfinite_trial
++        e=T===Float32 ? 127 : 1023
++        B=reshape(T[ldexp(one(T),-(e-7))],1,1);x=T[ldexp(one(T),e)];rhs=T[256]
++        want=:nonfinite_trial;invalid=true;calls=1;stops=1;expected_point=copy(x)
++    elseif name==:nonfinite_trial_quality
++        e=T===Float32 ? 127 : 1023
++        B=reshape(T[ldexp(one(T),e-7)],1,1);x=zeros(T,1);rhs=T[1];mode=:huge
++        want=:nonfinite_trial_quality;invalid=true;calls=1;stops=1;expected_point=copy(x)
++    elseif name==:stop_before
++        true_at=1;want=:stopped;stops=1;expected_point=copy(x)
++    elseif name==:stop_adoption
++        true_at=2;want=:stopped;stops=2;calls=1;expected_point=copy(x)
++    elseif name==:throw_correction
++        mode=:throw;failure=SingularException(19);want=nothing;calls=1;stops=1
++    elseif name==:throw_stop
++        throw_at=1;failure=SingularException(23);want=nothing;stops=1
++    elseif name in (:throw_observer_attempt,:throw_observer_correction)
++        observer_reason=name==:throw_observer_attempt ? :correction_attempt : :correction
++        failure=SingularException(29);want=nothing
++        calls=name==:throw_observer_attempt ? 0 : 1;stops=name==:throw_observer_attempt ? 1 : 2
++    elseif name==:discarded_nonfinite_cleanup
++        e=T===Float32 ? 127 : 1023;large=ldexp(one(T),e);small=ldexp(one(T),-e)
++        B=T[-large 1 1;0 small 0;0 0 small];x=T[1,large,large];rhs=T[0,1,1]
++        # The identity delegate is explicitly a wrong factor for this B. Its
++        # output is discarded to zero: only real quality/cleanup arithmetic is
++        # being tested, not factorization of this extreme-range matrix.
++        identity_delegate=true;mode=:zero;refine=true;want=:not_improved;invalid=true
++        calls=1;stops=T===Float64 ? 2 : 1;expected_point=copy(x)
++    elseif name==:nonfinite_wide_quality
++        T===Float64 || error("wide entry case is Float64 only")
++        x=T[0.5,0];refine=true;poison=1;want=:nonfinite_quality;invalid=true;stops=1;expected_point=copy(x)
++    elseif name==:stop_before_wide
++        T===Float64 || error("wide entry case is Float64 only")
++        refine=true;true_at=1;want=:stopped;stops=1;expected_point=copy(x)
++    else
++        error("unknown case")
++    end
++    (;name,B,x,rhs,mode,limit,refine,want,invalid,calls,stops,true_at,throw_at,
++       poison,observer_reason,failure,identity_delegate,expected_point)
++end
++function owners(ws)
++    b=J._pivot_quality_buffers(ws)
++    map(objectid,(b.rhs,b.unit,b.correction,b.trial,b.singletons,
++        b.row.residual,b.row.work_residual,b.row.work_scale,b.row.terms,b.row.compensation,b.row.error_sum,
++        b.column.residual,b.column.work_residual,b.column.work_scale,b.column.terms,b.column.compensation,b.column.error_sum,
++        ws.problem.A.nzval,ws.basis.basic_indices,ws.basis.states,ws.scratch.basis_matrix))
++end
++function fixture(sc,transposed)
++    T=eltype(sc.x);B=transposed ? copy(transpose(sc.B)) : copy(sc.B);n=length(sc.x)
++    A=sparse(B);problem=J.LinearProblem(A,zeros(T,n);column_lower=fill(nothing,n),name="refinement-outcome-control")
++    options=J.SolverOptions(T;verbose=false,time_limit=Inf)
++    policy=J.NumericalPolicy(T;solve_refinement=sc.refine,max_refinements=sc.limit,adaptive_refactor=true,refactor_timing=false)
++    observer=ObserverProbe(0,sc.observer_reason,sc.failure)
++    diag=J.SimplexDiagnostics(;observer)
++    progress=J.SimplexProgressContext(problem;numerical_policy=policy,diagnostics=diag)
++    delegate=sc.identity_delegate ? Matrix{T}(I,n,n) : Matrix(B)
++    native=lu(delegate)
++    f=CorrectionProbe{T,typeof(native)}(native,J.PackedEta{T}[],sc.mode,0,0,sc.failure)
++    states=vcat(fill(J.BASIC,n),fill(J.FREE_NONBASIC,n))
++    ws=J.SimplexWorkspace(problem,options,progress,zeros(T,2n),
++        vcat(problem.column_lower,problem.row_lower),vcat(problem.column_upper,problem.row_upper),
++        J.Basis(collect(1:n),states),zeros(T,2n),zeros(T,2n),ones(T,2n),falses(2n),f,
++        J.SimplexScratch(T,n,2n),0,0,false,0,false,false,options.refactorization_interval,0,typemax(Int),0,0)
++    J._basis_matrix!(ws);J._pivot_quality_buffers(ws);ws.scratch.refactorization.healthy_cycles=3
++    stop=StopProbe(ws,0,sc.true_at,sc.throw_at,sc.poison,sc.failure)
++    (;ws,policy,stop,factor=f,point=copy(sc.x),rhs=copy(sc.rhs),observer,owner_ids=owners(ws),B=copy(B))
++end
++function exercise(api,sc,transposed)
++    f=fixture(sc,transposed);value=nothing;failure=nothing
++    try
++        value=api(f.point,f.ws,f.rhs,f.policy,f.stop;transposed)
++    catch e
++        failure=e
++    end
++    (;f,value,failure)
++end
++quality_fields(q)=(q.absolute_error,q.relative_error,q.finite,q.reliable)
++function same_execution(a,b)
++    @test isequal(a.f.point,b.f.point)
++    @test isequal(a.f.rhs,b.f.rhs)
++    @test a.f.stop.calls==b.f.stop.calls
++    @test (a.f.factor.forwards,a.f.factor.backwards)==(b.f.factor.forwards,b.f.factor.backwards)
++    @test J.recent_events(a.f.ws.progress.diagnostics)==J.recent_events(b.f.ws.progress.diagnostics)
++    @test a.f.observer.calls==b.f.observer.calls
++    @test a.f.owner_ids==owners(a.f.ws) && b.f.owner_ids==owners(b.f.ws)
++    sa,sb=a.f.ws.scratch.refactorization,b.f.ws.scratch.refactorization
++    @test sa.healthy_cycles==sb.healthy_cycles && sa.residual_bad==sb.residual_bad
++    if isnothing(sa.latest_quality) || isnothing(sb.latest_quality)
++        @test isnothing(sa.latest_quality) && isnothing(sb.latest_quality)
++    else
++        @test isequal(quality_fields(sa.latest_quality),quality_fields(sb.latest_quality))
++    end
++end
++function runtests()
++    @testset "Refinement outcome matches legacy quality" begin
++        for T in (Float32,Float64),transposed in (false,true)
++            names=T===Float64 ? (SIMPLE_CASES...,:nonfinite_wide_quality,:stop_before_wide) : SIMPLE_CASES
++            for name in names
++                sc=scenario(name,T)
++                old=exercise(J.refine_basis_solve!,sc,transposed)
++                detailed=exercise(J._refine_basis_solve_outcome!,sc,transposed)
++                same_execution(old,detailed)
++                @test old.f.stop.calls==sc.stops
++                @test old.f.factor.forwards+old.f.factor.backwards==sc.calls
++                @test isequal(old.f.rhs,sc.rhs) && old.f.ws.problem.A==sparse(old.f.B)
++                if isnothing(sc.want)
++                    if sc.observer_reason==:never
++                        @test old.failure===sc.failure && detailed.failure===sc.failure
++                    else
++                        @test old.failure isa J.DiagnosticObserverFailure && detailed.failure isa J.DiagnosticObserverFailure
++                        @test old.failure.cause===sc.failure && detailed.failure.cause===sc.failure
++                    end
++                    @test isnothing(old.value) && isnothing(detailed.value)
++                else
++                    @test isnothing(old.failure) && isnothing(detailed.failure)
++                    @test old.value isa J.SolveQuality{T}
++                    @test detailed.value isa J._BasisRefinementOutcome{T}
++                    @test isequal(quality_fields(old.value),quality_fields(detailed.value.quality))
++                    @test detailed.value.cause==getfield(J,Symbol("_refine_",sc.want))
++                    @test detailed.value.invalid_seen==sc.invalid
++                    if sc.name==:dense_repaired
++                        @test isapprox(old.f.point,sc.expected_point;rtol=T(256)*eps(T),atol=zero(T))
++                    else
++                        @test isequal(old.f.point,sc.expected_point)
++                    end
++                    @test isequal(quality_fields(old.f.ws.scratch.refactorization.latest_quality),quality_fields(old.value))
++                    if sc.want in (:nonfinite_correction,:nonfinite_trial,:nonfinite_trial_quality,:not_improved)
++                        @test detailed.value.quality.finite
++                    end
++                end
++            end
++        end
++    end
++    @testset "Refinement guards remain checked before numeric work" begin
++        sc=scenario(:repaired,Float64)
++        for api in (J.refine_basis_solve!,J._refine_basis_solve_outcome!)
++            f=fixture(sc,true)
++            @test_throws ArgumentError api(f.point,f.ws,f.point,f.policy,f.stop;transposed=true)
++            @test_throws ArgumentError api(J._pivot_quality_buffers(f.ws).row.residual,f.ws,f.rhs,f.policy,f.stop;transposed=true)
++            @test_throws DimensionMismatch api(zeros(1),f.ws,f.rhs,f.policy,f.stop;transposed=true)
++            @test f.factor.forwards+f.factor.backwards==0 && f.stop.calls==0
++            @test f.point==sc.x && f.rhs==sc.rhs
++        end
++    end
++    @testset "Existing multiprecision and exact API stays unchanged" begin
++        for T in (BigFloat,Rational{BigInt}),transposed in (false,true)
++            sc=scenario(:reliable,T)
++            ambient=(precision(BigFloat),rounding(BigFloat))
++            old=exercise(J.refine_basis_solve!,sc,transposed)
++            detailed=exercise(J._refine_basis_solve_outcome!,sc,transposed)
++            @test isnothing(old.failure) && isnothing(detailed.failure)
++            @test old.value.reliable && detailed.value.quality.reliable
++            @test detailed.value.cause==J._refine_reliable && !detailed.value.invalid_seen
++            same_execution(old,detailed)
++            @test (precision(BigFloat),rounding(BigFloat))==ambient
++            if T===BigFloat
++                @test precision(old.value.absolute_error)==precision(detailed.value.quality.absolute_error)
++                @test precision(old.value.relative_error)==precision(detailed.value.quality.relative_error)
++            end
++        end
++    end
++end
++end # module
++Base.invokelatest(RefinementOutcomeTests.runtests)
+diff --git a/test/refinement_reference_comparison_tests.jl b/test/refinement_reference_comparison_tests.jl
+new file mode 100644
+--- /dev/null
++++ b/test/refinement_reference_comparison_tests.jl
+@@ -0,0 +1,43 @@
++# Frozen legacy numerical comparison; include after refinement_outcome_tests.jl.
++# Test-only references; no whole-module clone or production method overwrite.
++module RefinementReferenceComparison
++using Test
++using JSimplex
++import ..RefinementOutcomeTests
++const R = RefinementOutcomeTests
++const J = JSimplex
++include("support/devex_refinement_reference.jl")
++function compare(sc,transposed)
++    reference=R.exercise(RefinementReference.refine_basis_solve!,sc,transposed)
++    ordinary=R.exercise(J.refine_basis_solve!,sc,transposed)
++    detailed=R.exercise(J._refine_basis_solve_outcome!,sc,transposed)
++    R.same_execution(reference,ordinary)
++    R.same_execution(reference,detailed)
++    @test reference.f.stop.calls==sc.stops
++    @test reference.f.factor.forwards+reference.f.factor.backwards==sc.calls
++    if isnothing(reference.failure)
++        @test isnothing(ordinary.failure) && isnothing(detailed.failure)
++        @test isequal(R.quality_fields(reference.value),R.quality_fields(ordinary.value))
++        @test isequal(R.quality_fields(reference.value),R.quality_fields(detailed.value.quality))
++    elseif sc.observer_reason==:never
++        @test reference.failure===sc.failure && ordinary.failure===sc.failure && detailed.failure===sc.failure
++    else
++        @test reference.failure isa J.DiagnosticObserverFailure
++        @test reference.failure.cause===sc.failure && ordinary.failure.cause===sc.failure && detailed.failure.cause===sc.failure
++    end
++end
++function runtests()
++    @testset "Original source and candidate have the same numeric execution" begin
++        for T in (Float32,Float64),transposed in (false,true)
++            names=T===Float64 ? (R.SIMPLE_CASES...,:nonfinite_wide_quality,:stop_before_wide) : R.SIMPLE_CASES
++            for name in names
++                compare(R.scenario(name,T),transposed)
++            end
++        end
++        for T in (BigFloat,Rational{BigInt}),transposed in (false,true)
++            compare(R.scenario(:reliable,T),transposed)
++        end
++    end
++end
++end
++Base.invokelatest(RefinementReferenceComparison.runtests)
+diff --git a/test/runtests.jl b/test/runtests.jl
+--- a/test/runtests.jl
++++ b/test/runtests.jl
+@@ -373,6 +373,11 @@
+     include("pivot_application_tests.jl")
+     include("pivot_atomicity_tests.jl")
+     include("simplex_refinement_tests.jl")
++    include("refinement_outcome_tests.jl")
++    include("refinement_reference_comparison_tests.jl")
++    include("recovery_weight_tests.jl")
++    include("recovery_devex_fallback_tests.jl")
++    include("recovery_devex_pivot_tests.jl")
+     include("basis_recovery_tests.jl")
+     include("simplex_driver_tests.jl")
+     include("simplex_handoff_atomicity_tests.jl")
+diff --git a/test/support/devex_legacy_rebuild_reference.jl b/test/support/devex_legacy_rebuild_reference.jl
+new file mode 100644
+--- /dev/null
++++ b/test/support/devex_legacy_rebuild_reference.jl
+@@ -0,0 +1,24 @@
++module LegacyRecoveryWeights
++using LinearAlgebra, JSimplex
++const J=JSimplex
++function _rebuild_recovery_weights!(trial::J.SimplexWorkspace{T},stop) where T
++    # Primal weights remain invalid and are computed on demand. Dual steepest
++    # edge weights belong to basic rows and must match the rebuilt inverse.
++    J._weight_pricing(trial,:dual) == :steepest_edge || return true
++    m = length(trial.basis.basic_indices)
++    rhs,direction = zeros(T,m),zeros(T,m)
++    policy = trial.progress.numerical_policy
++    for row in 1:m
++        stop() && return false
++        fill!(rhs,zero(T))
++        rhs[row] = one(T)
++        J.transpose_solve!(direction,trial.factorization,rhs)
++        J.refine_basis_solve!(direction,trial,rhs,policy,stop;transposed=true).reliable || return false
++        weight = dot(direction,direction)
++        isfinite(weight) && weight > zero(T) || return false
++        trial.pricing_weights[trial.basis.basic_indices[row]] = max(J._typed_ratio(T,1,10^4),weight)
++    end
++    return true
++end
++
++end
+diff --git a/test/support/devex_refinement_reference.jl b/test/support/devex_refinement_reference.jl
+new file mode 100644
+--- /dev/null
++++ b/test/support/devex_refinement_reference.jl
+@@ -0,0 +1,84 @@
++module RefinementReference
++using JSimplex
++const JS=JSimplex
++function refine_basis_solve!(destination::AbstractVector{T},ws::JS.SimplexWorkspace{T},
++                             rhs::AbstractVector{T},policy::JS.NumericalPolicy{T},stop;
++                             transposed::Bool=false)::JS.SolveQuality{T} where {T}
++    m = size(ws.problem.A,1)
++    length(destination) == length(rhs) == m || throw(DimensionMismatch("basis solve dimensions"))
++    Base.mightalias(destination,rhs) && throw(ArgumentError("basis solve destination aliases RHS"))
++    buffers = JS._pivot_quality_buffers(ws)
++    arrays = (buffers.rhs,buffers.unit,buffers.correction,buffers.trial,buffers.singletons,
++        buffers.column.residual,buffers.column.work_residual,buffers.column.work_scale,
++        buffers.column.compensation,buffers.column.error_sum,
++        buffers.row.residual,buffers.row.work_residual,buffers.row.work_scale,
++        buffers.row.compensation,buffers.row.error_sum,
++        ws.problem.A.nzval)
++    any(a -> Base.mightalias(a,destination) || Base.mightalias(a,rhs),arrays) &&
++        throw(ArgumentError("basis solve arguments overlap private or model storage"))
++    storage = ws.scratch.basis_matrix
++    if !isnothing(storage) &&
++       (Base.mightalias(storage.nzval,destination) || Base.mightalias(storage.nzval,rhs))
++        throw(ArgumentError("basis solve arguments overlap basis assembly storage"))
++    end
++    B = JS._basis_matrix!(ws)
++    if T === BigFloat
++        bits = JS._stored_quality_bits(T,B,destination,rhs,policy)
++        return setprecision(BigFloat,bits) do
++            JS._record_refactor_quality!(ws,_refine_basis_solve!(destination,ws,B,rhs,policy,stop,buffers,transposed))
++        end
++    end
++    return JS._record_refactor_quality!(ws,_refine_basis_solve!(destination,ws,B,rhs,policy,stop,buffers,transposed))
++end
++
++function _refine_basis_solve!(destination::AbstractVector{T},ws,B,rhs,policy,stop,buffers,transposed) where T
++    quality_scratch = transposed ? buffers.row : buffers.column
++    saved_rhs = copyto!(buffers.rhs,rhs)
++    quality = JS.solve_quality!(quality_scratch,B,destination,saved_rhs,policy;transposed)
++    quality.finite || return quality
++    wide = policy.solve_refinement && T === Float64 && !quality.reliable
++    if wide && policy.max_refinements > 0
++        stop() && return quality
++        quality = JS._refinement_quality!(quality_scratch,B,destination,saved_rhs,policy,transposed,wide)
++    end
++    for _ in 1:policy.max_refinements
++        (quality.reliable || !quality.finite || stop()) && return quality
++        JS._simplex_event!(ws,:correction_attempt)
++        correction = JS._timed_simplex(ws,transposed ? :btran : :ftran) do
++            transposed ? JS.transpose_solve!(buffers.correction,ws.factorization,quality_scratch.residual) :
++                         JS._ordinary_forward_solve!(buffers.correction,ws.factorization,quality_scratch.residual)
++        end
++        all(isfinite,correction) || return quality
++        changed = false
++        for i in eachindex(destination)
++            buffers.trial[i] = destination[i]+correction[i]
++            changed |= buffers.trial[i] != destination[i]
++        end
++        all(isfinite,buffers.trial) || return quality
++        !changed && !policy.solve_refinement && return quality
++        trial_quality = JS._refinement_quality!(quality_scratch,B,buffers.trial,saved_rhs,policy,transposed,wide)
++        trial_quality.finite || return quality
++        if policy.solve_refinement && !trial_quality.reliable
++            # The correction is no longer needed; reuse its storage to retain
++            # the ordinary candidate if homogeneous cleanup does not help.
++            copyto!(buffers.correction,buffers.trial)
++            if JS._clean_homogeneous_terms!(buffers.trial,B,saved_rhs,transposed,buffers.singletons,policy)
++                cleaned = JS._refinement_quality!(quality_scratch,B,buffers.trial,saved_rhs,policy,transposed,wide)
++                if cleaned.finite && (cleaned.reliable || JS._refinement_error(cleaned) < JS._refinement_error(trial_quality))
++                    trial_quality = cleaned
++                else
++                    copyto!(buffers.trial,buffers.correction)
++                    trial_quality = JS._refinement_quality!(quality_scratch,B,buffers.trial,saved_rhs,policy,transposed,wide)
++                end
++            end
++        end
++        (trial_quality.reliable || JS._refinement_error(trial_quality) < JS._refinement_error(quality)) || return quality
++        stop() && return quality
++        copyto!(destination,buffers.trial)
++        JS._pipeline_changed!(ws,destination)
++        quality = trial_quality
++        JS._simplex_event!(ws,:correction)
++    end
++    return quality
++end
++end # module
