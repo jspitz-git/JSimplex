@@ -1,0 +1,30 @@
+F
+======================================================================
+FAIL: test_successful_nested_testsets_do_not_need_printed_child_rows (__main__.NonverboseSummary.test_successful_nested_testsets_do_not_need_printed_child_rows)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/devex-green2-preparation-20261030/summary_tests.py", line 9, in test_successful_nested_testsets_do_not_need_printed_child_rows
+    try:r=A.ordinary(log)
+          ~~~~~~~~~~^^^^^
+  File "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/dual-recovery-devex-green2-admission/2026-10-30/audit.py", line 26, in ordinary
+    post=summary(log,'TASK4_POST_FALLBACK')
+  File "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/dual-recovery-devex-green2-admission/2026-10-30/audit.py", line 14, in summary
+    C.require(len(matches)==1,'missing/duplicate ordinary summary '+name)
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/dual-recovery-devex-green2-admission/2026-10-30/common.py", line 18, in require
+    if not v:raise ValueError(m)
+             ^^^^^^^^^^^^^^^^^^^
+ValueError: missing/duplicate ordinary summary TASK4_POST_FALLBACK
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/tmp/devex-green2-preparation-20261030/summary_tests.py", line 10, in test_successful_nested_testsets_do_not_need_printed_child_rows
+    except ValueError as error:self.fail(str(error))
+                               ~~~~~~~~~^^^^^^^^^^^^
+AssertionError: missing/duplicate ordinary summary TASK4_POST_FALLBACK
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+FAILED (failures=1)

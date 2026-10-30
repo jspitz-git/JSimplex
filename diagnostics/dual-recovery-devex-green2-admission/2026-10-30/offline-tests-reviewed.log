@@ -1,0 +1,22 @@
+..........E.....
+======================================================================
+ERROR: test_nonverbose_parent_success_needs_no_printed_child (__main__.Checks.test_nonverbose_parent_success_needs_no_printed_child)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/dual-recovery-devex-green2-admission/2026-10-30/offline_tests_reviewed.py", line 99, in test_nonverbose_parent_success_needs_no_printed_child
+    self.assertEqual(audit.ordinary(log),dict(Pass=6000,Total=6000))
+                     ~~~~~~~~~~~~~~^^^^^
+  File "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/dual-recovery-devex-green2-admission/2026-10-30/audit_reviewed.py", line 22, in ordinary
+    result=summary(log,'TASK4_GREEN')
+  File "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/dual-recovery-devex-green2-admission/2026-10-30/audit_reviewed.py", line 14, in summary
+    C.require(len(matches)==1,'missing/duplicate ordinary summary '+name)
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/dual-recovery-devex-green2-admission/2026-10-30/common.py", line 18, in require
+    if not v:raise ValueError(m)
+             ^^^^^^^^^^^^^^^^^^^
+ValueError: missing/duplicate ordinary summary TASK4_GREEN
+
+----------------------------------------------------------------------
+Ran 16 tests in 0.007s
+
+FAILED (errors=1)
