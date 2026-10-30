@@ -17,7 +17,24 @@
     "review": "Independent read-only review: no actionable correctness finding; overflow/unbounded distinction, Harris pass, BigFloat and entering width reviewed.",
     "generic_semantic_assertions": 24709,
     "all_focused_assertions": 26227,
-    "full_project_suite": "900-second timeout during LLVM compilation at test/legacy_primal_point_recovery_tests.jl:48; no suite summary. The attempt began with production-master source before the ratio edit.",
+    "full_project_suite": {
+      "status": "failed",
+      "tested_commit": "cdfbeca132c36d081239dbcc795a04512e4b58c7",
+      "report": "master-cdfbeca1-full-suite.json",
+      "primary_exit_code": 1,
+      "main_testset_passed": 473905,
+      "threshold_failures": 144,
+      "remaining_files_exit_code": 0,
+      "combined_counts": {
+        "pass": 694567,
+        "fail": 144,
+        "error": 0,
+        "broken": 0,
+        "total": 694711
+      },
+      "all_test_files_executed": true,
+      "single_process_full_suite_passed": false
+    },
     "intel_full_solve": {
       "report": "intel-full-master-35764a8e.json",
       "log": "intel-full-master-35764a8e.log",
@@ -27,7 +44,8 @@
       "iterations": 113162,
       "cleanup_from_feasible_basis": true,
       "numerical_restart_observed": false
-    }
+    },
+    "previous_full_project_suite_attempt": "900-second timeout during LLVM compilation at test/legacy_primal_point_recovery_tests.jl:48; no suite summary. The attempt began with production-master source before the ratio edit."
   },
   "work_and_memory_review": {
     "frequency": "Each primal ratio candidate",
@@ -42,5 +60,5 @@
     "allocation_result": "Same1/2events and16/32bytes per measured batch before/after, not per call; no new per-call allocation observed.",
     "conclusion": "No unnecessary material computation or retained memory found. Small timing differences under concurrent validation do not establish a speedup."
   },
-  "limitations": "Full project suite remains incomplete. Ratio fix has direct coverage from the original ARM handoff and26227focused semantic checks, not a complete ARM solve from MPS. The full Intel solve with both integrated fixes passes but does not prove positive ratio overflow was exercised."
+  "limitations": "The full test run reveals144comparisons against the pre-fix ratio reference that must be updated for the intended positive-overflow behavior; see master-cdfbeca1-full-suite.json. Direct overflow regression tests and the ARM handoff pass; the full Intel MPS solve passes. A complete ARM solve from MPS remains unverified."
 }

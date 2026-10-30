@@ -1,0 +1,156 @@
+{
+  "tested_commit": "cdfbeca132c36d081239dbcc795a04512e4b58c7",
+  "status": "failed",
+  "scope": "All files listed in test/runtests.jl were executed without changing production or test source. The original invocation exited on the threshold test failures; the remaining13files were executed in a separate fresh process under an outer testset so assertion failures would not skip subsequent files. This is not a successful single-process full-suite run.",
+  "primary_run": {
+    "commit": "cdfbeca132c36d081239dbcc795a04512e4b58c7",
+    "branch": "master",
+    "command": [
+      "julia",
+      "--project=.",
+      "--startup-file=no",
+      "--compiled-modules=existing",
+      "test/runtests.jl"
+    ],
+    "environment": {
+      "OPENBLAS_NUM_THREADS": "1",
+      "JULIA_NUM_THREADS": "1"
+    },
+    "architecture": "aarch64",
+    "julia": "julia version 1.13.0",
+    "started_utc": "2026-10-30T20:59:36.897150+00:00",
+    "manifest_sha256": "bfa0397481a520ef9e793c224c9cd856b151973c6a65060132e2e792c6e13ae3",
+    "log": "master-cdfbeca1-full-suite.log",
+    "time_limit_seconds": null,
+    "elapsed_seconds": 8670.145,
+    "exit_code": 1,
+    "running": false,
+    "log_bytes": 470079,
+    "finished_utc": "2026-10-30T23:24:07.046912+00:00",
+    "head_after": "cdfbeca132c36d081239dbcc795a04512e4b58c7",
+    "production_and_tests_unchanged": true,
+    "log_sha256": "03528763aa89b15a303bfd5fac86a4af79a112505d2c435bf38b20ba07c9de69",
+    "summaries": [
+      {
+        "name": "JSimplex",
+        "pass": 473905,
+        "total": 473905,
+        "time": "141m52.1s"
+      },
+      {
+        "name": "Fused solve coordinate and buffer ownership",
+        "pass": 360,
+        "total": 360,
+        "time": "0.2s"
+      },
+      {
+        "name": "Fused solve trivial and exceptional inputs",
+        "pass": 72,
+        "total": 72,
+        "time": "0.0s"
+      },
+      {
+        "name": "Copied BG saves logical prepared spike after coordinate rebasing",
+        "pass": 4,
+        "total": 4,
+        "time": "0.0s"
+      },
+      {
+        "name": "Generic primal thresholds",
+        "pass": 29425,
+        "fail": 144,
+        "total": 29569,
+        "time": "2m24.0s"
+      }
+    ],
+    "elapsed_seconds_note": "Supervisor observes completion every30seconds; elapsed duration is an upper bound with up to30seconds polling delay."
+  },
+  "remaining_files_run": {
+    "commit": "cdfbeca132c36d081239dbcc795a04512e4b58c7",
+    "branch": "master",
+    "command": [
+      "julia",
+      "--project=.",
+      "--startup-file=no",
+      "--compiled-modules=existing",
+      "-e",
+      "using JSimplex, Test; @testset \"Remaining full-suite files after threshold failure\" begin; for file in ARGS; @testset \"$file\" begin; include(file); end; end; end",
+      "/home/jspitz/JSimplex.jl/test/generic_weight_constants_tests.jl",
+      "/home/jspitz/JSimplex.jl/test/generic_dual_comparisons_tests.jl",
+      "/home/jspitz/JSimplex.jl/test/generic_pivot_scalars_tests.jl",
+      "/home/jspitz/JSimplex.jl/test/generic_residual_magnitudes_tests.jl",
+      "/home/jspitz/JSimplex.jl/test/generic_quality_local_tests.jl",
+      "/home/jspitz/JSimplex.jl/test/generic_virtual_free_pivot_tests.jl",
+      "/home/jspitz/JSimplex.jl/test/generic_stagnation_unit_seed_tests.jl",
+      "/home/jspitz/JSimplex.jl/test/generic_interval_stagnation_devex_tests.jl",
+      "/home/jspitz/JSimplex.jl/test/generic_ratio_monitor_tests.jl",
+      "/home/jspitz/JSimplex.jl/test/generic_bounds_norm_infeasibility_tests.jl",
+      "/home/jspitz/JSimplex.jl/test/generic_sum_rational_growth_tests.jl",
+      "/home/jspitz/JSimplex.jl/test/generic_residual_pivot_crash_tests.jl",
+      "/home/jspitz/JSimplex.jl/test/generic_unit_perturb_residual_tests.jl"
+    ],
+    "environment": {
+      "OPENBLAS_NUM_THREADS": "1",
+      "JULIA_NUM_THREADS": "1"
+    },
+    "architecture": "aarch64",
+    "julia": "julia version 1.13.0",
+    "started_utc": "2026-10-30T23:24:00.034478+00:00",
+    "manifest_sha256": "bfa0397481a520ef9e793c224c9cd856b151973c6a65060132e2e792c6e13ae3",
+    "log": "master-cdfbeca1-full-suite-tail.log",
+    "time_limit_seconds": null,
+    "elapsed_seconds": 630.017,
+    "exit_code": 0,
+    "running": false,
+    "log_bytes": 156,
+    "finished_utc": "2026-10-30T23:34:30.060498+00:00",
+    "head_after": "cdfbeca132c36d081239dbcc795a04512e4b58c7",
+    "production_and_tests_unchanged": true,
+    "log_sha256": "53684f6c8989a56eb825198031f6beb490ad2e7f2aece06d731bf6829d696dfc",
+    "summaries": [
+      {
+        "name": "Remaining full-suite files after threshold failure",
+        "pass": 190801,
+        "total": 190801,
+        "time": "10m23.9s"
+      }
+    ],
+    "elapsed_seconds_note": "Supervisor observes completion every30seconds; elapsed duration is an upper bound with up to30seconds polling delay."
+  },
+  "combined_counts": {
+    "pass": 694567,
+    "fail": 144,
+    "error": 0,
+    "broken": 0,
+    "total": 694711
+  },
+  "failure_analysis": {
+    "threshold_failures": 144,
+    "locations": {
+      "test/generic_primal_threshold_tests.jl:325": 132,
+      "test/generic_primal_threshold_tests.jl:329": 12
+    },
+    "numeric_types": {
+      "BigFloat": 108,
+      "Float32": 18,
+      "Float64": 18
+    },
+    "cause": "The frozen Reference._primal_ratio in generic_primal_threshold_tests.jl rejects every nonfinite raw ratio. Production deliberately accepts positive overflow of a finite distance divided by finite movement when a finite blocker exists, as introduced by the validated ratio-overflow fix. The equivalence oracle was not updated for that intended change.",
+    "observed_differences": "All144failed comparisons return (nothing,-1,BASIC) from the old reference versus a finite step2at the entering bound or0.125at basic row8 from production.",
+    "independent_probe": {
+      "log": "master-cdfbeca1-threshold-oracle-probe.log",
+      "exit_code": 0,
+      "types": [
+        "Float32",
+        "Float64",
+        "BigFloat"
+      ],
+      "method": "Loaded only helper/reference definitions before the outer testset from generic_primal_threshold_tests.jl. Set the one-row direction coefficient to nextfloat(0); checked finite numerator and movement with positive ratio overflow, original rejection, production finite step2, and direct entering/basic bound satisfaction. No solver tolerance or arithmetic precision was changed.",
+      "log_sha256": "fc2788ccc736bb810bfad381501109d3bbfe0b0626745d32427826deb81c3a12"
+    },
+    "action_required": "Update the frozen ratio reference and retain explicit coverage of the intended overflow behavior, then rerun the affected tests. This verification task records the failure and does not modify tests to obtain a passing result."
+  },
+  "production_and_test_changes": false,
+  "review": "Evidence/documentation only; no added production work, allocations or retained memory. No performance benchmark is needed for these changes.",
+  "remaining_validation": "The test suite is not green until the threshold equivalence test is reconciled with the intentional ratio-overflow fix. Full optimization resumed specifically from the iteration123164 saved state remains separately unverified; the full Intel solve from MPS already passed."
+}
