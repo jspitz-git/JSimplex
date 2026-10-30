@@ -35,24 +35,21 @@
       "ratio-bench.toml"
     ]
   },
-  "remaining_validation": "The test suite is not green until the threshold equivalence test is reconciled with the intentional ratio-overflow fix. Full optimization resumed specifically from the iteration123164 saved state remains separately unverified; the full Intel solve from MPS already passed.",
+  "remaining_validation": "A fresh single-process full-suite run after this test-reference-only fix has not been repeated. Full optimization resumed specifically from the iteration123164 saved state remains separately unverified; the full Intel solve from MPS passed.",
   "full_suite": {
-    "status": "failed",
-    "tested_commit": "cdfbeca132c36d081239dbcc795a04512e4b58c7",
-    "report": "master-cdfbeca1-full-suite.json",
-    "primary_exit_code": 1,
-    "main_testset_passed": 473905,
-    "threshold_failures": 144,
-    "remaining_files_exit_code": 0,
+    "status": "passed_across_runs",
+    "reference_fix_commit": "7b01c74e29c4ef20adf538870257fbc5f18187f4",
+    "report": "ratio-reference-verification.json",
     "combined_counts": {
-      "pass": 694567,
-      "fail": 144,
+      "pass": 694711,
+      "fail": 0,
       "error": 0,
       "broken": 0,
       "total": 694711
     },
-    "all_test_files_executed": true,
-    "single_process_full_suite_passed": false
+    "resolved_threshold_failures": 144,
+    "affected_file_passed": 29569,
+    "single_process_full_suite_rerun_after_fix": false
   },
   "intel_full_solve": {
     "report": "intel-full-master-35764a8e.json",
@@ -69,5 +66,23 @@
     "command": "OPENBLAS_NUM_THREADS=1 JULIA_NUM_THREADS=1 julia --project=. --startup-file=no --compiled-modules=existing -O1 -g0 test/runtests.jl",
     "reason": "Interrupted after approximately10minutes without a final test summary; no full-suite pass claim.",
     "exit_code": 130
+  },
+  "full_suite_before_reference_update": {
+    "status": "failed",
+    "tested_commit": "cdfbeca132c36d081239dbcc795a04512e4b58c7",
+    "report": "master-cdfbeca1-full-suite.json",
+    "primary_exit_code": 1,
+    "main_testset_passed": 473905,
+    "threshold_failures": 144,
+    "remaining_files_exit_code": 0,
+    "combined_counts": {
+      "pass": 694567,
+      "fail": 144,
+      "error": 0,
+      "broken": 0,
+      "total": 694711
+    },
+    "all_test_files_executed": true,
+    "single_process_full_suite_passed": false
   }
 }

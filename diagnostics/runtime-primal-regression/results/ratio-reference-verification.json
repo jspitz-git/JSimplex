@@ -1,0 +1,128 @@
+{
+  "status": "passed",
+  "tested_fix_commit": "7b01c74e29c4ef20adf538870257fbc5f18187f4",
+  "changed_test_file": "test/generic_primal_threshold_tests.jl",
+  "change": "Update only the frozen reference: allow positive overflow from finite operands to compete with finite bounds; reject a nonfinite winning step. All original assertions remain enabled.",
+  "production_sources_unchanged_from": "cdfbeca132c36d081239dbcc795a04512e4b58c7",
+  "tolerances_unchanged": true,
+  "arithmetic_precision_unchanged": true,
+  "source_sha256": {
+    "test/generic_primal_threshold_tests.jl": "85c7285d40ed1949818ecaf722d61b1158246733538b41e4cd03f80d163eb8d2",
+    "test/primal_ratio_overflow_tests.jl": "0579a0980a0e22a5ae3ba1f4b94004de1b4f8d8f2098f55697132910faf4ce65",
+    "src/primal_simplex.jl": "8d787dde71743d051ca364f8e1ef4a42f3463021837c0a660ee0fb11df410654"
+  },
+  "environment": {
+    "architecture": "aarch64",
+    "julia": "julia version 1.13.0",
+    "OPENBLAS_NUM_THREADS": "1",
+    "JULIA_NUM_THREADS": "1"
+  },
+  "commands": [
+    "OPENBLAS_NUM_THREADS=1 JULIA_NUM_THREADS=1 julia --project=. --startup-file=no --compiled-modules=existing -e 'include(\"test/generic_primal_threshold_tests.jl\"); include(\"test/primal_ratio_overflow_tests.jl\")'",
+    "OPENBLAS_NUM_THREADS=1 JULIA_NUM_THREADS=1 julia --project=. --startup-file=no --compiled-modules=existing diagnostics/runtime-primal-regression/verify_ratio_reference.jl"
+  ],
+  "reference_contract_command_note": "The second command was executed from the byte-identical /tmp/verify-ratio-reference-contract.jl; the script is now saved in the repository for reproduction. It redirects only ratio-helper calls in the existing explicit overflow tests to the reference; pivot/iteration assertions still exercise production code.",
+  "logs": {
+    "ratio-reference-fixed-tests.log": {
+      "sha256": "6f1821505989506beb859ab0263feecf4902064682faab7223b382166bc2a79a",
+      "exit_code": 0,
+      "summaries": [
+        {
+          "name": "Generic primal thresholds",
+          "pass": 29569,
+          "total": 29569,
+          "time": "23.9s"
+        },
+        {
+          "name": "A finite blocker wins over a positive overflowing ratio",
+          "pass": 28,
+          "total": 28,
+          "time": "14.6s"
+        },
+        {
+          "name": "A finite entering bound wins over an overflowing basic ratio",
+          "pass": 16,
+          "total": 16,
+          "time": "4.3s"
+        },
+        {
+          "name": "Overflow alone does not certify an unbounded direction",
+          "pass": 6,
+          "total": 6,
+          "time": "4.3s"
+        },
+        {
+          "name": "Invalid ratios remain inconclusive",
+          "pass": 8,
+          "total": 8,
+          "time": "0.0s"
+        },
+        {
+          "name": "BigFloat keeps finite blockers when an extreme ratio overflows",
+          "pass": 3,
+          "total": 3,
+          "time": "0.5s"
+        },
+        {
+          "name": "An overflowing entering width does not hide a finite row bound",
+          "pass": 8,
+          "total": 8,
+          "time": "0.0s"
+        }
+      ]
+    },
+    "ratio-reference-contract.log": {
+      "sha256": "d9bdc4fabec191491eca2aa7adfea15129881fd1b5c349c7a06f4af174be3cfc",
+      "exit_code": 0,
+      "summaries": [
+        {
+          "name": "Updated reference overflow contract",
+          "pass": 69,
+          "total": 69,
+          "time": "30.4s"
+        }
+      ]
+    }
+  },
+  "previous_failure": {
+    "report": "master-cdfbeca1-full-suite.json",
+    "pass": 29425,
+    "fail": 144,
+    "total": 29569,
+    "types": {
+      "BigFloat": 108,
+      "Float32": 18,
+      "Float64": 18
+    }
+  },
+  "affected_file_now": {
+    "pass": 29569,
+    "fail": 0,
+    "error": 0,
+    "total": 29569,
+    "resolved_failures": 144,
+    "assertions_removed_or_skipped": 0
+  },
+  "additional_checks": {
+    "production_overflow_contract": 69,
+    "updated_reference_overflow_contract": 69,
+    "failed": 0
+  },
+  "full_suite_evidence": {
+    "status": "passed_across_runs",
+    "combined_counts": {
+      "pass": 694711,
+      "fail": 0,
+      "error": 0,
+      "broken": 0,
+      "total": 694711
+    },
+    "prior_report": "master-cdfbeca1-full-suite.json",
+    "unchanged_prior_passing_checks": 665142,
+    "newly_rerun_affected_file_checks": 29569,
+    "single_process_full_suite_rerun_after_fix": false,
+    "scope": "The prior main/fused/remaining-file runs passed 665142 checks outside the affected file. Replacing only its failed 29425/29569 result with this fresh 29569/29569 run yields 694711 passing checks across runs. Production source and every other test file are unchanged. The 69 production overflow checks and 69 reference checks above are additional reruns, not added to this unique suite total."
+  },
+  "work_memory_review": "Only a frozen test reference changed. No production computational work, allocations or retained memory changed. The existing warm allocation assertions in the affected file pass. No production benchmark is warranted, and timing differences between test runs are not performance claims.",
+  "remaining_validation": "A fresh single-process full-suite run after this test-reference-only fix has not been repeated. Full optimization resumed specifically from the iteration123164 saved state remains separately unverified; the full Intel solve from MPS passed."
+}

@@ -36,22 +36,19 @@
     },
     "note": "An explanatory source comment was clarified after the first measurement; the final packaged source was independently replayed successfully.",
     "full_suite": {
-      "status": "failed",
-      "tested_commit": "cdfbeca132c36d081239dbcc795a04512e4b58c7",
-      "report": "master-cdfbeca1-full-suite.json",
-      "primary_exit_code": 1,
-      "main_testset_passed": 473905,
-      "threshold_failures": 144,
-      "remaining_files_exit_code": 0,
+      "status": "passed_across_runs",
+      "reference_fix_commit": "7b01c74e29c4ef20adf538870257fbc5f18187f4",
+      "report": "ratio-reference-verification.json",
       "combined_counts": {
-        "pass": 694567,
-        "fail": 144,
+        "pass": 694711,
+        "fail": 0,
         "error": 0,
         "broken": 0,
         "total": 694711
       },
-      "all_test_files_executed": true,
-      "single_process_full_suite_passed": false
+      "resolved_threshold_failures": 144,
+      "affected_file_passed": 29569,
+      "single_process_full_suite_rerun_after_fix": false
     },
     "intel_user_replay": {
       "success": true,
@@ -72,7 +69,25 @@
       "cleanup_from_feasible_basis": true,
       "numerical_restart_observed": false
     },
-    "previous_full_suite_attempt": "Incomplete:300-second timeout at test/native_primal_completion_tests.jl:3; process killed after15-second grace (exit137). No full-suite summary."
+    "previous_full_suite_attempt": "Incomplete:300-second timeout at test/native_primal_completion_tests.jl:3; process killed after15-second grace (exit137). No full-suite summary.",
+    "full_suite_before_reference_update": {
+      "status": "failed",
+      "tested_commit": "cdfbeca132c36d081239dbcc795a04512e4b58c7",
+      "report": "master-cdfbeca1-full-suite.json",
+      "primary_exit_code": 1,
+      "main_testset_passed": 473905,
+      "threshold_failures": 144,
+      "remaining_files_exit_code": 0,
+      "combined_counts": {
+        "pass": 694567,
+        "fail": 144,
+        "error": 0,
+        "broken": 0,
+        "total": 694711
+      },
+      "all_test_files_executed": true,
+      "single_process_full_suite_passed": false
+    }
   },
   "work_memory_review": {
     "execution_frequency": "Failed native phase-transfer or cleanup reconstruction, after scalar/homogeneous reconstruction and empty coupled selection; no ordinary-iteration work.",
@@ -87,6 +102,6 @@
     "measurement_scope": "Three warmed recovery samples on the actual sparse capture. Setup/compilation excluded; concurrent validation and small sample count prevent a precise timing comparison. Baseline fails, fixed succeeds; no speedup claim.",
     "conclusion": "Added cold-recovery work is needed for certified reconstruction; no avoidable production scans, persistent buffers or allocations identified."
   },
-  "limitations": "Captured reconstruction/driver checks pass on ARM and Intel, and the full Intel MPS solve passes. The complete test-file coverage now reveals144failures in a stale ratio equivalence oracle; see master-cdfbeca1-full-suite.json. Continuation specifically from the iteration123164 saved state remains unverified.",
+  "limitations": "All 144 stale-reference failures are resolved; complete suite coverage is passing across the prior runs and the fresh affected-file rerun, not a new single-process full-suite execution. See ratio-reference-verification.json. Continuation specifically from the iteration123164 saved state remains unverified.",
   "package_sha256": "1acfe2f77b0e86698e93e9fb00063aaae16d59588c67e5e092277eab133a66f9"
 }

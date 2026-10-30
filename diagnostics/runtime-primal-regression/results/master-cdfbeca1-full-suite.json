@@ -148,9 +148,25 @@
       "method": "Loaded only helper/reference definitions before the outer testset from generic_primal_threshold_tests.jl. Set the one-row direction coefficient to nextfloat(0); checked finite numerator and movement with positive ratio overflow, original rejection, production finite step2, and direct entering/basic bound satisfaction. No solver tolerance or arithmetic precision was changed.",
       "log_sha256": "fc2788ccc736bb810bfad381501109d3bbfe0b0626745d32427826deb81c3a12"
     },
-    "action_required": "Update the frozen ratio reference and retain explicit coverage of the intended overflow behavior, then rerun the affected tests. This verification task records the failure and does not modify tests to obtain a passing result."
+    "action_required": "Resolved by the test-reference-only fix; see followup_resolution and ratio-reference-verification.json. Historical failure counts above are preserved.",
+    "original_action_required": "Update the frozen ratio reference and retain explicit coverage of the intended overflow behavior, then rerun the affected tests. This verification task records the failure and does not modify tests to obtain a passing result."
   },
   "production_and_test_changes": false,
   "review": "Evidence/documentation only; no added production work, allocations or retained memory. No performance benchmark is needed for these changes.",
-  "remaining_validation": "The test suite is not green until the threshold equivalence test is reconciled with the intentional ratio-overflow fix. Full optimization resumed specifically from the iteration123164 saved state remains separately unverified; the full Intel solve from MPS already passed."
+  "remaining_validation": "This historical run failed 144 comparisons; the follow-up reference fix resolves all 144 without dropping assertions or changing production code. See followup_resolution and ratio-reference-verification.json for the current evidence and remaining limits.",
+  "followup_resolution": {
+    "status": "passed_across_runs",
+    "reference_fix_commit": "7b01c74e29c4ef20adf538870257fbc5f18187f4",
+    "report": "ratio-reference-verification.json",
+    "combined_counts": {
+      "pass": 694711,
+      "fail": 0,
+      "error": 0,
+      "broken": 0,
+      "total": 694711
+    },
+    "resolved_threshold_failures": 144,
+    "affected_file_passed": 29569,
+    "single_process_full_suite_rerun_after_fix": false
+  }
 }
