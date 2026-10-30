@@ -1,0 +1,36 @@
+{
+  "production_postsolve_commit": "4b7502de6ccfc700645c5a99a613485d0a913bc4",
+  "production_postsolve_remote_verified": true,
+  "ratio_fix_branch": "codex/runtime-ratio-overflow",
+  "ratio_cause": "Finite negative bound distance divided by finite negative subnormal movement overflows positively; old primal ratio rejects any nonfinite result.",
+  "ratio_change": "Retain a positive overflowing ratio as a bound candidate so another finite blocker can win. Reject a nonfinite winning step; no unbounded certificate from overflow alone. Invalid numerator or movement and negative overflow remain inconclusive.",
+  "precisions": "Float32/64 and BigFloat paths; rational path retains ordinary semantics. No tolerance, arithmetic precision or coefficient changes.",
+  "verification": {
+    "focused_assertions": 1518,
+    "new_ratio_assertions": 69,
+    "old_arm_failure_iteration": 119376,
+    "arm_replay_status": "OPTIMAL",
+    "arm_final_iterations": 119377,
+    "arm_additional_iterations": 1175,
+    "arm_objective": 51425691.76210441,
+    "arm_original_primal_feasible": true,
+    "review": "Independent read-only review: no actionable correctness finding; overflow/unbounded distinction, Harris pass, BigFloat and entering width reviewed.",
+    "generic_semantic_assertions": 24709,
+    "all_focused_assertions": 26227,
+    "full_project_suite": "900-second timeout during LLVM compilation at test/legacy_primal_point_recovery_tests.jl:48; no suite summary. The attempt began with production-master source before the ratio edit."
+  },
+  "work_and_memory_review": {
+    "frequency": "Each primal ratio candidate",
+    "ordinary_work": "One additional scalar finite check after the existing row scan. Existing per-row finite check retained. No new vector/matrix scan, solve, copy, conversion, cache or retained storage.",
+    "overflow_only_work": "One repeated distance subtraction and scalar predicates; BigFloat may allocate one temporary subtraction result.",
+    "scaling": "Existing O(number of basic rows) passes; unchanged dependence on basis update chain.",
+    "measurement": "7 alternating paired samples, Float32/64, 64 and4096 basic rows, sparse/dense columns; compilation and fixture initialization excluded.",
+    "median_after_over_before_range": [
+      0.984,
+      1.027
+    ],
+    "allocation_result": "Same1/2events and16/32bytes per measured batch before/after, not per call; no new per-call allocation observed.",
+    "conclusion": "No unnecessary material computation or retained memory found. Small timing differences under concurrent validation do not establish a speedup."
+  },
+  "limitations": "Full project suite incomplete (timeout during compilation). Ratio fix verified by original ARM handoff and26227focused semantic checks, not a complete ARM solve from MPS. Intel full solve verifies the separate postsolve starting-basis fix."
+}

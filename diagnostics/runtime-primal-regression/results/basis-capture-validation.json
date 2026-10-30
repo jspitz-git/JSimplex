@@ -1,0 +1,19 @@
+{
+  "diagnostic_tests_passed": 27,
+  "independent_review": "Numerical-exception swallowing finding fixed with guard provenance and real-driver regression; reviewer confirmed no remaining actionable findings.",
+  "capture_platform": "Julia1.13.0 aarch64 Linux; -O1 -g0; one Julia/BLAS thread",
+  "source_verifier_commit": "4b7502de",
+  "iterations": 123026,
+  "refactorizations": 526,
+  "update_count": 0,
+  "finite_workspace": true,
+  "primal_reliable": false,
+  "transpose_reliable": false,
+  "residual_replay_matches_capture_exactly": true,
+  "snapshot_bytes": 29819061,
+  "snapshot_in_repository": false,
+  "package_source_commit": "4b7502de6ccfc700645c5a99a613485d0a913bc4",
+  "package_sha256": "12dc00e78a8fe5995569bb0544510e0139d9cdea2d73e2c64639a0cfe4fca60f",
+  "limitations": "Capture tested locally on saved Intel handoff; execution on user Intel machine still required. Captured vectors are published state after verification, not discarded private cleanup corrections.",
+  "cost_review": "No production hook or production memory retained. Diagnostic wrapper adds constant work per verification. Failure snapshot and analysis own O(nnz+m+n) arrays; worst residual ordering O(m log m). No per-pivot scans added."
+}

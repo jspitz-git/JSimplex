@@ -1,0 +1,225 @@
+ERROR: LoadError: Some tests did not pass: 12 passed, 16 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/JSimplex.jl/test/primal_ratio_overflow_tests.jl:19
+
+A finite blocker wins over a positive overflowing ratio: Test Failed at /home/jspitz/JSimplex.jl/test/primal_ratio_overflow_tests.jl:24
+  Expression: JSimplex._primal_ratio(ws, 1, direction, column) == (T(2), 2, JSimplex.AT_UPPER)
+   Evaluated: (nothing, -1, JSimplex.BASIC) == (2.0f0, 2, JSimplex.AT_UPPER)
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/primal_ratio_overflow_tests.jl:20
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/primal_ratio_overflow_tests.jl:24 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+A finite blocker wins over a positive overflowing ratio: Test Failed at /home/jspitz/JSimplex.jl/test/primal_ratio_overflow_tests.jl:26
+  Expression: isnothing(JSimplex._primal_iteration!(ws, (()->begin
+                #= /home/jspitz/JSimplex.jl/test/primal_ratio_overflow_tests.jl:26 =#
+                false
+            end), ws.options.dual_tolerance))
+   Evaluated: isnothing(JSimplex.DualTermination(NUMERICAL_ERROR, "primal ratio test is inconclusive"))
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/primal_ratio_overflow_tests.jl:20
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/primal_ratio_overflow_tests.jl:26 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+A finite blocker wins over a positive overflowing ratio: Test Failed at /home/jspitz/JSimplex.jl/test/primal_ratio_overflow_tests.jl:27
+  Expression: ws.iterations == 1
+   Evaluated: 0 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/primal_ratio_overflow_tests.jl:20
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/primal_ratio_overflow_tests.jl:27 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+A finite blocker wins over a positive overflowing ratio: Test Failed at /home/jspitz/JSimplex.jl/test/primal_ratio_overflow_tests.jl:28
+  Expression: ws.primal[1] == direction * T(2)
+   Evaluated: 0.0f0 == 2.0f0
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/primal_ratio_overflow_tests.jl:20
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/primal_ratio_overflow_tests.jl:28 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+A finite blocker wins over a positive overflowing ratio: Test Failed at /home/jspitz/JSimplex.jl/test/primal_ratio_overflow_tests.jl:24
+  Expression: JSimplex._primal_ratio(ws, 1, direction, column) == (T(2), 2, JSimplex.AT_UPPER)
+   Evaluated: (nothing, -1, JSimplex.BASIC) == (2.0f0, 2, JSimplex.AT_UPPER)
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/primal_ratio_overflow_tests.jl:20
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/primal_ratio_overflow_tests.jl:24 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+A finite blocker wins over a positive overflowing ratio: Test Failed at /home/jspitz/JSimplex.jl/test/primal_ratio_overflow_tests.jl:26
+  Expression: isnothing(JSimplex._primal_iteration!(ws, (()->begin
+                #= /home/jspitz/JSimplex.jl/test/primal_ratio_overflow_tests.jl:26 =#
+                false
+            end), ws.options.dual_tolerance))
+   Evaluated: isnothing(JSimplex.DualTermination(NUMERICAL_ERROR, "primal ratio test is inconclusive"))
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/primal_ratio_overflow_tests.jl:20
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/primal_ratio_overflow_tests.jl:26 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+A finite blocker wins over a positive overflowing ratio: Test Failed at /home/jspitz/JSimplex.jl/test/primal_ratio_overflow_tests.jl:27
+  Expression: ws.iterations == 1
+   Evaluated: 0 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/primal_ratio_overflow_tests.jl:20
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/primal_ratio_overflow_tests.jl:27 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+A finite blocker wins over a positive overflowing ratio: Test Failed at /home/jspitz/JSimplex.jl/test/primal_ratio_overflow_tests.jl:28
+  Expression: ws.primal[1] == direction * T(2)
+   Evaluated: 0.0f0 == -2.0f0
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/primal_ratio_overflow_tests.jl:20
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/primal_ratio_overflow_tests.jl:28 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+A finite blocker wins over a positive overflowing ratio: Test Failed at /home/jspitz/JSimplex.jl/test/primal_ratio_overflow_tests.jl:24
+  Expression: JSimplex._primal_ratio(ws, 1, direction, column) == (T(2), 2, JSimplex.AT_UPPER)
+   Evaluated: (nothing, -1, JSimplex.BASIC) == (2.0, 2, JSimplex.AT_UPPER)
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/primal_ratio_overflow_tests.jl:20
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/primal_ratio_overflow_tests.jl:24 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+A finite blocker wins over a positive overflowing ratio: Test Failed at /home/jspitz/JSimplex.jl/test/primal_ratio_overflow_tests.jl:26
+  Expression: isnothing(JSimplex._primal_iteration!(ws, (()->begin
+                #= /home/jspitz/JSimplex.jl/test/primal_ratio_overflow_tests.jl:26 =#
+                false
+            end), ws.options.dual_tolerance))
+   Evaluated: isnothing(JSimplex.DualTermination(NUMERICAL_ERROR, "primal ratio test is inconclusive"))
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/primal_ratio_overflow_tests.jl:20
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/primal_ratio_overflow_tests.jl:26 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+A finite blocker wins over a positive overflowing ratio: Test Failed at /home/jspitz/JSimplex.jl/test/primal_ratio_overflow_tests.jl:27
+  Expression: ws.iterations == 1
+   Evaluated: 0 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/primal_ratio_overflow_tests.jl:20
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/primal_ratio_overflow_tests.jl:27 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+A finite blocker wins over a positive overflowing ratio: Test Failed at /home/jspitz/JSimplex.jl/test/primal_ratio_overflow_tests.jl:28
+  Expression: ws.primal[1] == direction * T(2)
+   Evaluated: 0.0 == 2.0
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/primal_ratio_overflow_tests.jl:20
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/primal_ratio_overflow_tests.jl:28 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+A finite blocker wins over a positive overflowing ratio: Test Failed at /home/jspitz/JSimplex.jl/test/primal_ratio_overflow_tests.jl:24
+  Expression: JSimplex._primal_ratio(ws, 1, direction, column) == (T(2), 2, JSimplex.AT_UPPER)
+   Evaluated: (nothing, -1, JSimplex.BASIC) == (2.0, 2, JSimplex.AT_UPPER)
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/primal_ratio_overflow_tests.jl:20
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/primal_ratio_overflow_tests.jl:24 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+A finite blocker wins over a positive overflowing ratio: Test Failed at /home/jspitz/JSimplex.jl/test/primal_ratio_overflow_tests.jl:26
+  Expression: isnothing(JSimplex._primal_iteration!(ws, (()->begin
+                #= /home/jspitz/JSimplex.jl/test/primal_ratio_overflow_tests.jl:26 =#
+                false
+            end), ws.options.dual_tolerance))
+   Evaluated: isnothing(JSimplex.DualTermination(NUMERICAL_ERROR, "primal ratio test is inconclusive"))
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/primal_ratio_overflow_tests.jl:20
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/primal_ratio_overflow_tests.jl:26 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+A finite blocker wins over a positive overflowing ratio: Test Failed at /home/jspitz/JSimplex.jl/test/primal_ratio_overflow_tests.jl:27
+  Expression: ws.iterations == 1
+   Evaluated: 0 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/primal_ratio_overflow_tests.jl:20
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/primal_ratio_overflow_tests.jl:27 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+A finite blocker wins over a positive overflowing ratio: Test Failed at /home/jspitz/JSimplex.jl/test/primal_ratio_overflow_tests.jl:28
+  Expression: ws.primal[1] == direction * T(2)
+   Evaluated: 0.0 == -2.0
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/primal_ratio_overflow_tests.jl:20
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/primal_ratio_overflow_tests.jl:28 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+Test Summary:                                           | Pass  Fail  Total  Time
+A finite blocker wins over a positive overflowing ratio |   12    16     28  0.1s
+RNG of the outermost testset: Random.Xoshiro(0x6c7b13f629ecb0db, 0x9fcee7566503f8cb, 0x957c86f88a0854f4, 0xd4b5646905eb42ee, 0x084c2bb334911882)
