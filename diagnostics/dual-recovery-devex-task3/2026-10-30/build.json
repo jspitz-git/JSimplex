@@ -1,0 +1,61 @@
+{
+  "tests_first_sha256": "949aa6f21bb538162210a4ab8326086aae478933ab7f713d8e6c1b052a2055ca",
+  "parent_sources": {
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/dual-recovery-devex-task2/2026-10-30/simplex_numerics.jl": "93b042bed168c6a8564ac135d8d961d6dd93e842a00f66171ac92a20508eb98a",
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/dual-recovery-devex-task2/2026-10-30/simplex_recovery.jl": "c4aa14294f0a43f4c0aac34823f7d49f0e0aac91a3a0a930c22e303b5abeff1f"
+  },
+  "recovery_changes": [
+    [
+      "function _recovery_trial(ws::SimplexWorkspace{T},c::BasisCheckpoint{T},stop) where T\n",
+      "# Cold, call-local pending publication; no copies or new persistent fields.\nstruct _RecoveryTrialResult{W}\n    workspace::W\n    devex_fallback::Bool\n    failed_weight_row::Int\nend\n\n_validate_recovery_algorithm(algorithm::Symbol) =\n    algorithm in (:unspecified,:primal,:dual) ? nothing :\n    throw(ArgumentError(\"Unknown recovery algorithm\"))\n_build_recovery_factor(B,options) = _basis_factorization(B,options)\n\n# Strict compatibility, including all existing direct/precision callers.\nfunction _recovery_trial(ws::SimplexWorkspace,c::BasisCheckpoint,stop)\n    result = _recovery_trial_with_pricing(ws,c,stop)\n    return isnothing(result) ? nothing : result.workspace\nend\n\nfunction _recovery_trial_with_pricing(ws::SimplexWorkspace{T},c::BasisCheckpoint{T},stop;\n                                     algorithm::Symbol=:unspecified,\n                                     build_factor::F=_build_recovery_factor) where {T,F}\n    _validate_recovery_algorithm(algorithm)\n"
+    ],
+    [
+      "                _basis_factorization(B,ws.options)\n",
+      "                build_factor(B,ws.options)\n"
+    ],
+    [
+      "    _rebuild_recovery_weights!(trial,stop) || return nothing\n    stop() && return nothing\n    return trial\n",
+      "    weights = _rebuild_recovery_weights_result!(trial,stop;algorithm)\n    if !weights.ok\n        weights.fallback_ready || return nothing\n        # One corresponding post-weight stop, before any state preparation.\n        stop() && return nothing\n        # Refined weight buffers are independent of rho; callbacks may have\n        # invalidated core values since recompute. No additional solve/factor.\n        _finite_workspace(trial) && _recomputed_basis_reliable(trial) || return nothing\n        _prepare_recovery_devex!(trial)\n        return _RecoveryTrialResult(trial,true,weights.failed_row)\n    end\n    stop() && return nothing\n    return _RecoveryTrialResult(trial,false,0)\n"
+    ],
+    [
+      "function _publish_recovery!(ws,trial,reason,stop)\n",
+      "function _publish_recovery!(ws,result::_RecoveryTrialResult,reason,stop)\n    return _publish_recovery!(ws,result.workspace,reason,stop;\n        weight_fallback=result.devex_fallback,failed_weight_row=result.failed_weight_row)\nend\n\nfunction _publish_recovery!(ws,trial,reason,stop;\n                            weight_fallback::Bool=false,failed_weight_row::Int=0)\n"
+    ],
+    [
+      "    _store_basis_checkpoint!(ws,checkpoint)\n    pricing_reset && _record_recovery!(ws.progress.diagnostics,:pricing_reset)\n",
+      "    _store_basis_checkpoint!(ws,checkpoint)\n    if weight_fallback\n        # Commit-only records, never observer/logger calls. Pending mode was\n        # already visible to the unchanged prepublication recovery observers.\n        _record_recovery!(ws.progress.diagnostics,:pricing_weight_rejected)\n        _record_recovery!(ws.progress.diagnostics,:pricing_devex)\n    end\n    pricing_reset && _record_recovery!(ws.progress.diagnostics,:pricing_reset)\n"
+    ],
+    [
+      "function restore_checkpoint!(ws::SimplexWorkspace{T},c::BasisCheckpoint{T},stop)::Bool where T\n",
+      "function restore_checkpoint!(ws::SimplexWorkspace{T},c::BasisCheckpoint{T},stop;\n                             algorithm::Symbol=:unspecified)::Bool where T\n    _validate_recovery_algorithm(algorithm)\n"
+    ],
+    [
+      "trial = _recovery_trial(ws,c,guard)",
+      "trial = _recovery_trial_with_pricing(ws,c,guard;algorithm)"
+    ],
+    [
+      "function repair_basis!(ws::SimplexWorkspace{T},policy::NumericalPolicy{T},stop)::Bool where T\n",
+      "function repair_basis!(ws::SimplexWorkspace{T},policy::NumericalPolicy{T},stop;\n                       algorithm::Symbol=:unspecified)::Bool where T\n    _validate_recovery_algorithm(algorithm)\n"
+    ],
+    [
+      "_repair_basis!(ws,policy,guard,original)\n    end",
+      "_repair_basis!(ws,policy,guard,original;algorithm)\n    end"
+    ],
+    [
+      "function _repair_basis!(ws,policy,guard,original)\n",
+      "function _repair_basis!(ws,policy,guard,original;algorithm::Symbol=:unspecified)\n    _validate_recovery_algorithm(algorithm)\n"
+    ],
+    [
+      "trial = _recovery_trial(ws,candidate,guard)",
+      "trial = _recovery_trial_with_pricing(ws,candidate,guard;algorithm)"
+    ],
+    [
+      "if restore_checkpoint!(ws,checkpoint,guard)",
+      "if restore_checkpoint!(ws,checkpoint,guard;algorithm)"
+    ]
+  ],
+  "pivot_change": [
+    "repaired = repair_basis!(ws,policy,stop_requested)",
+    "repaired = repair_basis!(ws,policy,stop_requested;algorithm)"
+  ]
+}
