@@ -35,7 +35,16 @@
       "simplex_driver.jl": "e65d0c15b1fdf7b92cebf43a730e719f35926e01338570727411c14ed37c5c78"
     },
     "note": "An explanatory source comment was clarified after the first measurement; the final packaged source was independently replayed successfully.",
-    "full_suite": "Incomplete:300-second timeout at test/native_primal_completion_tests.jl:3; process killed after15-second grace (exit137). No full-suite summary."
+    "full_suite": "Incomplete:300-second timeout at test/native_primal_completion_tests.jl:3; process killed after15-second grace (exit137). No full-suite summary.",
+    "intel_user_replay": {
+      "success": true,
+      "driver_verified": true,
+      "julia": "1.13.3",
+      "architecture": "x86_64",
+      "blas_threads": 6,
+      "report": "transpose-reconstruction-intel.toml",
+      "residuals_match_arm": true
+    }
   },
   "work_memory_review": {
     "execution_frequency": "Failed native phase-transfer or cleanup reconstruction, after scalar/homogeneous reconstruction and empty coupled selection; no ordinary-iteration work.",
@@ -50,6 +59,6 @@
     "measurement_scope": "Three warmed recovery samples on the actual sparse capture. Setup/compilation excluded; concurrent validation and small sample count prevent a precise timing comparison. Baseline fails, fixed succeeds; no speedup claim.",
     "conclusion": "Added cold-recovery work is needed for certified reconstruction; no avoidable production scans, persistent buffers or allocations identified."
   },
-  "limitations": "Saved Intel active factors/vectors replayed on ARM Julia1.13.0, including the packaged source. Execution of this fix on Intel and resumed full LP optimization remain unverified. Full suite did not complete within300seconds.",
+  "limitations": "Captured basis reconstruction and actual driver verification pass on ARM and Intel. Resumed full LP optimization after the captured state remains unverified. The previous full-suite attempt did not complete within300seconds; see integration verification for the latest result.",
   "package_sha256": "1acfe2f77b0e86698e93e9fb00063aaae16d59588c67e5e092277eab133a66f9"
 }

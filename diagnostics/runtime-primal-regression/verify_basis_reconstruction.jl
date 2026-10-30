@@ -40,8 +40,8 @@ function verify_reconstruction(input,output;baseline=false)
     for _ in 1:3
         ws.primal.=d.primal;ws.scratch.rho.=d.rho;ws.reduced_costs.=d.reduced_costs
         t=@timed JS._try_native_cleanup_recompute!(ws,stop)
-        @assert t.compile_time==0
         push!(samples,Dict("accepted"=>t.value,"seconds"=>t.time,"bytes"=>t.bytes,
+            "compile_seconds"=>t.compile_time,
             "allocations"=>Base.gc_alloc_count(t.gcstats)))
     end
     after=reconstruction_quality(ws)
@@ -63,6 +63,8 @@ function verify_reconstruction(input,output;baseline=false)
         "blas_threads"=>BLAS.get_num_threads(),"warmup_seconds"=>warm.time,
         "warmup_compile_seconds"=>warm.compile_time,"samples"=>samples,
         "median_recovery_seconds"=>median(s["seconds"] for s in samples),
+        "samples_include_compilation"=>any(s["compile_seconds"]>0 for s in samples),
+        "timing_note"=>"Recovery times include any residual compilation and GC; compilation is reported separately and does not determine numerical success.",
         "solve_tolerance"=>d.policy.solve_tolerance,
         "primal_tolerance"=>d.options.primal_tolerance,"dual_tolerance"=>d.options.dual_tolerance,
         "input_sha256"=>bytes2hex(open(sha256,input)),

@@ -1,0 +1,60 @@
+architecture = "x86_64"
+baseline_mode = false
+basis_costs_bounds_options_policy_iterations_unchanged = true
+blas_threads = 6
+driver_verified = true
+dual_tolerance = 1.0e-7
+input_sha256 = "81fa925eb71f12e9b45989b3bf47c9ef9c162c0830aa174b3f216e249a73a0f2"
+iterations = 123164
+julia = "1.13.3"
+median_recovery_seconds = 0.0588259
+primal_tolerance = 1.0e-7
+samples_include_compilation = true
+scope = "Basis reconstruction and real driver verification; no resumed LP optimization."
+solve_tolerance = 5.684341886080802e-14
+success = true
+timing_note = "Recovery times include any residual compilation and GC; compilation is reported separately and does not determine numerical success."
+warmup_compile_seconds = 1.4582464
+warmup_seconds = 1.5093892
+
+[after]
+primal_relative_error = 2.3296091234759943e-14
+primal_reliable = true
+transpose_relative_error = 5.452788442997382e-15
+transpose_reliable = true
+
+[before]
+primal_relative_error = 1.0000000000000002
+primal_reliable = false
+transpose_relative_error = 0.9957864471261946
+transpose_reliable = false
+
+[driver_quality]
+primal_relative_error = 2.3296091234759943e-14
+primal_reliable = true
+transpose_relative_error = 5.452788442997382e-15
+transpose_reliable = true
+
+[[samples]]
+accepted = true
+allocations = 513
+bytes = 25162502
+compile_seconds = 0.0066763
+seconds = 0.1118048
+[[samples]]
+accepted = true
+allocations = 341
+bytes = 25154902
+compile_seconds = 0.0
+seconds = 0.0479497
+[[samples]]
+accepted = true
+allocations = 341
+bytes = 25154902
+compile_seconds = 0.0
+seconds = 0.0588259
+
+[source_sha256]
+"native_cleanup_recovery.jl" = "6c35d38693ea226adbdb772bb9bd691d5919c36a857872f9d18b86e6b4e776a3"
+"native_phase_transfer.jl" = "8d13515861f5e9e634fa130cd5daac61a50222ede96b27082ca7c13477579d5e"
+"simplex_driver.jl" = "e65d0c15b1fdf7b92cebf43a730e719f35926e01338570727411c14ed37c5c78"
