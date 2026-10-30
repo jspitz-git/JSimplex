@@ -1,0 +1,45 @@
+{
+  "production_source_commit": "a7ce76e2",
+  "integration_commit_before_evidence": "68869c88",
+  "production_sources_identical_to_intel_verified_zip": true,
+  "changed_production_files": [
+    "src/native_phase_transfer.jl",
+    "src/primal_simplex.jl"
+  ],
+  "focused_tests": {
+    "passed": 2136,
+    "failed": 0,
+    "command": "OPENBLAS_NUM_THREADS=1 JULIA_NUM_THREADS=1 julia --project=. --startup-file=no --compiled-modules=existing --compile=min -O0 -g0 (seven regression test files; see production-integration-focused.log)",
+    "note": "Semantic checks, not performance measurements. The optimized focused attempt was interrupted before a summary."
+  },
+  "package_validation": {
+    "exact_committed_sources": true,
+    "captured_basis_reconstruction": true,
+    "real_driver_verification": true,
+    "residuals_and_source_hashes_match_intel_report": true
+  },
+  "full_runner_smoke_test": {
+    "fixture": "test/fixtures/solver/afiro.mps",
+    "status": "OPTIMAL",
+    "iterations": 9,
+    "objective": -464.75314285714273
+  },
+  "numerical_constraints": "No tolerance, arithmetic precision, small coefficient or acceptance-check changes.",
+  "work_memory_review": {
+    "conclusion": "No unnecessary computational work or retained memory found.",
+    "reconstruction": "Only failed recovery: one failed-row coefficient scan and bounded graph retry; existing masks reused, dense block limited to128x64. Necessary extra temporary allocation on actual sparse capture about8.18MB; no ordinary-iteration work or retained buffer.",
+    "ratio": "Per candidate: scalar overflow checks, no additional vector/matrix scan, basis solve, conversion or retained storage. Before/after sparse and dense Float32/64 measurements found no extra per-call allocations; timing ratios0.984\u20131.027 do not establish a speedup.",
+    "evidence": [
+      "transpose-reconstruction.json",
+      "ratio-repair.json",
+      "ratio-bench.toml"
+    ]
+  },
+  "remaining_validation": "Full runtime.mps solve with both fixes together on Intel; captured-state verification does not establish full LP completion.",
+  "full_suite": {
+    "status": "incomplete",
+    "command": "OPENBLAS_NUM_THREADS=1 JULIA_NUM_THREADS=1 julia --project=. --startup-file=no --compiled-modules=existing -O1 -g0 test/runtests.jl",
+    "reason": "Interrupted after approximately10minutes without a final test summary; no full-suite pass claim.",
+    "exit_code": 130
+  }
+}
