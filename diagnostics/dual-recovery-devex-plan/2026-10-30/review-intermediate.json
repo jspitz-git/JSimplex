@@ -1,0 +1,69 @@
+{
+  "accepted": false,
+  "scope": "Independent design/plan source review only; no implementation or Julia admission",
+  "checks": {
+    "source_pins_all_20_match": true,
+    "head_matches_source_decision": true,
+    "master_matches_plan_baseline": true,
+    "rho_owned_and_unchanged_by_weight_loop": true,
+    "factor_F_field_and_same_type_test_seam_concrete": true,
+    "callback_free_preparation_possible_with_existing_primitives": true,
+    "legacy_precision_consumer_strict_wrapper_retained": true,
+    "actual_algorithm_propagation_covers_restore_fallback": true,
+    "outcome_nonfinite_cleanup_provenance_planned": true,
+    "publication_existing_observer_order_can_be_preserved": true,
+    "work_and_memory_measurements_separate_normal_fallback_trajectory": true,
+    "norm_guard_defined_for_unreliable_fallback_branch": true,
+    "failure_branch_norm_work_in_ledger": true,
+    "no_Julia_executed": true,
+    "unrequested_outcome_cause_sentinel_consistent": false
+  },
+  "findings": [
+    {
+      "id": "R2",
+      "priority": 2,
+      "title": "Distinguish unobserved cause from a solve that did not run",
+      "plan_lines": [
+        43,
+        56,
+        57
+      ],
+      "evidence": "Detailed outcomes are requested only in eligible new scope, but strict/unspecified weight calls still execute legacy refinement. The current not_run sentinel is restricted to skipped/nonattempted row, so the fixed-size result lacks a truthful refinement_cause for such an ineligible legacy refusal.",
+      "requested_change": "Use metadata-only not_observed/unobserved meaning terminal-cause collection was not requested, including skipped rows; do not force detailed outcome creation or change strict legacy work to populate metadata."
+    }
+  ],
+  "bindings": {
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/docs/superpowers/specs/2026-10-30-dual-recovery-devex-fallback-design.md": "cd20b48dbcd65a777b1092fba3bd15eedb2f1131fbe28fc80adeb72e3861d335",
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/docs/superpowers/plans/2026-10-30-dual-recovery-devex-fallback.md": "9209b81cc1fe652197eb6c1ff8e699c64cc08ae2ad72efe4b99d1f3a28cdc133",
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/dual-recovery-devex-plan/2026-10-30/source-pins.json": "8b2253f92c0a97453f35ed9e9409dcf8ea0c0459567fff61e0d17498aec305ea",
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/src/simplex_recovery.jl": "d68055947b8cedfd0eb6cb554f656ef80b942bf85a64e3b8ccd2881d9e37761c",
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/src/simplex_pricing.jl": "8c2a3ad270e68366611b4c21b5b64c754e266d962f6f965854b48fbeccd3fe3b",
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/src/simplex.jl": "a56c58b30c2ba659da56bceff691c7fe2919adbcadcd5a22779aca77ec04f3e0",
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/src/simplex_pivot.jl": "0dce0234b41affbdbeccfdef3bb5ce3d6257c1c8c1be26bfb615c1c3cf833d81",
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/src/simplex_precision.jl": "9351fa8a6128b59a59d1d5ba98207afa0b70278692a9e5297b00e0a829798609",
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/src/dual_simplex.jl": "4e07580f6d82e5210fd3259be36cc71e069701c7bbedde3e5d2aa11570fd5c2a",
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/src/simplex_numerics.jl": "7c04f08f577e48ae42bf2f1132201c63fb2630fdbd412665ec09cb2a2407e4dd",
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/src/simplex_diagnostics.jl": "0c27c8675e87fdaa6f97e834453c35121f0bdc080b845ef8c960dba55d8cfa12",
+    "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/src/refactorization_policy.jl": "13761274267091498832c31c1336595a68ba0bc54cda76518267f676fd7c0f17"
+  },
+  "unnecessary_work_memory_assessment": "No unnecessary normal-path scans/solves/retained arrays proposed. Single failed-row self-dot reduction is now explicit and replaces redundant finite-direction scan. Metadata sentinel wording must not force detailed outcome construction on legacy strict paths; default allocation/boxing remains future measurement.",
+  "resolved_findings": [
+    {
+      "id": "R1",
+      "priority": 2,
+      "title": "Make the failed-row norm guard explicit before fallback readiness",
+      "plan_lines": [
+        60,
+        61,
+        101
+      ],
+      "spec_lines": [
+        15,
+        29
+      ],
+      "evidence": "Current src/simplex_recovery.jl:145 rejects unreliable refinement before dot(direction,direction) at146 and its finite/positive check at147. A zero direction with a zero correction can produce finite-unreliable unchanged quality; a finite huge direction can produce a nonfinite squared norm. The Task2 bullet61 classifier permits both unless it adds a norm gate; bullet60 and spec15 require rejection. The fallback work ledger currently names only a finite-direction scan.",
+      "requested_change": "Require exactly one existing-order dot(direction,direction) plus finite/positive check on an otherwise eligible unreliable row before returning fallback_ready=true; preserve reliable-row arithmetic/check order, avoid duplicate norm work, and add this O(m) reduction to spec/plan ledgers. Pin zero and overflow finite-unreliable controls in later tests. An alternate consistent design must explicitly resolve the invalid-norm exclusion instead.",
+      "resolution": "Explicit single self-dot original finite-positive guard added to eligible failed row, redundant finite scan excluded, both ledgers updated."
+    }
+  ]
+}
