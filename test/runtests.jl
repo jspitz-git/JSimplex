@@ -2,6 +2,7 @@ using JSimplex
 using Test
 
 @testset "JSimplex" begin
+    include("native_nonzero_coupled_reconstruction_tests.jl")
     include("primal_ratio_overflow_tests.jl")
     include("postsolve_feasibility_pivot_tests.jl")
     include("native_quality_finite_tests.jl")

@@ -205,10 +205,11 @@ function _complete_native_phase_transfer!(ws::SimplexWorkspace{T},stop) where {T
     return true
 end
 
-# Reconstruct a bounded block of tiny coupled coordinates when scalar row
-# sweeps stall. Only internal equations enter the solve: larger boundary
-# residuals must not overwhelm tiny right-hand sides. The complete system is
-# still certified before any candidate is published.
+# Reconstruct a bounded coupled block when scalar row sweeps stall. Prefer
+# tiny coordinates; if none qualify, correct the residual while retaining the
+# current nonzero point. Only internal equations enter the solve: larger
+# boundary residuals must not overwhelm tiny right-hand sides. The complete
+# system is still certified before any candidate is published.
 function _native_phase_coupled_rows!(x::Vector{T},B,rows,rhs,policy,cutoff,scratch,stop) where {T<:Union{Float32,Float64}}
     policy.max_refinements>0 && isfinite(cutoff) && cutoff>zero(T) || return false
     selected=falses(length(x))
@@ -221,35 +222,51 @@ function _native_phase_coupled_rows!(x::Vector{T},B,rows,rhs,policy,cutoff,scrat
             push!(pending,row);seen[row]=true
         end
     end
-    head=1
-    while head<=length(pending)
-        stop() && return false
-        row=pending[head];head+=1
-        small=true
-        for p in nzrange(rows,row)
+    correction_mode=false
+    selection_radius=cutoff
+    while true
+        head=1
+        while head<=length(pending)
             stop() && return false
-            if !iszero(rows.nzval[p]) && !(abs(x[rows.rowval[p]])<=cutoff)
-                small=false;break
-            end
-        end
-        small || continue
-        for p in nzrange(rows,row)
-            stop() && return false
-            column=rows.rowval[p]
-            (iszero(rows.nzval[p]) || selected[column]) && continue
-            # Fixed work bounds limit dense storage and factorization cost;
-            # they do not weaken any numerical acceptance criterion.
-            length(columns)<64 || return false
-            selected[column]=true;push!(columns,column)
-            for q in nzrange(B,column)
+            row=pending[head];head+=1
+            small=true
+            for p in nzrange(rows,row)
                 stop() && return false
-                neighbor=B.rowval[q]
-                (iszero(B.nzval[q]) || seen[neighbor]) && continue
-                seen[neighbor]=true;push!(pending,neighbor)
+                if !iszero(rows.nzval[p]) && !(abs(x[rows.rowval[p]])<=selection_radius)
+                    small=false;break
+                end
+            end
+            small || continue
+            for p in nzrange(rows,row)
+                stop() && return false
+                column=rows.rowval[p]
+                (iszero(rows.nzval[p]) || selected[column]) && continue
+                # Fixed work bounds limit dense storage and factorization cost;
+                # they do not weaken any numerical acceptance criterion.
+                length(columns)<64 || return false
+                selected[column]=true;push!(columns,column)
+                for q in nzrange(B,column)
+                    stop() && return false
+                    neighbor=B.rowval[q]
+                    (iszero(B.nzval[q]) || seen[neighbor]) && continue
+                    seen[neighbor]=true;push!(pending,neighbor)
+                end
             end
         end
+        !isempty(columns) && break
+        correction_mode && return false
+        # No column was selected, so pending still contains only failed rows.
+        # Their nonzero values may be larger than the permitted *change*. Use
+        # their scale to select a bounded block, then solve for a correction to
+        # retain any undetermined component of x. Acceptance still uses cutoff.
+        for row in pending, p in nzrange(rows,row)
+            stop() && return false
+            iszero(rows.nzval[p]) && continue
+            selection_radius=max(selection_radius,abs(x[rows.rowval[p]]))
+        end
+        isfinite(selection_radius) && selection_radius>cutoff || return false
+        correction_mode=true
     end
-    isempty(columns) && return false
     sort!(columns)
     interior=Int[]
     for row in pending
@@ -273,14 +290,16 @@ function _native_phase_coupled_rows!(x::Vector{T},B,rows,rhs,policy,cutoff,scrat
     scales=vec(maximum(abs,matrix;dims=2))
     all(s->isfinite(s) && s>zero(T),scales) || return false
     matrix ./= scales
-    right=rhs[interior]./scales
+    right=(correction_mode ? scratch.residual[interior] : rhs[interior])./scales
     all(isfinite,matrix) && all(isfinite,right) && !stop() || return false
     factor=qr(matrix,ColumnNorm())
     stop() && return false
     values=factor\right
     all(isfinite,values) || return false
     trial=copy(x)
-    trial[columns]=values
+    for (position,column) in enumerate(columns)
+        trial[column]=correction_mode ? x[column]+values[position] : values[position]
+    end
     for _ in 1:policy.max_refinements
         stop() && return false
         quality=_compensated_solve_quality!(scratch,B,trial,rhs,policy,false)

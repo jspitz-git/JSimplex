@@ -1,0 +1,55 @@
+{
+  "capture_input_sha256": "81fa925eb71f12e9b45989b3bf47c9ef9c162c0830aa174b3f216e249a73a0f2",
+  "capture_iterations": 123164,
+  "production_base_commit": "ca72cdb5",
+  "root_cause": "Empty tiny-coordinate selection excludes nonzero coupled coordinates even when required changes are far smaller than cutoff. A28x29interior block has an undetermined component that must be retained, so solve the residual correction rather than replace its values by the minimum-norm absolute solution.",
+  "change": "After empty original selection, retry a bounded graph using the magnitude of the failed-row coordinates only for selection. Solve a residual correction in the existing scalar type; retain the original change cutoff and whole-system certificate. Reuse selection masks/pending storage.",
+  "tolerances_unchanged": {
+    "solve": 5.684341886080802e-14,
+    "primal": 1e-07,
+    "dual": 1e-07
+  },
+  "arithmetic_precision_unchanged": true,
+  "basis_costs_bounds_options_policy_iterations_unchanged": true,
+  "before": {
+    "primal_relative_error": 1.0000000000000002,
+    "primal_reliable": false,
+    "transpose_relative_error": 0.9957864471261946,
+    "transpose_reliable": false
+  },
+  "after": {
+    "primal_relative_error": 2.3296091234759943e-14,
+    "primal_reliable": true,
+    "transpose_relative_error": 5.452788442997382e-15,
+    "transpose_reliable": true
+  },
+  "driver_verified": true,
+  "verification": {
+    "focused_assertions": 2294,
+    "red_assertions_failed": 6,
+    "independent_review": "No actionable correctness or unnecessary-work finding; Float32 boundary fixture corrected because its initial proposal legitimately met the unchanged relative tolerance.",
+    "bundle_replay_success": true,
+    "bundle_source_sha256": {
+      "native_cleanup_recovery.jl": "6c35d38693ea226adbdb772bb9bd691d5919c36a857872f9d18b86e6b4e776a3",
+      "native_phase_transfer.jl": "8d13515861f5e9e634fa130cd5daac61a50222ede96b27082ca7c13477579d5e",
+      "simplex_driver.jl": "e65d0c15b1fdf7b92cebf43a730e719f35926e01338570727411c14ed37c5c78"
+    },
+    "note": "An explanatory source comment was clarified after the first measurement; the final packaged source was independently replayed successfully.",
+    "full_suite": "Incomplete:300-second timeout at test/native_primal_completion_tests.jl:3; process killed after15-second grace (exit137). No full-suite summary."
+  },
+  "work_memory_review": {
+    "execution_frequency": "Failed native phase-transfer or cleanup reconstruction, after scalar/homogeneous reconstruction and empty coupled selection; no ordinary-iteration work.",
+    "added_work": "One failed-row coefficient scan and a bounded graph retry; existing masks and pending storage reused. Dense block remains at most128x64. Existing full-system residual scans and private trial copies certify newly reachable recovery.",
+    "retained_memory": "No new retained storage.",
+    "baseline_recovery_allocations": 137,
+    "fixed_recovery_allocations": 342,
+    "baseline_recovery_bytes": 16973184,
+    "fixed_recovery_bytes": 25153296,
+    "baseline_median_seconds": 0.0304504,
+    "fixed_median_seconds": 0.0342098,
+    "measurement_scope": "Three warmed recovery samples on the actual sparse capture. Setup/compilation excluded; concurrent validation and small sample count prevent a precise timing comparison. Baseline fails, fixed succeeds; no speedup claim.",
+    "conclusion": "Added cold-recovery work is needed for certified reconstruction; no avoidable production scans, persistent buffers or allocations identified."
+  },
+  "limitations": "Saved Intel active factors/vectors replayed on ARM Julia1.13.0, including the packaged source. Execution of this fix on Intel and resumed full LP optimization remain unverified. Full suite did not complete within300seconds.",
+  "package_sha256": "1acfe2f77b0e86698e93e9fb00063aaae16d59588c67e5e092277eab133a66f9"
+}

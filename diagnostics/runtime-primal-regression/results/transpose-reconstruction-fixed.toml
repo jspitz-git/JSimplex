@@ -1,0 +1,55 @@
+architecture = "aarch64"
+baseline_mode = false
+basis_costs_bounds_options_policy_iterations_unchanged = true
+blas_threads = 1
+driver_verified = true
+dual_tolerance = 1.0e-7
+input_sha256 = "81fa925eb71f12e9b45989b3bf47c9ef9c162c0830aa174b3f216e249a73a0f2"
+iterations = 123164
+julia = "1.13.0"
+median_recovery_seconds = 0.0342098
+primal_tolerance = 1.0e-7
+scope = "Basis reconstruction and real driver verification; no resumed LP optimization."
+solve_tolerance = 5.684341886080802e-14
+success = true
+warmup_compile_seconds = 0.62751799
+warmup_seconds = 0.669986889
+
+[after]
+primal_relative_error = 2.3296091234759943e-14
+primal_reliable = true
+transpose_relative_error = 5.452788442997382e-15
+transpose_reliable = true
+
+[before]
+primal_relative_error = 1.0000000000000002
+primal_reliable = false
+transpose_relative_error = 0.9957864471261946
+transpose_reliable = false
+
+[driver_quality]
+primal_relative_error = 2.3296091234759943e-14
+primal_reliable = true
+transpose_relative_error = 5.452788442997382e-15
+transpose_reliable = true
+
+[[samples]]
+accepted = true
+allocations = 344
+bytes = 25153328
+seconds = 0.119228798
+[[samples]]
+accepted = true
+allocations = 342
+bytes = 25153296
+seconds = 0.0342098
+[[samples]]
+accepted = true
+allocations = 342
+bytes = 25153296
+seconds = 0.032519899
+
+[source_sha256]
+"native_cleanup_recovery.jl" = "6c35d38693ea226adbdb772bb9bd691d5919c36a857872f9d18b86e6b4e776a3"
+"native_phase_transfer.jl" = "a73f9de4a7cc83f5e75183a7b55cf54cf65cc52ebfd8f8d8aa7f33540231e4a5"
+"simplex_driver.jl" = "e65d0c15b1fdf7b92cebf43a730e719f35926e01338570727411c14ed37c5c78"

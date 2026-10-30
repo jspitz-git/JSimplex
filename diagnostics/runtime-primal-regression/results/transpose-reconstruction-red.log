@@ -1,0 +1,87 @@
+ERROR: LoadError: Some tests did not pass: 6 passed, 6 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/JSimplex.jl/test/native_nonzero_coupled_reconstruction_tests.jl:20
+
+Coupled residual reconstruction retains nonzero null-space values: Test Failed at /home/jspitz/JSimplex.jl/test/native_nonzero_coupled_reconstruction_tests.jl:26
+  Expression: JSimplex._native_phase_local_rows!(x, B, rhs, policy, cutoff, (()->begin
+            #= /home/jspitz/JSimplex.jl/test/native_nonzero_coupled_reconstruction_tests.jl:26 =#
+            false
+        end))
+   Evaluated: JSimplex._native_phase_local_rows!(Float32[1.0f-8, 1.0f-8, 1.0f-8, 1.0f-8, 1.0f-8, 1.0f-8, 1.0f-8, 1.0f-8, 1.0f-8, 1.0f-8, 1.0f-8, 1.0f-8, 1.0f-8, 1.0f-8, 1.0f-8, 1.0f-8, 1.0f-8, 1.0f-8, 1.0f-8, 9.99f-9], sparse([1, 1, 2, 2, 3, 3, 4, 4, 5, 5  …  15, 15, 16, 16, 17, 17, 18, 18, 19, 19], [1, 2, 2, 3, 3, 4, 4, 5, 5, 6  …  15, 16, 16, 17, 17, 18, 18, 19, 19, 20], Float32[1.0, -1.0, 1.0, -1.0, 1.0, -1.0, 1.0, -1.0, 1.0, -1.0  …  1.0, -1.0, 1.0, -1.0, 1.0, -1.0, 1.0, -1.0, 1.0, -1.0], 19, 20), Float32[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], JSimplex.NumericalPolicy{Float32}(3.0517578f-5, 0.00034526698f0, 3, 8, 2, 64, 512, 1073741824, 8, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false), 2.0000002f-11, var"#3#4"())
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/native_nonzero_coupled_reconstruction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/native_nonzero_coupled_reconstruction_tests.jl:26 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Coupled residual reconstruction retains nonzero null-space values: Test Failed at /home/jspitz/JSimplex.jl/test/native_nonzero_coupled_reconstruction_tests.jl:27
+  Expression: (JSimplex.solve_quality!(JSimplex.SolveQualityScratch(T, length(rhs)), B, x, rhs, policy)).reliable
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/native_nonzero_coupled_reconstruction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/native_nonzero_coupled_reconstruction_tests.jl:27 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Coupled residual reconstruction retains nonzero null-space values: Test Failed at /home/jspitz/JSimplex.jl/test/native_nonzero_coupled_reconstruction_tests.jl:30
+  Expression: maximum(x) - minimum(x) <= T(2) * policy.solve_tolerance * maximum(abs, x)
+   Evaluated: 1.0000001f-11 <= 6.1035156f-13
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/native_nonzero_coupled_reconstruction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/native_nonzero_coupled_reconstruction_tests.jl:30 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Coupled residual reconstruction retains nonzero null-space values: Test Failed at /home/jspitz/JSimplex.jl/test/native_nonzero_coupled_reconstruction_tests.jl:26
+  Expression: JSimplex._native_phase_local_rows!(x, B, rhs, policy, cutoff, (()->begin
+            #= /home/jspitz/JSimplex.jl/test/native_nonzero_coupled_reconstruction_tests.jl:26 =#
+            false
+        end))
+   Evaluated: JSimplex._native_phase_local_rows!([1.0e-16, 1.0e-16, 1.0e-16, 1.0e-16, 1.0e-16, 1.0e-16, 1.0e-16, 1.0e-16, 1.0e-16, 1.0e-16, 1.0e-16, 1.0e-16, 1.0e-16, 1.0e-16, 1.0e-16, 1.0e-16, 1.0e-16, 1.0e-16, 1.0e-16, 9.9999999e-17], sparse([1, 1, 2, 2, 3, 3, 4, 4, 5, 5  …  15, 15, 16, 16, 17, 17, 18, 18, 19, 19], [1, 2, 2, 3, 3, 4, 4, 5, 5, 6  …  15, 16, 16, 17, 17, 18, 18, 19, 19, 20], [1.0, -1.0, 1.0, -1.0, 1.0, -1.0, 1.0, -1.0, 1.0, -1.0  …  1.0, -1.0, 1.0, -1.0, 1.0, -1.0, 1.0, -1.0, 1.0, -1.0], 19, 20), [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], JSimplex.NumericalPolicy{Float64}(5.684341886080802e-14, 1.4901161193847656e-8, 3, 8, 2, 64, 512, 1073741824, 8, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false), 2.0e-24, var"#3#4"())
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/native_nonzero_coupled_reconstruction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/native_nonzero_coupled_reconstruction_tests.jl:26 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Coupled residual reconstruction retains nonzero null-space values: Test Failed at /home/jspitz/JSimplex.jl/test/native_nonzero_coupled_reconstruction_tests.jl:27
+  Expression: (JSimplex.solve_quality!(JSimplex.SolveQualityScratch(T, length(rhs)), B, x, rhs, policy)).reliable
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/native_nonzero_coupled_reconstruction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/native_nonzero_coupled_reconstruction_tests.jl:27 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Coupled residual reconstruction retains nonzero null-space values: Test Failed at /home/jspitz/JSimplex.jl/test/native_nonzero_coupled_reconstruction_tests.jl:30
+  Expression: maximum(x) - minimum(x) <= T(2) * policy.solve_tolerance * maximum(abs, x)
+   Evaluated: 9.99999994889578e-25 <= 1.1368683772161603e-29
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/native_nonzero_coupled_reconstruction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/native_nonzero_coupled_reconstruction_tests.jl:30 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+Test Summary:                                                     | Pass  Fail  Total  Time
+Coupled residual reconstruction retains nonzero null-space values |    6     6     12  0.1s
+RNG of the outermost testset: Random.Xoshiro(0xa23ae6d3efd1d270, 0x5fa176e47ff6440d, 0x630b72562112701b, 0xbe2e2ee5deb95a81, 0xe39bcf792c2248a5)
