@@ -1,0 +1,1775 @@
+{
+  "accepted": true,
+  "cases": [
+    {
+      "type": "Float32",
+      "layout": "sparse",
+      "unreliable": false,
+      "gates": {
+        "bytes_nonincrease": true,
+        "events_nonincrease": true,
+        "retained_graph_nonincrease": true
+      },
+      "reference": {
+        "seconds": {
+          "median": 1.5e-06,
+          "minimum": 1.4e-06,
+          "maximum": 1.19e-05,
+          "MAD": 1.000000000000001e-07,
+          "values": [
+            8e-06,
+            1.19e-05,
+            2e-06,
+            1.5e-06,
+            1.4e-06,
+            1.4e-06,
+            1.4e-06
+          ]
+        },
+        "bytes": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "MAD": 0,
+          "values": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "events": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "MAD": 0,
+          "values": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "gc_seconds": {
+          "median": 0.0,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "MAD": 0.0,
+          "values": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "candidate": {
+        "seconds": {
+          "median": 1.7e-06,
+          "minimum": 1.4e-06,
+          "maximum": 1.34e-05,
+          "MAD": 2e-07,
+          "values": [
+            1.17e-05,
+            1.34e-05,
+            1.9e-06,
+            1.7e-06,
+            1.5e-06,
+            1.5e-06,
+            1.4e-06
+          ]
+        },
+        "bytes": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "MAD": 0,
+          "values": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "events": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "MAD": 0,
+          "values": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "gc_seconds": {
+          "median": 0.0,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "MAD": 0.0,
+          "values": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "median_time_ratio": 1.1333333333333333,
+      "reference_retained_julia_bytes": 64596,
+      "candidate_retained_julia_bytes": 64596,
+      "reference_preparation": {
+        "bytes": 77376,
+        "compile_seconds": 0.0,
+        "events": 194,
+        "gc_seconds": 0.0,
+        "recompile_seconds": 0.0,
+        "seconds": 0.0001058
+      },
+      "candidate_preparation": {
+        "bytes": 77376,
+        "compile_seconds": 0.0,
+        "events": 194,
+        "gc_seconds": 0.0,
+        "recompile_seconds": 0.0,
+        "seconds": 0.0001109
+      },
+      "reference_post_warm_gc": {
+        "bytes": 0,
+        "compile_seconds": 0.0,
+        "events": 0,
+        "gc_seconds": 0.100485342,
+        "recompile_seconds": 0.0,
+        "seconds": 0.100535642
+      },
+      "candidate_post_warm_gc": {
+        "bytes": 0,
+        "compile_seconds": 0.0,
+        "events": 0,
+        "gc_seconds": 0.105952901,
+        "recompile_seconds": 0.0,
+        "seconds": 0.106005601
+      },
+      "reference_warm": [
+        {
+          "bytes": 0,
+          "compile_seconds": 0.0,
+          "events": 0,
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 4.8e-06
+        },
+        {
+          "bytes": 0,
+          "compile_seconds": 0.0,
+          "events": 0,
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.7e-06
+        },
+        {
+          "bytes": 0,
+          "compile_seconds": 0.0,
+          "events": 0,
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.4e-06
+        }
+      ],
+      "candidate_warm": [
+        {
+          "bytes": 0,
+          "compile_seconds": 0.0,
+          "events": 0,
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5.4e-06
+        },
+        {
+          "bytes": 0,
+          "compile_seconds": 0.0,
+          "events": 0,
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.7e-06
+        },
+        {
+          "bytes": 0,
+          "compile_seconds": 0.0,
+          "events": 0,
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.4e-06
+        }
+      ]
+    },
+    {
+      "type": "Float32",
+      "layout": "sparse",
+      "unreliable": true,
+      "gates": {
+        "bytes_nonincrease": true,
+        "events_nonincrease": true,
+        "retained_graph_nonincrease": true
+      },
+      "reference": {
+        "seconds": {
+          "median": 2.6e-06,
+          "minimum": 2.4e-06,
+          "maximum": 2.72e-05,
+          "MAD": 2.000000000000002e-07,
+          "values": [
+            2.72e-05,
+            4.5e-06,
+            3.1e-06,
+            2.5e-06,
+            2.6e-06,
+            2.4e-06,
+            2.6e-06
+          ]
+        },
+        "bytes": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "MAD": 0,
+          "values": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "events": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "MAD": 0,
+          "values": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "gc_seconds": {
+          "median": 0.0,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "MAD": 0.0,
+          "values": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "candidate": {
+        "seconds": {
+          "median": 2.6e-06,
+          "minimum": 2.5e-06,
+          "maximum": 2.62e-05,
+          "MAD": 9.999999999999989e-08,
+          "values": [
+            2.62e-05,
+            3.9e-06,
+            3.1e-06,
+            2.6e-06,
+            2.6e-06,
+            2.5e-06,
+            2.5e-06
+          ]
+        },
+        "bytes": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "MAD": 0,
+          "values": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "events": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "MAD": 0,
+          "values": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "gc_seconds": {
+          "median": 0.0,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "MAD": 0.0,
+          "values": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "median_time_ratio": 1.0,
+      "reference_retained_julia_bytes": 64596,
+      "candidate_retained_julia_bytes": 64596,
+      "reference_preparation": {
+        "bytes": 77376,
+        "compile_seconds": 0.0,
+        "events": 194,
+        "gc_seconds": 0.0,
+        "recompile_seconds": 0.0,
+        "seconds": 6.52e-05
+      },
+      "candidate_preparation": {
+        "bytes": 77376,
+        "compile_seconds": 0.0,
+        "events": 194,
+        "gc_seconds": 0.0,
+        "recompile_seconds": 0.0,
+        "seconds": 6.77e-05
+      },
+      "reference_post_warm_gc": {
+        "bytes": 0,
+        "compile_seconds": 0.0,
+        "events": 0,
+        "gc_seconds": 0.101718643,
+        "recompile_seconds": 0.0,
+        "seconds": 0.101757743
+      },
+      "candidate_post_warm_gc": {
+        "bytes": 0,
+        "compile_seconds": 0.0,
+        "events": 0,
+        "gc_seconds": 0.104205901,
+        "recompile_seconds": 0.0,
+        "seconds": 0.104239701
+      },
+      "reference_warm": [
+        {
+          "bytes": 0,
+          "compile_seconds": 0.0,
+          "events": 0,
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2.14e-05
+        },
+        {
+          "bytes": 0,
+          "compile_seconds": 0.0,
+          "events": 0,
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 3.3e-06
+        },
+        {
+          "bytes": 0,
+          "compile_seconds": 0.0,
+          "events": 0,
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2.6e-06
+        }
+      ],
+      "candidate_warm": [
+        {
+          "bytes": 0,
+          "compile_seconds": 0.0,
+          "events": 0,
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2.27e-05
+        },
+        {
+          "bytes": 0,
+          "compile_seconds": 0.0,
+          "events": 0,
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 4.2e-06
+        },
+        {
+          "bytes": 0,
+          "compile_seconds": 0.0,
+          "events": 0,
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 3.2e-06
+        }
+      ]
+    },
+    {
+      "type": "Float32",
+      "layout": "dense",
+      "unreliable": false,
+      "gates": {
+        "bytes_nonincrease": true,
+        "events_nonincrease": true,
+        "retained_graph_nonincrease": true
+      },
+      "reference": {
+        "seconds": {
+          "median": 1.44e-05,
+          "minimum": 1.44e-05,
+          "maximum": 2.7e-05,
+          "MAD": 0.0,
+          "values": [
+            2.7e-05,
+            1.49e-05,
+            1.46e-05,
+            1.44e-05,
+            1.44e-05,
+            1.44e-05,
+            1.44e-05
+          ]
+        },
+        "bytes": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "MAD": 0,
+          "values": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "events": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "MAD": 0,
+          "values": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "gc_seconds": {
+          "median": 0.0,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "MAD": 0.0,
+          "values": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "candidate": {
+        "seconds": {
+          "median": 1.44e-05,
+          "minimum": 1.43e-05,
+          "maximum": 2.64e-05,
+          "MAD": 9.999999999999904e-08,
+          "values": [
+            2.64e-05,
+            1.48e-05,
+            1.44e-05,
+            1.44e-05,
+            1.44e-05,
+            1.43e-05,
+            1.43e-05
+          ]
+        },
+        "bytes": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "MAD": 0,
+          "values": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "events": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "MAD": 0,
+          "values": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "gc_seconds": {
+          "median": 0.0,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "MAD": 0.0,
+          "values": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "median_time_ratio": 1.0,
+      "reference_retained_julia_bytes": 158884,
+      "candidate_retained_julia_bytes": 158884,
+      "reference_preparation": {
+        "bytes": 264512,
+        "compile_seconds": 0.0,
+        "events": 202,
+        "gc_seconds": 0.0,
+        "recompile_seconds": 0.0,
+        "seconds": 6.19e-05
+      },
+      "candidate_preparation": {
+        "bytes": 264512,
+        "compile_seconds": 0.0,
+        "events": 202,
+        "gc_seconds": 0.0,
+        "recompile_seconds": 0.0,
+        "seconds": 7.52e-05
+      },
+      "reference_post_warm_gc": {
+        "bytes": 0,
+        "compile_seconds": 0.0,
+        "events": 0,
+        "gc_seconds": 0.09498424,
+        "recompile_seconds": 0.0,
+        "seconds": 0.09502934
+      },
+      "candidate_post_warm_gc": {
+        "bytes": 0,
+        "compile_seconds": 0.0,
+        "events": 0,
+        "gc_seconds": 0.0980126,
+        "recompile_seconds": 0.0,
+        "seconds": 0.0980476
+      },
+      "reference_warm": [
+        {
+          "bytes": 576,
+          "compile_seconds": 0.0,
+          "events": 2,
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.8e-05
+        },
+        {
+          "bytes": 0,
+          "compile_seconds": 0.0,
+          "events": 0,
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.5e-05
+        },
+        {
+          "bytes": 0,
+          "compile_seconds": 0.0,
+          "events": 0,
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.47e-05
+        }
+      ],
+      "candidate_warm": [
+        {
+          "bytes": 576,
+          "compile_seconds": 0.0,
+          "events": 2,
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.75e-05
+        },
+        {
+          "bytes": 0,
+          "compile_seconds": 0.0,
+          "events": 0,
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.49e-05
+        },
+        {
+          "bytes": 0,
+          "compile_seconds": 0.0,
+          "events": 0,
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.48e-05
+        }
+      ]
+    },
+    {
+      "type": "Float32",
+      "layout": "dense",
+      "unreliable": true,
+      "gates": {
+        "bytes_nonincrease": true,
+        "events_nonincrease": true,
+        "retained_graph_nonincrease": true
+      },
+      "reference": {
+        "seconds": {
+          "median": 1.58e-05,
+          "minimum": 1.49e-05,
+          "maximum": 4.44e-05,
+          "MAD": 3.9999999999999956e-07,
+          "values": [
+            4.44e-05,
+            1.97e-05,
+            1.61e-05,
+            1.58e-05,
+            1.56e-05,
+            1.54e-05,
+            1.49e-05
+          ]
+        },
+        "bytes": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "MAD": 0,
+          "values": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "events": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "MAD": 0,
+          "values": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "gc_seconds": {
+          "median": 0.0,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "MAD": 0.0,
+          "values": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "candidate": {
+        "seconds": {
+          "median": 1.6e-05,
+          "minimum": 1.58e-05,
+          "maximum": 4.14e-05,
+          "MAD": 1.9999999999999809e-07,
+          "values": [
+            4.14e-05,
+            1.75e-05,
+            1.64e-05,
+            1.6e-05,
+            1.59e-05,
+            1.58e-05,
+            1.59e-05
+          ]
+        },
+        "bytes": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "MAD": 0,
+          "values": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "events": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "MAD": 0,
+          "values": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "gc_seconds": {
+          "median": 0.0,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "MAD": 0.0,
+          "values": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "median_time_ratio": 1.0126582278481011,
+      "reference_retained_julia_bytes": 158884,
+      "candidate_retained_julia_bytes": 158884,
+      "reference_preparation": {
+        "bytes": 264512,
+        "compile_seconds": 0.0,
+        "events": 202,
+        "gc_seconds": 0.0,
+        "recompile_seconds": 0.0,
+        "seconds": 6.57e-05
+      },
+      "candidate_preparation": {
+        "bytes": 264512,
+        "compile_seconds": 0.0,
+        "events": 202,
+        "gc_seconds": 0.0,
+        "recompile_seconds": 0.0,
+        "seconds": 6.34e-05
+      },
+      "reference_post_warm_gc": {
+        "bytes": 0,
+        "compile_seconds": 0.0,
+        "events": 0,
+        "gc_seconds": 0.09465474,
+        "recompile_seconds": 0.0,
+        "seconds": 0.09477524
+      },
+      "candidate_post_warm_gc": {
+        "bytes": 0,
+        "compile_seconds": 0.0,
+        "events": 0,
+        "gc_seconds": 0.0960348,
+        "recompile_seconds": 0.0,
+        "seconds": 0.0960703
+      },
+      "reference_warm": [
+        {
+          "bytes": 576,
+          "compile_seconds": 0.0,
+          "events": 2,
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2.16e-05
+        },
+        {
+          "bytes": 0,
+          "compile_seconds": 0.0,
+          "events": 0,
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.66e-05
+        },
+        {
+          "bytes": 0,
+          "compile_seconds": 0.0,
+          "events": 0,
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.59e-05
+        }
+      ],
+      "candidate_warm": [
+        {
+          "bytes": 576,
+          "compile_seconds": 0.0,
+          "events": 2,
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2.16e-05
+        },
+        {
+          "bytes": 0,
+          "compile_seconds": 0.0,
+          "events": 0,
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.66e-05
+        },
+        {
+          "bytes": 0,
+          "compile_seconds": 0.0,
+          "events": 0,
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.56e-05
+        }
+      ]
+    },
+    {
+      "type": "Float64",
+      "layout": "sparse",
+      "unreliable": false,
+      "gates": {
+        "bytes_nonincrease": true,
+        "events_nonincrease": true,
+        "retained_graph_nonincrease": true
+      },
+      "reference": {
+        "seconds": {
+          "median": 1.6e-06,
+          "minimum": 1.5e-06,
+          "maximum": 2.26e-05,
+          "MAD": 9.999999999999989e-08,
+          "values": [
+            2.26e-05,
+            2.7e-06,
+            1.6e-06,
+            2.4e-06,
+            1.5e-06,
+            1.5e-06,
+            1.5e-06
+          ]
+        },
+        "bytes": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "MAD": 0,
+          "values": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "events": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "MAD": 0,
+          "values": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "gc_seconds": {
+          "median": 0.0,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "MAD": 0.0,
+          "values": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "candidate": {
+        "seconds": {
+          "median": 1.5e-06,
+          "minimum": 1.3e-06,
+          "maximum": 1.12e-05,
+          "MAD": 2e-07,
+          "values": [
+            1.12e-05,
+            1.8e-06,
+            1.7e-06,
+            1.5e-06,
+            1.5e-06,
+            1.3e-06,
+            1.3e-06
+          ]
+        },
+        "bytes": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "MAD": 0,
+          "values": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "events": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "MAD": 0,
+          "values": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "gc_seconds": {
+          "median": 0.0,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "MAD": 0.0,
+          "values": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "median_time_ratio": 0.9375000000000001,
+      "reference_retained_julia_bytes": 84296,
+      "candidate_retained_julia_bytes": 84296,
+      "reference_preparation": {
+        "bytes": 180264,
+        "compile_seconds": 0.0,
+        "events": 274,
+        "gc_seconds": 0.0,
+        "recompile_seconds": 0.0,
+        "seconds": 0.0003001
+      },
+      "candidate_preparation": {
+        "bytes": 180248,
+        "compile_seconds": 0.0,
+        "events": 274,
+        "gc_seconds": 0.0,
+        "recompile_seconds": 0.0,
+        "seconds": 0.0003152
+      },
+      "reference_post_warm_gc": {
+        "bytes": 7552,
+        "compile_seconds": 0.007032303,
+        "events": 170,
+        "gc_seconds": 0.103866043,
+        "recompile_seconds": 0.0,
+        "seconds": 0.110957846
+      },
+      "candidate_post_warm_gc": {
+        "bytes": 7552,
+        "compile_seconds": 0.0063137,
+        "events": 170,
+        "gc_seconds": 0.105469901,
+        "recompile_seconds": 0.0,
+        "seconds": 0.111847901
+      },
+      "reference_warm": [
+        {
+          "bytes": 0,
+          "compile_seconds": 0.0,
+          "events": 0,
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5.5e-06
+        },
+        {
+          "bytes": 0,
+          "compile_seconds": 0.0,
+          "events": 0,
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.8e-06
+        },
+        {
+          "bytes": 0,
+          "compile_seconds": 0.0,
+          "events": 0,
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.6e-06
+        }
+      ],
+      "candidate_warm": [
+        {
+          "bytes": 0,
+          "compile_seconds": 0.0,
+          "events": 0,
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5.6e-06
+        },
+        {
+          "bytes": 0,
+          "compile_seconds": 0.0,
+          "events": 0,
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.8e-06
+        },
+        {
+          "bytes": 0,
+          "compile_seconds": 0.0,
+          "events": 0,
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.6e-06
+        }
+      ]
+    },
+    {
+      "type": "Float64",
+      "layout": "sparse",
+      "unreliable": true,
+      "gates": {
+        "bytes_nonincrease": true,
+        "events_nonincrease": true,
+        "retained_graph_nonincrease": true
+      },
+      "reference": {
+        "seconds": {
+          "median": 2.4e-06,
+          "minimum": 2.1e-06,
+          "maximum": 2.08e-05,
+          "MAD": 3.000000000000001e-07,
+          "values": [
+            2.08e-05,
+            3.5e-06,
+            2.4e-06,
+            2.2e-06,
+            2.1e-06,
+            3.1e-06,
+            2.1e-06
+          ]
+        },
+        "bytes": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "MAD": 0,
+          "values": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "events": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "MAD": 0,
+          "values": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "gc_seconds": {
+          "median": 0.0,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "MAD": 0.0,
+          "values": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "candidate": {
+        "seconds": {
+          "median": 2.3e-06,
+          "minimum": 2.1e-06,
+          "maximum": 1.99e-05,
+          "MAD": 2.000000000000002e-07,
+          "values": [
+            1.99e-05,
+            3.8e-06,
+            2.6e-06,
+            2.3e-06,
+            2.2e-06,
+            2.1e-06,
+            2.1e-06
+          ]
+        },
+        "bytes": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "MAD": 0,
+          "values": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "events": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "MAD": 0,
+          "values": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "gc_seconds": {
+          "median": 0.0,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "MAD": 0.0,
+          "values": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "median_time_ratio": 0.9583333333333334,
+      "reference_retained_julia_bytes": 84296,
+      "candidate_retained_julia_bytes": 84296,
+      "reference_preparation": {
+        "bytes": 180168,
+        "compile_seconds": 0.0,
+        "events": 272,
+        "gc_seconds": 0.0,
+        "recompile_seconds": 0.0,
+        "seconds": 8.89e-05
+      },
+      "candidate_preparation": {
+        "bytes": 180168,
+        "compile_seconds": 0.0,
+        "events": 272,
+        "gc_seconds": 0.0,
+        "recompile_seconds": 0.0,
+        "seconds": 9.05e-05
+      },
+      "reference_post_warm_gc": {
+        "bytes": 64,
+        "compile_seconds": 0.0,
+        "events": 4,
+        "gc_seconds": 0.099592942,
+        "recompile_seconds": 0.0,
+        "seconds": 0.099645742
+      },
+      "candidate_post_warm_gc": {
+        "bytes": 64,
+        "compile_seconds": 0.0,
+        "events": 4,
+        "gc_seconds": 0.1001292,
+        "recompile_seconds": 0.0,
+        "seconds": 0.1001797
+      },
+      "reference_warm": [
+        {
+          "bytes": 0,
+          "compile_seconds": 0.0,
+          "events": 0,
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.39e-05
+        },
+        {
+          "bytes": 0,
+          "compile_seconds": 0.0,
+          "events": 0,
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 3.1e-06
+        },
+        {
+          "bytes": 0,
+          "compile_seconds": 0.0,
+          "events": 0,
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2.7e-06
+        }
+      ],
+      "candidate_warm": [
+        {
+          "bytes": 0,
+          "compile_seconds": 0.0,
+          "events": 0,
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.39e-05
+        },
+        {
+          "bytes": 0,
+          "compile_seconds": 0.0,
+          "events": 0,
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 3.4e-06
+        },
+        {
+          "bytes": 0,
+          "compile_seconds": 0.0,
+          "events": 0,
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2.6e-06
+        }
+      ]
+    },
+    {
+      "type": "Float64",
+      "layout": "dense",
+      "unreliable": false,
+      "gates": {
+        "bytes_nonincrease": true,
+        "events_nonincrease": true,
+        "retained_graph_nonincrease": true
+      },
+      "reference": {
+        "seconds": {
+          "median": 1.44e-05,
+          "minimum": 1.43e-05,
+          "maximum": 2.31e-05,
+          "MAD": 9.999999999999904e-08,
+          "values": [
+            2.31e-05,
+            1.53e-05,
+            1.46e-05,
+            1.44e-05,
+            1.43e-05,
+            1.44e-05,
+            1.43e-05
+          ]
+        },
+        "bytes": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "MAD": 0,
+          "values": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "events": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "MAD": 0,
+          "values": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "gc_seconds": {
+          "median": 0.0,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "MAD": 0.0,
+          "values": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "candidate": {
+        "seconds": {
+          "median": 1.45e-05,
+          "minimum": 1.42e-05,
+          "maximum": 2.41e-05,
+          "MAD": 1.9999999999999978e-07,
+          "values": [
+            2.41e-05,
+            1.49e-05,
+            1.46e-05,
+            1.45e-05,
+            1.43e-05,
+            1.44e-05,
+            1.42e-05
+          ]
+        },
+        "bytes": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "MAD": 0,
+          "values": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "events": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "MAD": 0,
+          "values": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "gc_seconds": {
+          "median": 0.0,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "MAD": 0.0,
+          "values": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "median_time_ratio": 1.0069444444444444,
+      "reference_retained_julia_bytes": 272840,
+      "candidate_retained_julia_bytes": 272840,
+      "reference_preparation": {
+        "bytes": 856528,
+        "compile_seconds": 0.0,
+        "events": 283,
+        "gc_seconds": 0.0,
+        "recompile_seconds": 0.0,
+        "seconds": 0.0002257
+      },
+      "candidate_preparation": {
+        "bytes": 856528,
+        "compile_seconds": 0.0,
+        "events": 283,
+        "gc_seconds": 0.0,
+        "recompile_seconds": 0.0,
+        "seconds": 0.0002382
+      },
+      "reference_post_warm_gc": {
+        "bytes": 64,
+        "compile_seconds": 0.0,
+        "events": 4,
+        "gc_seconds": 0.096555041,
+        "recompile_seconds": 0.0,
+        "seconds": 0.096604041
+      },
+      "candidate_post_warm_gc": {
+        "bytes": 64,
+        "compile_seconds": 0.0,
+        "events": 4,
+        "gc_seconds": 0.099586101,
+        "recompile_seconds": 0.0,
+        "seconds": 0.099637701
+      },
+      "reference_warm": [
+        {
+          "bytes": 1088,
+          "compile_seconds": 0.0,
+          "events": 2,
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.76e-05
+        },
+        {
+          "bytes": 0,
+          "compile_seconds": 0.0,
+          "events": 0,
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.44e-05
+        },
+        {
+          "bytes": 0,
+          "compile_seconds": 0.0,
+          "events": 0,
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.44e-05
+        }
+      ],
+      "candidate_warm": [
+        {
+          "bytes": 1088,
+          "compile_seconds": 0.0,
+          "events": 2,
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.83e-05
+        },
+        {
+          "bytes": 0,
+          "compile_seconds": 0.0,
+          "events": 0,
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.48e-05
+        },
+        {
+          "bytes": 0,
+          "compile_seconds": 0.0,
+          "events": 0,
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.42e-05
+        }
+      ]
+    },
+    {
+      "type": "Float64",
+      "layout": "dense",
+      "unreliable": true,
+      "gates": {
+        "bytes_nonincrease": true,
+        "events_nonincrease": true,
+        "retained_graph_nonincrease": true
+      },
+      "reference": {
+        "seconds": {
+          "median": 1.72e-05,
+          "minimum": 1.66e-05,
+          "maximum": 3.64e-05,
+          "MAD": 6.00000000000001e-07,
+          "values": [
+            3.64e-05,
+            1.89e-05,
+            1.72e-05,
+            1.69e-05,
+            1.66e-05,
+            1.77e-05,
+            1.66e-05
+          ]
+        },
+        "bytes": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "MAD": 0,
+          "values": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "events": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "MAD": 0,
+          "values": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "gc_seconds": {
+          "median": 0.0,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "MAD": 0.0,
+          "values": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "candidate": {
+        "seconds": {
+          "median": 1.74e-05,
+          "minimum": 1.72e-05,
+          "maximum": 3.91e-05,
+          "MAD": 1.9999999999999809e-07,
+          "values": [
+            3.91e-05,
+            2.04e-05,
+            1.84e-05,
+            1.73e-05,
+            1.72e-05,
+            1.74e-05,
+            1.73e-05
+          ]
+        },
+        "bytes": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "MAD": 0,
+          "values": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "events": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "MAD": 0,
+          "values": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "gc_seconds": {
+          "median": 0.0,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "MAD": 0.0,
+          "values": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "median_time_ratio": 1.011627906976744,
+      "reference_retained_julia_bytes": 272840,
+      "candidate_retained_julia_bytes": 272840,
+      "reference_preparation": {
+        "bytes": 856528,
+        "compile_seconds": 0.0,
+        "events": 283,
+        "gc_seconds": 0.0,
+        "recompile_seconds": 0.0,
+        "seconds": 0.0001979
+      },
+      "candidate_preparation": {
+        "bytes": 856528,
+        "compile_seconds": 0.0,
+        "events": 283,
+        "gc_seconds": 0.0,
+        "recompile_seconds": 0.0,
+        "seconds": 0.000197
+      },
+      "reference_post_warm_gc": {
+        "bytes": 64,
+        "compile_seconds": 0.0,
+        "events": 4,
+        "gc_seconds": 0.09584544,
+        "recompile_seconds": 0.0,
+        "seconds": 0.09589484
+      },
+      "candidate_post_warm_gc": {
+        "bytes": 64,
+        "compile_seconds": 0.0,
+        "events": 4,
+        "gc_seconds": 0.0973938,
+        "recompile_seconds": 0.0,
+        "seconds": 0.0974471
+      },
+      "reference_warm": [
+        {
+          "bytes": 1088,
+          "compile_seconds": 0.0,
+          "events": 2,
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2.19e-05
+        },
+        {
+          "bytes": 0,
+          "compile_seconds": 0.0,
+          "events": 0,
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.78e-05
+        },
+        {
+          "bytes": 0,
+          "compile_seconds": 0.0,
+          "events": 0,
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.7e-05
+        }
+      ],
+      "candidate_warm": [
+        {
+          "bytes": 1088,
+          "compile_seconds": 0.0,
+          "events": 2,
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2.22e-05
+        },
+        {
+          "bytes": 0,
+          "compile_seconds": 0.0,
+          "events": 0,
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.9e-05
+        },
+        {
+          "bytes": 0,
+          "compile_seconds": 0.0,
+          "events": 0,
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.7e-05
+        }
+      ]
+    }
+  ],
+  "scope": "strict paired output/work and medianbytes/events/graph gates; no percent waiver",
+  "limitation": "Separate processes, not temporal interleaving; no universal/end-to-end speedup or native-memory claim"
+}

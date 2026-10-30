@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/tmp/devex-candidate-cost-numerical-admission-source-check.py", line 11, in <module>
+    rkernel=r[r.index('function _refine_basis_solve!'):r.index('# A clock-only guard')].strip();fkernel=ref[ref.index('function _refine_basis_solve!'):].strip().removesuffix('end').strip();check('legacy_kernel_exact_qualification_only',rkernel==fkernel)
+                                                                                                                                                                                             ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/devex-candidate-cost-numerical-admission-source-check.py", line 8, in check
+    if not v:raise AssertionError(k)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: legacy_kernel_exact_qualification_only

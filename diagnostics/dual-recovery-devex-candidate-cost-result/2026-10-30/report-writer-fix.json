@@ -1,0 +1,22 @@
+{
+  "accepted": true,
+  "checks": {
+    "initial_source_rejected_syntax": true,
+    "single_closing_parenthesis_only": true,
+    "corrected_source_AST_accepted": true
+  },
+  "initial_execution_exit": 1,
+  "initial_error": {
+    "type": "SyntaxError",
+    "line": 11,
+    "message": "'(' was never closed",
+    "source_line": " rows.append(f\"|{c['type']}|{c['layout']}|{kind}|{rs['seconds']['median']*1e6:.6g}|{cs['seconds']['median']*1e6:.6g}|{c['median_time_ratio']:.6f}|{cs['seconds']['minimum']*1e6:.6g}\u2013{cs['seconds']['maximum']*1e6:.6g}|{cs['seconds']['MAD']*1e6:.6g}|{cs['bytes']['median']:g}/{cs['events']['median']:g}|{c['reference_retained_julia_bytes']}/{c['candidate_retained_julia_bytes']}|{all(g.values())}|\"",
+    "scope": "new AST check of preserved source; initial execution failure captured in tool output"
+  },
+  "change": "one closing parenthesis on row append; no data, math, auditor or numerical process change",
+  "bindings": {
+    "/tmp/devex-candidate-cost-run-20261030/write-report.py": "0ba48f975ff0dc53639aac6253a670d63535f822cc0613d8051a1777063cfece",
+    "/tmp/devex-candidate-cost-run-20261030/write-report-2.py": "c64641d557723f9ccd678bc6613eacf6a4ea8609a4fa9851c4e8b8630be3afb6",
+    "/tmp/devex-candidate-cost-run-20261030/prepare-report-fix.py": "e7cbe1e0238883f5332972b506d144753b7bc5bd91bedb1628b71ca87ef1c93c"
+  }
+}
