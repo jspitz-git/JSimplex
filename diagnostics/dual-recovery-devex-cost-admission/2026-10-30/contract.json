@@ -1,0 +1,110 @@
+{
+  "scope": "OFFLINE concrete reference/candidate cost preparation only; no Julia/seal/admission",
+  "phases": [
+    "reference-cost",
+    "candidate-cost"
+  ],
+  "maximum_new_processes": 2,
+  "sequential": true,
+  "per_phase_attempts": 1,
+  "driver": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/dual-recovery-devex-task4/2026-10-30/cost.jl",
+  "driver_sha256": "d9e6c0db78bfea1486a1926724e121b09fbb0777ae951c51ec8fb53977b62a1f",
+  "reference": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/dual-recovery-devex-task4/2026-10-30/tests/reference.jl",
+  "reference_sha256": "f72f632a7c86e7d65d43c5f175d54a094dd2d7a2d31d00c51f52de76c7bb63ea",
+  "commands": {
+    "reference-cost": [
+      "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/julia",
+      "--startup-file=no",
+      "--history-file=no",
+      "--color=no",
+      "--compiled-modules=existing",
+      "--pkgimages=existing",
+      "--threads=1",
+      "--gcthreads=1,0",
+      "--heap-size-hint=2G",
+      "--check-bounds=yes",
+      "--project=/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/dual-recovery-devex-task4/2026-10-30/overlays/reference",
+      "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/dual-recovery-devex-task4/2026-10-30/cost.jl",
+      "reference"
+    ],
+    "candidate-cost": [
+      "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/julia",
+      "--startup-file=no",
+      "--history-file=no",
+      "--color=no",
+      "--compiled-modules=existing",
+      "--pkgimages=existing",
+      "--threads=1",
+      "--gcthreads=1,0",
+      "--heap-size-hint=2G",
+      "--check-bounds=yes",
+      "--project=/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/dual-recovery-devex-task4/2026-10-30/overlays/candidate",
+      "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/diagnostics/dual-recovery-devex-task4/2026-10-30/cost.jl",
+      "candidate"
+    ]
+  },
+  "environments": {
+    "reference-cost": {
+      "JULIA_DEPOT_PATH": "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/.superpowers/memory-probe/depot:/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/.superpowers/precompiled-full/depot:/home/jspitz/JSimplex.jl/.worktrees/ft-numerical-recovery/.superpowers/ft-recovery/depot:/home/jspitz/JSimplex.jl/.worktrees/simplex-legacy-stability/.superpowers/stability/depot:/home/jspitz/JSimplex.jl/.worktrees/simplex-performance/.superpowers/performance/depot:/home/jspitz/JSimplex.jl/.worktrees/simplex-modernization/.superpowers/sdd/2026-09-22-simplex-modernization/julia-depot:/home/jspitz/.julia",
+      "JULIA_LOAD_PATH": "@:@stdlib",
+      "JULIA_PKG_OFFLINE": "true",
+      "JULIA_PKG_PRECOMPILE_AUTO": "0",
+      "JULIA_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "JULIA_IMAGE_THREADS": "1",
+      "JULIA_NUM_PRECOMPILE_TASKS": "1",
+      "TASK4_OUTPUT": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/.superpowers/dual-recovery-devex-task4/cost-1/reference-cost/result.toml"
+    },
+    "candidate-cost": {
+      "JULIA_DEPOT_PATH": "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/.superpowers/memory-probe/depot:/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/.superpowers/precompiled-full/depot:/home/jspitz/JSimplex.jl/.worktrees/ft-numerical-recovery/.superpowers/ft-recovery/depot:/home/jspitz/JSimplex.jl/.worktrees/simplex-legacy-stability/.superpowers/stability/depot:/home/jspitz/JSimplex.jl/.worktrees/simplex-performance/.superpowers/performance/depot:/home/jspitz/JSimplex.jl/.worktrees/simplex-modernization/.superpowers/sdd/2026-09-22-simplex-modernization/julia-depot:/home/jspitz/.julia",
+      "JULIA_LOAD_PATH": "@:@stdlib",
+      "JULIA_PKG_OFFLINE": "true",
+      "JULIA_PKG_PRECOMPILE_AUTO": "0",
+      "JULIA_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "JULIA_IMAGE_THREADS": "1",
+      "JULIA_NUM_PRECOMPILE_TASKS": "1",
+      "TASK4_OUTPUT": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/.superpowers/dual-recovery-devex-task4/cost-1/candidate-cost/result.toml"
+    }
+  },
+  "output_root": "/home/jspitz/.codex/worktrees/native-quality-scans/JSimplex.jl/.superpowers/dual-recovery-devex-task4/cost-1",
+  "cost": {
+    "cases_per_side": 8,
+    "dimension": 64,
+    "types": [
+      "Float32",
+      "Float64"
+    ],
+    "layouts": [
+      "sparse",
+      "dense"
+    ],
+    "qualities": [
+      "reliable",
+      "finite-unreliable"
+    ],
+    "warm_calls_per_case": 3,
+    "measured_calls_per_case": 7,
+    "api_calls_per_side": 80,
+    "correction_btrans_per_side": 40,
+    "stop_entries_per_side": 40,
+    "explicit_post_warm_GCs_per_side": 8,
+    "assertions_per_side": 272,
+    "timed_scope": "entire original or candidate quality-only refine_basis_solve! including original guards/assembly/recording; fixture reset/preparation/output/GC outside windows and recorded separately",
+    "allocation_gate": "candidate median bytes/events per identical case <= reference; reject extra scan/solve/retained array/systematic sink boxing; no percent waiver",
+    "time_gate": "report medians/ranges and separate-process uncertainty, no universal speedup gate"
+  },
+  "shared_total_seconds": 1800,
+  "base_used_seconds": 1033.6005972509156,
+  "initial_remaining_seconds": 766.3994027490844,
+  "candidate_budget": "1800 - base_used - actual accepted reference inclusive seconds; no fixed half allocation or reset",
+  "reference_closed_required": true,
+  "inner_cleanup_reserve_seconds": 12,
+  "outer_cleanup_reserve_seconds": 4,
+  "runtime_unexecuted": true,
+  "numerical_admission_created": false
+}
