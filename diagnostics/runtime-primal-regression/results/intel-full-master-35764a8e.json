@@ -1,0 +1,53 @@
+{
+  "tested_production_commit": "35764a8ea1a6f626cfb763b3baa03ef80fc463a4",
+  "provenance": "User supplied full runtime.mps run from the runtime-master-35764a8e ZIP; the log identifies its source directory, not a cryptographically verified Git revision.",
+  "log": "intel-full-master-35764a8e.log",
+  "log_sha256": "ef08ed5271d2fab70d0c0029fb012f943b1277eeb354829e065017681bd9aea3",
+  "environment": {
+    "julia": "1.13.3",
+    "architecture": "x86_64",
+    "blas_threads": 6
+  },
+  "problem": {
+    "name": "runtime.mps",
+    "rows": 43021,
+    "columns": 47148,
+    "nonzeros": 277210
+  },
+  "configuration": {
+    "source": "diagnostics/runtime-primal-regression/run_runtime.jl at the tested commit; options are not echoed in the log",
+    "algorithm": "primal",
+    "basis_update": "huangfu_hall",
+    "basis_refactorization": "native",
+    "pricing": "steepest_edge",
+    "refactorization_interval": 240,
+    "iteration_limit": 1000000,
+    "time_limit_seconds": 36000.0,
+    "relax_integrality": true
+  },
+  "status": "OPTIMAL",
+  "objective": 51425691.76210453,
+  "iterations": 113162,
+  "elapsed_seconds": 1011.6722222,
+  "cleanup": {
+    "start_iteration": 112002,
+    "final_iteration": 113162,
+    "additional_iterations": 1160,
+    "elapsed_seconds": 13.3831963,
+    "projected_basis_exchanges": 325,
+    "started_from_feasible_basis": true,
+    "logged_progress_samples": 4,
+    "all_logged_progress_primal_infeasibilities_zero": true,
+    "numerical_restart_observed": false,
+    "numerical_error_observed": false,
+    "pre_cleanup_infeasibility_note": "pinf=1e-5 (1) is an intermediate state before the feasible-basis cleanup announcement, not a cleanup failure."
+  },
+  "evidence_lines": {
+    "cleanup_start": 493,
+    "feasible_basis_announcement": 497,
+    "terminal_result": 502
+  },
+  "scope": "Successful full solve with both integrated fixes on Intel. This run does not establish that the previously failing ratio or coupled reconstruction branches were exercised; their direct coverage comes from the separate replay and regression tests.",
+  "performance_note": "Single end-to-end run; not a before/after performance comparison.",
+  "remaining_limitations": "Complete project test suite remains incomplete. Full optimization resumed specifically from the iteration123164 saved state has not been verified."
+}

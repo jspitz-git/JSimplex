@@ -17,7 +17,17 @@
     "review": "Independent read-only review: no actionable correctness finding; overflow/unbounded distinction, Harris pass, BigFloat and entering width reviewed.",
     "generic_semantic_assertions": 24709,
     "all_focused_assertions": 26227,
-    "full_project_suite": "900-second timeout during LLVM compilation at test/legacy_primal_point_recovery_tests.jl:48; no suite summary. The attempt began with production-master source before the ratio edit."
+    "full_project_suite": "900-second timeout during LLVM compilation at test/legacy_primal_point_recovery_tests.jl:48; no suite summary. The attempt began with production-master source before the ratio edit.",
+    "intel_full_solve": {
+      "report": "intel-full-master-35764a8e.json",
+      "log": "intel-full-master-35764a8e.log",
+      "tested_production_commit": "35764a8ea1a6f626cfb763b3baa03ef80fc463a4",
+      "status": "OPTIMAL",
+      "objective": 51425691.76210453,
+      "iterations": 113162,
+      "cleanup_from_feasible_basis": true,
+      "numerical_restart_observed": false
+    }
   },
   "work_and_memory_review": {
     "frequency": "Each primal ratio candidate",
@@ -32,5 +42,5 @@
     "allocation_result": "Same1/2events and16/32bytes per measured batch before/after, not per call; no new per-call allocation observed.",
     "conclusion": "No unnecessary material computation or retained memory found. Small timing differences under concurrent validation do not establish a speedup."
   },
-  "limitations": "Full project suite incomplete (timeout during compilation). Ratio fix verified by original ARM handoff and26227focused semantic checks, not a complete ARM solve from MPS. Intel full solve verifies the separate postsolve starting-basis fix."
+  "limitations": "Full project suite remains incomplete. Ratio fix has direct coverage from the original ARM handoff and26227focused semantic checks, not a complete ARM solve from MPS. The full Intel solve with both integrated fixes passes but does not prove positive ratio overflow was exercised."
 }

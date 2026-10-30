@@ -35,11 +35,21 @@
       "ratio-bench.toml"
     ]
   },
-  "remaining_validation": "Full runtime.mps solve with both fixes together on Intel; captured-state verification does not establish full LP completion.",
+  "remaining_validation": "Complete project test suite remains incomplete. The full runtime.mps solve with both fixes together on Intel is verified; see intel-full-master-35764a8e.json. Continuation specifically from the saved iteration123164 state remains unverified.",
   "full_suite": {
     "status": "incomplete",
     "command": "OPENBLAS_NUM_THREADS=1 JULIA_NUM_THREADS=1 julia --project=. --startup-file=no --compiled-modules=existing -O1 -g0 test/runtests.jl",
     "reason": "Interrupted after approximately10minutes without a final test summary; no full-suite pass claim.",
     "exit_code": 130
+  },
+  "intel_full_solve": {
+    "report": "intel-full-master-35764a8e.json",
+    "log": "intel-full-master-35764a8e.log",
+    "tested_production_commit": "35764a8ea1a6f626cfb763b3baa03ef80fc463a4",
+    "status": "OPTIMAL",
+    "objective": 51425691.76210453,
+    "iterations": 113162,
+    "cleanup_from_feasible_basis": true,
+    "numerical_restart_observed": false
   }
 }
