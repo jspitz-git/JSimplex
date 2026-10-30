@@ -1,0 +1,100 @@
+{
+  "scope": "OFFLINE PREPARATION ONLY; no Julia/launch or numerical admission",
+  "baseline": "99deb2506e4437a56dbb6606f1cad2a3ec5da99f",
+  "master": "c0fa748ffa61ccb7c1caaf248c40324f60bc737b",
+  "phases": [
+    "red",
+    "green",
+    "reference-cost",
+    "candidate-cost"
+  ],
+  "total_seconds": 1800,
+  "maximum_processes": 4,
+  "sequential": true,
+  "per_phase_attempts": 1,
+  "red": {
+    "assertions": 8,
+    "expected_pass": 7,
+    "expected_fail": 1,
+    "expected_errors": 0,
+    "expected_broken": 0,
+    "fixtures": 2,
+    "unit_btrans": 4,
+    "correction_btrans": 2
+  },
+  "green_includes": [
+    "tests/refinement_outcome_tests.jl",
+    "tests/reference_comparison_tests.jl",
+    "tests/recovery_weight_tests.jl",
+    "tests/recovery_devex_fallback_tests.jl",
+    "tests/simplex_numerics_tests.jl",
+    "tests/basis_recovery_tests.jl",
+    "tests/dual_weight_validation_tests.jl",
+    "tests/adaptive_pricing_tests.jl",
+    "tests/adaptive_pricing_lifecycle_tests.jl",
+    "tests/partial_pricing_tests.jl",
+    "tests/partial_pricing_edge_tests.jl",
+    "endpoint.jl"
+  ],
+  "green": {
+    "regression_files": 7,
+    "new_modules": 4,
+    "endpoint_types": [
+      "Float32",
+      "Float64"
+    ],
+    "endpoint_assertions": 46,
+    "endpoint_initial_factors": 2,
+    "endpoint_recovery_factors": 2,
+    "endpoint_pivots": 2,
+    "endpoint_public_dual_iterations": 4,
+    "component_probes": 2,
+    "independent_primal_certificates": 2,
+    "independent_optimality_certificates": 2,
+    "invalid_witness_checks": 2,
+    "invalid_row_checks": 2,
+    "invalid_basis_checks": 2,
+    "aggregate_assertion_oracle": "all ordinary checks in exact frozen include programs; Test summary must have Pass=Total and zero Fail/Error/Broken, every include completion marker required; no invented aggregate count"
+  },
+  "cost": {
+    "cases_per_side": 8,
+    "dimension": 64,
+    "types": [
+      "Float32",
+      "Float64"
+    ],
+    "layouts": [
+      "sparse",
+      "dense"
+    ],
+    "qualities": [
+      "reliable",
+      "finite-unreliable"
+    ],
+    "warm_calls_per_case": 3,
+    "measured_calls_per_case": 7,
+    "api_calls_per_side": 80,
+    "correction_btrans_per_side": 40,
+    "stop_entries_per_side": 40,
+    "explicit_post_warm_GCs_per_side": 8,
+    "assertions_per_side": 272,
+    "timed_scope": "entire original or candidate quality-only refine_basis_solve! including original guards/assembly/recording; fixture reset/preparation/output/GC outside windows and recorded separately",
+    "allocation_gate": "candidate median bytes/events per identical case <= reference; reject extra scan/solve/retained array/systematic sink boxing; no percent waiver",
+    "time_gate": "report medians/ranges and separate-process uncertainty, no universal speedup gate"
+  },
+  "fresh_numerical_admission": {
+    "required_fields": [
+      "accepted=true",
+      "scope=numerical_admission",
+      "phase",
+      "head",
+      "seal_sha256",
+      "pins_sha256",
+      "exact command",
+      "review_report",
+      "review_report_sha256"
+    ],
+    "not_created": true
+  },
+  "runtime_unexecuted": true
+}
