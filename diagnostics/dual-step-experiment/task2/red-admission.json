@@ -1,0 +1,34 @@
+{
+  "accepted": true,
+  "pins_sha256": "52627333ffd86fc8006ebd5e2937dde76226f1cfb0c88c4dfcd0b4ff988b5c77",
+  "checks": {
+    "pin_inventory": "120 unique explicit files equal inventory, no trees; all SHA256 and resolved paths matched; 71 master source files included",
+    "source_unchanged": "All five Task1 E source files match accepted Task1 final pins; production src/test/Project/.github diff from master empty; experiment src byte-identical to loaded master; HEAD42d88ae5b486043a8480e75bac8b4224a87b5723",
+    "ordinary_red": "Pinned entry imports JSimplex once, asserts exact package path and Julia/BLAS threads, includes unchanged Task1 E, then performs six ordinary @test isdefined checks for StepOutcome,basis_solve!,capture_output!,price_row!,check_row!,check_direction!; all six absent in current E",
+    "inactive_tests": "Arguments exactly red select only the six-query branch; fixture, state, invariant and future kernel test includes are exclusively in the unexecuted green branch; future tests pinned but not numerically admitted",
+    "command": "Exact red-contract command matches runtime Julia prefix, master project, task2_runtests.jl red; expected child exit1 and ordinary0passed6failed0errored0broken pattern; loader/configuration errors cannot satisfy this acceptance",
+    "runner": "AST valid; run.py differs from previously reviewed Task1 runner only in six-failure expectation and Task2 completion marker; no old numerical launcher runs; imported old host modules contain definitions with guarded mains",
+    "guards": "All three guard scripts byte-identical to reviewed Task1 guards; exclusive numerical lock and output, actual boot/start_ticks/command identity, parent-death gate, owned cleanup, one Julia/BLAS thread, heap2GiB hint, hardVM8GiB, availableRAM>=6GiB, swap<=1GiB",
+    "host": "New runtime binds exact experiment HEAD and branch; host base has788 groups/session identifiers, each freshly compared against both PGID and SID with noJulia preflight/terminal checks; run identities added before terminal closure; master refs/status protections retained",
+    "deadline": "Shared1800-second accepted-run limit covers preflight, numerical execution, terminal host and final hashing; initial admission hash precedes reservation; arbitrary blocked filesystem/host IO remains outside a hard-preemption guarantee",
+    "outputs": "Exclusive red-run does not yet exist; x-mode logs and exclusive atomic publication preserve outcomes; no source/env/dependency/CI mutation by the run",
+    "review_activity": "Read-only source/AST/hashing/Git only; noJulia, old numerical script, test, benchmark or repository mutation executed"
+  },
+  "findings": [],
+  "bindings": {
+    "root": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl",
+    "runner": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task2/run.py",
+    "stage": "red",
+    "contract_sha256": "0401961f0028f7b74f3dfc4f6c47016b859aa8b4558d9fa504a5a531466aa6cc",
+    "allowed_command": [
+      "python3",
+      "-B",
+      "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task2/run.py",
+      "red"
+    ],
+    "expected_exit": 1,
+    "expected_failures": 6,
+    "expected_errors": 0,
+    "scope": "Task2 missing-interface RED only; not GREEN or kernel implementation acceptance"
+  }
+}

@@ -1,0 +1,27 @@
+# Independent Task2 GREEN review
+
+Current full source admission is **not accepted**, pending R1. The bounded ordinary test command is resource-safe by source inspection. R2 is additionally required before declaring Task2 numerically qualified. No Julia, Julia parser, numerical script, or old runner was executed; no repository file was modified.
+
+Binding: GREEN manifest SHA256 `d24df76034e1dbede9a1b01d0c2b03d5bf783b2db6a5363d36ec33a2f859f99d`; all140 entries rehashed and matched. HEAD `42d88ae5b486043a8480e75bac8b4224a87b5723`. Project/master production sources are byte-identical to the experimental checkout, and all loaded project sources are pinned. Task1 test sources are unchanged relative to their preserved qualified copies. The RED result records6 failures,0 errors,exit1 before kernel implementation. Current runner/guard bytes match RED.
+
+## Findings
+
+**R1 — Unknown-writer recovery contract needs a precise boundary.** `WORK-MEMORY.md:9` says unknown direct array/metadata mutation requires invalidate/rebuild. However, `invariants.jl:73–76` rebuilds committed numeric/basis membership only; it does not reconstruct scratch support or RowAccess. A raw nonzero write into an untracked tableau slot can survive `invalidate!; rebuild_invariants!`, a fresh BTRAN, and sparse `price_row!`: `clear_scratch!` clears only old recorded IDs, and the pricing operation can publish fresh evidence while that stray value remains. Either explicitly require reimport/reconstruction after unknown scratch/model/index mutation (numeric-only rebuild is not sufficient), or introduce and test a bounded cold repair boundary. This does not require an ordinary-iteration scan.
+
+**R2 — Qualification cases are incomplete.** The residual cancellation/scale comparison at `kernel_tests.jl:38–67` calls the cold component entry, which deliberately touches all RHS rows; it therefore does not validate the ordinary sparse RHS marked union. Tests also omit nonordered CSC, pricing/residual overflow plus reuse after failed cleanup, owner/factor-ID/ticket substitution, and the corresponding sparse ordinary canceled-row scale witness. Source review supports the intended private/coherent-input kernels, but these planned cases should be added before claiming complete Task2 qualification. Existing tests do exercise NaN capture cleanup, RHS mismatch, output generation invalidation, both pricing routes, exceptions before/after counters, and stops.
+
+## Numerical and ownership review
+
+The row check calls the original `_dual_row_residual_ratio` once without a replacement bound. The direction kernel uses ascending nonzero basis coordinates, stored CSC coefficient order, complete absolute term scales, unchanged zero/pivot/256eps tolerance, and a marked union retained through canceled residuals. Zero direction omission is justified by finite immutable matrix coefficients from RowAccess setup, under the private ownership contract. Native solves remain Float64/PFI/Devex; BigFloat is a cold residual oracle only. No tolerance relaxation, coefficient pruning, precision escalation, public solve, or new backend was introduced.
+
+Receipt validation checks owner, generation, actual output array, slot ticket, factor object ID, invariant/factor validity, and selected scratch/matrix binding. Captured output checks every finite value and records exact nonzero support in ascending order. RHS values/support IDs are copied once, with a private exact-owner fast comparison path. Factor exceptions invalidate all evidence and the factor; invariant reconstruction cannot make the invalid factor reusable. Each attempted BTRAN/FTRAN/BFRT is counted before forwarding. Foreign exceptions propagate.
+
+## Computational work and memory
+
+No unnecessary new hot full scan or growing retained memory was found for coherent private inputs. Each solve deliberately adds one O(m) finite RHS copy/support capture and one O(m) output capture; external-RHS direction validation adds a charged O(m) comparison. The original O(nnz(B)+m) row check remains. Pricing visits O(q) adjacency terms on the sparse route or O(nnz(A)+m+n) on CSC fallback, with prefix clear/compact costs. Direction validation visits nonzero direction columns and the RHS/product row union; counters cover residual terms/rows. Failure-only dense capture cleanup and UInt32 wrap scans are explicit. Factor solve cost and update-chain dependence remain those of production PFI; no sparse factor saving is claimed.
+
+The three fixed saved RHS value/ID pairs add48m bytes on64bit plus fixed headers. Receipts retain scalar factor identity rather than old factor graphs or caller RHS arrays. Task1 preallocated state remains; its previously disclosed inverse-map setup redundancy is unchanged. Real allocations/native retention and speed require later admitted measurements; no timing or speed claim is accepted here.
+
+## Execution guard review
+
+The exact command uses the existing project, compiled modules/pkgimages, one Julia/BLAS thread, and offline environment. The common1800s bound, heap2GiB hint, hard VM8GiB, available RAM6GiB and swap1GiB checks remain. Exclusive run/output publication, lock, no-Julia check, parent-death startup gate, pinned command/process identity, deadline/cleanup supervision and postexit pins remain. Historical788 base groups are supplemented by RED/current groups and both process-group and session checks. Fresh host checks must still run immediately before execution; this review is not a snapshot of future host state.
