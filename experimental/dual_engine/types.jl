@@ -64,11 +64,60 @@ mutable struct InvariantState
     valid::Bool
     reason::Symbol
 end
-mutable struct StepProposal
+mutable struct ProposalCounts
+    leaving_entries::Int
+    ratio_entries::Int
+    candidate_checks::Int
+    candidate_entries::Int
+    plan_fields::Int
+    plan_union_entries::Int
+    flip_rhs_terms::Int
+    devex_terms::Int
+    metadata_resets::Int
+end
+ProposalCounts()=ProposalCounts(ntuple(_->0,9)...)
+Base.@kwdef mutable struct StepProposal
     values::NTuple{4,Vector{Float64}}
-    valid::Bool
-    generation::UInt64
-    used::Int
+    ids::Vector{Int}
+    stamps::Vector{UInt32}
+    masks::Vector{UInt8}
+    states::Vector{J.VariableState}
+    candidates::Vector{Int}
+    optional::Vector{Int}
+    flips::Vector{Int}
+    steps::Vector{Float64}
+    gains::Vector{Float64}
+    flip_stamps::Vector{UInt32}
+    rhs::StampedScratch
+    rejected_rows::SparseSet
+    owner::Base.RefValue{Nothing}
+    valid::Bool=false
+    generation::UInt64=UInt64(0)
+    rejected_generation::UInt64=UInt64(0)
+    epoch::UInt32=UInt32(1)
+    used::Int=0
+    candidate_used::Int=0
+    optional_used::Int=0
+    flip_used::Int=0
+    leaving_row::Int=0
+    leaving::Int=0
+    entering::Int=0
+    below::Bool=false
+    orientation::Float64=0.
+    bound::Float64=0.
+    violation::Float64=0.
+    theta::Float64=0.
+    dual_step::Float64=0.
+    primal_step::Float64=0.
+    pivot::Float64=0.
+    stage::UInt8=0x00
+    row_ticket::UInt64=UInt64(0)
+    direction_ticket::UInt64=UInt64(0)
+    bfrt_ticket::UInt64=UInt64(0)
+    factor_id::UInt=UInt(0)
+    planned_perturbed::Bool=false
+    selection::Symbol=:none
+    counts::ProposalCounts=ProposalCounts()
 end
 mutable struct UndoJournal
     values::NTuple{4,Vector{Float64}}

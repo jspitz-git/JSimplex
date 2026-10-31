@@ -42,10 +42,10 @@ function import_phase(source,clock,policy::EnginePolicy)
     J._configure_refactorization!(ws)
     supports=(_zero_scratch(scratch.rho),_zero_scratch(scratch.row_solution),_zero_scratch(scratch.tableau_row),_zero_scratch(scratch.tau),_zero_scratch(zeros(m)))
     invariants=InvariantState(SparseSet(m),SparseSet(N),inverse,false,:initializing)
-    proposal=StepProposal(ntuple(_->Vector{Float64}(undef,N),4),false,UInt64(0),0)
+    owner=Ref{Nothing}(nothing)
+    proposal=_new_step_proposal(owner,ws)
     journal=UndoJournal(ntuple(_->Vector{Float64}(undef,N),4),Vector{Int}(undef,N),zeros(UInt32,N),zeros(UInt8,N),Vector{J.VariableState}(undef,N),0,UInt32(1),0,0,J.AT_LOWER,J.AT_LOWER,0,0,false)
     counts=EngineCounters();counts.phase_factor_builds=1;counts.row_index_builds=1;counts.entry_validated_values=4N
-    owner=Ref{Nothing}(nothing)
     kernels=KernelState(owner,m,supports,factor)
     e=EngineState(owner,ws,clock,policy,counts,UInt64(1),invariants,supports,zeros(m),J.RowAccess(ws.problem.A),proposal,journal,kernels)
     # Copied numeric values were validated before any copy; no duplicate finite scan.

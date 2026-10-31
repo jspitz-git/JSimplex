@@ -1,0 +1,57 @@
+ERROR: LoadError: Some tests did not pass: 3 passed, 4 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/task3_lifetime_red.jl:7
+
+Task3 completed proposal cannot revive after invalidation: Test Failed at /home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/task3_lifetime_red.jl:11
+  Expression: (E.validate_proposal!(e)).reason == E.InvalidState
+   Evaluated: Main.ExperimentalDualEngine.Ready == Main.ExperimentalDualEngine.InvalidState
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/task3_lifetime_red.jl:8
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/task3_lifetime_red.jl:11 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Task3 completed proposal cannot revive after invalidation: Test Failed at /home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/task3_lifetime_red.jl:12
+  Expression: (E.plan_writes!(e)).reason == E.InvalidState
+   Evaluated: Main.ExperimentalDualEngine.Ready == Main.ExperimentalDualEngine.InvalidState
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/task3_lifetime_red.jl:8
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/task3_lifetime_red.jl:12 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Task3 completed proposal cannot revive after invalidation: Test Failed at /home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/task3_lifetime_red.jl:16
+  Expression: (E.validate_proposal!(e)).reason == E.InvalidState
+   Evaluated: Main.ExperimentalDualEngine.Ready == Main.ExperimentalDualEngine.InvalidState
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/task3_lifetime_red.jl:8
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/task3_lifetime_red.jl:16 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Task3 completed proposal cannot revive after invalidation: Test Failed at /home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/task3_lifetime_red.jl:17
+  Expression: (E.plan_writes!(e)).reason == E.InvalidState
+   Evaluated: Main.ExperimentalDualEngine.Ready == Main.ExperimentalDualEngine.InvalidState
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/task3_lifetime_red.jl:8
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/task3_lifetime_red.jl:17 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+Test Summary:                                             | Pass  Fail  Total  Time
+Task3 completed proposal cannot revive after invalidation |    3     4      7  4.0s
+RNG of the outermost testset: Random.Xoshiro(0xe88f7ba8302c4017, 0x7ef448a5dc11219b, 0xdb893b7af506421d, 0xa39dbefb9f9be3bb, 0x286ab7e1eac22996)

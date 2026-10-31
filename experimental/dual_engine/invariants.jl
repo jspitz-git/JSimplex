@@ -22,7 +22,7 @@ end
     state==J.AT_LOWER ? p < -tol : state==J.AT_UPPER ? p>tol : abs(p)>tol
 end
 function _advance_generation!(e)
-    e.proposal.valid=false
+    e.proposal.valid=false;e.proposal.rejected_generation=UInt64(0)
     for q in e.supports;q.evidence_generation=UInt64(0);end
     if e.generation==typemax(UInt64)
         e.generation=UInt64(1);e.counters.generation_wraps+=1

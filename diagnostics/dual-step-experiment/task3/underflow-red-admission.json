@@ -1,0 +1,66 @@
+{
+  "accepted": true,
+  "pins_sha256": "460010f4b6300329db2761bbad1fbc77e7e7b7ead92ba54627a39fbe3a767b51",
+  "checks": {
+    "scope": "Focused missing raw flip-product underflow rejection only; not GREEN or numerical algorithm approval.",
+    "pins": {
+      "files": 223,
+      "inventory": 223,
+      "trees": [],
+      "all_hashes_resolved_paths_and_membership_match": true
+    },
+    "original193_snapshot": {
+      "all_original_hashes_match_preserved_or_unchanged_files": true,
+      "sha256": "aa874b71a20b076692d35f0658f533cdcc9aa1e343d1e249e3134da4a3e10bef",
+      "rejected_review_preserved": true,
+      "all_candidate_source_unchanged_since_rejection": true
+    },
+    "test": {
+      "ordinary_Test": true,
+      "assertions": 1,
+      "expected_passed": 0,
+      "expected_failures": 1,
+      "expected_errors": 0,
+      "expected_broken": 0,
+      "expected_exit": 1,
+      "fixture_rows": 1,
+      "fixture_structural_columns": 3,
+      "raw_product": "-2^-1075 rounds to signed zero",
+      "nonzero_tableau_gain": "2^-75",
+      "no_public_solve_or_behavioral_suite": true,
+      "cold_oracle_and_factor_probe_definitions_not_executed": true
+    },
+    "guard": {
+      "reviewed_guard_unchanged": true,
+      "only_launcher_delta_stage_and_exact_failure_count": true,
+      "common_limit_seconds": 1800,
+      "exclusive_output": true,
+      "bound_independent_admission": true,
+      "pre_and_post_exact_pins": true,
+      "global_lock_and_fresh_noJulia": true,
+      "fresh_refs_boot_full_PGID_AND_SID_checks": true,
+      "identity_startup_gate_and_cleanup": true,
+      "julia_and_blas_threads": 1,
+      "heap_hint_GiB": 2,
+      "hard_VM_GiB": 8,
+      "min_RAM_GiB": 6,
+      "max_swap_used_GiB": 1
+    },
+    "snapshot": {
+      "at_unix": 1793483418.0749686,
+      "boot_id": "781795f4-f7af-4c3b-9ce9-45c7cae76ecb",
+      "historical_PGID_AND_SID_count": 794,
+      "conflicts": [],
+      "julia": [],
+      "available_kib": 22389980,
+      "swap_used_kib": 0,
+      "output_absent": true,
+      "experiment": "b2d74da078d5e8361fccaa4fc74e9f6abb750548",
+      "branch": "codex/dual-step-experiment",
+      "master_and_origin_master": "9940bdabe149e922afa60b5364227a7e7393bc75",
+      "production_diff_empty": true
+    },
+    "work_memory": "One tiny native source/recompute/private import and one raw RHS term only; no new production hot-path source change in this admission. No unnecessary work or retained memory found for this focused RED; prior GREEN source/work concerns remain recorded.",
+    "review_execution": "Read-only source/hash/proc/Git checks; no Julia, launcher, old audit or repository edits."
+  }
+}

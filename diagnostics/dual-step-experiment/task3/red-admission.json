@@ -1,0 +1,70 @@
+{
+  "accepted": true,
+  "pins_sha256": "92a5717e89b4e65d2a8088256f38ad6b2cba0cf4caba005bda9be970194c1101",
+  "checks": {
+    "scope": "Only the concrete Task3 RED missing-interface test; no GREEN, behavioral, numerical algorithm or performance approval.",
+    "manifest": {
+      "files": 170,
+      "inventory": 170,
+      "trees": [],
+      "all_hashes_and_resolved_paths_match": true,
+      "original168_restored_snapshot_hashes_match": true,
+      "original_pins_sha256": "3b29f8d6e1a6ae8d073a928447c57cea8cf1874eb285a16164057fab4102e941"
+    },
+    "contract": {
+      "ordinary_test": true,
+      "missing_interfaces": [
+        "choose_leaving",
+        "propose_step!",
+        "validate_proposal!",
+        "plan_writes!"
+      ],
+      "expected_passed": 0,
+      "expected_failures": 4,
+      "expected_errors": 0,
+      "expected_broken": 0,
+      "expected_exit": 1,
+      "stale_failures6_corrected_and_preserved": true,
+      "behavioral_files_pinned_not_included": true
+    },
+    "qualified_task2": {
+      "all13_qualified_before_map_entries_and_preserved_files_match": true,
+      "six_module_source_files_equal_HEAD": true,
+      "tracked_diff_empty": true,
+      "no_solver_call_in_RED": true
+    },
+    "launch": {
+      "actual_command_pinned": true,
+      "julia_threads": 1,
+      "blas_threads": 1,
+      "heap_hint_GiB": 2,
+      "hard_address_space_GiB": 8,
+      "minimum_available_RAM_GiB": 6,
+      "maximum_swap_used_GiB": 1,
+      "common_limit_seconds": 1800,
+      "global_lock": true,
+      "fresh_noJulia_under_lock": true,
+      "fresh_refs_and_boot_at_launch_and_terminal": true,
+      "groups_AND_sessions_checked_at_launch": true,
+      "exclusive_output_and_results": true,
+      "identity_bound_startup_gate_and_cleanup": true,
+      "guard_files_equal_qualified_task2_copies": true,
+      "pre_and_post_pins_checks": true
+    },
+    "independent_snapshot": {
+      "at_unix": 1793482683.680314,
+      "boot_id": "781795f4-f7af-4c3b-9ce9-45c7cae76ecb",
+      "checked_groups_and_sessions": 792,
+      "conflicts": [],
+      "julia": [],
+      "available_kib": 22391392,
+      "swap_used_kib": 0,
+      "red_run_absent": true,
+      "experiment_HEAD": "b2d74da078d5e8361fccaa4fc74e9f6abb750548",
+      "branch": "codex/dual-step-experiment",
+      "master_and_origin_master": "9940bdabe149e922afa60b5364227a7e7393bc75"
+    },
+    "work_memory": "No production-code change and no numerical execution in RED. Four isdefined assertions add constant test work only. Manifest hashing/proc scans/resource samples occur at cold admission/run boundaries. No unnecessary production work or retained memory found; no benchmark needed for this missing-interface admission.",
+    "review_execution": "Read-only source/hash/proc/Git checks only; no Julia, launcher, old auditor or old measurement execution; artifacts written only in /tmp."
+  }
+}

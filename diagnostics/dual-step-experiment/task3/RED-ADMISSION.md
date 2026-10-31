@@ -1,0 +1,3 @@
+# Task3 RED admission
+One new ordinary Test process loads unchanged qualified Task2 module and checks exactly four missing proposal interfaces. Expected4failures/0errors/exit1. New behavioral files are pinned but not included by RED. No model/fixture/solve call. No implementation exists yet.
+Use independent exact manifest approval, fresh792historical groups ANDsessions/noJulia/refs and exclusive output; common1800s guard, Julia/BLAS1,heap2GiB,hardVM8GiB,availableRAM6GiB,swap1GiB,existing compiled modules/pkgimages, no environment mutation. No master/production/CI change, old scripts/raw frozen.

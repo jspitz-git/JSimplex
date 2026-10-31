@@ -1,0 +1,41 @@
+{
+  "accepted": false,
+  "pins_sha256": "aa874b71a20b076692d35f0658f533cdcc9aa1e343d1e249e3134da4a3e10bef",
+  "checks": {
+    "all193pins_match": true,
+    "common1800s_guard_reviewed": true,
+    "fresh794groups_AND_sessions_clear": true,
+    "noJulia": true,
+    "refs_expected": true,
+    "green_run_absent": true,
+    "work_memory_layout_matches_50N_plus_28m": true,
+    "no_unnecessary_normal_proposal_N_scan_copy_resize_or_trace_found": true
+  },
+  "findings": [
+    {
+      "priority": 1,
+      "file": "experimental/dual_engine/proposal.jl",
+      "line": 30,
+      "issue": "Raw nonzero A coefficient times nonzero flip displacement may underflow to zero without rejection; BFRT then solves/checks the rounded zero RHS. In a strongly scaled nontrivial basis this can lose a nonnegligible basic change at tight user tolerances, although the tableau gain remains nonzero. Add a guard or justify a conservative bound and cover the scaled case."
+    },
+    {
+      "priority": 2,
+      "file": "experimental/dual_engine/test/proposal_fixtures.jl",
+      "line": 52,
+      "issue": "All proposal fixtures start with slack basis and dual oracle requires zero basic costs. Add a nontrivial basis/nonzero initial multiplier case with independent full simulated application oracle."
+    },
+    {
+      "priority": 2,
+      "file": "experimental/dual_engine/test/proposal_tests.jl",
+      "line": 1,
+      "issue": "All flip cases have one row. Add a multirow BFRT case covering a BFRT-only row and cancellation/overlap in the direction/BFRT union."
+    },
+    {
+      "priority": 2,
+      "file": "experimental/dual_engine/test/proposal_fixtures.jl",
+      "line": 19,
+      "issue": "factor.base snapshot is an alias, not a mathematical factor-representation snapshot. Use an owned cold mathematical representation or an explicitly bounded factor action oracle without comparing mutable solve caches."
+    }
+  ],
+  "scope": "No Julia, launcher or old audit executed; no repository edits. Withhold GREEN pending targeted source/coverage revision."
+}
