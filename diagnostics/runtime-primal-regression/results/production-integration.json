@@ -84,5 +84,19 @@
     },
     "all_test_files_executed": true,
     "single_process_full_suite_passed": false
-  }
+  },
+  "latest_production_update": {
+    "commit": "e06ed5ef2c8e356a66c5964501b9c1f37858198a",
+    "change": "Bounded postsolve feasibility recovery for multiple violated bounds",
+    "verification": "failure2-8blas-fixed/verification.json",
+    "optimized_related_tests_passed": 2731,
+    "pc_doma_blas_threads": 8,
+    "repair_pivots": 2,
+    "cleanup_status": "OPTIMAL",
+    "cleanup_iterations": 1180,
+    "numerical_restart_observed": false,
+    "tolerances_or_precision_changed": false,
+    "fresh_full_suite_run": false
+  },
+  "full_suite_evidence_scope": "The full-suite records above predate the latest multiple-bound postsolve repair. That repair has 2731 passing optimized related checks and a successful PC-doma 8-thread capture replay; the complete suite has not been rerun after it."
 }
