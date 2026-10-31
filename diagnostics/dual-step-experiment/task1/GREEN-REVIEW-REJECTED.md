@@ -1,0 +1,9 @@
+Task1 GREEN source review: NOT ACCEPTED at pins 7648b26a5ce81fab43a2cbe6ece955d7f3876692df5c95715cf46fdbdec661a7.
+
+One material source issue: import_phase state.jl:28 invokes J.basis_matrix(source), whose _validate_basis writes source.scratch.basic_mask (src/simplex.jl:247–252). Fresh native factor ownership itself is correct; source scratch preservation is not. Add a sentinel-mask regression and use a nonmutating source validation/assembly route.
+
+All136 pins rehashed successfully, Python ASTs valid, preserved RED result shows16missing-interface failures/0errors/exit1, exact GREEN command and guard accepted in source review. No Julia or prior launcher was executed.
+
+Work/memory: no production execution path changes. Setup performs four numeric-value validations per variable, copies values/bounds/basis/progress/scaling, creates fresh scratch, one native PFI reconstruction, one RowAccess, one membership install. This necessary ownership cost is explicitly counted (phase_factor_builds=1 and workspace refactorizations+1). RowAccess retains16z+8(m+1) payload, support metadata12(4m+N), residual vectors16m, sets/map16(m+N)+8N, planned/old values64N plus journal IDs/stamps/masks/states. No hidden per-write full scan: ordinary write/classify inspect one index and reset five evidence flags; generation wrap is the explicit O(4m+N) exception. Cold oracle intentionally scans/allocates. No avoidable production work/allocation/retention found beyond the source-mutating validator requiring correction; no speed claim or benchmark warranted for this state-only slice.
+
+Limitations: no dual iteration, proposal, commit, recovery or original-model certificate exists yet. Native memory and timing are unmeasured; this review does not certify future kernels or broad numerical behavior. Existing ordinary tests exercise15tiny3x3fixtures,2successful imports andone explicit direct FTRAN, inside conservative32caps. Numerical GREEN results remain unobserved.

@@ -1,0 +1,48 @@
+{
+  "accepted": true,
+  "pins_sha256": "a66c91ae73c1a1d6b0dedbab677108a9ef5bc119c220e747138c18c074e92118",
+  "checks": {
+    "pin_inventory": "174 explicit unique files equal inventory; trees empty; all SHA256 and resolved paths matched;71master src files pinned",
+    "preservation": "prior rejected136GREEN and focused140RED evidence preserved; all10 ownership-before-map entries match old136manifest hashes;170to174augmentation changes only provenance metadata",
+    "fix": "owned inverse validator checks dimensions, basic range/uniqueness/state agreement without source writes; direct assembly with nothing allocates private CSC; same inverse retained in invariants and reused at initial install",
+    "red_observed": "preserved ownership-red accepted true,exit1,one failed/zero passed/zero errored/zero broken,9.308282s,pins unchanged; raw log shows mask actual000111 versus expected111111",
+    "api_ownership": "constructors and helper APIs checked against real src; private values,bounds,basis,Devex bits,progress objective/scaling,scratch and fresh nativePFI; shared model borrowed read-only by explicit no-concurrent-mutation contract",
+    "factor_accounting": "one fresh nativePFI reconstruction,phase_factor_builds1,phase_factor_copies0,workspace refactorizations source+1; no source native payload/copy or assembly-cache mutation",
+    "policy": "onlyFloat64/nativePFI/dual/Devex/internaldeadline/noobserver eligible; source options/numerics/clock bound; caps8entering8leaving2rebuild3corrections64stagnation; tolerance budgets may tighten source settings only; user tolerances/refactor limit preserved",
+    "invariants_support": "one-index write/classify,preexisting outside-support dual violations preserved,independent allocating cold oracle,finite/positive-weight provenance,explicit generation wrap invalidation; support preserves exact subnormals,cancellation,reinsert and physical capacity",
+    "ordinary_green": "existing ordinary test expectations retained; source snapshot strengthened with basic_mask/alltrue sentinel;15tiny3x3fixtures,2successful imports,one explicit directFTRAN,within conservative32budgets; no publicLPsolve or measurement",
+    "production_unchanged": "git diff pinnedmaster src/test/Project/.github empty; every experiment src file byte-identical to loadedmaster; frozen specSHA matches plan",
+    "command_runner": "run-green-final.py differs from reviewedrun only in green-only whitelist and green-final pin selection; AST valid; uses unchanged green-contract exact project/entry/state invariants args;exit0andmarker required",
+    "guard": "unchanged lock/resource/thread/identity/parent-death/cleanup guards;RAM>=6GiB,swap<=1GiB,VM8GiB,heap2GiB,Julia1/BLAS1;fresh refs/boot/start_ticks/command and782historicalgroups+RED+ownershipRED groupsANDsessions/noJulia preflight and terminal",
+    "deadline_outputs": "green-run absent;exclusive mkdir/log/result publication;1800accepted-run deadline includes terminalhost and finalhash; initial admission/hash precedes reservation; arbitrary blocked filesystem call not promised interruptible",
+    "review_execution": "source/AST/Python hashing/read-onlyGit only; noJulia,oldscript rerun orrepository edit"
+  },
+  "findings": [
+    {
+      "priority": 3,
+      "blocking": false,
+      "file": "experimental/dual_engine/state.jl",
+      "line": 28,
+      "title": "Redundant setup zeroing",
+      "detail": "inverse=zeros(Int,N) is followed by _basis_inverse! fill!(inverse,0). One avoidable N-entry zeroing pass at phase setup; no additional allocation or retained storage, no hot-path effect. Vector{Int}(undef,N) could remove it later because validator initializes all entries before reads. This does not block exact component admission or justify a benchmark."
+    }
+  ],
+  "bindings": {
+    "root": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl",
+    "head": "4e14ff0fb5be256f1c46dbcb8093e0b915ab26ca",
+    "runner": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task1/run-green-final.py",
+    "stage": "green",
+    "contract": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task1/green-contract.json",
+    "contract_sha256": "f6234a9cd2ed5c174ea3c6dad129145435ff7b91392c321a92c512f4a9e98854",
+    "allowed_command": [
+      "python3",
+      "-B",
+      "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task1/run-green-final.py",
+      "green"
+    ],
+    "source_accepted": true,
+    "expected_exit": 0,
+    "expected_marker": "DUAL_ENGINE_TASK1_COMPLETED",
+    "scope": "Task1 state/invariant/support component only; numerical GREEN results not yet observed"
+  }
+}

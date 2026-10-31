@@ -1,0 +1,9 @@
+# Task1 RED admission
+
+One guarded ordinary Test process, fresh shared1800s inclusive deadline, Julia/BLAS1, heap2GiB hint/VM8GiB/RAM6GiB/swap1GiB. Existing compiled modules/pkgimages only; offline package loading, no installation/query. Master project is source-identical to the experiment's current production code. Explicit source path/thread assertions run before tests.
+
+The new test suite is written first. RED includes only a distinct bootstrap module with no candidate interfaces; exactly16 ordinary `@test isdefined(E,name)` assertions must fail, zero errors, exit1. No fixture initialization, public solve, candidate arithmetic or measurement runs in RED. The full future GREEN test sources are pinned but not executed by this RED. A failure in imports, world age or test loading is not an accepted RED. Original ordinary Test summaries and log must agree.
+
+Pinned copies of reviewed guard/supervisor/entry-gate scripts enforce single numerical lock, actual boot/start_ticks/command identity, resource samples and cleanup. New run.py imports prior host definitions only; it runs no old launcher/auditor. Fresh standalone preflight/terminal checks cover all782 historical groups ANDsessions plus any new owned run identities and global noJulia, preserved master/user status, strict experiment ref/branch. The terminal capture is inside the shared deadline. Output is exclusive red-run and never overwritten. Exit0 from a wrapper is insufficient; exact expected Test outcome, actual process reason, unchanged pins and independent bound admission are mandatory.
+
+No production/test/environment/CI/master changes and no old numerical rerun. The experiment candidate is intentionally absent; implementation begins only after observed accepted RED. GREEN needs a new concrete manifest and independent admission. No performance or allocation improvement is tested here.

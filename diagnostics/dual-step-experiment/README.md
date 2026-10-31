@@ -3,7 +3,7 @@
 - Branch: `codex/dual-step-experiment`.
 - Production starting point: `9940bdabe149e922afa60b5364227a7e7393bc75`.
 - Current deliverable: [approved design](../../docs/superpowers/specs/2026-10-31-experimental-dual-engine-design.md) and [implementation plan](../../docs/superpowers/plans/2026-10-31-experimental-dual-engine.md).
-- Status: design approved; implementation plan prepared for review. No experimental engine implemented, no Julia run, no speedup claim. See DESIGN-APPROVAL.md and PLAN-SELF-REVIEW.md.
+- Status: Task1 state/policy/invariant/support implementation qualified106/106; independent source/numerical/result reviews accepted. [Task1 report](task1/REPORT.md). No dual pivot/controller or speedup claim yet; Tasks2–6 remain open.
 
 The experiment may change arithmetic order, pricing trajectories, monitoring and recovery organization. It must preserve correctness on the original model at the requested tolerances. First proposed scope is Float64 with the existing production PFI factor interface and a fixed-Devex reference comparison; Float32 and other backend support follow later qualification. The user approved the design scope; concrete policy and task details are recorded in the implementation plan.
 

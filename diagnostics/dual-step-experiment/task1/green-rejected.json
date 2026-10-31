@@ -1,0 +1,27 @@
+{
+  "accepted": false,
+  "pins_sha256": "7648b26a5ce81fab43a2cbe6ece955d7f3876692df5c95715cf46fdbdec661a7",
+  "checks": {
+    "pins": "all136 resolved paths and SHA256 matched",
+    "python_ast": "runner and3guards parse",
+    "source_api": "real production constructors and native PFI APIs checked",
+    "production_unchanged": "71src files master-identical; git diff master src/test/Project/.github empty",
+    "guard": "exact command, exclusive output/lock, resource/thread/identity gates and inclusive final hash accepted in source review",
+    "red_evidence": "preserved observed16missing-interface failures,0errors,exit1",
+    "ordinary_test_scope": "15 tiny3x3fixtures,2successful imports,one direct FTRAN; conservative32caps hold"
+  },
+  "findings": [
+    {
+      "priority": 1,
+      "file": "experimental/dual_engine/state.jl",
+      "line": 28,
+      "message": "J.basis_matrix(source) calls _validate_basis(source), which fills/writes source.scratch.basic_mask; violates unchanged-source ownership. Existing snapshot omits this mask."
+    }
+  ],
+  "bindings": {
+    "root": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl",
+    "head": "4e14ff0fb5be256f1c46dbcb8093e0b915ab26ca",
+    "stage": "Task1 GREEN source admission only",
+    "numerical_execution": "none"
+  }
+}

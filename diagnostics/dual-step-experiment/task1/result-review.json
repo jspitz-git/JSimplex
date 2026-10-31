@@ -1,0 +1,37 @@
+{
+  "accepted": true,
+  "checks": {
+    "current_source": "all174 current file hashes/resolved paths independently matched accepted finalmanifest a66c91ae73c1a1d6b0dedbab677108a9ef5bc119c220e747138c18c074e92118; no source delta since independent acceptance",
+    "green": "raw log5 ordinary testsets:13+41+8+31+13=106passed/106total,completion marker,no failures/errors;exit0,acceptedtrue,12.328131s<=1800,pins unchanged;process/supervision/admission hashes agree",
+    "red": "original RED raw16missing-interface failures/zeroerrors exit1 accepted5.233447s; ownershipRED raw1mask-preservation failure/zeroerrors exit1 accepted9.308282s; both preserved",
+    "ownership_regression": "accepted fixed source uses owned inverse plus newly owned CSC assembly; GREEN41ownership assertions include deliberately dirty source.basic_mask snapshot before/after privateimport/writes/FTRAN,allpassed",
+    "historical_binding": "independent resolution of originalRED111pins(2changedpaths),ownershipRED140pins(5changedpaths),rejectedGREEN136pins(5changedpaths) through exact hash-bound preserved copies; no historical result represented as current-file pin pass",
+    "postcheck": "read postcheck.py without executing; independently validated34PASS report against raw artifacts and current hashes",
+    "resources": "26 raw RAM samples total(5RED,9ownershipRED,12GREEN);minimum available21885264KiB,maximumswap0;sampled maximaVmPeak1629868KiB,VmHWM675952KiB,VmRSS661780KiB,VmSwap0; all RAM/swap guards met",
+    "closure": "recorded terminal full788groups/sessions clean; fresh independent/proc scan also found no member of any788groupORsession and noJulia",
+    "production": "no src/test/Project/.github diff; no production routing change; frozen tests run exact admittedmasterproject and singleJulia/BLAS settings",
+    "review_activity": "read-only source/artifacts,independentPython hashing/parsing/proc scan,Git read; noJulia/frozenrunner/postcheck rerun orrepo edits"
+  },
+  "findings": [
+    {
+      "priority": 3,
+      "blocking": false,
+      "title": "Deferred redundant cold zeroing",
+      "file": "experimental/dual_engine/state.jl",
+      "line": 28,
+      "detail": "zeros(Int,N) followed by owned validator fill!(inverse,0) repeats an N-entry setup zeroing pass. No extra allocation,retained array or hot full scan; unchanged since source acceptance; deferred."
+    }
+  ],
+  "bindings": {
+    "pins_sha256": "a66c91ae73c1a1d6b0dedbab677108a9ef5bc119c220e747138c18c074e92118",
+    "source_admission": "/tmp/dual-task1-green-final-review/admission.json",
+    "green_result_sha256": "f0fbfa24d945c52e538cdf5849609eed80bc39597f82dcad00b699d2fcc42e41",
+    "green_log_sha256": "2b29b1b8e97f479d2e6167674c39532a1d64e939b5963ce526aad89ab55bb7d2",
+    "postcheck_sha256": "83410c583090b45808e9e809a0b93bdf8e510d965db39ff3d86f0c773dc81c25",
+    "terminal_host_sha256": "a17d80aec5b3c033a01f2132822154465f8dbf65fb0cda793c4637688b20ad0e",
+    "scope": "Task1 owned phase state,policy,maintained membership,stamped support and component tests only",
+    "tests_passed": 106,
+    "testsets": 5,
+    "task1_completion_accepted": true
+  }
+}

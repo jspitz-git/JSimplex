@@ -1,0 +1,32 @@
+{
+  "accepted": true,
+  "pins_sha256": "da7da6bbbc64ac802d7d68a4a44ca454d017a84c8b53b90829471c2d8077e343",
+  "checks": {
+    "pin_inventory": "140 unique explicit files equal inventory; trees empty; every SHA256 and resolved path matches",
+    "prior_binding": "all136 prior GREEN inventory entries unchanged; candidate5sourcefiles and original4testfiles unchanged",
+    "runner_delta": "run-ownership.py differs only in stage whitelist ownership-red and ordinary expected failure pattern1instead16; AST valid",
+    "ordinary_test": "single ordinary @test source basic_mask preservation after all-true sentinel and one private import; expected0passed1failed0errored0broken exit1",
+    "source_failure": "basis_matrix(source) calls _validate_basis which resets source basic_mask to actual basis, so sentinel differs at3nonbasicindices",
+    "numerical_budget": "one3x3fixture initialization plus one privateimport/nativefactorbuild; no explicitFTRAN,no publicLPsolve,no measurement",
+    "command": "exact pinned Julia1.13 command/project master path; startup/history disabled, existing compiled modules/pkgimages only, heap2GiB, Julia1/GC1,0; test asserts packagepath/Julia1/BLAS1",
+    "guards": "unchanged approved guardchain, nonblocking numericallock, pre/post noJulia, fresh boot/start_ticks/command and historical782plusRED groups/sessions; RAM>=6GiB swap<=1GiB hardVM8GiB; owned cleanup",
+    "deadline_outputs": "new exclusive ownership-red-run absent;1800s shared accepted-run deadline covers preflight, execution, terminalhost and finalhash; preserves abnormalpartiallogs",
+    "review_activity": "read-only source/AST/hash; noJulia,oldlauncher,repoedits"
+  },
+  "findings": [],
+  "bindings": {
+    "root": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl",
+    "runner": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task1/run-ownership.py",
+    "stage": "ownership-red",
+    "contract_sha256": "9c2f06c60708cafa418538ff958233d0cdf99443d2da90adfd7b290b86c27971",
+    "test_sha256": "55ec832e5307f4e1e006b61d79fb5a0afb6e9b6357608eba9adc61916f672fac",
+    "prior_rejected_green_pins_sha256": "7648b26a5ce81fab43a2cbe6ece955d7f3876692df5c95715cf46fdbdec661a7",
+    "allowed_command": [
+      "python3",
+      "-B",
+      "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task1/run-ownership.py",
+      "ownership-red"
+    ],
+    "expected_exit": 1
+  }
+}

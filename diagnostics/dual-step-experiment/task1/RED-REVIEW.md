@@ -1,0 +1,29 @@
+Independent Task1 RED source admission: ACCEPTED
+
+Pins SHA256: 2c89e834ee692d4e5f6a91082ae5d32d243c039c6010108ae56f1fdb94353f99
+
+This decision admits only the exact pinned RED contract. It is not an observed RED result, GREEN admission, implementation review, or performance claim. No Julia or previous script was executed during this review; repository files were unchanged.
+
+scope: Source-only admission of this single RED command; no Julia, old launcher, fixture, LP solve, measurement, package install, or repository mutation performed.
+
+pins: 111 unique explicit files equal inventory membership, no trees; every SHA256 and resolved path matched. All 71 master src Julia files are included and byte-identical to experiment src. Spec hash matches plan.
+
+dependencies: New runner, three guard scripts, RED bootstrap, all four future GREEN test files, runtime/contract/host/plan/spec/AGENTS, Julia/Python executables, master Project/Manifest/preferences/source, old host definition chain and its static inputs are pinned. Historical per-run identity files are read dynamically by fresh host checks.
+
+import_chain: AST parse and source review: old launch-final.py imports definitions and common.py only; its main is guarded. No old numerical launcher/auditor is invoked. All three new guard files are byte-identical to old reviewed copies.
+
+ordinary_red: runtests.jl imports JSimplex once through normal package loading, asserts exact source path and Julia/BLAS thread counts, includes empty RED E module, and executes exactly 16 ordinary @test isdefined checks. E has none of these interfaces. Fixtures/state/invariant tests are in the unexecuted else branch. Wrapper requires exit1/reason exit1 plus ordinary 0 passed, 16 failed, 0 errored, 0 broken and Test Failed output.
+
+host: Fresh preflight and terminal chain checks master/origin/diagnostic refs, master user status/hash preservation, experiment HEAD and branch, boot, global noJulia, RAM>=6GiB and swap<=1GiB. Frozen set has exactly 782 unique historical group/session IDs; comparisons cover both pgid and sid, extending from old and new owned process records.
+
+resources_identity: Nonblocking exclusive numerical lock; actual boot/start_ticks/command identities; parent-death gate before exec; pidfd and ownership-checked cleanup; hard 8GiB VM, 2GiB heap hint, Julia/BLAS1, runtime offline and existing-cache-only flags.
+
+deadline: Fresh monotonic start before preflight with shared 1800s budget, guard deadline six seconds earlier, supervisor uses same start/limit; terminal host capture precedes elapsed acceptance <=1800. Initial admission/pin validation precedes reservation; this is an accepted-run elapsed bound, not a guarantee that an arbitrarily blocked filesystem/git call can be interrupted.
+
+outputs_and_mutation: Exclusive red-run mkdir, x-mode logs and exclusive atomic result publication; red-run absent at review. Runtime code contains no source/environment-file/worktree edits or package installation. Environment overrides affect child process environment only. Source/pins and host state checked again at completion.
+
+work_memory: No production execution path changes or engine allocations exist. RED performs constant 16 interface queries after package import, no vector/matrix scan or factor solve. Manifest size is 51,296,758 bytes; repeated hashing and host scans are cold admission overhead, not solver work or performance evidence.
+
+Work/memory finding: run.py redundantly calls G.pins_match(p) in terminal acceptance and again in the result field. This adds one approximately 49MiB cold manifest hashing pass on a successful run; no production hot-path or retained-memory cost. It does not block this RED admission.
+
+Evidence anchors: diagnostics/dual-step-experiment/task1/run.py (host, main, terminal result); guard/{guard_reviewed.py,supervisor_reviewed.py,entry_gate.py}; experimental/dual_engine/test/runtests.jl; diagnostics/dual-step-experiment/task1/red/ExperimentalDualEngine.jl; red-contract.json, runtime.json, host.json and red-pins.json. Future GREEN files were read but not admitted for execution.

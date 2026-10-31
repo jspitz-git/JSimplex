@@ -1,0 +1,18 @@
+ERROR: LoadError: Some tests did not pass: 0 passed, 1 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task1/ownership-red.jl:9
+
+Task1 source mask ownership regression: Test Failed at /home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task1/ownership-red.jl:14
+  Expression: ws.scratch.basic_mask == before
+   Evaluated: Bool[0, 0, 0, 1, 1, 1] == Bool[1, 1, 1, 1, 1, 1]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task1/ownership-red.jl:10
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task1/ownership-red.jl:14 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+Test Summary:                          | Fail  Total  Time
+Task1 source mask ownership regression |    1      1  4.1s
+RNG of the outermost testset: Random.Xoshiro(0x17fbfdeffca8fbfb, 0x9dd15eeaf736a0b2, 0xbf40c39ad85fa6ce, 0x07457de7a6f8eb34, 0xe09a5e0cacf98e83)
