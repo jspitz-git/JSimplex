@@ -1,0 +1,605 @@
+architecture = "aarch64"
+blas_threads = 1
+julia = "1.13.0"
+scope = "Recovery calls only, instrumented kernel counts. Setup and warmup excluded. Multi-violation baseline does no repair, so differing timings do not measure speedup. Five samples do not establish general performance."
+
+[[records]]
+dense = false
+initial_violations = 1
+median_bytes = 25232.0
+median_seconds = 5.47e-5
+rows = 513
+variant = "baseline"
+
+    [[records.samples]]
+    accepted = true
+    allocations = 15
+    btran = 4
+    bytes = 25232
+    compile_seconds = 0.0
+    ftran = 3
+    pivots = 1
+    refactorizations = 0
+    remaining_violations = 0
+    seconds = 5.58e-5
+    [[records.samples]]
+    accepted = true
+    allocations = 15
+    btran = 4
+    bytes = 25232
+    compile_seconds = 0.0
+    ftran = 3
+    pivots = 1
+    refactorizations = 0
+    remaining_violations = 0
+    seconds = 7.68e-5
+    [[records.samples]]
+    accepted = true
+    allocations = 15
+    btran = 4
+    bytes = 25232
+    compile_seconds = 0.0
+    ftran = 3
+    pivots = 1
+    refactorizations = 0
+    remaining_violations = 0
+    seconds = 5.47e-5
+    [[records.samples]]
+    accepted = true
+    allocations = 15
+    btran = 4
+    bytes = 25232
+    compile_seconds = 0.0
+    ftran = 3
+    pivots = 1
+    refactorizations = 0
+    remaining_violations = 0
+    seconds = 5.13e-5
+    [[records.samples]]
+    accepted = true
+    allocations = 15
+    btran = 4
+    bytes = 25232
+    compile_seconds = 0.0
+    ftran = 3
+    pivots = 1
+    refactorizations = 0
+    remaining_violations = 0
+    seconds = 5.29e-5
+
+    [records.warmup]
+    accepted = true
+    allocations = 40655
+    btran = 4
+    bytes = 2349296
+    compile_seconds = 0.0430499
+    ftran = 3
+    pivots = 1
+    refactorizations = 0
+    remaining_violations = 0
+    seconds = 0.0431808
+[[records]]
+dense = false
+initial_violations = 1
+median_bytes = 25232.0
+median_seconds = 5.76e-5
+rows = 513
+variant = "fixed"
+
+    [[records.samples]]
+    accepted = true
+    allocations = 15
+    btran = 4
+    bytes = 25232
+    compile_seconds = 0.0
+    ftran = 3
+    pivots = 1
+    refactorizations = 0
+    remaining_violations = 0
+    seconds = 5.76e-5
+    [[records.samples]]
+    accepted = true
+    allocations = 15
+    btran = 4
+    bytes = 25232
+    compile_seconds = 0.0
+    ftran = 3
+    pivots = 1
+    refactorizations = 0
+    remaining_violations = 0
+    seconds = 7.75e-5
+    [[records.samples]]
+    accepted = true
+    allocations = 15
+    btran = 4
+    bytes = 25232
+    compile_seconds = 0.0
+    ftran = 3
+    pivots = 1
+    refactorizations = 0
+    remaining_violations = 0
+    seconds = 5.34e-5
+    [[records.samples]]
+    accepted = true
+    allocations = 15
+    btran = 4
+    bytes = 25232
+    compile_seconds = 0.0
+    ftran = 3
+    pivots = 1
+    refactorizations = 0
+    remaining_violations = 0
+    seconds = 5.28e-5
+    [[records.samples]]
+    accepted = true
+    allocations = 15
+    btran = 4
+    bytes = 25232
+    compile_seconds = 0.0
+    ftran = 3
+    pivots = 1
+    refactorizations = 0
+    remaining_violations = 0
+    seconds = 5.8e-5
+
+    [records.warmup]
+    accepted = true
+    allocations = 15
+    btran = 4
+    bytes = 25232
+    compile_seconds = 0.0
+    ftran = 3
+    pivots = 1
+    refactorizations = 0
+    remaining_violations = 0
+    seconds = 8.46e-5
+[[records]]
+dense = false
+initial_violations = 6
+median_bytes = 0.0
+median_seconds = 2.0e-6
+rows = 513
+variant = "baseline"
+
+    [[records.samples]]
+    accepted = false
+    allocations = 0
+    btran = 0
+    bytes = 0
+    compile_seconds = 0.0
+    ftran = 0
+    pivots = 0
+    refactorizations = 0
+    remaining_violations = 6
+    seconds = 2.3e-6
+    [[records.samples]]
+    accepted = false
+    allocations = 0
+    btran = 0
+    bytes = 0
+    compile_seconds = 0.0
+    ftran = 0
+    pivots = 0
+    refactorizations = 0
+    remaining_violations = 6
+    seconds = 1.9e-6
+    [[records.samples]]
+    accepted = false
+    allocations = 0
+    btran = 0
+    bytes = 0
+    compile_seconds = 0.0
+    ftran = 0
+    pivots = 0
+    refactorizations = 0
+    remaining_violations = 6
+    seconds = 2.0e-6
+    [[records.samples]]
+    accepted = false
+    allocations = 0
+    btran = 0
+    bytes = 0
+    compile_seconds = 0.0
+    ftran = 0
+    pivots = 0
+    refactorizations = 0
+    remaining_violations = 6
+    seconds = 1.7e-6
+    [[records.samples]]
+    accepted = false
+    allocations = 0
+    btran = 0
+    bytes = 0
+    compile_seconds = 0.0
+    ftran = 0
+    pivots = 0
+    refactorizations = 0
+    remaining_violations = 6
+    seconds = 2.1e-6
+
+    [records.warmup]
+    accepted = false
+    allocations = 0
+    btran = 0
+    bytes = 0
+    compile_seconds = 0.0
+    ftran = 0
+    pivots = 0
+    refactorizations = 0
+    remaining_violations = 6
+    seconds = 2.6e-6
+[[records]]
+dense = false
+initial_violations = 6
+median_bytes = 26752.0
+median_seconds = 0.0001277
+rows = 513
+variant = "fixed"
+
+    [[records.samples]]
+    accepted = true
+    allocations = 56
+    btran = 9
+    bytes = 26752
+    compile_seconds = 0.0
+    ftran = 8
+    pivots = 6
+    refactorizations = 0
+    remaining_violations = 0
+    seconds = 0.0001277
+    [[records.samples]]
+    accepted = true
+    allocations = 56
+    btran = 9
+    bytes = 26752
+    compile_seconds = 0.0
+    ftran = 8
+    pivots = 6
+    refactorizations = 0
+    remaining_violations = 0
+    seconds = 0.0001259
+    [[records.samples]]
+    accepted = true
+    allocations = 56
+    btran = 9
+    bytes = 26752
+    compile_seconds = 0.0
+    ftran = 8
+    pivots = 6
+    refactorizations = 0
+    remaining_violations = 0
+    seconds = 0.0001472
+    [[records.samples]]
+    accepted = true
+    allocations = 56
+    btran = 9
+    bytes = 26752
+    compile_seconds = 0.0
+    ftran = 8
+    pivots = 6
+    refactorizations = 0
+    remaining_violations = 0
+    seconds = 0.0001412
+    [[records.samples]]
+    accepted = true
+    allocations = 56
+    btran = 9
+    bytes = 26752
+    compile_seconds = 0.0
+    ftran = 8
+    pivots = 6
+    refactorizations = 0
+    remaining_violations = 0
+    seconds = 0.000127
+
+    [records.warmup]
+    accepted = true
+    allocations = 56
+    btran = 9
+    bytes = 26752
+    compile_seconds = 0.0
+    ftran = 8
+    pivots = 6
+    refactorizations = 0
+    remaining_violations = 0
+    seconds = 0.0001324
+[[records]]
+dense = true
+initial_violations = 1
+median_bytes = 10480.0
+median_seconds = 0.0002002
+rows = 129
+variant = "baseline"
+
+    [[records.samples]]
+    accepted = true
+    allocations = 18
+    btran = 4
+    bytes = 10480
+    compile_seconds = 0.0
+    ftran = 3
+    pivots = 1
+    refactorizations = 0
+    remaining_violations = 0
+    seconds = 0.0001985
+    [[records.samples]]
+    accepted = true
+    allocations = 18
+    btran = 4
+    bytes = 10480
+    compile_seconds = 0.0
+    ftran = 3
+    pivots = 1
+    refactorizations = 0
+    remaining_violations = 0
+    seconds = 0.0002002
+    [[records.samples]]
+    accepted = true
+    allocations = 18
+    btran = 4
+    bytes = 10480
+    compile_seconds = 0.0
+    ftran = 3
+    pivots = 1
+    refactorizations = 0
+    remaining_violations = 0
+    seconds = 0.0002015
+    [[records.samples]]
+    accepted = true
+    allocations = 18
+    btran = 4
+    bytes = 10480
+    compile_seconds = 0.0
+    ftran = 3
+    pivots = 1
+    refactorizations = 0
+    remaining_violations = 0
+    seconds = 0.0001987
+    [[records.samples]]
+    accepted = true
+    allocations = 18
+    btran = 4
+    bytes = 10480
+    compile_seconds = 0.0
+    ftran = 3
+    pivots = 1
+    refactorizations = 0
+    remaining_violations = 0
+    seconds = 0.0002103
+
+    [records.warmup]
+    accepted = true
+    allocations = 18
+    btran = 4
+    bytes = 10480
+    compile_seconds = 0.0
+    ftran = 3
+    pivots = 1
+    refactorizations = 0
+    remaining_violations = 0
+    seconds = 0.0002369
+[[records]]
+dense = true
+initial_violations = 1
+median_bytes = 10480.0
+median_seconds = 0.000199
+rows = 129
+variant = "fixed"
+
+    [[records.samples]]
+    accepted = true
+    allocations = 18
+    btran = 4
+    bytes = 10480
+    compile_seconds = 0.0
+    ftran = 3
+    pivots = 1
+    refactorizations = 0
+    remaining_violations = 0
+    seconds = 0.0002064
+    [[records.samples]]
+    accepted = true
+    allocations = 18
+    btran = 4
+    bytes = 10480
+    compile_seconds = 0.0
+    ftran = 3
+    pivots = 1
+    refactorizations = 0
+    remaining_violations = 0
+    seconds = 0.0001951
+    [[records.samples]]
+    accepted = true
+    allocations = 18
+    btran = 4
+    bytes = 10480
+    compile_seconds = 0.0
+    ftran = 3
+    pivots = 1
+    refactorizations = 0
+    remaining_violations = 0
+    seconds = 0.0001899
+    [[records.samples]]
+    accepted = true
+    allocations = 18
+    btran = 4
+    bytes = 10480
+    compile_seconds = 0.0
+    ftran = 3
+    pivots = 1
+    refactorizations = 0
+    remaining_violations = 0
+    seconds = 0.000199
+    [[records.samples]]
+    accepted = true
+    allocations = 18
+    btran = 4
+    bytes = 10480
+    compile_seconds = 0.0
+    ftran = 3
+    pivots = 1
+    refactorizations = 0
+    remaining_violations = 0
+    seconds = 0.0002142
+
+    [records.warmup]
+    accepted = true
+    allocations = 18
+    btran = 4
+    bytes = 10480
+    compile_seconds = 0.0
+    ftran = 3
+    pivots = 1
+    refactorizations = 0
+    remaining_violations = 0
+    seconds = 0.0001914
+[[records]]
+dense = true
+initial_violations = 6
+median_bytes = 0.0
+median_seconds = 1.0e-6
+rows = 129
+variant = "baseline"
+
+    [[records.samples]]
+    accepted = false
+    allocations = 0
+    btran = 0
+    bytes = 0
+    compile_seconds = 0.0
+    ftran = 0
+    pivots = 0
+    refactorizations = 0
+    remaining_violations = 6
+    seconds = 1.0e-6
+    [[records.samples]]
+    accepted = false
+    allocations = 0
+    btran = 0
+    bytes = 0
+    compile_seconds = 0.0
+    ftran = 0
+    pivots = 0
+    refactorizations = 0
+    remaining_violations = 6
+    seconds = 1.0e-6
+    [[records.samples]]
+    accepted = false
+    allocations = 0
+    btran = 0
+    bytes = 0
+    compile_seconds = 0.0
+    ftran = 0
+    pivots = 0
+    refactorizations = 0
+    remaining_violations = 6
+    seconds = 1.1e-6
+    [[records.samples]]
+    accepted = false
+    allocations = 0
+    btran = 0
+    bytes = 0
+    compile_seconds = 0.0
+    ftran = 0
+    pivots = 0
+    refactorizations = 0
+    remaining_violations = 6
+    seconds = 1.0e-6
+    [[records.samples]]
+    accepted = false
+    allocations = 0
+    btran = 0
+    bytes = 0
+    compile_seconds = 0.0
+    ftran = 0
+    pivots = 0
+    refactorizations = 0
+    remaining_violations = 6
+    seconds = 1.0e-6
+
+    [records.warmup]
+    accepted = false
+    allocations = 0
+    btran = 0
+    bytes = 0
+    compile_seconds = 0.0
+    ftran = 0
+    pivots = 0
+    refactorizations = 0
+    remaining_violations = 6
+    seconds = 1.6e-6
+[[records]]
+dense = true
+initial_violations = 6
+median_bytes = 22400.0
+median_seconds = 0.000541
+rows = 129
+variant = "fixed"
+
+    [[records.samples]]
+    accepted = true
+    allocations = 59
+    btran = 9
+    bytes = 22400
+    compile_seconds = 0.0
+    ftran = 8
+    pivots = 6
+    refactorizations = 0
+    remaining_violations = 0
+    seconds = 0.0006095
+    [[records.samples]]
+    accepted = true
+    allocations = 59
+    btran = 9
+    bytes = 22400
+    compile_seconds = 0.0
+    ftran = 8
+    pivots = 6
+    refactorizations = 0
+    remaining_violations = 0
+    seconds = 0.000541
+    [[records.samples]]
+    accepted = true
+    allocations = 59
+    btran = 9
+    bytes = 22400
+    compile_seconds = 0.0
+    ftran = 8
+    pivots = 6
+    refactorizations = 0
+    remaining_violations = 0
+    seconds = 0.0004996
+    [[records.samples]]
+    accepted = true
+    allocations = 59
+    btran = 9
+    bytes = 22400
+    compile_seconds = 0.0
+    ftran = 8
+    pivots = 6
+    refactorizations = 0
+    remaining_violations = 0
+    seconds = 0.0004906
+    [[records.samples]]
+    accepted = true
+    allocations = 59
+    btran = 9
+    bytes = 22400
+    compile_seconds = 0.0
+    ftran = 8
+    pivots = 6
+    refactorizations = 0
+    remaining_violations = 0
+    seconds = 0.0005507
+
+    [records.warmup]
+    accepted = true
+    allocations = 59
+    btran = 9
+    bytes = 22400
+    compile_seconds = 0.0
+    ftran = 8
+    pivots = 6
+    refactorizations = 0
+    remaining_violations = 0
+    seconds = 0.0005196

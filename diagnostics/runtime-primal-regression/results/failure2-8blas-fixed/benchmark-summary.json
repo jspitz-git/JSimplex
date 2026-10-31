@@ -1,0 +1,109 @@
+{
+  "cases": [
+    {
+      "variant": "baseline",
+      "dense": false,
+      "rows": 513,
+      "violations": 1,
+      "median_ms": 0.0547,
+      "bytes": 25232.0,
+      "allocations": 15,
+      "pivots": 1,
+      "ftran": 3,
+      "btran": 4,
+      "all_measured_samples_exclude_compilation": true
+    },
+    {
+      "variant": "fixed",
+      "dense": false,
+      "rows": 513,
+      "violations": 1,
+      "median_ms": 0.0576,
+      "bytes": 25232.0,
+      "allocations": 15,
+      "pivots": 1,
+      "ftran": 3,
+      "btran": 4,
+      "all_measured_samples_exclude_compilation": true
+    },
+    {
+      "variant": "baseline",
+      "dense": false,
+      "rows": 513,
+      "violations": 6,
+      "median_ms": 0.002,
+      "bytes": 0.0,
+      "allocations": 0,
+      "pivots": 0,
+      "ftran": 0,
+      "btran": 0,
+      "all_measured_samples_exclude_compilation": true
+    },
+    {
+      "variant": "fixed",
+      "dense": false,
+      "rows": 513,
+      "violations": 6,
+      "median_ms": 0.12769999999999998,
+      "bytes": 26752.0,
+      "allocations": 56,
+      "pivots": 6,
+      "ftran": 8,
+      "btran": 9,
+      "all_measured_samples_exclude_compilation": true
+    },
+    {
+      "variant": "baseline",
+      "dense": true,
+      "rows": 129,
+      "violations": 1,
+      "median_ms": 0.2002,
+      "bytes": 10480.0,
+      "allocations": 18,
+      "pivots": 1,
+      "ftran": 3,
+      "btran": 4,
+      "all_measured_samples_exclude_compilation": true
+    },
+    {
+      "variant": "fixed",
+      "dense": true,
+      "rows": 129,
+      "violations": 1,
+      "median_ms": 0.199,
+      "bytes": 10480.0,
+      "allocations": 18,
+      "pivots": 1,
+      "ftran": 3,
+      "btran": 4,
+      "all_measured_samples_exclude_compilation": true
+    },
+    {
+      "variant": "baseline",
+      "dense": true,
+      "rows": 129,
+      "violations": 6,
+      "median_ms": 0.001,
+      "bytes": 0.0,
+      "allocations": 0,
+      "pivots": 0,
+      "ftran": 0,
+      "btran": 0,
+      "all_measured_samples_exclude_compilation": true
+    },
+    {
+      "variant": "fixed",
+      "dense": true,
+      "rows": 129,
+      "violations": 6,
+      "median_ms": 0.541,
+      "bytes": 22400.0,
+      "allocations": 59,
+      "pivots": 6,
+      "ftran": 8,
+      "btran": 9,
+      "all_measured_samples_exclude_compilation": true
+    }
+  ],
+  "scope": "Recovery calls only, instrumented kernel counts. Setup and warmup excluded. Multi-violation baseline does no repair, so differing timings do not measure speedup. Five samples do not establish general performance."
+}

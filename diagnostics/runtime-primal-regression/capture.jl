@@ -41,7 +41,7 @@ function environment(input)
     )
 end
 
-function inspect(handoff, prefix)
+function inspect(handoff, prefix; repair_feasibility::Bool=false)
     d = handoff
     ws = JS.initialize_workspace(JS._minimization_problem(d.problem), d.options)
     ws.iterations, ws.refactorizations = d.iterations, d.refactorizations
@@ -49,11 +49,15 @@ function inspect(handoff, prefix)
     JS.recompute!(ws; refactorize=true)
     report = Dict{String,Any}(
         "iterations" => d.iterations,
+        "repair_feasibility" => repair_feasibility,
+        "arithmetic_type" => string(eltype(d.target_primal)),
+        "primal_tolerance" => d.options.primal_tolerance,
         "restored_infeasibility" => JS.primal_infeasibility(ws),
         "target_feasible" => JS._original_primal_feasible(d.problem,
             d.target_primal, d.options.primal_tolerance),
     )
-    result = @timed JS._project_postsolve_basis!(ws, d.target_primal, () -> false)
+    result = @timed JS._project_postsolve_basis!(ws, d.target_primal, () -> false;
+        repair_feasibility)
     report["projection_accepted"] = !isnothing(result.value)
     report["exchanges"] = something(result.value, -1)
     report["projection_seconds"] = result.time
@@ -92,7 +96,8 @@ function capture(problem, basis, options, iterations, refactorizations, target_p
     serialize(prefix * ".handoff.bin", d)
     println("Saved postsolve input: ", prefix * ".handoff.bin")
     flush(stdout)
-    inspect(d, prefix)
+    # Match cleanup_original, including its existing feasibility repair.
+    inspect(d, prefix; repair_feasibility=true)
     throw(Captured())
 end
 

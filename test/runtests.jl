@@ -5,6 +5,7 @@ using Test
     include("native_nonzero_coupled_reconstruction_tests.jl")
     include("primal_ratio_overflow_tests.jl")
     include("postsolve_feasibility_pivot_tests.jl")
+    include("postsolve_multiple_feasibility_tests.jl")
     include("native_quality_finite_tests.jl")
     include("generic_quality_devex_tests.jl")
     include("numeric_tests.jl")

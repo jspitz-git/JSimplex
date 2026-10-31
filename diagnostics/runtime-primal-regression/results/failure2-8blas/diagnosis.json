@@ -1,0 +1,171 @@
+{
+  "status": "reproduced_and_root_cause_verified",
+  "host": "PC-doma",
+  "date": "2026-10-31",
+  "remote_directory": "C:/Users/jiris/jsimplex-diagnostics/failure2-20261031",
+  "project": "C:/Users/jiris/OneDrive/Simplex_tests",
+  "input": "C:/tmp/runtime.mps",
+  "julia": "1.13.3",
+  "cpu": "znver3",
+  "architecture": "x86_64",
+  "blas_threads": 8,
+  "julia_threads": 1,
+  "production_sources_match_master": "534ba6154e545f3605730c1ffcb7b4a7bfc24870",
+  "package_tree_hash": "e012e6287454ed89083b9a7bf8ab801b38eeaaa9",
+  "source_verification": "All 64 source file hashes match master after accounting for Windows CRLF endings.",
+  "production_files_changed": false,
+  "arithmetic_type": "Float64",
+  "tolerances_changed": false,
+  "arithmetic_precision_changed": false,
+  "primal_tolerance": 1e-07,
+  "solve_tolerance": 5.684341886080802e-14,
+  "capture_exit_code": 0,
+  "trace_exit_code": 0,
+  "reconstruction_probe_exit_code": 0,
+  "trajectory_comparison": {
+    "compared_progress_records": 502,
+    "mismatch_count": 0,
+    "first_mismatch": [],
+    "last_record": "iter=116649 obj=5.1425691762071796e7 pinf=8.510053473381208e-7 (6) dinf=1.719653232080205e6 (1142)"
+  },
+  "handoff_iteration": 116649,
+  "projection_exchanges": 320,
+  "target_original_feasible": false,
+  "target_original_feasible_after_box_projection": false,
+  "projection_accepted": false,
+  "reconstruction_accepted": true,
+  "primal_quality_after_reconstruction": {
+    "absolute_error": 3.241558173184275e-10,
+    "available": true,
+    "relative_error": 9.842405758709328e-17,
+    "reliable": true
+  },
+  "transpose_quality_after_reconstruction": {
+    "absolute_error": 1.5475779609478628e-10,
+    "available": true,
+    "relative_error": 9.933000649505553e-17,
+    "reliable": true
+  },
+  "bound_violations_after_reconstruction": [
+    {
+      "index": 17773,
+      "lower": "JSimplex.Bound{Float64}(0.0, true)",
+      "name": "C17772",
+      "state": "BASIC",
+      "target": 1.839465134366637e-08,
+      "upper": "JSimplex.Bound{Float64}(0.0, false)",
+      "value": -1.8394652399548557e-07,
+      "violation": 1.8394652399548557e-07
+    },
+    {
+      "index": 17775,
+      "lower": "JSimplex.Bound{Float64}(0.0, true)",
+      "name": "C17774",
+      "state": "BASIC",
+      "target": -6.418880424749458e-08,
+      "upper": "JSimplex.Bound{Float64}(0.0, false)",
+      "value": -1.3341176466852707e-07,
+      "violation": 1.3341176466852707e-07
+    },
+    {
+      "index": 40535,
+      "lower": "JSimplex.Bound{Float64}(0.0, true)",
+      "name": "C40534",
+      "state": "BASIC",
+      "target": 1.3341175701048046e-08,
+      "upper": "JSimplex.Bound{Float64}(0.0, false)",
+      "value": -1.3341176466852707e-07,
+      "violation": 1.3341176466852707e-07
+    },
+    {
+      "index": 40536,
+      "lower": "JSimplex.Bound{Float64}(0.0, true)",
+      "name": "C40535",
+      "state": "BASIC",
+      "target": -6.670610795484247e-08,
+      "upper": "JSimplex.Bound{Float64}(0.0, false)",
+      "value": -1.3341176466852707e-07,
+      "violation": 1.3341176466852707e-07
+    },
+    {
+      "index": 69596,
+      "lower": "JSimplex.Bound{Float64}(0.0, false)",
+      "name": "R22448",
+      "state": "BASIC",
+      "target": -1.3341175701048046e-08,
+      "upper": "JSimplex.Bound{Float64}(0.0, true)",
+      "value": 1.3341176466852707e-07,
+      "violation": 1.3341176466852707e-07
+    },
+    {
+      "index": 69597,
+      "lower": "JSimplex.Bound{Float64}(0.0, false)",
+      "name": "R22449",
+      "state": "BASIC",
+      "target": 6.670578925673634e-08,
+      "upper": "JSimplex.Bound{Float64}(0.0, true)",
+      "value": 1.3341176466852707e-07,
+      "violation": 1.3341176466852707e-07
+    }
+  ],
+  "infeasibility_after_reconstruction": 8.510053473381209e-07,
+  "traced_matches_production_bitwise": true,
+  "repair_pivots_performed": 0,
+  "root_cause": {
+    "guard": "violations == 1 || return false",
+    "guard_location": "src/solver.jl:92",
+    "projection_rejection_location": "src/solver.jl:223",
+    "explanation": "After 320 projection exchanges, both original-precision basis reconstructions succeed and pass unchanged residual checks, but six bound violations remain above the unchanged primal tolerance. The optional feasibility repair only admits exactly one violation and returns false without a pivot. Projection therefore returns nothing, causing cleanup_original to restore the much less feasible inherited basis.",
+    "not_a_reconstruction_failure": true,
+    "limitation": "No exact-arithmetic infeasibility proof is claimed; this diagnoses the production working-precision acceptance path."
+  },
+  "original_full_run": {
+    "source": "Failure2-original.log",
+    "status": "OPTIMAL",
+    "final_iteration": 172899,
+    "cleanup_iterations": 56250,
+    "restored_basis_violation_count": 2218,
+    "numerical_restart_logged": false,
+    "note": "The new capture intentionally stops at postsolve. These full-solve results belong to the original user log."
+  },
+  "diagnostic_validation": {
+    "small_fixtures": [
+      1,
+      6
+    ],
+    "fixture_checks_passed": true,
+    "command": "julia --project=. --startup-file=no --compiled-modules=existing --compile=min -O0 diagnostics/runtime-primal-regression/test_failure2_trace.jl",
+    "scope": "Checks instrumented versus production state equality and separate reconstruction outcomes; compilation flags apply only to the tiny local fixtures. PC-doma used default optimization and 8 BLAS threads.",
+    "capture_correction": "capture.jl now enables the existing repair_feasibility=true during inspection, matching production cleanup; replay.jl raw projection remains the default."
+  },
+  "work_and_memory_review": {
+    "production_cost_change": "None; src/ is unchanged.",
+    "diagnostic_cost": "Cold diagnostics intentionally construct independent workspaces, inspect residuals, and serialize one pre-reconstruction state. No added work in production iterations or retained production memory.",
+    "performance_claim": "None. Capture and replay timings are not a controlled performance comparison."
+  },
+  "binary_artifacts": {
+    "projection-trace.before-reconstruction.bin": {
+      "bytes": 28899312,
+      "sha256": "e0d671b78a8db9b64438dff1354a5a8a46a999559b46892390e916aa794d1815",
+      "local_path": "/tmp/failure2-pc-doma/projection-trace.before-reconstruction.bin"
+    },
+    "runtime-8blas.handoff.bin": {
+      "bytes": 9633738,
+      "sha256": "6526919dfca32202d16b218751c21160e26176b4aef88231ed3ae19d93538483",
+      "local_path": "/tmp/failure2-pc-doma/runtime-8blas.handoff.bin"
+    },
+    "runtime-8blas.projection.bin": {
+      "bytes": 2221416,
+      "sha256": "59ac7106c1f8e0cb4038df89210b5746a1fe0c49cef923cb2ac69c5885345299",
+      "local_path": "/tmp/failure2-pc-doma/runtime-8blas.projection.bin"
+    }
+  },
+  "next_fix_scope": "Investigate a bounded feasibility recovery for more than one violation, preserving the existing tolerances, arithmetic, stopping budgets, and original-model certification. No such production change was made in this task.",
+  "followup": {
+    "status": "fixed_and_verified_on_same_capture",
+    "report": "../failure2-8blas-fixed/verification.json",
+    "repair_pivots": 2,
+    "cleanup_status": "OPTIMAL",
+    "cleanup_iterations": 1180
+  }
+}

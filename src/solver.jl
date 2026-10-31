@@ -79,9 +79,9 @@ function _projection_bound_state(lower::Bound{T}, upper::Bound{T}, value::T,
     return BASIC  # No original bound can hold this variable nonbasic at its target value.
 end
 
-# Projection can leave one genuinely infeasible basic value even after accurate
-# reconstruction. Try one ordinary dual pivot on the original bounds with zero
-# costs. This is a feasibility problem, not a certificate for the original LP.
+# Projection can leave infeasible basic values even after accurate reconstruction.
+# Try a bounded ordinary dual solve on the original bounds with zero costs.
+# This is a feasibility problem, not a certificate for the original LP.
 # The caller must certify the original point and discard this basis on failure.
 function _try_postsolve_feasibility_pivot!(workspace::SimplexWorkspace{T}, stop) where {T}
     stop() && return false
@@ -89,14 +89,17 @@ function _try_postsolve_feasibility_pivot!(workspace::SimplexWorkspace{T}, stop)
     workspace.iterations < original_options.iteration_limit || return false
     _finite_workspace(workspace) || return false
     _, violations = primal_infeasibility_summary(workspace)
-    violations == 1 || return false
+    violations > 0 || return false
+    remaining = original_options.iteration_limit - workspace.iterations
+    pivot_budget = min(violations, 32, remaining)
     original_costs = workspace.costs
     original_perturbed = workspace.perturbed
     terminal = nothing
     try
-        # Keep the caller's total budget; the local attempt can spend one pivot.
+        # One pivot per initial violation, capped independently of LP size.
+        # A single violation retains the original one-pivot attempt.
         workspace.options = _remaining_options(original_options;
-            iterations=original_options.iteration_limit-workspace.iterations-1,
+            iterations=remaining-pivot_budget,
             algorithm=:dual)
         workspace.costs = zeros(T, length(original_costs))
         workspace.perturbed = false
