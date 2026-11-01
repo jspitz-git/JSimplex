@@ -1,0 +1,3 @@
+# Task4 missing-interface RED
+One new ordinary Test process loads unchanged qualifiedTask3 module and checks6missing interfaces. Expected0Pass+6Fail/0errors/exit1. Behavioral files are pinned but not included; no fixture/model/solve/commit/recovery call. No Task4 implementation exists yet.
+One separately bound independent admission; fresh refs/boot/full800known PGID+SID/noJulia and source/input pins, same globalJulia lock, thread1/heap2GiBhint/hardVM8GiB/RAM6GiB/swap1GiB/existingcompiled loader/offline/common1800s/exclusive red-run. No production/master/env/CI/push or frozen-script rerun. Host record is read-time only; launch repeats current preflight.

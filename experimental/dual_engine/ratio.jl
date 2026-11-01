@@ -134,8 +134,11 @@ function _ratio!(e)::StepOutcome
         if unbounded || capacity+ptol>=p.violation
             sort!(@view(p.candidates[first:last]);alg=QuickSort,by=j->(-abs(q.values[j]),j))
             for k in first:last
-                attempts+=1;attempts<=e.policy.max_entering||return StepOutcome(RatioUncertain)
                 j=p.candidates[k]
+                e.recovery.rejected_entering.position[j]!=0&&continue
+                attempts+=1;attempts<=e.policy.max_entering||return StepOutcome(RatioUncertain)
+                e.recovery.entering_attempts<e.policy.max_entering||return StepOutcome(RatioUncertain)
+                e.recovery.entering_attempts+=1
                 if _ratio_candidate!(e,j)
                     p.entering=j;p.theta=p.steps[j];p.dual_step=p.orientation*p.theta;p.stage=0x01
                     return StepOutcome(Ready,j,p.leaving_row)

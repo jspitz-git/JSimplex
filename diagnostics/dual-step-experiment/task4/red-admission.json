@@ -1,0 +1,93 @@
+{
+  "accepted": true,
+  "scope": "Task4 missing-interface RED admission only; no implementation or GREEN approval",
+  "pins_sha256": "583a8e295fa1066ea3c4033193cb18fd9e6356581b538316fc80ff1eaaf925b5",
+  "reviewed_at_unix": 1793491288.2035944,
+  "checks": {
+    "exact_manifest": true,
+    "all_309_hashes_resolutions": true,
+    "qualified_task3_unchanged": true,
+    "python_static_ast": true,
+    "exact_red_command": true,
+    "loader_thread_offline_flags": true,
+    "six_interfaces_absent": true,
+    "behavioral_files_pinned": true,
+    "fresh_refs": true,
+    "master_source_index_user_state_unchanged": true,
+    "boot_and_800_known_ids": true,
+    "fresh_hostwide_800_pgid_sid_no_julia": true,
+    "fresh_memory_thresholds": true,
+    "global_lock_currently_available": true,
+    "red_output_unreserved": true,
+    "static_red_branch_only_six_definedness_tests": true,
+    "static_global_julia_lock_and_exclusive_publication": true,
+    "static_hard_vm_8gib_ram6gib_swap1gib": true,
+    "static_common_1800s_supervision_and_cleanup": true,
+    "static_launch_repeats_full800_host_preflight": true,
+    "static_transitive_launcher_dependencies_pinned": true,
+    "no_julia_launcher_or_frozen_auditor_executed": true,
+    "no_repository_writes": true
+  },
+  "expected_outcome": {
+    "passes": 0,
+    "failures": 6,
+    "errors": 0,
+    "exit": 1,
+    "fixtures": false,
+    "solve_calls": 0
+  },
+  "host_evidence": {
+    "all_309_hashes_resolutions": {
+      "checked": 309,
+      "mismatches": []
+    },
+    "qualified_task3_unchanged": {
+      "checked": 21,
+      "mismatches": []
+    },
+    "python_static_ast": {
+      "checked": 5,
+      "errors": []
+    },
+    "six_interfaces_absent": {
+      "source_files": 7,
+      "interfaces": [
+        "commit_step!",
+        "restore_journal!",
+        "recover!",
+        "run_phase!",
+        "RecoveryStage",
+        "PhaseResult"
+      ]
+    },
+    "fresh_refs": {
+      "experiment": "bf4b8656e909bfaaa80e08d0bc77a8c78d51272b",
+      "branch": "codex/dual-step-experiment",
+      "master": "9940bdabe149e922afa60b5364227a7e7393bc75",
+      "local_master": "9940bdabe149e922afa60b5364227a7e7393bc75",
+      "origin_master": "9940bdabe149e922afa60b5364227a7e7393bc75",
+      "diagnostic": "5843312f14d3d7f4a730ddf9eea517481d65f257"
+    },
+    "boot_and_800_known_ids": {
+      "boot_id": "781795f4-f7af-4c3b-9ce9-45c7cae76ecb",
+      "known_pgid_sid_ids": 800
+    },
+    "fresh_hostwide_800_pgid_sid_no_julia": {
+      "processes_scanned": 56,
+      "permission_denials": [],
+      "known_id_conflicts": [],
+      "julia": []
+    },
+    "fresh_memory_thresholds": {
+      "available_kib": 22285680,
+      "swap_used_kib": 0
+    },
+    "global_lock_currently_available": {
+      "path": "/tmp/jsimplex-numerical-1000.lock",
+      "exists": true
+    }
+  },
+  "unnecessary_work_or_memory_found": false,
+  "work_memory_conclusion": "No unnecessary production work or retained memory found in this RED-only change. Qualified Task3 and production source are unchanged; RED executes six isdefined checks after imports/module loading and includes no behavioral fixtures or solves. Hashing 309 files (53,929,518 bytes) and repeated host/process scans occur in diagnostic setup/closure to bind immutable inputs and certify ownership. This is not a kernel-performance or Task4 implementation assessment; no performance speedup is claimed.",
+  "restrictions": "Read-only independent hash/AST/Git/proc inspection; output only under /tmp/task4-red-review. Host-wide process inspection used authorized escalation. Launch must repeat current preflight; this snapshot does not reserve the lock."
+}

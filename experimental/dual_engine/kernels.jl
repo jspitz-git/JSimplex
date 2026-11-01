@@ -62,7 +62,9 @@ function _rhs_guard(e,rhs,dest)
 end
 function basis_solve!(e::EngineState,kind::Symbol,rhs::AbstractVector{Float64})::StepOutcome
     slot=_slot(kind);ks=e.kernels;q=e.supports[_output_slot(slot)];r=ks.solves[slot]
+    (e.recovery.finished||e.recovery.fatal)&&return StepOutcome(InvalidState)
     ks.factor_valid||return StepOutcome(FactorInvalid)
+    e.recovery.since_refactor>=e.policy.refactor_limit&&return StepOutcome(Exhausted)
     e.invariants.valid&&_bindings_ok(e)||return StepOutcome(InvalidState)
     e.clock()&&return StepOutcome(Stopped)
     _rhs_guard(e,rhs,q.values)
@@ -80,6 +82,7 @@ function basis_solve!(e::EngineState,kind::Symbol,rhs::AbstractVector{Float64}):
     if r.rhs_used==1
         i=r.rhs_ids[1];r.unit_row=r.rhs[i]==1. ? i : 0
     end
+    e.recovery.failed_slot=slot
     try
         if slot==1;e.counters.btran+=1;J.transpose_solve!(q.values,e.ws.factorization,r.rhs)
         elseif slot==2;e.counters.ftran+=1;J.forward_solve!(q.values,e.ws.factorization,r.rhs)
@@ -103,6 +106,7 @@ function basis_solve!(e::EngineState,kind::Symbol,rhs::AbstractVector{Float64}):
     e.clock() ? StepOutcome(Stopped) : StepOutcome(Ready)
 end
 function price_row!(e::EngineState)::StepOutcome
+    e.recovery.failed_slot=0
     _receipt_valid(e,1)||return StepOutcome(RowUnreliable)
     e.clock()&&return StepOutcome(Stopped)
     ks=e.kernels;rho=e.supports[1];out=e.supports[3];A=e.ws.problem.A;m,n=size(A)
@@ -154,6 +158,7 @@ function check_row!(e::EngineState,leaving::Int)::StepOutcome
     r=e.kernels.solves[1]
     r.unit_row==leaving&&1<=leaving<=length(r.rhs)||return StepOutcome(RowUnreliable)
     e.clock()&&return StepOutcome(Stopped)
+    e.recovery.failed_slot=1
     e.kernels.counts.row_checks+=1
     # Deliberately retain the independent original complete row criterion.
     ratio=J._dual_row_residual_ratio(e.ws,r.output,leaving)
@@ -227,6 +232,7 @@ function check_direction!(e::EngineState,rhs::AbstractVector{Float64},pivot::Flo
             if !isequal(rhs[i],r.rhs[i]);r.valid=false;return StepOutcome(DirectionUnreliable);end
         end
     end
+    e.recovery.failed_slot=slot
     e.kernels.counts.direction_checks+=1
     valid=_direction_residual_ok!(e,e.supports[_output_slot(slot)],r.rhs,pivot,r.rhs_ids,r.rhs_used)
     e.clock()&&return StepOutcome(Stopped)

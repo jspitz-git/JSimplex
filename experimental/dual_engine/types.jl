@@ -119,21 +119,24 @@ Base.@kwdef mutable struct StepProposal
     selection::Symbol=:none
     counts::ProposalCounts=ProposalCounts()
 end
-mutable struct UndoJournal
+Base.@kwdef mutable struct UndoJournal
     values::NTuple{4,Vector{Float64}}
     ids::Vector{Int}
     stamps::Vector{UInt32}
     masks::Vector{UInt8}
     states::Vector{J.VariableState}
-    used::Int
-    epoch::UInt32
-    old_basis_row::Int
-    old_basic_index::Int
-    old_entering_state::J.VariableState
-    old_leaving_state::J.VariableState
-    old_iterations::Int
-    old_refactorizations::Int
-    old_perturbed::Bool
+    owner::Base.RefValue{Nothing}
+    used::Int=0
+    epoch::UInt32=UInt32(1)
+    active::Bool=false
+    old_basis_row::Int=0
+    old_basic_index::Int=0
+    old_entering_index::Int=0
+    old_entering_state::J.VariableState=J.AT_LOWER
+    old_leaving_state::J.VariableState=J.AT_LOWER
+    old_iterations::Int=0
+    old_refactorizations::Int=0
+    old_perturbed::Bool=false
 end
 @enum StepReason::UInt8 Ready Committed PrimalFeasible RowUnreliable DirectionUnreliable RatioUncertain FactorInvalid NumericWriteFailed Stopped Exhausted InvalidState
 struct StepOutcome
@@ -184,7 +187,83 @@ function KernelState(owner,m,supports,factor)
     end
     KernelState(records,(UInt64(0),UInt64(0),UInt64(0)),UInt64(0),UInt64(0),:none,true,supports[5].values,KernelCounts())
 end
-mutable struct EngineState{W,C,P,K}
+@enum RecoveryStage::UInt8 Normal CorrectRow CorrectDirection RebuildBasis Reprice ResetDevex LegacyBoundary Terminate
+Base.@kwdef mutable struct RecoveryCounts
+    factor_updates::Int=0
+    journal_entries::Int=0
+    journal_fields::Int=0
+    numeric_writes::Int=0
+    state_writes::Int=0
+    undo_entries::Int=0
+    undo_fields::Int=0
+    refactor_attempts::Int=0
+    refactor_successes::Int=0
+    basis_assemblies::Int=0
+    events::Int=0
+    reset_entries::Int=0
+    reprice_entries::Int=0
+    residual_terms::Int=0
+    cost_restore_attempts::Int=0
+    cost_restores::Int=0
+    transitions::Int=0
+end
+Base.@kwdef mutable struct RecoveryState
+    owner::Base.RefValue{Nothing}
+    correction::Vector{Float64}
+    rejected_entering::SparseSet
+    counts::RecoveryCounts=RecoveryCounts()
+    stage::RecoveryStage=Normal
+    cause::StepReason=Ready
+    pending_failure::StepReason=Ready
+    message::Symbol=:none
+    rebuilds::Int=0
+    row_corrections::Int=0
+    direction_corrections::Int=0
+    failed_slot::Int=0
+    active_row::Int=0
+    direction_key::Int=0
+    entering_attempts::Int=0
+    rejection_generation::UInt64=UInt64(0)
+    since_refactor::Int=0
+    stagnation::Int=0
+    maintenance_due::Bool=false
+    need_primal::Bool=false
+    need_reset::Bool=false
+    restore_costs::Bool=false
+    cost_pending::Bool=false
+    has_repriced::Bool=false
+    staging_ready::Bool=false
+    residual_valid::Bool=false
+    staging_generation::UInt64=UInt64(0)
+    staging_factor::UInt=UInt(0)
+    fatal::Bool=false
+    finished::Bool=false
+    in_commit::Bool=false
+end
+RecoveryState(owner,m,N)=RecoveryState(owner=owner,correction=zeros(m),rejected_entering=SparseSet(N))
+struct CompletionEvent
+    generation::UInt64
+    iteration::Int
+    global_iteration::Int128
+    global_refactorizations::Int128
+    entering::Int
+    leaving_row::Int
+    primal_step::Float64
+    dual_step::Float64
+end
+struct NoEvents end
+(::NoEvents)(event)=nothing
+struct NativePublisher end
+struct NumericPublicationError <: Exception end
+struct PhaseResult{W,C,R}
+    reason::StepReason
+    message::Symbol
+    workspace::Union{Nothing,W}
+    exportable::Bool
+    counters::C
+    repairs::R
+end
+mutable struct EngineState{W,C,P,K,R}
     owner::Base.RefValue{Nothing}
     ws::W
     clock::C
@@ -198,4 +277,5 @@ mutable struct EngineState{W,C,P,K}
     proposal::StepProposal
     journal::UndoJournal
     kernels::K
+    recovery::R
 end

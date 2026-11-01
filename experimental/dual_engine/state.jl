@@ -44,10 +44,10 @@ function import_phase(source,clock,policy::EnginePolicy)
     invariants=InvariantState(SparseSet(m),SparseSet(N),inverse,false,:initializing)
     owner=Ref{Nothing}(nothing)
     proposal=_new_step_proposal(owner,ws)
-    journal=UndoJournal(ntuple(_->Vector{Float64}(undef,N),4),Vector{Int}(undef,N),zeros(UInt32,N),zeros(UInt8,N),Vector{J.VariableState}(undef,N),0,UInt32(1),0,0,J.AT_LOWER,J.AT_LOWER,0,0,false)
+    journal=UndoJournal(values=ntuple(_->Vector{Float64}(undef,N),4),ids=Vector{Int}(undef,N),stamps=zeros(UInt32,N),masks=zeros(UInt8,N),states=Vector{J.VariableState}(undef,N),owner=owner)
     counts=EngineCounters();counts.phase_factor_builds=1;counts.row_index_builds=1;counts.entry_validated_values=4N
     kernels=KernelState(owner,m,supports,factor)
-    e=EngineState(owner,ws,clock,policy,counts,UInt64(1),invariants,supports,zeros(m),J.RowAccess(ws.problem.A),proposal,journal,kernels)
+    e=EngineState(owner,ws,clock,policy,counts,UInt64(1),invariants,supports,zeros(m),J.RowAccess(ws.problem.A),proposal,journal,kernels,RecoveryState(owner,m,N))
     # Copied numeric values were validated before any copy; no duplicate finite scan.
     _install_membership!(e;validated_basis=true)
     e

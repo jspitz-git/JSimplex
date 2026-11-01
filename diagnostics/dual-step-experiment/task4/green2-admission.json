@@ -1,0 +1,482 @@
+{
+  "accepted": true,
+  "scope": "New independent admission for one exact bounded GREEN2 ordinary Test process following preserved original GREEN loading failure. No prior approval reuse, no observed GREEN2 success or Task4 completion approval.",
+  "pins_sha256": "71e8ae9664a6b7e374bb6e07018e3ff615a75a536cee85b5ae5c1adf9d0a9c82",
+  "reviewed_at_unix": 1793492702.7816412,
+  "checks": {
+    "exact_367_manifest_sha": true,
+    "exact_inventory_membership": true,
+    "all_367_hashes_and_resolutions": true,
+    "exact_five_substitution_source_inverse": true,
+    "only_recovery_changed_from_344": true,
+    "all_17_test_files_unchanged": true,
+    "prior_331_changed_bindings_preserved": true,
+    "original_GREEN_failure_preserved_before_any_tests": true,
+    "run2_only_changes_stage_admission_output_names": true,
+    "GREEN2_unchanged_Julia_command_contract": true,
+    "six_launcher_guard_Python_files_parse_without_execution": true,
+    "prior_journal_recovery_event_work_memory_source_assessment_still_applicable": true,
+    "BFRT_coverage_retained": true,
+    "budgets_tolerances_numerical_algorithms_unchanged": true,
+    "common1800s_global_lock_exclusive_output_threads_and_resources_unchanged": true,
+    "fresh_hostwide_804_PGID_SID_noJulia": true,
+    "fresh_refs_boot_master_source_index_userstate": true,
+    "no_Julia_launcher_or_frozen_auditor_execution": true,
+    "no_repository_writes": true
+  },
+  "findings": [],
+  "finding_counts": {
+    "Critical": 0,
+    "Important": 0,
+    "Minor": 0
+  },
+  "failure_analysis": {
+    "observed": "Original GREEN344 LoadError/ParseError at recovery.jl:338:48, unexpected = in reserved keyword export used as keyword argument. Include failed before the test branch; exit1, no assertions, pins unchanged, elapsed5.257454594015144s.",
+    "root_cause": "Reserved Julia keyword used as argument name; prior source review missed this parse defect.",
+    "minimal_fix": "Exactly five lexical substitutions export\u2192export_workspace: argument definition, internal read, three call keywords. Exact inverse restores preserved original source and its 344-manifest hash.",
+    "limitation": "No Julia parser or test was executed during review; GREEN2 must establish actual loading and all assertions. Original GREEN remains a failed load, not numerical evidence."
+  },
+  "persistent_artifact_bindings": [
+    {
+      "path": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/green2-pins.json",
+      "sha256": "71e8ae9664a6b7e374bb6e07018e3ff615a75a536cee85b5ae5c1adf9d0a9c82"
+    },
+    {
+      "path": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/parse-before-map.json",
+      "sha256": "7f5a4a16a37b695b371bde3257eeb69970a7b7f66303df5209ff9a8b069f1155"
+    },
+    {
+      "path": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/bfrt-before-map.json",
+      "sha256": "2a93ff8cdfef9c1eab20d423ad6694bb84c6a86f21bd51df40a247d6ee28d278"
+    }
+  ],
+  "source_driver_runtime_and_historical_path_hash_bindings": {
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/GREEN-ADMISSION.md": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/GREEN-ADMISSION.md",
+      "sha256": "8e42c13f7ba4f4d1d9e6c59b76c813c63fcde4f81134e3fb7d8a3c1b0eba2a29"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/GREEN-REVIEW.md": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/GREEN-REVIEW.md",
+      "sha256": "d53980dd0b62b956c1785a09f2f6178cf80182b1f55817ea0a73861620a45504"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/PARSE-FIX.md": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/PARSE-FIX.md",
+      "sha256": "ac9caca569b6e367d5cb1bce1d3c4fa23d4f582b4562f2640c8e73491a3072ab"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/RED-ADMISSION.md": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/RED-ADMISSION.md",
+      "sha256": "dafdd607d34dc880d480f7adfe03f650c420b87e3cbd886b7056186325a33859"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/RED-REVIEW.md": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/RED-REVIEW.md",
+      "sha256": "7ebfa9fa259c1dc0b070311635be0ec50f4c880bc9aeb049924e58d3cde0d64e"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/WORK-MEMORY.md": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/WORK-MEMORY.md",
+      "sha256": "e2d698491eba9c34ad34a54ddae5ee94725bb3c6efe50f4d3ba16323bc2415e3"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/before-bfrt-review/GREEN-ADMISSION.md": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/before-bfrt-review/GREEN-ADMISSION.md",
+      "sha256": "f4b0d9f4c0a5d228cf657ae797ca0305eb5379dfba67e98de0af2c0246900e68"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/before-bfrt-review/REVIEW.md": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/before-bfrt-review/REVIEW.md",
+      "sha256": "a0a5f18d7043eb4fc5a2060943a5abb62baaf62e8ef0c2c33b7ff9051abd9204"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/before-bfrt-review/WORK-MEMORY.md": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/before-bfrt-review/WORK-MEMORY.md",
+      "sha256": "01dfb03b61b853f4603e4bc0642984c8901cdd61fa871458748b5695cc6f7223"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/before-bfrt-review/admission.json": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/before-bfrt-review/admission.json",
+      "sha256": "cce1994fe21bb29d15632f4aca5fd68883bf8cab49be1d0674c628fecdf3c050"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/before-bfrt-review/check_host_readonly.py": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/before-bfrt-review/check_host_readonly.py",
+      "sha256": "9333beb8729a88ce140868fe80e0156955a2eef092ec6d1804bad99214181b6a"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/before-bfrt-review/commit_fixtures.jl": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/before-bfrt-review/commit_fixtures.jl",
+      "sha256": "2497509b50dbe62a00dd6bafd3364fe159f26dd396149c3f75f98c6089e39f1c"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/before-bfrt-review/evidence.json": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/before-bfrt-review/evidence.json",
+      "sha256": "5c3306c7d7ebdcda943fb2e71d115039a2750187a1b55f85c9479e6bd91922b2"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/before-bfrt-review/findings.json": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/before-bfrt-review/findings.json",
+      "sha256": "82baf1ec7293d9cfe0d7107a1c21e7cbeef8b8cdf5b861f767eacb19ec256b2b"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/before-bfrt-review/green-pins.json": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/before-bfrt-review/green-pins.json",
+      "sha256": "a78b9f9cfb8e269ef8ae7d32bce8337ea01873b45111ab7b2cd36c071c9a1cd2"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/before-bfrt-review/host-evidence.json": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/before-bfrt-review/host-evidence.json",
+      "sha256": "9587ae870d4174e766faf2140870e3629b5d7f5b94bbe7a437f4e07037129af7"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/before-bfrt-review/recovery_tests.jl": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/before-bfrt-review/recovery_tests.jl",
+      "sha256": "6e0f1b26ca4d9ea96a086c652a362ac6b3148723ef838e650097a572b2274cab"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/before-green-tests/recovery_tests.jl": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/before-green-tests/recovery_tests.jl",
+      "sha256": "b39d930726fd8f6814ee934ba2e98a48436fb72960d280be246e14bbacbed128"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/before-parse-fix/recovery.jl": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/before-parse-fix/recovery.jl",
+      "sha256": "b38084b8bbf861fd6e1c0f9fcdee1697d553981f48c9f3672273862afeca32f6"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/bfrt-before-map.json": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/bfrt-before-map.json",
+      "sha256": "2a93ff8cdfef9c1eab20d423ad6694bb84c6a86f21bd51df40a247d6ee28d278"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/green-admission.json": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/green-admission.json",
+      "sha256": "5002614073127c33937f8c5d4a0be21f19c97eb8655d6929a78ec5b9034091ae"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/green-contract.json": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/green-contract.json",
+      "sha256": "a1464e1c74b32cd7c35f3bfa502ea156abfff76a80482aeaf44e17025388f2b5"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/green-pins.json": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/green-pins.json",
+      "sha256": "939b476d8723b46be35a9e654d0417684dd955af6f4b58ac767052b67ac79e4f"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/green-run/guard/current.json": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/green-run/guard/current.json",
+      "sha256": "382fb4a4bbfb86643e1b11fa84c8cda5a9e8cfa0dfa8c21247f4e552ef1dd122"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/green-run/guard/gate.json": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/green-run/guard/gate.json",
+      "sha256": "095ef41cff39dc6b5ee3859d25d25ed5026cd221f85b13e8c26435ed7b2d2aef"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/green-run/guard/permit.json": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/green-run/guard/permit.json",
+      "sha256": "e143b1bcef50ce1c1ea446aceebe191e8eb11c9a5001ab9ec6dea99363b58365"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/green-run/guard/pins.json": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/green-run/guard/pins.json",
+      "sha256": "939b476d8723b46be35a9e654d0417684dd955af6f4b58ac767052b67ac79e4f"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/green-run/guard/process.json": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/green-run/guard/process.json",
+      "sha256": "46b10c497b6f45a42053750276795e4224e7148480e9907b08aed4ddf439e01d"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/green-run/guard/resources.jsonl": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/green-run/guard/resources.jsonl",
+      "sha256": "aba9df5efade79131c2f14aaad34d2e2c02d078ba424c491deb7a782ba2d0594"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/green-run/guard/run.log": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/green-run/guard/run.log",
+      "sha256": "e6dd9f8c21ae6e0c342939d8c7a87760e17ac4fca264e1989319598652570d20"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/green-run/preflight.json": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/green-run/preflight.json",
+      "sha256": "0189ce350f7cf0f0eb9ba59c994d40e59f017cdee78a3023aeb459f3c20f29b4"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/green-run/reservation.json": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/green-run/reservation.json",
+      "sha256": "4f79da5487fe2cd2fb216c01f18f33c91d814a0e149f9dc38b55536a64b8fb41"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/green-run/result.json": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/green-run/result.json",
+      "sha256": "4d86e0e4b37eb7efb93d028b473cfccfc22e4b6b0b44b05110668c610ae12c9b"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/green-run/supervision.json": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/green-run/supervision.json",
+      "sha256": "d157baa63911e018f2773a81a2330fbc98140b68880d0fcc88f48ddbcf3e6718"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/green-run/supervisor.log": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/green-run/supervisor.log",
+      "sha256": "0169fa31f542e4d464e6f8ca94dbfcbbac55c7ad71bf3dbaadb9817aebb85151"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/green-run/terminal-host.json": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/green-run/terminal-host.json",
+      "sha256": "803a7eda75911936a8df3d927d93181f3a6cfb285c852cee9f0c20df2f0af2ff"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/green2-contract.json": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/green2-contract.json",
+      "sha256": "469b78bb0986311721596bc34732449642d3ef0377945c21e3c7309e75580eaa"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/guard/entry_gate.py": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/guard/entry_gate.py",
+      "sha256": "6b1f569959d53c2d37faa0e8f6a8ebda6887ef8b6e5602db8e0b15ae5f530ff9"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/guard/guard_reviewed.py": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/guard/guard_reviewed.py",
+      "sha256": "92f1c19ded9615f8a1f8cab70bf5209d8dc9db734e9592c3bbf3f5852ee9aa67"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/guard/supervisor_reviewed.py": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/guard/supervisor_reviewed.py",
+      "sha256": "f983198c245079eafa712d1b4752a6ac56456aa91058fc469245fa77759bf0ec"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/host-before-bfrt.json": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/host-before-bfrt.json",
+      "sha256": "3b8eb263318abc864a6880ef66c46cf9fec6128e3422163a5a56cf7952d40f9a"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/host-before-green-launch.json": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/host-before-green-launch.json",
+      "sha256": "e468f00233ce9c38fd46160445661f84d3f62097330c9eee45d34e38d2c87335"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/host-before-parse-fix.json": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/host-before-parse-fix.json",
+      "sha256": "064353596f62bb9d7280dcee677197d969359d99036ce087f0a46bc98d92eb39"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/host-preflight.py": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/host-preflight.py",
+      "sha256": "241ce643551f0dfcf19c51333241d7e45c5ed5a96b27a7e31a296b515179f7c6"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/host.json": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/host.json",
+      "sha256": "c59e99c0501b1f12270ee394b2dd7226fcf05e9ad5f61db51ed99387592fdb7f"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/parse-before-map.json": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/parse-before-map.json",
+      "sha256": "7f5a4a16a37b695b371bde3257eeb69970a7b7f66303df5209ff9a8b069f1155"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/red-admission.json": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/red-admission.json",
+      "sha256": "a9ff599c5d25da6d5f8b9cfdb707d290f648098859287bac2c4f1f1f59b5c4dc"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/red-contract.json": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/red-contract.json",
+      "sha256": "c068506e5930837551ae3e80f03832c312ae42d229d95bd09e3cb7ec9537afab"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/red-pins.json": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/red-pins.json",
+      "sha256": "583a8e295fa1066ea3c4033193cb18fd9e6356581b538316fc80ff1eaaf925b5"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/red-run/guard/current.json": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/red-run/guard/current.json",
+      "sha256": "0b814692f68b5edb7759bd32a11c4b024140171ffb8e9a343dd66c3e83101504"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/red-run/guard/gate.json": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/red-run/guard/gate.json",
+      "sha256": "b344da5c56951b0a1f0623e35d1c157106ace571cc9353e288d9168b9122e72d"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/red-run/guard/permit.json": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/red-run/guard/permit.json",
+      "sha256": "8dcfda3a1b7856c5176a23a281c26a8fbef7ce24c5d876836a4eea992b05deb3"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/red-run/guard/pins.json": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/red-run/guard/pins.json",
+      "sha256": "583a8e295fa1066ea3c4033193cb18fd9e6356581b538316fc80ff1eaaf925b5"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/red-run/guard/process.json": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/red-run/guard/process.json",
+      "sha256": "46ada272a9d9272cde6e38d27cf3d1bdd02493fdc6e179bd198473814ad5e61a"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/red-run/guard/resources.jsonl": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/red-run/guard/resources.jsonl",
+      "sha256": "a831c5615edc96f0a2898e0e71bae3156b2af9c8befd4b4a3cf2dbe3391833eb"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/red-run/guard/run.log": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/red-run/guard/run.log",
+      "sha256": "34904fe02d6e4de57b2fad2f4def3bd46ef8ebd16856ba30247281cab5192645"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/red-run/preflight.json": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/red-run/preflight.json",
+      "sha256": "c132779a4c2668aa7453584f05e5707ad7d4996b87a5ba7ceb4500a183a781d9"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/red-run/reservation.json": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/red-run/reservation.json",
+      "sha256": "0798d9ad56e715a85998f78bc7ffbdb2b5d5318cf8515ddf96976eb23c048128"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/red-run/result.json": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/red-run/result.json",
+      "sha256": "0efcbebf6316635102af24538478250e4def73d328ce1e79fc5821750520615e"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/red-run/supervision.json": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/red-run/supervision.json",
+      "sha256": "6a16010f48f6caa0a0074cc661c33c0768329995bec3753535cc71c21ceb4fe2"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/red-run/supervisor.log": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/red-run/supervisor.log",
+      "sha256": "b8c1e4ee1c21df46e6044cb151b2019fd8da224e13a9259158d2975ed05e698f"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/red-run/terminal-host.json": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/red-run/terminal-host.json",
+      "sha256": "27c4b3fe942644bad19b899767c193b972fed76ce8a0f7d13afe033b32c9980c"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/run.py": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/run.py",
+      "sha256": "b173f2b671eda670b67e8ee75e3dbcf971aea22836beb9ae1a1cff3c5044e625"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/run2.py": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/run2.py",
+      "sha256": "06eec7179f54f5dd605bd0a5d7d037331ef82e41f20062890646cbccd0914bbd"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/runtime.json": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/runtime.json",
+      "sha256": "ae944a97847e8bbbe5516ae135f2e7d34d3415822e554b47fd4cc5a4c11f0f3a"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/task3-before-map.json": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/task3-before-map.json",
+      "sha256": "33247a3f750553b1a73b64d436333fa7c0e1a4ca43a6bb77766f040720c40b99"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/ExperimentalDualEngine.jl": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/ExperimentalDualEngine.jl",
+      "sha256": "4b75a0bf77fa4f3ab28a27adb9158547d4996e07e8aed2a6157fb1e27a164351"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/commit.jl": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/commit.jl",
+      "sha256": "95a8afb20a37a63810e9f717dc545fe5ba8bf05e90f590d7042303d73c904a72"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/invariants.jl": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/invariants.jl",
+      "sha256": "f5a272454d1ec157f3e60c4d5b3f189f755067e1eba7da9f6ca5c1bc83f6cdf0"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/kernels.jl": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/kernels.jl",
+      "sha256": "a9ede47dab27ea92292896a3a1e5d78224fe6d023b99ca5e7419815a38563d0e"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/proposal.jl": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/proposal.jl",
+      "sha256": "df0c6f93ef0794f665a1a69130e068a833c9b2e52e2647421ea8e8ae3abea790"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/ratio.jl": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/ratio.jl",
+      "sha256": "69c74fd1572a72dc8182b83debc158f899c4e33e2a0e5c053dcce930fb2f2375"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/recovery.jl": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/recovery.jl",
+      "sha256": "72f5a2fb320386673579ad930a33f022da289b404045ce5cc02aa42e0d7d50bf"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/state.jl": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/state.jl",
+      "sha256": "bbdf78ab8037caa6f70431de34eb502ab88e5ac4f64086125a1702b8ff69d8a6"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/support.jl": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/support.jl",
+      "sha256": "60e43f83f70e4df3072d827e206987cd1d9b5eac2794b54f7efa773a79c4faf9"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/commit_fixtures.jl": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/commit_fixtures.jl",
+      "sha256": "7cc9a4ccbf9246b570d6fa82eec3e20302405aeeab7f04a0ed1cd5d26b98056f"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/commit_tests.jl": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/commit_tests.jl",
+      "sha256": "b0c836c327e18b401bdc934de1badd9df80af2becfaab86de0e598529972af25"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/fixtures.jl": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/fixtures.jl",
+      "sha256": "28daa5367d02ec899407922f644425a6e9dd9b25ab80f578f5c51b38562eb9c1"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/invariant_tests.jl": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/invariant_tests.jl",
+      "sha256": "ce61fbf073759f4906f4ca32d079427311a380b4b192aed405596f482b128270"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/kernel_fixtures.jl": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/kernel_fixtures.jl",
+      "sha256": "50920d3ca035efd6ed563f945096db16cfa049d108ed9ab426172c8922daead2"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/kernel_tests.jl": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/kernel_tests.jl",
+      "sha256": "595f6adbbb9a6c76544e82373452c22733fab4f6bfb46ef5f116cdc0a84eaa14"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/proposal_fixtures.jl": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/proposal_fixtures.jl",
+      "sha256": "a1625b885f8295266b052f078982b72c820a28e2650f889913311df1b2ec319a"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/proposal_tests.jl": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/proposal_tests.jl",
+      "sha256": "6590a7c19a50b3091a2c88cc71bf7afc3a0d989c2c0a3af3886a01a2b015e1a3"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/ratio_tests.jl": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/ratio_tests.jl",
+      "sha256": "e38d66bb5ac6cdae47ba703aa52cc10f7284533ef7b1c5a5170a1c1582815e02"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/recovery_tests.jl": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/recovery_tests.jl",
+      "sha256": "d4a0b4f327dccac02f57b65f592034706e98df32d820f1925a57bea783f85f12"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/runtests.jl": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/runtests.jl",
+      "sha256": "676ddfb9a248fb710982472b411a5f642cf102a22125b792c5c51936e6e9b8f7"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/state_tests.jl": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/state_tests.jl",
+      "sha256": "3563a7b500aa35dfaa0139103c33d80a79774b765c1bca883c134b088f6c7f12"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/task2_runtests.jl": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/task2_runtests.jl",
+      "sha256": "d9b6a7cb0b33ec7fdf312e64a6d02531473a5bdcdcb1ba96d95a2cac498d6c93"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/task3_lifetime_red.jl": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/task3_lifetime_red.jl",
+      "sha256": "18d2c33d1d0d09856fd6e79903523980274bc53197e88d18fea989a18bccb376"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/task3_runtests.jl": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/task3_runtests.jl",
+      "sha256": "f7338f99f92a431cb72b0a85b65f5b33c2a399a13fcd42a3d11e1774f02be201"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/task3_underflow_red.jl": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/task3_underflow_red.jl",
+      "sha256": "1105f0786fc221de83ac1000770fc08888c50a96b3028b20857619b502e11283"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/task4_runtests.jl": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/task4_runtests.jl",
+      "sha256": "7d528f004eec3e232828173471eee1a5e48aa0d50a4369086808aff9cdde86ed"
+    },
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/types.jl": {
+      "resolved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/types.jl",
+      "sha256": "a1ce032f03fcb46b34ea9f01eeef4510616b23a8a45760692034e86489c9cbcd"
+    }
+  },
+  "parse_before_bindings": {
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/recovery.jl": {
+      "sha256": "b38084b8bbf861fd6e1c0f9fcdee1697d553981f48c9f3672273862afeca32f6",
+      "preserved": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/before-parse-fix/recovery.jl"
+    }
+  },
+  "prior_331_changed_bindings": [
+    {
+      "original_path": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/GREEN-ADMISSION.md",
+      "preserved_path": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/before-bfrt-review/GREEN-ADMISSION.md",
+      "sha256": "f4b0d9f4c0a5d228cf657ae797ca0305eb5379dfba67e98de0af2c0246900e68",
+      "verified": true
+    },
+    {
+      "original_path": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/WORK-MEMORY.md",
+      "preserved_path": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/before-bfrt-review/WORK-MEMORY.md",
+      "sha256": "01dfb03b61b853f4603e4bc0642984c8901cdd61fa871458748b5695cc6f7223",
+      "verified": true
+    },
+    {
+      "original_path": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/recovery.jl",
+      "preserved_path": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/before-parse-fix/recovery.jl",
+      "sha256": "b38084b8bbf861fd6e1c0f9fcdee1697d553981f48c9f3672273862afeca32f6",
+      "verified": true
+    },
+    {
+      "original_path": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/commit_fixtures.jl",
+      "preserved_path": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/before-bfrt-review/commit_fixtures.jl",
+      "sha256": "2497509b50dbe62a00dd6bafd3364fe159f26dd396149c3f75f98c6089e39f1c",
+      "verified": true
+    },
+    {
+      "original_path": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/recovery_tests.jl",
+      "preserved_path": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task4/before-bfrt-review/recovery_tests.jl",
+      "sha256": "6e0f1b26ca4d9ea96a086c652a362ac6b3148723ef838e650097a572b2274cab",
+      "verified": true
+    }
+  ],
+  "unnecessary_work_or_memory_found": false,
+  "work_memory_conclusion": "The identifier-only fix changes no computation, allocation, retained storage, numerical policy or path frequency. No unnecessary work/memory found. Prior assessed publication uses fixed checks and O(t) journal union passes, no ordinary factor copy/full numeric snapshot. Nominal new payload remains16N+8m before headers/scalars/slack; original-B residual/correction/rebuild/reprice scans and solves remain declared cold repair work. No performance/allocation/native-retention improvement claimed.",
+  "review_execution": "Read-only independent full hash/resolution, static source inverse/Python AST, Git and authorized host-wide proc inspection. No Julia, launcher, candidate driver, host script or frozen auditor execution; no repository writes. New outputs only under /tmp/task4-green2-review; prior reviews/raw failures remain intact.",
+  "supplemental_local_review_artifacts": [
+    {
+      "path": "/tmp/task4-green2-review/green2-pins-reviewed.json",
+      "sha256": "71e8ae9664a6b7e374bb6e07018e3ff615a75a536cee85b5ae5c1adf9d0a9c82"
+    },
+    {
+      "path": "/tmp/task4-green2-review/evidence.json",
+      "sha256": "7c599dad214975bd314a967d79a0c099c65a431724d3be3e17e4a481f37327a6"
+    },
+    {
+      "path": "/tmp/task4-green2-review/host-evidence.json",
+      "sha256": "a7975473398888f7bd6509a0ce6828f86960f73e9a985a4fb1e7c1c910d66e94"
+    }
+  ]
+}

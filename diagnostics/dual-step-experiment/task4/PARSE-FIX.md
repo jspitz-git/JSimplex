@@ -1,0 +1,5 @@
+# Task4 GREEN loading correction
+
+Original GREEN344 failed before any test: Julia ParseError recovery.jl338 unexpected= because reserved keyword export was used as an argument name. Original source,344manifest, accepted source review, process/raw/pins and exit1 remain frozen. Not a numerical/test result, no assertion expectation changed. Only rename the argument/reference/three call keywords to export_workspace, five exact substitutions; no algorithm, policy, tolerance, test, work or storage change. Ordinary completion-marker run verifies corrected loading and all original tests. No ad hoc parser/JIT probe or old-run rerun.
+
+GREEN2 is a separate exact immutable admission and exclusive green2-run, limit1800s with unchanged guards/runtime/common-clock conventions. Fresh804groupsANDsessions/noJulia before correction and new fresh prelaunch are required. New independent review must bind exact GREEN2 pins and minimal inverse to original source, plus unchanged tests, actual old ParseError and all old raw failures. No production/master/push/Task5/Task6 action.

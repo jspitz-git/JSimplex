@@ -1,0 +1,25 @@
+# Task4 GREEN source and run-admission review
+
+Rejected the exact 331-file candidate bound to `a78b9f9cfb8e269ef8ae7d32bce8337ea01873b45111ab7b2cd36c071c9a1cd2`. No concrete numerical/source defect was found, but the required BFRT recovery qualification is missing. Critical: 0; Important: 1; Minor: 0. This review grants no GREEN launch or Task4 completion approval.
+
+## Important finding
+
+`experimental/dual_engine/test/recovery_tests.jl:15` tests only `:row_once` and `:direction_once`; line 21 requires `bfrt_ftran==0`. Its real correction components also cover only slots 1 and 2. No test reaches the distinct slot-3 branch in `recovery.jl:178`, where a replaced BFRT receipt must retain the validated row and entering direction, pass all proof bindings, and finish the proposal. Add an injected failure after the genuine BFRT FTRAN and prove exactly one BFRT correction with no repeated unit BTRAN or entering FTRAN, plus final publication/invariant/factor correctness. The distinct source path appears sound on inspection; lack of an actual lifetime/count exercise blocks this candidate's qualification.
+
+## Source assessment
+
+- Journal reservation validates fixed capacities and the planned union before mutation (`commit.jl:10`). First-write stamps gather old fields once. A failure after a started native replacement restores numeric/state/basis/scalar fields into original owners, invalidates factor and summaries, and revokes receipts (`commit.jl:49`). Native factor mutation is never described as rolled back; invalid factors are refused before another solve. Timeouts do not force late repairs.
+- Numeric publication contains no external observer. The immutable scalar CompletionEvent and consumer call are after journal deactivation and outside the numerical/rollback catch (`commit.jl:122`), so a postcommit observer exception propagates while preserving committed state.
+- The single `run_phase!` loop owns recovery stages. Rebuilds cap at two per stuck episode and reset only after a committed pivot. Corrections cap at three per failed equation/round; generation/row changes expire obsolete candidate sets. Entering/leaving rejection limits are eight. Maintenance honors the factor-update ceiling and the original clock/phase offsets.
+- Slot-1 correction republishes its receipt, invalidates pricing, then recomputes dependent proposal work. Slot-2 correction preserves accepted row/pricing and revalidates direction/BFRT dependencies. Slot-3 correction preserves both prior dependencies, replaces its BFRT ticket, and finishes planning. The slot-3 branch requires the missing targeted test above.
+- Reprice producers fully stage finite costs/primal/prices in already-owned proposal buffers before publication (`recovery.jl:239`). Publication requires a matching generation and factor identity (`recovery.jl:291`). Full membership installation revisits every variable after a validated basis inverse, updating coherent preallocated SparseSets. No partially staged numeric vectors are exported. The workspace boundary consumes the controller and returns no original-model certificate.
+
+## Evidence and restrictions
+
+All 331 hashes and resolved paths matched with exact membership and no tree pins. Eight historical RED source changes resolve to their original hashes: seven qualified Task3 source copies through task3-before-map and recovery_tests through before-green-tests. Original manifest and all absolute path/hash bindings are retained under `/tmp/task4-green-review`; admission.json links their hashes. All five local Python files parse without execution. Exact GREEN command, one ordinary Test process, marker/exit criteria, existing compiled loading, offline settings and thread/resource controls were reviewed.
+
+Fresh host-wide read-only inspection scanned 55 processes with no permission denials, Julia, or conflict with 800 historical plus 2 actual RED process-group/session IDs. Boot/refs match; lock is available, green-run absent, available RAM 22,330,900 KiB, used swap 0. The launcher must still repeat preflight and acquire the global Julia lock; this snapshot is not a reservation. Common supervision is 1,800 seconds with cleanup margins, 2 GiB heap hint, 8 GiB hard VM, 6 GiB minimum available RAM and 1 GiB maximum used swap.
+
+No unnecessary computational work or retained memory was found. Ordinary publication adds fixed-capacity checks and O(t) union passes for reservation/gather/write/classification, without a full-vector/factor snapshot or ordinary factor copy. New retained nominal payload is 16N+8m bytes before headers/scalars/slack. Cold corrections and rebuild/reprice explicitly pay for original-B residuals, dense captures, basis assembly/refactor and full pricing/classification; native ETA/storage behavior remains unchanged and unmeasured. No performance or allocation improvement is claimed; integrated measurements remain Task6.
+
+No Julia, launcher, candidate driver or frozen auditor was executed, and no repository file was written. Review outputs only are under `/tmp/task4-green-review`. A replacement test/manifest requires a fresh bound review.

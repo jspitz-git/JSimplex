@@ -22,7 +22,8 @@ end
     state==J.AT_LOWER ? p < -tol : state==J.AT_UPPER ? p>tol : abs(p)>tol
 end
 function _advance_generation!(e)
-    e.proposal.valid=false;e.proposal.rejected_generation=UInt64(0)
+    (e.recovery.finished||e.recovery.fatal)&&throw(ArgumentError("consumed or invalid engine"))
+    e.proposal.valid=false;e.proposal.rejected_generation=UInt64(0);e.recovery.rejection_generation=UInt64(0)
     for q in e.supports;q.evidence_generation=UInt64(0);end
     if e.generation==typemax(UInt64)
         e.generation=UInt64(1);e.counters.generation_wraps+=1
@@ -90,6 +91,7 @@ end
     nothing
 end
 function write_value!(e::EngineState,kind::Symbol,i::Int,x::Float64)
+    (e.recovery.finished||e.recovery.fatal)&&throw(ArgumentError("consumed or invalid engine"))
     e.invariants.valid||throw(ArgumentError("invalid summaries require rebuild"))
     field=kind==:primal ? :primal : kind==:price ? :reduced_costs : kind==:cost ? :costs : kind==:weight ? :pricing_weights : throw(ArgumentError("unknown numeric field"))
     values=getfield(e.ws,field);checkbounds(values,i)

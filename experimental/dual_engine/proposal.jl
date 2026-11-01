@@ -40,18 +40,25 @@ function _column_rhs!(e,index,change=1.;clear=true)
     nothing
 end
 function propose_step!(e::EngineState)::StepOutcome
+    (e.recovery.finished||e.recovery.fatal)&&return StepOutcome(InvalidState)
+    e.recovery.since_refactor>=e.policy.refactor_limit&&return StepOutcome(Exhausted)
     _begin_proposal!(e);p=e.proposal;ws=e.ws
     e.invariants.valid && e.invariants.dual_bad.used==0 && _bindings_ok(e) && p.owner===e.owner && p.rhs.values===ws.scratch.row_rhs || return StepOutcome(InvalidState)
     e.kernels.factor_valid||return StepOutcome(FactorInvalid)
     e.clock()&&return StepOutcome(Stopped)
     row=choose_leaving(e)
     row==0&&return StepOutcome(p.selection==:feasible ? PrimalFeasible : p.selection==:exhausted ? Exhausted : RatioUncertain)
+    _set_attempt_row!(e,row)
     p.leaving_row=row;p.leaving=ws.basis.basic_indices[row]
     p.below=isfinite(ws.lower[p.leaving]) && ws.lower[p.leaving].value-ws.primal[p.leaving]>e.policy.primal_tolerance
     p.bound=(p.below ? ws.lower[p.leaving] : ws.upper[p.leaving]).value
     p.orientation=p.below ? -1. : 1.;p.violation=abs(ws.primal[p.leaving]-p.bound)
     clear_scratch!(p.rhs);set_scratch!(p.rhs,row,1.)
     out=basis_solve!(e,:btran,p.rhs.values);out.reason==Ready||return out
+    _proposal_after_row!(e)
+end
+function _proposal_after_row!(e)
+    p=e.proposal;ws=e.ws;row=p.leaving_row
     out=price_row!(e);out.reason==Ready||return out
     out=check_row!(e,row);out.reason==Ready||return out
     p.row_ticket=e.kernels.solves[1].ticket;p.factor_id=objectid(ws.factorization)
@@ -67,16 +74,22 @@ function validate_proposal!(e::EngineState)::StepOutcome
     e.clock()&&(p.valid=false;return StepOutcome(Stopped))
     p.stage>=0x02&&return StepOutcome(Ready,p.entering,p.leaving_row)
     p.stage=0x00 # a failed validation cannot retry solves under the same proposal
+    e.recovery.failed_slot=0
     try;_column_rhs!(e,p.entering)
     catch err;err isa ArgumentError||rethrow();return StepOutcome(DirectionUnreliable)
     end
     out=basis_solve!(e,:ftran,p.rhs.values);out.reason==Ready||return out
+    _validate_direction_output!(e)
+end
+function _validate_direction_output!(e)
+    p=e.proposal
     p.direction_ticket=e.kernels.solves[2].ticket;p.pivot=e.supports[2].values[p.leaving_row]
     row_pivot=e.supports[3].values[p.entering]
     agreement=e.policy.pivot_error_tolerance*max(abs(p.pivot),abs(row_pivot))
     J._pivot_agrees(row_pivot,p.pivot,agreement) && abs(p.pivot)>e.policy.zero_tolerance || return StepOutcome(DirectionUnreliable)
     out=check_direction!(e,e.kernels.solves[2].rhs,p.pivot);out.reason==Ready||return out
     if p.flip_used>0
+        e.recovery.failed_slot=0
         clear_scratch!(p.rhs)
         try
             for k in 1:p.flip_used
@@ -89,6 +102,10 @@ function validate_proposal!(e::EngineState)::StepOutcome
         p.bfrt_ticket=e.kernels.solves[3].ticket
         out=check_direction!(e,e.kernels.solves[3].rhs,0.;kind=:bfrt);out.reason==Ready||return out
     end
+    _finish_direction_proposal!(e)
+end
+function _finish_direction_proposal!(e)
+    p=e.proposal
     delta=e.ws.primal[p.leaving]-p.bound
     p.flip_used>0&&(delta-=e.supports[4].values[p.leaving_row])
     p.primal_step=delta/p.pivot
@@ -125,6 +142,7 @@ function plan_writes!(e::EngineState)::StepOutcome
     end
     e.clock()&&(p.valid=false;return StepOutcome(Stopped))
     p.stage==0x03&&return StepOutcome(Ready,p.entering,p.leaving_row)
+    e.recovery.failed_slot=0
     p.valid=false;p.stage=0x00 # partial planning can never be reused after failure
     row=e.supports[3];direction=e.supports[2];bfrt=e.supports[4]
     reference_weight=0.

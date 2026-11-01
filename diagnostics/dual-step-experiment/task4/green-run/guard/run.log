@@ -1,0 +1,25 @@
+ERROR: LoadError: ParseError:
+# Error @ /home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/recovery.jl:338:48
+end
+function _finish_phase!(e,reason,message;export=false)
+#                                              ╙ ── unexpected `=`
+Stacktrace:
+ [1] top-level scope
+   @ ~/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/recovery.jl:338
+ [2] include(mapexpr::Function, mod::Module, _path::String)
+   @ Base ./Base.jl:310
+ [3] top-level scope
+   @ ~/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/ExperimentalDualEngine.jl:13
+ [4] include(mapexpr::Function, mod::Module, _path::String)
+   @ Base ./Base.jl:310
+ [5] top-level scope
+   @ ~/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/task4_runtests.jl:5
+ [6] include(mod::Module, _path::String)
+   @ Base ./Base.jl:309
+ [7] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:344
+ [8] _start()
+   @ Base ./client.jl:577
+in expression starting at /home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/recovery.jl:338
+in expression starting at /home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/ExperimentalDualEngine.jl:1
+in expression starting at /home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/task4_runtests.jl:5

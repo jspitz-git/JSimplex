@@ -1,0 +1,15 @@
+[
+  {
+    "severity": "Important",
+    "title": "BFRT correction ticket/dependency path has no recovery exercise",
+    "file": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/recovery_tests.jl",
+    "line": 15,
+    "related_source": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/recovery.jl",
+    "related_lines": [
+      159,
+      178,
+      181
+    ],
+    "body": "Controller recovery tests cover only :row_once and :direction_once, and assert bfrt_ftran==0. Component correction tests use slots 1 and 2 only. Therefore no test enters slot3 correction, which must preserve the accepted row/entering direction while replacing the BFRT receipt and finishing publication. Add a fixture that first forwards the real entering FTRAN and real BFRT FTRAN, perturbs only the BFRT output, then proves one real BFRT correction, no repeated unit BTRAN or entering FTRAN, valid ticket reuse, correct final committed values, and full invariant/factor oracles. This is missing required direction-dependency qualification, not an observed numerical defect."
+  }
+]

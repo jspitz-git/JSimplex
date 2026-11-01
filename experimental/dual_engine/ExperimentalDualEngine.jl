@@ -1,4 +1,4 @@
-"""Opt-in experimental dual engine. Task1/2/3 state, kernels and pending proposals only; no solver routing."""
+"""Opt-in experimental dual engine. Experimental owned dual phase, journaled publication and flat recovery; no solver routing."""
 module ExperimentalDualEngine
 import JSimplex
 const J=JSimplex
@@ -9,4 +9,6 @@ include("state.jl")
 include("kernels.jl")
 include("ratio.jl")
 include("proposal.jl")
+include("commit.jl")
+include("recovery.jl")
 end
