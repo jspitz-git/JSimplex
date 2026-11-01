@@ -1,0 +1,40 @@
+{
+  "scope": "Task6 same-policy whole-solve experiment only, no master promotion",
+  "cases": [
+    "n16_sparse",
+    "n16_dense",
+    "n64_sparse",
+    "n64_dense",
+    "mps_afiro_mps_p0",
+    "mps_afiro_mps_p1",
+    "mps_netlib_adlittle_mps_p0",
+    "mps_netlib_adlittle_mps_p1",
+    "mps_netlib_sc50a_mps_p0",
+    "mps_netlib_sc50a_mps_p1",
+    "mps_generated_degenerate-box_mps_p0",
+    "mps_generated_degenerate-box_mps_p1",
+    "mps_generated_phase-one_mps_p0",
+    "mps_generated_phase-one_mps_p1",
+    "mps_generated_scaled-diagonal_mps_p0",
+    "mps_generated_scaled-diagonal_mps_p1"
+  ],
+  "qualification_whole_calls": 66,
+  "qualification_assertions": 236,
+  "comparison_whole_calls": 224,
+  "comparison_assertions": 749,
+  "warm_per_arm": 2,
+  "measured_pairs": 5,
+  "order": "reference,candidate on odd pair; candidate,reference on even pair",
+  "common_seconds_each_admission": 1800,
+  "settings": "Float64/native PFI/fixed Devex, same shared immutable options object per case; exact Task5 constructors/presolve/scaling; observer nothing; primary reference public solve, E original solve_experimental and mandatory counters",
+  "inputs": [
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/test/fixtures/solver/afiro.mps",
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/test/fixtures/solver/netlib/adlittle.mps",
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/test/fixtures/solver/netlib/sc50a.mps",
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/test/fixtures/solver/generated/degenerate-box.mps",
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/test/fixtures/solver/generated/phase-one.mps",
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/test/fixtures/solver/generated/scaled-diagonal.mps"
+  ],
+  "large_inputs": "runtime/fast0507 histories are not short qualified full-model schedules; conditionally excluded with no large-model speed claim",
+  "memory": "Julia/BLAS1 heap2GiB hint VM8GiB minRAM6GiB maxswap1GiB"
+}

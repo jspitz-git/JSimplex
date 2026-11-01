@@ -1,0 +1,7 @@
+{
+  "expected_failure_observed": true,
+  "returncode": 1,
+  "stdout": "",
+  "stderr": "Traceback (most recent call last):\n  File \"/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/measurement/parser-tests.py\", line 40, in <module>\n    test('wrong_ordinary_count_'+mode,mode,raw.replace('Pass Total Time','Pass Total Time').replace(f'| {236 if mode==\"qualify\" else 749} ', '| 1 ',1),False)\n    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/measurement/parser-tests.py\", line 31, in test\n    if actual!=accepted:raise ValueError(name)\n                        ^^^^^^^^^^^^^^^^^^^^^^\nValueError: wrong_ordinary_count_qualify\n",
+  "scope": "actual new pure offline parser RED before fix; no Julia"
+}

@@ -1,0 +1,1 @@
+After report generation, added an evidence-only interpretation of existing paired medians, unchanged/different iteration counts and first postwarm-GC timing scatter. All160 measured GC/compile/recompile fields are zero; cause of first-window elevation is unknown. No raw/source/pin/statistics were changed and no measurement repeated.
