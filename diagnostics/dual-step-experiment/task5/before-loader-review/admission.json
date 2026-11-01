@@ -1,0 +1,88 @@
+{
+  "accepted": false,
+  "pins_sha256": "e9e32c27f092972557ed9bf36e1c40be0c5f77fd1244912fa4eb9d75b3b4551d",
+  "checks": {
+    "digest": "e9e32c27f092972557ed9bf36e1c40be0c5f77fd1244912fa4eb9d75b3b4551d",
+    "files": 461,
+    "inventory": 461,
+    "membership": true,
+    "mismatches": [],
+    "missing_current_source": [],
+    "temporary_dependencies": [],
+    "project_equal": true,
+    "manifest_equal": true,
+    "src_symlink": true,
+    "src_resolution": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/src",
+    "production_diff": "",
+    "source_baseline_equal": true,
+    "refs": {
+      "experiment": "8e31807121f4e709fcfca0d9ba379aa0a2199d8c",
+      "master": "9940bdabe149e922afa60b5364227a7e7393bc75",
+      "origin_master": "9940bdabe149e922afa60b5364227a7e7393bc75",
+      "diagnostic": "5843312f14d3d7f4a730ddf9eea517481d65f257"
+    },
+    "branch": "codex/dual-step-experiment",
+    "boot_id": "781795f4-f7af-4c3b-9ce9-45c7cae76ecb",
+    "boot_matches": true,
+    "historical_ids": 806,
+    "review_process": {
+      "pid": 4,
+      "pgid": 1,
+      "sid": 1,
+      "start_ticks": 46361777,
+      "command": "python3 -B - ",
+      "comm": "python3"
+    },
+    "conflicts": [],
+    "memory": {
+      "available_kib": 22304296,
+      "swap_used_kib": 0
+    },
+    "lock_exists": true,
+    "lock_available": true,
+    "red_run_absent": true,
+    "at": 1793493956.6565704,
+    "host_visible": {
+      "at": 1793493974.1666837,
+      "boot_id": "781795f4-f7af-4c3b-9ce9-45c7cae76ecb",
+      "historical_ids": 806,
+      "conflicts": [],
+      "review_pid": 654776,
+      "processes_seen": 56,
+      "review_identity": {
+        "pid": 654776,
+        "pgid": 654775,
+        "sid": 654775,
+        "start_ticks": 46363534,
+        "command": "python3 -B - ",
+        "comm": "python3"
+      },
+      "memory": {
+        "available_kib": 22296224,
+        "swap_used_kib": 0
+      },
+      "lock_path": "/tmp/jsimplex-numerical-1000.lock",
+      "lock_available": true,
+      "red_run_absent": true
+    }
+  },
+  "bindings": {
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task5/red-pins.json": "e9e32c27f092972557ed9bf36e1c40be0c5f77fd1244912fa4eb9d75b3b4551d",
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task5/run.py": "09e86900db5a6bb52530e80c172431304a1e5133780132c3544e4822a46344c6",
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task5/red-contract.json": "cac86860723db2c8b6e80b65d3cb4700d0397edc2f1f9972a03702e868e419a2",
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task5/runtime.json": "d3193c73519746754f7cfd0676075ed2fce131b658a6aff31da0ee651289728f",
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task5/RED-ADMISSION.md": "5e121215b870b44ffa4af9213354fbad8bcec895fa07f184667383a5a0e3487f",
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/task5_runtests.jl": "71bb8304e6b9edbab2dce1215517ee348ca8434d84295adf70e85fcaa22ddd39",
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/driver_fixtures.jl": "6f8696cb3d8aa18ff11f9dc9caaf0b0f0b7d77bdfd09846670088f1cbcf5c87b",
+    "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/driver_tests.jl": "877f2c38c087cef96a4b7fd478aaa3ccbe6ad1804025d09c19728cbfb05c993c"
+  },
+  "findings": [
+    {
+      "severity": "Important",
+      "file": "/home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/diagnostics/dual-step-experiment/task5/run.py",
+      "issue": "The stage project/src directory symlink is not an enforced input binding before package loading. The post-load realpath(pathof(J)) assertion is too late to establish the exact admitted loader tree.",
+      "required_change": "Check project/src is a symlink and strictly resolves to W/src before launch and at postexit; pin the staged JSimplex.jl alias as an explicit resolved-path binding."
+    }
+  ],
+  "scope": "Task5 RED only; no Julia, launcher, package import, parser, compile or numerical execution."
+}

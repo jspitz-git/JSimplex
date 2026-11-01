@@ -11,4 +11,5 @@ include("ratio.jl")
 include("proposal.jl")
 include("commit.jl")
 include("recovery.jl")
+include("driver.jl")
 end

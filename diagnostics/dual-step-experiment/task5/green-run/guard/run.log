@@ -1,0 +1,116 @@
+ERROR: LoadError: Some tests did not pass: 5 passed, 1 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/driver_tests.jl:82
+in expression starting at /home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/task5_runtests.jl:7
+Test Summary:                       | Pass  Total  Time
+Task1 eligibility and frozen policy |   13     13  6.9s
+Test Summary:                                       | Pass  Total  Time
+Task1 private phase ownership and retained capacity |   41     41  0.4s
+Test Summary:                          | Pass  Total  Time
+Task1 source invalid state is rejected |    8      8  0.0s
+Test Summary:                         | Pass  Total  Time
+Task1 exact maintained violation sets |   31     31  0.1s
+Test Summary:                                  | Pass  Total  Time
+Task1 reusable sparse sets and stamped support |   13     13  0.1s
+Test Summary:                           | Pass  Total  Time
+Task2 original-basis solves and pricing |   78     78  0.8s
+Test Summary:                           | Pass  Total  Time
+Task2 both pricing routes on one matrix |   10     10  0.0s
+Test Summary:                                        | Pass  Total  Time
+Task2 complete direction residual and scale coverage |   90     90  0.3s
+Test Summary:                                  | Pass  Total  Time
+Task2 provenance alias and mutation boundaries |   21     21  0.1s
+Test Summary:                             | Pass  Total  Time
+Task2 failed attempts and stop accounting |   18     18  0.2s
+Test Summary:                                      | Pass  Total  Time
+Task2 ordinary indexed residual union and overflow |   24     24  0.2s
+Test Summary:                                      | Pass  Total  Time
+Task2 nonordered CSC falls back without rebuilding |    5      5  0.0s
+Test Summary:                              | Pass  Total  Time
+Task2 receipt identity and ticket lifetime |   19     19  0.0s
+Test Summary:                             | Pass  Total  Time
+Task3 ratio eligibility and pending flips |   46     46  2.5s
+Test Summary:                                         | Pass  Total  Time
+Task3 uncertain is never an infeasibility certificate |   12     12  0.0s
+Test Summary:                                  | Pass  Total  Time
+Task3 maintained membership and leaving scores |    8      8  0.1s
+Test Summary:                                       | Pass  Total  Time
+Task3 bounded candidate and rejected-row exhaustion |    7      7  0.0s
+Test Summary:                                           | Pass  Total  Time
+Task3 rejected-row generation cannot collide after wrap |    2      2  0.0s
+Test Summary:                                      | Pass  Total  Time
+Task3 complete planned union and proposal lifetime |   15     15  0.0s
+Test Summary:                                     | Pass  Total  Time
+Task3 cost shift and changed weights stay pending |    7      7  0.0s
+Test Summary:                                      | Pass  Total  Time
+Task3 full-row eligibility reference and equations |   36     36  0.0s
+Test Summary:                                               | Pass  Total  Time
+Task3 receipt expiry, real weight writes, capacity and stop |   12     12  0.0s
+Test Summary:                                       | Pass  Total  Time
+Task3 general basis and nonzero original multiplier |    7      7  0.1s
+Test Summary:                                      | Pass  Total  Time
+Task3 multirow BFRT-only and canceled basic writes |   11     11  0.0s
+Test Summary:                                               | Pass  Total  Time
+Task3 scaled raw flip underflow requests repair before BFRT |    8      8  0.0s
+Test Summary:                                      | Pass  Total  Time
+Task3 completed proposal invalidation stays closed |   13     13  0.0s
+Test Summary:                                         | Pass  Total  Time
+Task4 commit equals independent simulated application |   26     26  0.2s
+Test Summary:                                                  | Pass  Total  Time
+Task4 factor failure preserves point but never claims rollback |   13     13  1.0s
+Test Summary:                                               | Pass  Total  Time
+Task4 first middle last numeric failures restore all fields |   21     21  0.1s
+Test Summary:                                        | Pass  Total  Time
+Task4 refusal deadline wrap and postcommit exception |   18     18  0.9s
+Test Summary:                                  | Pass  Total  Time
+Task4 real same-precision correction equations |   10     10  0.0s
+Test Summary:                                   | Pass  Total  Time
+Task4 correction reuses successful dependencies |   14     14  0.0s
+Test Summary:                                               | Pass  Total  Time
+Task4 bounded recurrence invalid factor and honest boundary |   15     15  0.0s
+Test Summary:                                          | Pass  Total  Time
+Task4 ceiling offsets local limit and cost restoration |   14     14  0.0s
+Test Summary:                                           | Pass  Total  Time
+Task4 correction aliases and consumed publication owner |   11     11  0.0s
+Test Summary:                                            | Pass  Total  Time
+Task4 BFRT correction retains row and entering direction |   12     12  0.2s
+TASK5_ACTIVATION n=16 dense=false status=OPTIMAL entries=1 commits=16 sparse_prices=10 dense_prices=6 fallbacks=0 original_retries=0 original_cleanups=0 original_recoveries=0 iterations=16 refactors=1
+TASK5_ACTIVATION n=16 dense=true status=OPTIMAL entries=1 commits=16 sparse_prices=4 dense_prices=12 fallbacks=0 original_retries=0 original_cleanups=0 original_recoveries=0 iterations=16 refactors=1
+TASK5_ACTIVATION n=64 dense=false status=OPTIMAL entries=1 commits=64 sparse_prices=40 dense_prices=24 fallbacks=0 original_retries=0 original_cleanups=0 original_recoveries=0 iterations=64 refactors=4
+TASK5_ACTIVATION n=64 dense=true status=OPTIMAL entries=1 commits=64 sparse_prices=16 dense_prices=48 fallbacks=0 original_retries=0 original_cleanups=0 original_recoveries=0 iterations=64 refactors=4
+Test Summary:                                              | Pass  Total   Time
+Task5 truthful opt-in activation and full original results |   36     36  48.4s
+Test Summary:                                              | Pass  Total     Time
+Task5 zero pivots and unsupported selections stay truthful |   10     10  1m22.6s
+TASK5_CORPUS name=afiro.mps presolve=false reference=OPTIMAL candidate=OPTIMAL entries=1 commits=10 fallbacks=0 original_retries=0 original_cleanups=0 original_recoveries=0 elapsed=0.0003029 iterations=22 refactors=2
+TASK5_CORPUS name=afiro.mps presolve=true reference=OPTIMAL candidate=OPTIMAL entries=1 commits=5 fallbacks=0 original_retries=0 original_cleanups=1 original_recoveries=0 elapsed=0.0009065 iterations=9 refactors=3
+TASK5_CORPUS name=netlib/adlittle.mps presolve=false reference=OPTIMAL candidate=OPTIMAL entries=1 commits=80 fallbacks=0 original_retries=0 original_cleanups=0 original_recoveries=0 elapsed=0.0008724 iterations=92 refactors=5
+TASK5_CORPUS name=netlib/adlittle.mps presolve=true reference=OPTIMAL candidate=OPTIMAL entries=1 commits=71 fallbacks=0 original_retries=0 original_cleanups=1 original_recoveries=0 elapsed=0.003610999 iterations=72 refactors=6
+TASK5_CORPUS name=netlib/sc50a.mps presolve=false reference=OPTIMAL candidate=OPTIMAL entries=1 commits=26 fallbacks=0 original_retries=0 original_cleanups=0 original_recoveries=0 elapsed=0.0003739 iterations=53 refactors=4
+TASK5_CORPUS name=netlib/sc50a.mps presolve=true reference=OPTIMAL candidate=OPTIMAL entries=1 commits=24 fallbacks=0 original_retries=0 original_cleanups=1 original_recoveries=0 elapsed=0.0021063 iterations=38 refactors=4
+TASK5_CORPUS name=generated/degenerate-box.mps presolve=false reference=OPTIMAL candidate=OPTIMAL entries=1 commits=1 fallbacks=0 original_retries=0 original_cleanups=0 original_recoveries=0 elapsed=3.2e-5 iterations=1 refactors=1
+TASK5_CORPUS name=generated/degenerate-box.mps presolve=true reference=OPTIMAL candidate=OPTIMAL entries=0 commits=0 fallbacks=0 original_retries=0 original_cleanups=1 original_recoveries=0 elapsed=3.42e-5 iterations=0 refactors=1
+TASK5_CORPUS name=generated/phase-one.mps presolve=false reference=OPTIMAL candidate=OPTIMAL entries=1 commits=2 fallbacks=0 original_retries=0 original_cleanups=0 original_recoveries=0 elapsed=2.96e-5 iterations=2 refactors=1
+TASK5_CORPUS name=generated/phase-one.mps presolve=true reference=OPTIMAL candidate=OPTIMAL entries=0 commits=0 fallbacks=0 original_retries=0 original_cleanups=1 original_recoveries=0 elapsed=4.75e-5 iterations=0 refactors=2
+TASK5_CORPUS name=generated/scaled-diagonal.mps presolve=false reference=OPTIMAL candidate=OPTIMAL entries=1 commits=2 fallbacks=0 original_retries=0 original_cleanups=0 original_recoveries=0 elapsed=3.01e-5 iterations=2 refactors=1
+TASK5_CORPUS name=generated/scaled-diagonal.mps presolve=true reference=OPTIMAL candidate=OPTIMAL entries=0 commits=0 fallbacks=0 original_retries=0 original_cleanups=1 original_recoveries=0 elapsed=2.75e-5 iterations=0 refactors=1
+Test Summary:                       | Pass  Total  Time
+Task5 fixed semantic fixture corpus |   48     48  0.9s
+Test Summary:                                                   | Pass  Total  Time
+Task5 default main hook, limits, events and observer provenance |    7      7  1.8s
+Test Summary:                                            | Pass  Total  Time
+Task5 logical scratch export keeps actual backing owners |    9      9  0.1s
+
+Task5 honest legacy boundary and original cleanup accounting: Test Failed at /home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/driver_tests.jl:92
+  Expression: r.entries == 0 && r.accepted_pivots == 0
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/driver_tests.jl:83
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/driver_tests.jl:92 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+Test Summary:                                                | Pass  Fail  Total  Time
+Task5 honest legacy boundary and original cleanup accounting |    5     1      6  0.6s
+RNG of the outermost testset: Random.Xoshiro(0x005593c7c8072a5e, 0x2bf490998b6d6d57, 0x9f73025b2bdd63d0, 0x7a26343dd4faaeed, 0xf87dbf0d187d2dee)

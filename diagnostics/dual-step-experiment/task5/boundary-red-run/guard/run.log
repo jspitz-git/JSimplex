@@ -1,0 +1,30 @@
+ERROR: LoadError: Some tests did not pass: 4 passed, 2 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/task5_boundary_red.jl:39
+
+Task5 reviewed exception boundaries: Test Failed at /home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/task5_boundary_red.jl:44
+  Expression: actual === run
+   Evaluated: FieldError(Nothing, :progress) === JSimplex.DualRunResult{Float64}(NUMERICAL_ERROR, nothing, nothing, 0, 0, "initialization failure", nothing)
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/task5_boundary_red.jl:40
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/task5_boundary_red.jl:44 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Task5 reviewed exception boundaries: Test Failed at /home/jspitz/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/task5_boundary_red.jl:51
+  Expression: actual.iterations == 17 && actual.refactorizations == 9
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/task5_boundary_red.jl:40
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/dual-step-experiment/JSimplex.jl/experimental/dual_engine/test/task5_boundary_red.jl:51 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+Test Summary:                       | Pass  Fail  Total   Time
+Task5 reviewed exception boundaries |    4     2      6  46.3s
+RNG of the outermost testset: Random.Xoshiro(0x5a971aab0ac11a38, 0x69729d1980ae0ba6, 0xbc12ffcede7caa7d, 0x6c6331d48a1088db, 0x3a044dd1abae4f98)

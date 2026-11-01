@@ -518,9 +518,12 @@ end
 
 function _solve_diagnosed(problem::LinearProblem{T}, diagnostics;
                          relax_integrality::Bool=false, options=nothing,
-                         numerical_policy::Union{Nothing,NumericalPolicy{T}}=nothing)::Solution{T} where {T<:Real}
-    start_ns = time_ns()
+                         numerical_policy::Union{Nothing,NumericalPolicy{T}}=nothing,
+                         dual_engine=nothing, clock=nothing)::Solution{T} where {T<:Real}
+    start_ns = isnothing(clock) ? time_ns() : clock.start_ns
     typed_options = options === nothing ? SolverOptions(T) : SolverOptions(T, options)
+    isnothing(clock) || (clock isa _SolveDeadline && clock.time_limit_seconds == typed_options.time_limit) ||
+        throw(ArgumentError("clock must match the original time limit"))
     policy = isnothing(numerical_policy) ? _automatic_numerical_policy(problem,typed_options) : numerical_policy
     context = SolveContext(start_ns, typed_options.time_limit, diagnostics, policy)
     @logmsg typed_options.log_level "Starting solve" name=problem.name algorithm=typed_options.algorithm
@@ -572,15 +575,17 @@ function _solve_diagnosed(problem::LinearProblem{T}, diagnostics;
     progress = SimplexProgressContext(presolved.problem; start_ns=context.start_ns, scaling,
                                       diagnostics, numerical_policy=policy)
     algorithm = typed_options.algorithm == :dual ? _solve_continuous_dual : _solve_continuous_primal
-    run = algorithm(
-        working_problem,
-        typed_options;
-        stop_requested=_SolveDeadline(context),
-        progress,
-    )
+    run = if !isnothing(dual_engine) && typed_options.algorithm == :dual
+        _solve_continuous_dual(working_problem,typed_options;
+            stop_requested=_SolveDeadline(context),progress,dual_engine)
+    else
+        algorithm(working_problem,typed_options;
+            stop_requested=_SolveDeadline(context),progress)
+    end
     reduced = !isempty(presolved.postsolve_stack)
     retried_original = false
     if reduced && run.status in (INFEASIBLE, UNBOUNDED, NUMERICAL_ERROR)
+        _dual_engine_notice!(dual_engine,:original_retry)
         run = _retry_original(continuous_problem, typed_options, context, run)
         retried_original = true
     end
@@ -598,9 +603,11 @@ function _solve_diagnosed(problem::LinearProblem{T}, diagnostics;
         _original_primal_feasible(continuous_problem, primal, typed_options.primal_tolerance)
     if !retried_original && (reduced || !original_feasible)
         if isnothing(run.basis)
+            _dual_engine_notice!(dual_engine,:original_retry)
             run = _retry_original(continuous_problem, typed_options, context, run)
         else
             basis = reduced ? restore_basis(presolved, run.basis) : run.basis
+            _dual_engine_notice!(dual_engine,:original_cleanup)
             run = _cleanup_or_retry_original(continuous_problem, basis,
                 typed_options, context, run.iterations, run.refactorizations;
                 target_primal=primal)

@@ -2706,13 +2706,40 @@ function _make_dual_feasible!(workspace::SimplexWorkspace{T}, stop_requested) wh
     return nothing
 end
 
+# Opt-in, phase-level ownership only. Default solves allocate no boundary.
+# A handoff with no terminal requests one ordinary legacy continuation.
+struct _DualEngineHandoff{W}
+    workspace::W
+    terminal::Union{Nothing,DualTermination}
+    recoverable::Bool
+end
+mutable struct _DualEngineBoundary{T,F}
+    engine::F
+    workspace::Union{Nothing,SimplexWorkspace{T}}
+    recoverable::Bool
+end
+_active_dual_workspace(::Nothing,workspace)=workspace
+_active_dual_workspace(boundary::_DualEngineBoundary,workspace)=isnothing(boundary.workspace) ? workspace : boundary.workspace
+_dual_engine_notice!(hook,reason)=nothing
+_dual_recover_original(::Nothing,workspace,run,stop)=_recover_original_failure(workspace,run,stop)
+function _dual_recover_original(boundary::_DualEngineBoundary,workspace,run,stop)
+    (isnothing(workspace)||!boundary.recoverable)&&return run
+    policy=workspace.progress.numerical_policy
+    if run.status==NUMERICAL_ERROR && (policy.precision_boosting||policy.lp_refinement) && _is_exact(eltype(workspace.costs))===Val(false)
+        _dual_engine_notice!(boundary.engine,:original_recovery)
+    end
+    _recover_original_failure(workspace,run,stop)
+end
+
 function _solve_continuous_dual(problem::LinearProblem{T}, options::SolverOptions{T};
                                 stop_requested::Function=() -> false,
                                 progress::SimplexProgressContext{T}=
                                     SimplexProgressContext(problem;
-                                        numerical_policy=NumericalPolicy(T,options))) where {T}
+                                        numerical_policy=NumericalPolicy(T,options)),
+                                dual_engine=nothing) where {T}
     stop_requested = _guard_stop_callback(stop_requested)
     workspace = nothing
+    boundary = isnothing(dual_engine) ? nothing : _DualEngineBoundary{T,typeof(dual_engine)}(dual_engine,nothing,true)
     try
         if progress.numerical_policy.crash &&
            (_start_time_expired(progress,options) || stop_requested())
@@ -2734,10 +2761,11 @@ function _solve_continuous_dual(problem::LinearProblem{T}, options::SolverOption
             workspace,expired = _crash_workspace(workspace,stop_requested)
             expired && return _internal_solution(workspace,TIME_LIMIT,"time limit reached during crash initialization")
         end
-        return _solve_continuous_dual!(workspace, stop_requested)
+        return _solve_continuous_dual!(workspace,stop_requested;dual_boundary=boundary)
     catch exception
         exception === stop_requested.exception && rethrow()
         _is_numerical_exception(exception) || rethrow()
+        workspace = _active_dual_workspace(boundary,workspace)
         if progress.numerical_policy.crash && _start_time_expired(progress,options)
             return DualRunResult{T}(TIME_LIMIT,nothing,nothing,
                 isnothing(workspace) ? 0 : workspace.iterations,
@@ -2747,11 +2775,11 @@ function _solve_continuous_dual(problem::LinearProblem{T}, options::SolverOption
                                 isnothing(workspace) ? 0 : workspace.iterations,
                                 isnothing(workspace) ? 0 : workspace.refactorizations,
                                 sprint(showerror, exception))
-        return _recover_original_failure(workspace,run,stop_requested)
+        return _dual_recover_original(boundary,workspace,run,stop_requested)
     end
 end
 
-function _solve_continuous_dual_once!(workspace::SimplexWorkspace{T}, stop_requested) where {T}
+function _solve_continuous_dual_once!(workspace::SimplexWorkspace{T},stop_requested;dual_boundary=nothing) where {T}
     _simplex_event!(workspace, :phase_dual)
     problem, options = workspace.problem, workspace.options
     stop_requested() && return _internal_solution(workspace, TIME_LIMIT, "time limit reached")
@@ -2788,7 +2816,17 @@ function _solve_continuous_dual_once!(workspace::SimplexWorkspace{T}, stop_reque
         return _run_from_basis_once!(workspace,SimplexRunBudget(workspace),policy,stop_requested)
     end
     isnothing(terminal) || return _internal_solution(workspace, terminal)
-    terminal = _dual_optimize!(workspace, stop_requested)
+    handoff = isnothing(dual_boundary) ? nothing : dual_boundary.engine(workspace,stop_requested)
+    if !isnothing(handoff)
+        workspace=handoff.workspace
+        dual_boundary.workspace=workspace;dual_boundary.recoverable=handoff.recoverable
+        if !handoff.recoverable
+            return DualRunResult{T}(handoff.terminal.status,nothing,nothing,
+                workspace.iterations,workspace.refactorizations,handoff.terminal.message)
+        end
+    end
+    terminal = isnothing(handoff) || isnothing(handoff.terminal) ?
+        _dual_optimize!(workspace,stop_requested) : handoff.terminal
     terminal.status == OPTIMAL || return _internal_solution(workspace, terminal)
     _restore_original_costs!(workspace)
     workspace.perturbed = false
@@ -2824,7 +2862,8 @@ function _solve_continuous_dual_once!(workspace::SimplexWorkspace{T}, stop_reque
 end
 
 
-function _solve_continuous_dual!(workspace::SimplexWorkspace{T},stop_requested) where T
+function _solve_continuous_dual!(workspace::SimplexWorkspace{T},stop_requested;dual_boundary=nothing) where T
+    entry_workspace=workspace
     original_options = workspace.options
     try
         # Postsolve may inherit a primal request while explicitly entering dual
@@ -2832,17 +2871,23 @@ function _solve_continuous_dual!(workspace::SimplexWorkspace{T},stop_requested) 
         workspace.options = _phase_options(original_options,:dual)
         guard = _guard_stop_callback(stop_requested)
         run = try
-            _solve_continuous_dual_once!(workspace,guard)
+            _solve_continuous_dual_once!(workspace,guard;dual_boundary)
         catch exception
             exception === guard.exception && rethrow()
+            workspace = _active_dual_workspace(dual_boundary,workspace)
             (workspace.progress.numerical_policy.precision_boosting ||
              workspace.progress.numerical_policy.lp_refinement) || rethrow()
             _is_numerical_exception(exception) || rethrow()
             DualRunResult{T}(NUMERICAL_ERROR,nothing,nothing,
                 workspace.iterations,workspace.refactorizations,sprint(showerror,exception))
         end
-        return _recover_original_failure(workspace,run,guard)
+        workspace = _active_dual_workspace(dual_boundary,workspace)
+        return _dual_recover_original(dual_boundary,workspace,run,guard)
     finally
-        workspace.options = original_options
+        entry_workspace.options=original_options
+        if !isnothing(dual_boundary)
+            active=_active_dual_workspace(dual_boundary,entry_workspace)
+            active===entry_workspace||(active.options=original_options)
+        end
     end
 end

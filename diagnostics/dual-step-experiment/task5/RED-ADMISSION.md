@@ -1,0 +1,7 @@
+# Task5 RED admission
+
+One ordinary Test process, unchanged Task4 engine, unchanged production sources. Four default-solve assertions plus five expected failures: three missing opt-in interfaces and actual internal-hook call/result absence. No candidate implementation, parser probe, public solver copy or method overwrite. Tiny1x1Float64 nativePFI/fixedDevex model. New stage environment byte-copies current Project/masterManifest and symlinks src to this worktree; actual package path assertion binds localsource. Standard loader existingcompiledmodules/pkgimages, no Pkg/compilecache workers. Loading is part of common1800s, no cache confinement/import-work proof.
+
+Exact current source/runtime/project/fixture/guard pins, full806groupsANDsessions/noJulia/currentrefs/boot, oneJulia/BLAS1,heap2GiB/hardVM8GiB/RAM6GiB/swap1GiB/global lock and exclusive red-run. Independent exact numerical admission before launch. Expected exit1,4Pass5Fail0Error, unchanged input. No old scripts/auditors rerun, actual master/env/CI untouched. FutureGREEN must separately qualify candidate and all fixture/default/regression tests; RED approval does not authorize GREEN.
+
+Original461pin admission rejected an unenforced loader directory alias. New pinned host() verifies project/src is the exact symlink to W/src before Julia and postexit; explicit project/src/JSimplex.jl resolved-path pin binds the alias too. Original script/manifest/admission text/rejection preserved, source/tests unchanged.
