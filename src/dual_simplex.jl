@@ -1861,7 +1861,10 @@ function _dual_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_request
     if !_stabilize_small_dual_pivot!(workspace, entering_index, pivot,
                                      tableau_row[entering_index], delta, stop_requested)
         stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
-        return DualTermination(NUMERICAL_ERROR, "small pivot dual price could not be certified")
+        _is_staged_workspace(workspace) &&
+            throw(_PivotRejection(leaving_row, entering_index, :refresh))
+        return _retry_simplex_step!(workspace, stop_requested, :dual,
+            workspace.options.dual_tolerance, basis_refreshed, perturb_degenerate)
     end
     if refined_row && _weight_pricing(workspace,:dual) == :steepest_edge
         dse_weight = dot(rho, rho)
