@@ -1587,6 +1587,41 @@ end
 _try_refine_dual_pivot!(::SimplexWorkspace, ::Int, orientation, violation,
                         stop_requested) = nothing
 
+const _NativeDualCheckFactor = Union{
+    PFIFactorization{Float64,UMFPACKBackend},
+    ForrestTomlinFactorization{Float64,UMFPACKBackend},
+    SuhlSuhlFactorization{Float64,UMFPACKBackend},
+    BartelsGolubFactorization{Float64,UMFPACKBackend},
+    HuangfuHallFactorization{Float64,Float64UMFPACK,:native},
+}
+const _LEGACY_DUAL_CHECK_POLICY = NumericalPolicy(Float64; simplex_strategy=:legacy)
+
+_readonly_dual_stop(stop) = false
+_readonly_dual_stop(::_StopCallback{_SolveDeadline}) = true
+_readonly_dual_stop(stop::_StopCallback{<:_BasisBudgetStop}) =
+    _readonly_dual_stop(stop.callback.stop)
+
+# Only these solver-owned factors leave the checked workspace arrays alone
+# during replace_column!. Restrict reuse to the audited legacy Devex policy.
+function _can_reuse_dual_checks(ws, stop)
+    return ws.factorization isa _NativeDualCheckFactor && _readonly_dual_stop(stop) &&
+        isnothing(ws.progress.diagnostics) && ws.options.simplex_strategy == :legacy &&
+        ws.options.algorithm == :dual && ws.options.pricing == :devex &&
+        ws.options.basis_refactorization == :native && !ws.options.partial_pricing &&
+        !ws.options.presolve && ws.options.native_pivot_policy == :default &&
+        ws.progress.numerical_policy === _LEGACY_DUAL_CHECK_POLICY &&
+        isnothing(ws.scratch.hypersparse) && isnothing(ws.scratch.pricing) &&
+        !ws.scratch.refactorization.timing_enabled && _weight_pricing(ws,:dual) == :devex
+end
+
+function _can_reuse_corrected_row(ws, stop, tableau_row, rho)
+    # Publishing the correction writes rho, then CSC pricing writes tableau_row.
+    # Neither write may change the inputs of the accepted residual.
+    values = ws.problem.A.nzval
+    return _can_reuse_dual_checks(ws, stop) && !Base.mightalias(rho, values) &&
+        !Base.mightalias(tableau_row, rho) && !Base.mightalias(tableau_row, values)
+end
+
 function _dual_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_requested,
                           basis_refreshed::Bool=false,
                           perturb_degenerate::Bool=true;
@@ -1626,13 +1661,22 @@ function _dual_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_request
     # pass the same check before it participates in the ratio test.
     if _is_exact(T) === Val(false)
         row_residual_ratio = _dual_row_residual_ratio(workspace, rho, leaving_row)
-        if row_residual_ratio > one(T) && _try_native_dual_correction!(
-                workspace, rho, leaving_row, leaving_row, stop_requested; transposed=true)
-            price!(tableau_row, workspace, rho)
-            all(isfinite, tableau_row) || return _numerical_failure()
-            row_residual_ratio = _dual_row_residual_ratio(workspace, rho, leaving_row)
+        row_failed = row_residual_ratio > one(T)
+        if row_failed
+            reuse_row = _can_reuse_corrected_row(workspace, stop_requested, tableau_row, rho)
+            if _try_native_dual_correction!(workspace, rho, leaving_row, leaving_row,
+                                            stop_requested; transposed=true)
+                price!(tableau_row, workspace, rho)
+                all(isfinite, tableau_row) || return _numerical_failure()
+                if reuse_row
+                    row_failed = false
+                else
+                    row_residual_ratio = _dual_row_residual_ratio(workspace, rho, leaving_row)
+                    row_failed = row_residual_ratio > one(T)
+                end
+            end
         end
-        if row_residual_ratio > one(T)
+        if row_failed
             stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
             basis_refreshed &&
                 return DualTermination(NUMERICAL_ERROR, "basis transpose solve residual too large")
@@ -1902,6 +1946,10 @@ function _dual_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_request
     update_dual_pricing_weights!(workspace, rho, tableau_row, tableau_column,
                                  entering_index, pivot, dse_weight, stop_requested) ||
         return _numerical_failure()
+    # The weight update validated all four arrays. Publishing an ordinary
+    # pivot only writes primal[leaving_index]; weights also require positivity.
+    changed_primal_index = _can_reuse_dual_checks(workspace, stop_requested) &&
+        !Base.mightalias(workspace.primal, workspace.pricing_weights) ? leaving_index : 0
     _replace_pivot_column!(workspace, tableau_column, leaving_row;
                            stop_requested,
                            zero_tolerance=checked_pivot ? zero(T) : workspace.options.zero_tolerance)
@@ -1923,11 +1971,13 @@ function _dual_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_request
         workspace.scratch.post_perturb_degenerate = perturb_degenerate
         return nothing
     end
-    return _dual_after_iteration!(workspace,stop_requested,dual_step,basis_refreshed,perturb_degenerate)
+    return _dual_after_iteration!(workspace,stop_requested,dual_step,basis_refreshed,
+                                  perturb_degenerate,changed_primal_index)
 end
 
 function _dual_after_iteration!(workspace::SimplexWorkspace{T},stop_requested,dual_step::T,
-                                basis_refreshed::Bool,perturb_degenerate::Bool) where {T}
+                                basis_refreshed::Bool,perturb_degenerate::Bool,
+                                changed_primal_index::Int=0) where {T}
     if _is_exact(T) === Val(false) && !iszero(dual_step)
         workspace.dual_nonzero_steps_since_refactorization += 1
     end
@@ -1946,7 +1996,11 @@ function _dual_after_iteration!(workspace::SimplexWorkspace{T},stop_requested,du
         (!basis_refreshed && refactor_reason in (:limit, :cost)) &&
             _note_stable_basis_refactorization!(workspace, completed_updates)
     end
-    _finite_workspace(workspace) || return _numerical_failure()
+    if refactor_reason == :none && changed_primal_index != 0
+        isfinite(workspace.primal[changed_primal_index]) || return _numerical_failure()
+    else
+        _finite_workspace(workspace) || return _numerical_failure()
+    end
     return nothing
 end
 
@@ -2371,13 +2425,19 @@ function _can_reuse_dual_entry_validation(workspace::SimplexWorkspace{T},
            isnothing(workspace.scratch.pricing)
 end
 
+_can_reuse_dual_entry_validation(ws::SimplexWorkspace, stop::_StopCallback{<:_BasisBudgetStop}) =
+    _can_reuse_dual_checks(ws, stop)
+
 function _dual_optimize!(workspace::SimplexWorkspace{T}, stop_requested;
                          perturb_degenerate::Bool=true)::DualTermination where {T}
+    previous_step_checked = false
     while true
         stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
         _prepare_auto_pricing!(workspace,:dual;stop=stop_requested) ||
             return DualTermination(TIME_LIMIT,"time limit reached during pricing recovery")
-        _finite_workspace(workspace) || return _numerical_failure()
+        if !previous_step_checked
+            _finite_workspace(workspace) || return _numerical_failure()
+        end
         reuse_entry_check = _can_reuse_dual_entry_validation(workspace, stop_requested)
         if dual_infeasibility(workspace) > workspace.options.dual_tolerance
             reuse_entry_check = false
@@ -2399,11 +2459,20 @@ function _dual_optimize!(workspace::SimplexWorkspace{T}, stop_requested;
         end
         workspace.iterations < workspace.options.iteration_limit ||
             return DualTermination(ITERATION_LIMIT, "iteration limit reached")
-        # Feasibility summaries above only read hardware-float state. Reuse is
-        # local to this call; no result crosses an observer, repair or iteration.
+        # The feasibility queries above only read hardware-float state. A
+        # price repair invalidates the entry check before control reaches here.
+        prior_iterations = workspace.iterations
+        prior_refactors = workspace.refactorizations
         terminal = reuse_entry_check ?
             _dual_iteration_entry!(workspace, stop_requested, perturb_degenerate, Val(true)) :
             dual_iteration!(workspace, stop_requested; perturb_degenerate)
+        # A completed pivot validated the published state. The legacy hooks
+        # below, the next deadline poll and pricing preparation cannot change
+        # that state under these conditions. Never carry it across a rebuild.
+        previous_step_checked = isnothing(terminal) &&
+            workspace.iterations == prior_iterations + 1 &&
+            workspace.refactorizations == prior_refactors &&
+            _can_reuse_dual_checks(workspace, stop_requested)
         isnothing(terminal) && _observe_stagnation!(workspace,:dual,
             workspace.scratch.last_primal_step,workspace.scratch.last_dual_step)
         isnothing(terminal) && _observe_auto_pricing!(workspace,:dual)

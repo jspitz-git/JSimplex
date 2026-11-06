@@ -47,6 +47,19 @@ _budget_expired(budget::SimplexRunBudget) =
     budget.time_limit_seconds != Inf &&
     (time_ns()-budget.start_ns)/1e9 >= budget.time_limit_seconds
 
+# A named poll keeps the provenance of the outer stop callback visible.
+# Synchronizing the budget writes only its iteration and refactorization counters.
+struct _BasisBudgetStop{W<:SimplexWorkspace,F} <: Function
+    budget::SimplexRunBudget
+    workspace::W
+    stop::F
+end
+
+function (poll::_BasisBudgetStop)()
+    _sync_run_budget!(poll.budget, poll.workspace)
+    return _budget_expired(poll.budget) || poll.stop()
+end
+
 feasibility_mode(primal_ok::Bool,dual_ok::Bool)::Symbol =
     primal_ok ? (dual_ok ? :certify : :primal) : (dual_ok ? :dual : :phase_one)
 
@@ -117,10 +130,7 @@ function _run_basis_terminal!(ws::SimplexWorkspace{T},budget::SimplexRunBudget,
     ws.options = _remaining_options(original_options;
         iterations=max(0,original_options.iteration_limit-local_limit),
         time_limit=min(original_options.time_limit,budget.time_limit_seconds))
-    guarded = _guard_stop_callback(() -> begin
-        _sync_run_budget!(budget,ws)
-        _budget_expired(budget) || stop()
-    end)
+    guarded = _guard_stop_callback(_BasisBudgetStop(budget, ws, stop))
     history = UInt[]
     rounds = 0
     last_progress = ws.iterations
