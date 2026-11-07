@@ -1,0 +1,77 @@
+
+[3] signal 15: Terminated
+in expression starting at /home/jspitz/JSimplex.jl/diagnostics/basis-direct-lu/reproduce/check-reuse.jl:1
+unknown function (ip: 0xf065cb455aec) at /usr/lib/aarch64-linux-gnu/libc.so.6
+unknown function (ip: 0xf065cb44843f) at /usr/lib/aarch64-linux-gnu/libc.so.6
+unknown function (ip: 0xf065cb44848f) at /usr/lib/aarch64-linux-gnu/libc.so.6
+epoll_pwait at /usr/lib/aarch64-linux-gnu/libc.so.6 (unknown line)
+uv__io_poll at /workspace/srcdir/libuv/src/unix/linux.c:1404
+uv_run at /workspace/srcdir/libuv/src/unix/core.c:430
+ijl_task_get_next at /cache/build/builder-armageddon-4/julialang/julia-ci/src/scheduler.c:533
+wait at ./task.jl:1296
+#wait#392 at ./condition.jl:141
+wait at ./condition.jl:136 [inlined]
+wait at /cache/build/builder-armageddon-4/julialang/julia-ci/usr/share/julia/stdlib/v1.13/FileWatching/src/FileWatching.jl:755
+#open_exclusive#14 at /cache/build/builder-armageddon-4/julialang/julia-ci/usr/share/julia/stdlib/v1.13/FileWatching/src/pidfile.jl:286
+open_exclusive at /cache/build/builder-armageddon-4/julialang/julia-ci/usr/share/julia/stdlib/v1.13/FileWatching/src/pidfile.jl:239 [inlined]
+mkpidlock at /cache/build/builder-armageddon-4/julialang/julia-ci/usr/share/julia/stdlib/v1.13/FileWatching/src/pidfile.jl:70
+mkpidlock at /cache/build/builder-armageddon-4/julialang/julia-ci/usr/share/julia/stdlib/v1.13/FileWatching/src/pidfile.jl:65 [inlined]
+#mkpidlock#8 at /cache/build/builder-armageddon-4/julialang/julia-ci/usr/share/julia/stdlib/v1.13/FileWatching/src/pidfile.jl:95
+unknown function (ip: 0xf065ac82308b) at (unknown file)
+mkpidlock at /cache/build/builder-armageddon-4/julialang/julia-ci/usr/share/julia/stdlib/v1.13/FileWatching/src/pidfile.jl:94
+#mkpidlock#7 at /cache/build/builder-armageddon-4/julialang/julia-ci/usr/share/julia/stdlib/v1.13/FileWatching/src/pidfile.jl:92 [inlined]
+mkpidlock at /cache/build/builder-armageddon-4/julialang/julia-ci/usr/share/julia/stdlib/v1.13/FileWatching/src/pidfile.jl:92
+unknown function (ip: 0xf065ac821083) at (unknown file)
+jl_apply at /cache/build/builder-armageddon-4/julialang/julia-ci/src/julia.h:2318 [inlined]
+jl_f_invoke_in_world at /cache/build/builder-armageddon-4/julialang/julia-ci/src/builtins.c:908
+#invokelatest_gr#232 at ./reflection.jl:1350 [inlined]
+invokelatest_gr at ./reflection.jl:1342 [inlined]
+#maybe_cachefile_lock#933 at ./loading.jl:4041
+maybe_cachefile_lock at ./loading.jl:4027 [inlined]
+__require_prelocked at ./loading.jl:2757
+_require_prelocked at ./loading.jl:2597
+macro expansion at ./loading.jl:2525 [inlined]
+macro expansion at ./lock.jl:376 [inlined]
+__require at ./loading.jl:2489
+jfptr___require_55760 at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/sys.so (unknown line)
+jl_apply at /cache/build/builder-armageddon-4/julialang/julia-ci/src/julia.h:2318 [inlined]
+jl_f_invoke_in_world at /cache/build/builder-armageddon-4/julialang/julia-ci/src/builtins.c:908
+require at ./loading.jl:2465 [inlined]
+eval_import_path at ./module.jl:36 [inlined]
+eval_import_path_all at ./module.jl:60
+_eval_using at ./module.jl:137
+jfptr__eval_using_75750 at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/sys.so (unknown line)
+jl_apply at /cache/build/builder-armageddon-4/julialang/julia-ci/src/julia.h:2318 [inlined]
+do_call at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:123
+eval_value at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:243
+eval_stmt_value at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:194 [inlined]
+eval_body at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:693
+jl_interpret_toplevel_thunk at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:884
+jl_toplevel_eval_flex at /cache/build/builder-armageddon-4/julialang/julia-ci/src/toplevel.c:742
+jl_eval_toplevel_stmts at /cache/build/builder-armageddon-4/julialang/julia-ci/src/toplevel.c:585
+jl_toplevel_eval_flex at /cache/build/builder-armageddon-4/julialang/julia-ci/src/toplevel.c:683
+ijl_toplevel_eval at /cache/build/builder-armageddon-4/julialang/julia-ci/src/toplevel.c:754
+ijl_toplevel_eval_in at /cache/build/builder-armageddon-4/julialang/julia-ci/src/toplevel.c:799
+eval at ./boot.jl:489
+include_string at ./loading.jl:3016
+_include at ./loading.jl:3076
+include at ./Base.jl:309
+exec_options at ./client.jl:344
+_start at ./client.jl:577
+jfptr__start_61086 at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/sys.so (unknown line)
+jl_apply at /cache/build/builder-armageddon-4/julialang/julia-ci/src/julia.h:2318 [inlined]
+true_main at /cache/build/builder-armageddon-4/julialang/julia-ci/src/jlapi.c:985
+jl_repl_entrypoint at /cache/build/builder-armageddon-4/julialang/julia-ci/src/jlapi.c:1152
+main at /cache/build/builder-armageddon-4/julialang/julia-ci/cli/loader_exe.c:58
+unknown function (ip: 0xf065cb3e2f1b) at /usr/lib/aarch64-linux-gnu/libc.so.6
+__libc_start_main at /usr/lib/aarch64-linux-gnu/libc.so.6 (unknown line)
+$x at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/julia (unknown line)
+unknown function (ip: 0x69000000400a1b) at (unknown file)
+unknown function (ip: (nil)) at (unknown file)
+Allocations: 1 (Pool: 1; Big: 0); GC: 0
+┌ Warning: attempting to remove probably stale pidfile
+│   path = "/home/jspitz/.julia/compiled/v1.13/JSimplex/nbWYS_fmMos.ji.pidfile"
+└ @ FileWatching.Pidfile ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/FileWatching/src/pidfile.jl:251
+┌ Warning: attempting to remove probably stale pidfile
+│   path = "/home/jspitz/.julia/compiled/v1.13/JSimplex/nbWYS_fmMos.ji.pidfile"
+└ @ FileWatching.Pidfile ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/FileWatching/src/pidfile.jl:304

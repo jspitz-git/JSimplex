@@ -1596,6 +1596,8 @@ const _NativeDualCheckFactor = Union{
 }
 const _LEGACY_DUAL_CHECK_POLICY = NumericalPolicy(Float64; simplex_strategy=:legacy)
 
+_dual_check_factor_supported(factor) = factor isa _NativeDualCheckFactor
+
 _readonly_dual_stop(stop) = false
 _readonly_dual_stop(::_StopCallback{_SolveDeadline}) = true
 _readonly_dual_stop(stop::_StopCallback{<:_BasisBudgetStop}) =
@@ -1604,7 +1606,7 @@ _readonly_dual_stop(stop::_StopCallback{<:_BasisBudgetStop}) =
 # Only these solver-owned factors leave the checked workspace arrays alone
 # during replace_column!. Restrict reuse to the audited legacy Devex policy.
 function _can_reuse_dual_checks(ws, stop)
-    return ws.factorization isa _NativeDualCheckFactor && _readonly_dual_stop(stop) &&
+    return _dual_check_factor_supported(ws.factorization) && _readonly_dual_stop(stop) &&
         isnothing(ws.progress.diagnostics) && ws.options.simplex_strategy == :legacy &&
         ws.options.algorithm == :dual && ws.options.pricing == :devex &&
         ws.options.basis_refactorization == :native && !ws.options.partial_pricing &&

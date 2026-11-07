@@ -122,6 +122,14 @@ function _trial_direct_factor(Factor,B;normalize=false)
 end
 const TrialDirectFactor=Union{ForrestTomlinFactorization{Float64,TrialLowerBackend},
     SuhlSuhlFactorization{Float64,TrialLowerBackend},BartelsGolubFactorization{Float64,TrialLowerBackend}}
+
+# A rebuild may publish an LU fallback or reject normalization. Inspect the
+# currently published backend so a prior factor cannot authorize later checks.
+function _dual_check_factor_supported(f::TrialDirectFactor)
+    b = f.base
+    return isnothing(b.fallback) && b.normalize_requested == !isnothing(b.diagonal)
+end
+
 function refactorize!(f::TrialDirectFactor,B::AbstractMatrix{Float64})
     Factor=getfield(@__MODULE__,nameof(typeof(f)))
     candidate=_trial_direct_factor(Factor,B;normalize=f.base.normalize_requested)

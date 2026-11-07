@@ -1,0 +1,167 @@
+[ Info: iter=1 obj=1.0 pinf=0.0 (0) dinf=0.0 (0) time=9.17535317s
+[ Info: iter=1 obj=1.0 pinf=0.0 (0) dinf=0.0 (0) time=5.716585298s
+[ Info: iter=1 obj=1.0 pinf=0.0 (0) dinf=0.0 (0) time=5.972974645s
+[ Info: iter=1 obj=1.0 pinf=0.0 (0) dinf=0.0 (0) time=5.547694481s
+[ Info: iter=1 obj=1.0 pinf=0.0 (0) dinf=0.0 (0) time=6.325520297s
+[ Info: iter=1 obj=1.0 pinf=0.0 (0) dinf=0.0 (0) time=5.654162406s
+ERROR: LoadError: Some tests did not pass: 33 passed, 9 failed, 3 errored, 0 broken.
+in expression starting at /home/jspitz/JSimplex.jl/diagnostics/direct-ss-bg-local-check-reuse/reproduce/integrated-check.jl:8
+
+Published direct basis authorizes only the verified dual checks: Test Failed at /home/jspitz/JSimplex.jl/diagnostics/direct-ss-bg-local-check-reuse/reproduce/integrated-check.jl:19
+  Expression: eligible()
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/diagnostics/direct-ss-bg-local-check-reuse/reproduce/integrated-check.jl:9
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/diagnostics/direct-ss-bg-local-check-reuse/reproduce/integrated-check.jl:19 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Published direct basis authorizes only the verified dual checks: Test Failed at /home/jspitz/JSimplex.jl/diagnostics/direct-ss-bg-local-check-reuse/reproduce/integrated-check.jl:31
+  Expression: isnothing(f.base.fallback) && eligible()
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/diagnostics/direct-ss-bg-local-check-reuse/reproduce/integrated-check.jl:9
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/diagnostics/direct-ss-bg-local-check-reuse/reproduce/integrated-check.jl:31 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Published direct basis authorizes only the verified dual checks: Test Failed at /home/jspitz/JSimplex.jl/diagnostics/direct-ss-bg-local-check-reuse/reproduce/integrated-check.jl:41
+  Expression: ws.refactorizations > 0 && eligible()
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/diagnostics/direct-ss-bg-local-check-reuse/reproduce/integrated-check.jl:9
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/diagnostics/direct-ss-bg-local-check-reuse/reproduce/integrated-check.jl:41 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Published direct basis authorizes only the verified dual checks: Error During Test at /home/jspitz/JSimplex.jl/diagnostics/direct-ss-bg-local-check-reuse/reproduce/integrated-check.jl:46
+  Test threw exception
+  Expression: (JS.dual_iteration!(observed, stop)).status == NUMERICAL_ERROR
+  FieldError: type Nothing has no field `status`; Nothing has no fields at all.
+  Stacktrace:
+   [1] getproperty(x::Nothing, f::Symbol)
+     @ Base ./Base_compiler.jl:57
+   [2] top-level scope
+     @ ~/JSimplex.jl/diagnostics/direct-ss-bg-local-check-reuse/reproduce/integrated-check.jl:9
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] macro expansion
+     @ ~/JSimplex.jl/diagnostics/direct-ss-bg-local-check-reuse/reproduce/integrated-check.jl:46 [inlined]
+   [5] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:750 [inlined]
+
+Published direct basis authorizes only the verified dual checks: Test Failed at /home/jspitz/JSimplex.jl/diagnostics/direct-ss-bg-local-check-reuse/reproduce/integrated-check.jl:19
+  Expression: eligible()
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/diagnostics/direct-ss-bg-local-check-reuse/reproduce/integrated-check.jl:9
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/diagnostics/direct-ss-bg-local-check-reuse/reproduce/integrated-check.jl:19 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Published direct basis authorizes only the verified dual checks: Test Failed at /home/jspitz/JSimplex.jl/diagnostics/direct-ss-bg-local-check-reuse/reproduce/integrated-check.jl:31
+  Expression: isnothing(f.base.fallback) && eligible()
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/diagnostics/direct-ss-bg-local-check-reuse/reproduce/integrated-check.jl:9
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/diagnostics/direct-ss-bg-local-check-reuse/reproduce/integrated-check.jl:31 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Published direct basis authorizes only the verified dual checks: Test Failed at /home/jspitz/JSimplex.jl/diagnostics/direct-ss-bg-local-check-reuse/reproduce/integrated-check.jl:41
+  Expression: ws.refactorizations > 0 && eligible()
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/diagnostics/direct-ss-bg-local-check-reuse/reproduce/integrated-check.jl:9
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/diagnostics/direct-ss-bg-local-check-reuse/reproduce/integrated-check.jl:41 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Published direct basis authorizes only the verified dual checks: Error During Test at /home/jspitz/JSimplex.jl/diagnostics/direct-ss-bg-local-check-reuse/reproduce/integrated-check.jl:46
+  Test threw exception
+  Expression: (JS.dual_iteration!(observed, stop)).status == NUMERICAL_ERROR
+  FieldError: type Nothing has no field `status`; Nothing has no fields at all.
+  Stacktrace:
+   [1] getproperty(x::Nothing, f::Symbol)
+     @ Base ./Base_compiler.jl:57
+   [2] top-level scope
+     @ ~/JSimplex.jl/diagnostics/direct-ss-bg-local-check-reuse/reproduce/integrated-check.jl:9
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] macro expansion
+     @ ~/JSimplex.jl/diagnostics/direct-ss-bg-local-check-reuse/reproduce/integrated-check.jl:46 [inlined]
+   [5] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:750 [inlined]
+
+Published direct basis authorizes only the verified dual checks: Test Failed at /home/jspitz/JSimplex.jl/diagnostics/direct-ss-bg-local-check-reuse/reproduce/integrated-check.jl:19
+  Expression: eligible()
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/diagnostics/direct-ss-bg-local-check-reuse/reproduce/integrated-check.jl:9
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/diagnostics/direct-ss-bg-local-check-reuse/reproduce/integrated-check.jl:19 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Published direct basis authorizes only the verified dual checks: Test Failed at /home/jspitz/JSimplex.jl/diagnostics/direct-ss-bg-local-check-reuse/reproduce/integrated-check.jl:31
+  Expression: isnothing(f.base.fallback) && eligible()
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/diagnostics/direct-ss-bg-local-check-reuse/reproduce/integrated-check.jl:9
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/diagnostics/direct-ss-bg-local-check-reuse/reproduce/integrated-check.jl:31 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Published direct basis authorizes only the verified dual checks: Test Failed at /home/jspitz/JSimplex.jl/diagnostics/direct-ss-bg-local-check-reuse/reproduce/integrated-check.jl:41
+  Expression: ws.refactorizations > 0 && eligible()
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/diagnostics/direct-ss-bg-local-check-reuse/reproduce/integrated-check.jl:9
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/diagnostics/direct-ss-bg-local-check-reuse/reproduce/integrated-check.jl:41 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Published direct basis authorizes only the verified dual checks: Error During Test at /home/jspitz/JSimplex.jl/diagnostics/direct-ss-bg-local-check-reuse/reproduce/integrated-check.jl:46
+  Test threw exception
+  Expression: (JS.dual_iteration!(observed, stop)).status == NUMERICAL_ERROR
+  FieldError: type Nothing has no field `status`; Nothing has no fields at all.
+  Stacktrace:
+   [1] getproperty(x::Nothing, f::Symbol)
+     @ Base ./Base_compiler.jl:57
+   [2] top-level scope
+     @ ~/JSimplex.jl/diagnostics/direct-ss-bg-local-check-reuse/reproduce/integrated-check.jl:9
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] macro expansion
+     @ ~/JSimplex.jl/diagnostics/direct-ss-bg-local-check-reuse/reproduce/integrated-check.jl:46 [inlined]
+   [5] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:750 [inlined]
+Test Summary:                                                   | Pass  Fail  Error  Total   Time
+Published direct basis authorizes only the verified dual checks |   33     9      3     45  41.3s
+RNG of the outermost testset: Random.Xoshiro(0xaae8e75a31f57888, 0x3ebee873920fb323, 0xce70122946f8eee1, 0x784818e74a0e0c76, 0xb94ea9d651639390)
