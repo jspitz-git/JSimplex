@@ -1,0 +1,32 @@
+FF.F..
+======================================================================
+FAIL: test_bad_timing_is_not_a_speedup (test_acceptance.OutcomeTests.test_bad_timing_is_not_a_speedup)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/jspitz/JSimplex.jl/diagnostics/devex-quality-reset/reproduce/test_acceptance.py", line 22, in test_bad_timing_is_not_a_speedup
+    with self.assertRaises(AssertionError): valid_outcome(d)
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+AssertionError: AssertionError not raised
+
+======================================================================
+FAIL: test_certificate_required (test_acceptance.OutcomeTests.test_certificate_required)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/jspitz/JSimplex.jl/diagnostics/devex-quality-reset/reproduce/test_acceptance.py", line 15, in test_certificate_required
+    with self.assertRaises(AssertionError): valid_outcome(d)
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+AssertionError: AssertionError not raised
+
+======================================================================
+FAIL: test_feasibility_not_inferred_from_status (test_acceptance.OutcomeTests.test_feasibility_not_inferred_from_status)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/jspitz/JSimplex.jl/diagnostics/devex-quality-reset/reproduce/test_acceptance.py", line 11, in test_feasibility_not_inferred_from_status
+    with self.assertRaises(AssertionError): valid_outcome(d)
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+AssertionError: AssertionError not raised
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.000s
+
+FAILED (failures=3)

@@ -1,0 +1,124 @@
+samples = []
+quality_observed = false
+quality_sha = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+sha256 = "54fb223c5551e43dec84c7945084e259528c0de6c6fbffb60dba84f158b7fd96"
+
+[quality_phases]
+
+[[modes]]
+dimension = 27
+site = "initial"
+unit_upper = false
+mode = "production"
+[[modes]]
+dimension = 27
+site = "refactor"
+unit_upper = false
+mode = "production"
+
+[sampled_transitions."finite: _dual_optimize! -> update_dual_pricing_weights!"]
+pricing_weights_max_elements = 1
+reduced_costs_pairs = 1
+primal_pairs = 1
+primal_max_elements = 23
+costs_different = 0
+pricing_weights_different = 1
+costs_max_elements = 0
+pricing_weights_pairs = 1
+primal_different = 1
+reduced_costs_different = 1
+reduced_costs_max_elements = 1
+costs_pairs = 1
+
+[sampled_transitions."direction: direction -> direction"]
+rhs_pairs = 1
+pivot_different = 1
+direction_different = 1
+pivot_pairs = 1
+direction_max_elements = 2
+basis_max_elements = 1
+rhs_different = 1
+pivot_max_elements = 1
+rhs_max_elements = 5
+direction_pairs = 1
+basis_different = 1
+basis_pairs = 1
+
+[sampled_transitions."finite: other -> _make_dual_feasible!"]
+pricing_weights_max_elements = 0
+reduced_costs_pairs = 1
+primal_pairs = 1
+primal_max_elements = 0
+costs_different = 0
+pricing_weights_different = 0
+costs_max_elements = 0
+pricing_weights_pairs = 1
+primal_different = 0
+reduced_costs_different = 0
+reduced_costs_max_elements = 0
+costs_pairs = 1
+
+[sampled_transitions."row: row -> row"]
+rowval_different = 0
+rho_pairs = 1
+row_different = 1
+nzval_max_elements = 0
+rho_max_elements = 2
+colptr_pairs = 1
+row_max_elements = 1
+nzval_pairs = 1
+rowval_max_elements = 0
+basis_max_elements = 1
+rowval_pairs = 1
+colptr_max_elements = 0
+colptr_different = 0
+nzval_different = 0
+basis_different = 1
+rho_different = 1
+basis_pairs = 1
+row_pairs = 1
+
+[sampled_transitions."finite: other -> other"]
+pricing_weights_max_elements = 0
+reduced_costs_pairs = 1
+primal_pairs = 1
+primal_max_elements = 0
+costs_different = 0
+pricing_weights_different = 0
+costs_max_elements = 0
+pricing_weights_pairs = 1
+primal_different = 0
+reduced_costs_different = 0
+reduced_costs_max_elements = 0
+costs_pairs = 1
+
+[sampled_transitions."finite: update_dual_pricing_weights! -> update_dual_pricing_weights!"]
+pricing_weights_max_elements = 5
+reduced_costs_pairs = 1
+primal_pairs = 1
+primal_max_elements = 8
+costs_different = 0
+pricing_weights_different = 1
+costs_max_elements = 0
+pricing_weights_pairs = 1
+primal_different = 1
+reduced_costs_different = 1
+reduced_costs_max_elements = 5
+costs_pairs = 1
+
+[counts]
+row = 22
+direction = 22
+finite = 29
+events = 71
+
+[quality_counts]
+discarded = 0
+eligible_proposals = 0
+staged_skipped = 0
+observations = 0
+resets = 0
+bad_ratios = 0
+framework_resets = 0
+invalid_operands = 0
+blocked_authority = 0
