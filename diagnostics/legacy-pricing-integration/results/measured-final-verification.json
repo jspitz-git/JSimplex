@@ -1,0 +1,2416 @@
+{
+  "complete": true,
+  "pins": 90,
+  "processes": 143,
+  "sequential": true,
+  "input_sha": "d0ac16e1a52a7d3411cbac28616bba9d3beb0c0edbdb2d72ab0477ce075f6c68",
+  "verified": {
+    "huangfu_hall-production/dantzig/reference-audit": {
+      "report_sha256": "13ba5382bb298225101b19d5a20d2cd1135418e799b82fda0c6411a99a5c13ee",
+      "comparison": {
+        "final_valid": true
+      }
+    },
+    "huangfu_hall-production/dantzig/shadow": {
+      "report_sha256": "90ec7f70f842c42b8016f225d40e52cba0da83123028e4e4f2f97aee80fe9b6c",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "90ec7f70f842c42b8016f225d40e52cba0da83123028e4e4f2f97aee80fe9b6c",
+        "exact_trace": true,
+        "exact_modes": true,
+        "exact_switches": true,
+        "trace_sha256": "34ed03f2e7858605e3855dad8f94023c25e2b24d00e1308711f289ecfce1dc67",
+        "counts": {
+          "sample_primal_changed_at_leaving": 11,
+          "from_last_pivot": 274709,
+          "common_entry": 1045,
+          "finite_reused": 274710,
+          "finite": 1106003,
+          "row": 529824,
+          "sample_primal_same": 124,
+          "driver_entry": 275452,
+          "row_reused": 126295,
+          "events": 1086990,
+          "direction": 277720
+        },
+        "pricing_counts": {
+          "finite_reused/dantzig/phase1": 273671,
+          "live_pivot_event/dantzig/phase1": 275362,
+          "from_last_pivot/dantzig/phase0": 1039,
+          "completed/dantzig/phase0": 1045,
+          "row_reused/dantzig/phase1": 126295,
+          "finite_reused/dantzig/phase0": 1039,
+          "live_pivot_event/dantzig/phase0": 1045,
+          "staged_pivot_event/dantzig/phase1": 91,
+          "from_last_pivot/dantzig/phase1": 273670,
+          "driver_entry/dantzig/phase1": 275452,
+          "completed/dantzig/phase1": 275453,
+          "common_entry/dantzig/phase0": 1045
+        },
+        "switches": []
+      }
+    },
+    "huangfu_hall-production/steepest_edge/reference-audit": {
+      "report_sha256": "968f2215c9679736214325238b19a6417cb08ee0457462e42fbaf27578ba3110",
+      "comparison": {
+        "final_valid": true
+      }
+    },
+    "huangfu_hall-production/steepest_edge/shadow": {
+      "report_sha256": "2f06c3168a028323e5ddebed976bc266a324f5d7ac1bf4a7343135280044eca9",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "2f06c3168a028323e5ddebed976bc266a324f5d7ac1bf4a7343135280044eca9",
+        "exact_trace": true,
+        "exact_modes": true,
+        "exact_switches": true,
+        "trace_sha256": "7ca65e45beb945c142356b1ea6be3c169507210ed296f458a529125383ff02f4",
+        "counts": {
+          "sample_primal_changed_at_leaving": 4,
+          "from_last_pivot": 71037,
+          "common_entry": 1100,
+          "common_dse_weight": 16978,
+          "finite_reused": 71037,
+          "finite": 302924,
+          "row": 93511,
+          "sample_primal_same": 32,
+          "driver_entry": 70384,
+          "row_reused": 11007,
+          "events": 237363,
+          "direction": 71696
+        },
+        "pricing_counts": {
+          "live_pivot_event/steepest_edge/phase1": 15878,
+          "driver_entry/steepest_edge/phase1": 15879,
+          "from_last_pivot/steepest_edge/phase1": 15779,
+          "common_dse_weight/steepest_edge/phase0": 1100,
+          "finite_reused/steepest_edge/phase1": 15779,
+          "from_last_pivot/devex/phase1": 54164,
+          "completed/steepest_edge/phase1": 15878,
+          "common_dse_weight/steepest_edge/phase1": 15878,
+          "completed/steepest_edge/phase0": 1100,
+          "driver_entry/devex/phase1": 54505,
+          "live_pivot_event/steepest_edge/phase0": 1100,
+          "live_pivot_event/devex/phase1": 54504,
+          "row_reused/steepest_edge/phase1": 719,
+          "finite_reused/steepest_edge/phase0": 1094,
+          "finite_reused/devex/phase1": 54164,
+          "staged_pivot_event/devex/phase1": 2,
+          "row_reused/devex/phase1": 10288,
+          "from_last_pivot/steepest_edge/phase0": 1094,
+          "common_entry/steepest_edge/phase0": 1100,
+          "completed/devex/phase1": 54506
+        },
+        "switches": [
+          {
+            "from": "steepest_edge",
+            "iteration": 16978,
+            "reason": "steepest-edge weight disagrees with basis solve",
+            "staged": false,
+            "to": "devex",
+            "phase_generation": 1,
+            "during_weight_update": false
+          }
+        ]
+      }
+    },
+    "forrest_tomlin-production/dantzig/reference-audit": {
+      "report_sha256": "ffcf31dca7f0c544f17c5ce6102d78313a3086cb64f07e36683a84b8636e7213",
+      "comparison": {
+        "final_valid": true
+      }
+    },
+    "forrest_tomlin-production/dantzig/shadow": {
+      "report_sha256": "6fc60018f84887cc8b92d433c441977e56c2c36bac2147bb26dd53026cda2f63",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "6fc60018f84887cc8b92d433c441977e56c2c36bac2147bb26dd53026cda2f63",
+        "exact_trace": true,
+        "exact_modes": true,
+        "exact_switches": true,
+        "trace_sha256": "136bc9c013669a266d0ebd971596ee1268bca6be306c75dff411d518f6e33773",
+        "counts": {
+          "sample_primal_changed_at_leaving": 10,
+          "from_last_pivot": 301062,
+          "common_entry": 1043,
+          "finite_reused": 301062,
+          "finite": 1212146,
+          "row": 526730,
+          "sample_primal_same": 137,
+          "driver_entry": 301991,
+          "row_reused": 111419,
+          "events": 1135357,
+          "direction": 303368
+        },
+        "pricing_counts": {
+          "finite_reused/dantzig/phase1": 300025,
+          "live_pivot_event/dantzig/phase1": 301879,
+          "from_last_pivot/dantzig/phase0": 1037,
+          "completed/dantzig/phase0": 1043,
+          "row_reused/dantzig/phase1": 111419,
+          "finite_reused/dantzig/phase0": 1037,
+          "live_pivot_event/dantzig/phase0": 1043,
+          "staged_pivot_event/dantzig/phase1": 112,
+          "from_last_pivot/dantzig/phase1": 300025,
+          "driver_entry/dantzig/phase1": 301991,
+          "completed/dantzig/phase1": 301991,
+          "common_entry/dantzig/phase0": 1043
+        },
+        "switches": []
+      }
+    },
+    "forrest_tomlin-production/steepest_edge/reference-audit": {
+      "report_sha256": "aa7964b7a65e6082951edf03bd9016e1c2330028fce1b75161799cb6dfedb2de",
+      "comparison": {
+        "final_valid": true
+      }
+    },
+    "forrest_tomlin-production/steepest_edge/shadow": {
+      "report_sha256": "24ac1405d6f0ef9bc80ddc95200d795d75c8964a5ae20b7a68b535fdb442c14d",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "24ac1405d6f0ef9bc80ddc95200d795d75c8964a5ae20b7a68b535fdb442c14d",
+        "exact_trace": true,
+        "exact_modes": true,
+        "exact_switches": true,
+        "trace_sha256": "54e8867586e7f4115da086619796ed9dfaa3a15715f3ba56e947b11aa98e2dfe",
+        "counts": {
+          "sample_primal_changed_at_leaving": 2,
+          "from_last_pivot": 71623,
+          "common_entry": 1096,
+          "common_dse_weight": 12394,
+          "finite_reused": 71623,
+          "finite": 300760,
+          "row": 95359,
+          "sample_primal_same": 34,
+          "driver_entry": 70993,
+          "row_reused": 11575,
+          "events": 240115,
+          "direction": 72147
+        },
+        "pricing_counts": {
+          "live_pivot_event/steepest_edge/phase1": 11293,
+          "driver_entry/steepest_edge/phase1": 11299,
+          "from_last_pivot/steepest_edge/phase1": 11224,
+          "common_dse_weight/steepest_edge/phase0": 1096,
+          "staged_pivot_event/steepest_edge/phase1": 5,
+          "finite_reused/steepest_edge/phase1": 11224,
+          "from_last_pivot/devex/phase1": 59309,
+          "completed/steepest_edge/phase1": 11298,
+          "common_dse_weight/steepest_edge/phase1": 11298,
+          "completed/steepest_edge/phase0": 1096,
+          "driver_entry/devex/phase1": 59694,
+          "live_pivot_event/steepest_edge/phase0": 1096,
+          "live_pivot_event/devex/phase1": 59680,
+          "row_reused/steepest_edge/phase1": 443,
+          "finite_reused/steepest_edge/phase0": 1090,
+          "finite_reused/devex/phase1": 59309,
+          "staged_pivot_event/devex/phase1": 15,
+          "row_reused/devex/phase1": 11132,
+          "from_last_pivot/steepest_edge/phase0": 1090,
+          "common_entry/steepest_edge/phase0": 1096,
+          "completed/devex/phase1": 59695
+        },
+        "switches": [
+          {
+            "from": "steepest_edge",
+            "iteration": 12394,
+            "reason": "steepest-edge weight disagrees with basis solve",
+            "staged": false,
+            "to": "devex",
+            "phase_generation": 1,
+            "during_weight_update": false
+          }
+        ]
+      }
+    },
+    "suhl_suhl-production/dantzig/reference-audit": {
+      "report_sha256": "5bff5cad44fa939ada6546ab5c8554588d06c9f867764c1b9dfde3862daaf02d",
+      "comparison": {
+        "final_valid": true
+      }
+    },
+    "suhl_suhl-production/dantzig/shadow": {
+      "report_sha256": "efe638264fd681127b08c76e5649106c4a21c741018f8c7514e3d33a77ec37df",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "efe638264fd681127b08c76e5649106c4a21c741018f8c7514e3d33a77ec37df",
+        "exact_trace": true,
+        "exact_modes": true,
+        "exact_switches": true,
+        "trace_sha256": "d5049c31a250517dc9328bbae805b4822e49259837847466cbebee4d7da9a168",
+        "counts": {
+          "sample_primal_changed_at_leaving": 10,
+          "from_last_pivot": 268424,
+          "common_entry": 1043,
+          "finite_reused": 268424,
+          "finite": 1080586,
+          "row": 451094,
+          "sample_primal_same": 122,
+          "driver_entry": 269100,
+          "row_reused": 90282,
+          "events": 993393,
+          "direction": 270308
+        },
+        "pricing_counts": {
+          "finite_reused/dantzig/phase1": 267387,
+          "live_pivot_event/dantzig/phase1": 269044,
+          "from_last_pivot/dantzig/phase0": 1037,
+          "completed/dantzig/phase0": 1043,
+          "row_reused/dantzig/phase1": 90282,
+          "finite_reused/dantzig/phase0": 1037,
+          "live_pivot_event/dantzig/phase0": 1043,
+          "staged_pivot_event/dantzig/phase1": 57,
+          "from_last_pivot/dantzig/phase1": 267387,
+          "driver_entry/dantzig/phase1": 269100,
+          "completed/dantzig/phase1": 269101,
+          "common_entry/dantzig/phase0": 1043
+        },
+        "switches": []
+      }
+    },
+    "suhl_suhl-production/steepest_edge/reference-audit": {
+      "report_sha256": "60a21840df9d8976a90de793d21123664edbdec941ca10a881de8755a1f12989",
+      "comparison": {
+        "final_valid": true
+      }
+    },
+    "suhl_suhl-production/steepest_edge/shadow": {
+      "report_sha256": "ed549825d1b57d8bc4c4014d77dab37416bbdffe8ea42e0049043524e0fc7630",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "ed549825d1b57d8bc4c4014d77dab37416bbdffe8ea42e0049043524e0fc7630",
+        "exact_trace": true,
+        "exact_modes": true,
+        "exact_switches": true,
+        "trace_sha256": "5bfe68a6cfdcbc5e6dbe1dbb72c23988e6ba08d93101630e886921e510b086ce",
+        "counts": {
+          "sample_primal_changed_at_leaving": 3,
+          "from_last_pivot": 68435,
+          "common_entry": 1081,
+          "common_dse_weight": 21949,
+          "finite_reused": 68435,
+          "finite": 297498,
+          "row": 94191,
+          "sample_primal_same": 31,
+          "driver_entry": 67803,
+          "row_reused": 12587,
+          "events": 232521,
+          "direction": 68940
+        },
+        "pricing_counts": {
+          "live_pivot_event/steepest_edge/phase1": 20868,
+          "driver_entry/steepest_edge/phase1": 20869,
+          "from_last_pivot/steepest_edge/phase1": 20738,
+          "common_dse_weight/steepest_edge/phase0": 1081,
+          "finite_reused/steepest_edge/phase1": 20738,
+          "from_last_pivot/devex/phase1": 46622,
+          "completed/steepest_edge/phase1": 20868,
+          "live_pivot_event/devex/phase2": 1,
+          "common_dse_weight/steepest_edge/phase1": 20868,
+          "completed/steepest_edge/phase0": 1081,
+          "driver_entry/devex/phase1": 46934,
+          "live_pivot_event/steepest_edge/phase0": 1081,
+          "live_pivot_event/devex/phase1": 46914,
+          "row_reused/steepest_edge/phase1": 2234,
+          "finite_reused/steepest_edge/phase0": 1075,
+          "finite_reused/devex/phase1": 46622,
+          "staged_pivot_event/devex/phase1": 21,
+          "row_reused/devex/phase1": 10353,
+          "from_last_pivot/steepest_edge/phase0": 1075,
+          "common_entry/steepest_edge/phase0": 1081,
+          "completed/devex/phase1": 46935
+        },
+        "switches": [
+          {
+            "from": "steepest_edge",
+            "iteration": 21949,
+            "reason": "steepest-edge weight disagrees with basis solve",
+            "staged": false,
+            "to": "devex",
+            "phase_generation": 1,
+            "during_weight_update": false
+          }
+        ]
+      }
+    },
+    "bartels_golub-production/dantzig/reference-audit": {
+      "report_sha256": "2f593d9d1a50928f9dd37b37581b50277be9e3d7eff5f1063089b2224d372250",
+      "comparison": {
+        "final_valid": true
+      }
+    },
+    "bartels_golub-production/dantzig/shadow": {
+      "report_sha256": "c7d9517fc9d19a8670c49c00c49c1faf39c372834131829e371ad02adb8e2b72",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "c7d9517fc9d19a8670c49c00c49c1faf39c372834131829e371ad02adb8e2b72",
+        "exact_trace": true,
+        "exact_modes": true,
+        "exact_switches": true,
+        "trace_sha256": "71aef3d4a111f6e12dc87ec7f8e6e9994e37f7e3af1388fac6506caf999a03a7",
+        "counts": {
+          "sample_primal_changed_at_leaving": 17,
+          "from_last_pivot": 283930,
+          "common_entry": 1043,
+          "finite_reused": 283930,
+          "finite": 1143014,
+          "row": 470015,
+          "sample_primal_same": 123,
+          "driver_entry": 284708,
+          "row_reused": 91926,
+          "events": 1043633,
+          "direction": 285919
+        },
+        "pricing_counts": {
+          "finite_reused/dantzig/phase1": 282893,
+          "live_pivot_event/dantzig/phase1": 284650,
+          "from_last_pivot/dantzig/phase0": 1037,
+          "completed/dantzig/phase0": 1043,
+          "row_reused/dantzig/phase1": 91926,
+          "finite_reused/dantzig/phase0": 1037,
+          "live_pivot_event/dantzig/phase0": 1043,
+          "staged_pivot_event/dantzig/phase1": 58,
+          "from_last_pivot/dantzig/phase1": 282893,
+          "driver_entry/dantzig/phase1": 284708,
+          "completed/dantzig/phase1": 284708,
+          "common_entry/dantzig/phase0": 1043
+        },
+        "switches": []
+      }
+    },
+    "bartels_golub-production/steepest_edge/reference-audit": {
+      "report_sha256": "cb475fbb05e2e3b12baad6bd6cd94cf43a5eb9457aa185a634b1681b787e51f9",
+      "comparison": {
+        "final_valid": true
+      }
+    },
+    "bartels_golub-production/steepest_edge/shadow": {
+      "report_sha256": "ca078b20ebf7166e80d798f6f0d31f4598574383a4f95984fe3d5331b17e3296",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "ca078b20ebf7166e80d798f6f0d31f4598574383a4f95984fe3d5331b17e3296",
+        "exact_trace": true,
+        "exact_modes": true,
+        "exact_switches": true,
+        "trace_sha256": "9a0782ad05ef0e8a25769bbcd1c38067e119a1c91be0ba61c54e11327eaa2123",
+        "counts": {
+          "sample_primal_changed_at_leaving": 7,
+          "from_last_pivot": 73488,
+          "common_entry": 1096,
+          "common_dse_weight": 13081,
+          "finite_reused": 73488,
+          "finite": 308967,
+          "row": 95702,
+          "sample_primal_same": 31,
+          "driver_entry": 72871,
+          "row_reused": 10808,
+          "events": 244517,
+          "direction": 74161
+        },
+        "pricing_counts": {
+          "live_pivot_event/steepest_edge/phase1": 11982,
+          "driver_entry/steepest_edge/phase1": 11986,
+          "from_last_pivot/steepest_edge/phase1": 11908,
+          "common_dse_weight/steepest_edge/phase0": 1096,
+          "staged_pivot_event/steepest_edge/phase1": 3,
+          "finite_reused/steepest_edge/phase1": 11908,
+          "from_last_pivot/devex/phase1": 60490,
+          "completed/steepest_edge/phase1": 11985,
+          "live_pivot_event/devex/phase2": 6,
+          "common_dse_weight/steepest_edge/phase1": 11985,
+          "completed/steepest_edge/phase0": 1096,
+          "driver_entry/devex/phase1": 60885,
+          "live_pivot_event/steepest_edge/phase0": 1096,
+          "live_pivot_event/devex/phase1": 60867,
+          "row_reused/steepest_edge/phase1": 108,
+          "finite_reused/steepest_edge/phase0": 1090,
+          "finite_reused/devex/phase1": 60490,
+          "staged_pivot_event/devex/phase1": 19,
+          "row_reused/devex/phase1": 10700,
+          "from_last_pivot/steepest_edge/phase0": 1090,
+          "common_entry/steepest_edge/phase0": 1096,
+          "completed/devex/phase1": 60886
+        },
+        "switches": [
+          {
+            "from": "steepest_edge",
+            "iteration": 13081,
+            "reason": "steepest-edge weight disagrees with basis solve",
+            "staged": false,
+            "to": "devex",
+            "phase_generation": 1,
+            "during_weight_update": false
+          }
+        ]
+      }
+    },
+    "pfi-production/dantzig/reference-audit": {
+      "report_sha256": "9d810395252a6369d396fa025a7e696d970c075bd150f635e6fa5d5b1599b7c7",
+      "comparison": {
+        "final_valid": true
+      }
+    },
+    "pfi-production/dantzig/shadow": {
+      "report_sha256": "1f9b09b189d00d9691c6c5a13a09d073ad27e42deb6d72e07e1d3063c01a4750",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "1f9b09b189d00d9691c6c5a13a09d073ad27e42deb6d72e07e1d3063c01a4750",
+        "exact_trace": true,
+        "exact_modes": true,
+        "exact_switches": true,
+        "trace_sha256": "7c6ac1af700b9d1f83e7f4b286287e20d843c2c62522811f70ec26108433bb36",
+        "counts": {
+          "sample_primal_changed_at_leaving": 13,
+          "from_last_pivot": 271071,
+          "common_entry": 1043,
+          "finite_reused": 271071,
+          "finite": 1091294,
+          "row": 450210,
+          "sample_primal_same": 120,
+          "driver_entry": 271775,
+          "row_reused": 88449,
+          "events": 1000932,
+          "direction": 274500
+        },
+        "pricing_counts": {
+          "finite_reused/dantzig/phase1": 270034,
+          "live_pivot_event/dantzig/phase1": 271706,
+          "from_last_pivot/dantzig/phase0": 1037,
+          "completed/dantzig/phase0": 1043,
+          "row_reused/dantzig/phase1": 88449,
+          "finite_reused/dantzig/phase0": 1037,
+          "live_pivot_event/dantzig/phase0": 1043,
+          "staged_pivot_event/dantzig/phase1": 69,
+          "from_last_pivot/dantzig/phase1": 270034,
+          "driver_entry/dantzig/phase1": 271775,
+          "live_pivot_event/dantzig/phase2": 10,
+          "completed/dantzig/phase1": 271775,
+          "common_entry/dantzig/phase0": 1043
+        },
+        "switches": []
+      }
+    },
+    "pfi-production/steepest_edge/reference-audit": {
+      "report_sha256": "79b0531d6e351d14094829e4374d75d4f8bac9315b06344776a804a8ad5eb600",
+      "comparison": {
+        "final_valid": true
+      }
+    },
+    "pfi-production/steepest_edge/shadow": {
+      "report_sha256": "93a0a9afddacaa30f0d845adb7a37a38fb2ca5384e21dbf73f70b0e611743ff8",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "93a0a9afddacaa30f0d845adb7a37a38fb2ca5384e21dbf73f70b0e611743ff8",
+        "exact_trace": true,
+        "exact_modes": true,
+        "exact_switches": true,
+        "trace_sha256": "4bbf2ef5277c8df04b810f0837721ceb079f361fd3b4ce4c7babcb0dbf02b94a",
+        "counts": {
+          "sample_primal_changed_at_leaving": 1,
+          "from_last_pivot": 68723,
+          "common_entry": 1073,
+          "common_dse_weight": 26976,
+          "finite_reused": 68722,
+          "finite": 303679,
+          "row": 93784,
+          "sample_primal_same": 33,
+          "driver_entry": 68098,
+          "row_reused": 12247,
+          "events": 232977,
+          "direction": 69362
+        },
+        "pricing_counts": {
+          "live_pivot_event/steepest_edge/phase1": 25903,
+          "driver_entry/steepest_edge/phase1": 25904,
+          "from_last_pivot/steepest_edge/phase1": 25742,
+          "common_dse_weight/steepest_edge/phase0": 1073,
+          "finite_reused/steepest_edge/phase1": 25742,
+          "from_last_pivot/devex/phase1": 41914,
+          "completed/steepest_edge/phase1": 25903,
+          "live_pivot_event/devex/phase2": 7,
+          "common_dse_weight/steepest_edge/phase1": 25903,
+          "completed/steepest_edge/phase0": 1073,
+          "driver_entry/devex/phase1": 42194,
+          "live_pivot_event/steepest_edge/phase0": 1073,
+          "live_pivot_event/devex/phase1": 42175,
+          "row_reused/steepest_edge/phase1": 2470,
+          "finite_reused/steepest_edge/phase0": 1067,
+          "finite_reused/devex/phase1": 41913,
+          "staged_pivot_event/devex/phase1": 20,
+          "row_reused/devex/phase1": 9777,
+          "from_last_pivot/steepest_edge/phase0": 1067,
+          "common_entry/steepest_edge/phase0": 1073,
+          "completed/devex/phase1": 42195
+        },
+        "switches": [
+          {
+            "from": "steepest_edge",
+            "iteration": 26976,
+            "reason": "steepest-edge weight disagrees with basis solve",
+            "staged": false,
+            "to": "devex",
+            "phase_generation": 1,
+            "during_weight_update": false
+          }
+        ]
+      }
+    },
+    "forrest_tomlin-direct/dantzig/reference-audit": {
+      "report_sha256": "f97e15f15a10cd3d8f58bc60499101504833d1579a4f213b725db53317b70ac5",
+      "comparison": {
+        "final_valid": true
+      }
+    },
+    "forrest_tomlin-direct/dantzig/shadow": {
+      "report_sha256": "90fe6ab7c62d18cada56dcf7edebed9589175fc8c93431f9eee41a2e8ca0bc72",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "90fe6ab7c62d18cada56dcf7edebed9589175fc8c93431f9eee41a2e8ca0bc72",
+        "exact_trace": true,
+        "exact_modes": true,
+        "exact_switches": true,
+        "trace_sha256": "b61ad75125f8d19ff47ded2395d9a4b0a75d7c390b6e2483b0b34327a46aa76a",
+        "counts": {
+          "sample_primal_changed_at_leaving": 12,
+          "from_last_pivot": 292033,
+          "common_entry": 1042,
+          "finite_reused": 292033,
+          "finite": 1175798,
+          "row": 498805,
+          "sample_primal_same": 132,
+          "driver_entry": 292897,
+          "row_reused": 102062,
+          "events": 1089220,
+          "direction": 294260
+        },
+        "pricing_counts": {
+          "finite_reused/dantzig/phase1": 290997,
+          "live_pivot_event/dantzig/phase1": 292794,
+          "from_last_pivot/dantzig/phase0": 1036,
+          "completed/dantzig/phase0": 1042,
+          "row_reused/dantzig/phase1": 102062,
+          "finite_reused/dantzig/phase0": 1036,
+          "live_pivot_event/dantzig/phase0": 1042,
+          "staged_pivot_event/dantzig/phase1": 103,
+          "from_last_pivot/dantzig/phase1": 290997,
+          "driver_entry/dantzig/phase1": 292897,
+          "live_pivot_event/dantzig/phase2": 30,
+          "completed/dantzig/phase1": 292897,
+          "common_entry/dantzig/phase0": 1042
+        },
+        "switches": []
+      }
+    },
+    "forrest_tomlin-direct/steepest_edge/reference-audit": {
+      "report_sha256": "3060287f414cc8c181ec01f30c406383a374bec82a09c31c89a67ae9cbb6e623",
+      "comparison": {
+        "final_valid": true
+      }
+    },
+    "forrest_tomlin-direct/steepest_edge/shadow": {
+      "report_sha256": "42934ea3225102eaa3c8fe7881e7b479c7acd189550512e0946c25c59398ba11",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "42934ea3225102eaa3c8fe7881e7b479c7acd189550512e0946c25c59398ba11",
+        "exact_trace": true,
+        "exact_modes": true,
+        "exact_switches": true,
+        "trace_sha256": "e022e68fd7fb0f614cae3f6a7dd3c5fd47226be5ed2f328dd4ab9ca68a0c0909",
+        "counts": {
+          "sample_primal_changed_at_leaving": 4,
+          "from_last_pivot": 70420,
+          "common_entry": 1083,
+          "common_dse_weight": 11547,
+          "finite_reused": 70419,
+          "finite": 295054,
+          "row": 79514,
+          "sample_primal_same": 32,
+          "driver_entry": 69790,
+          "row_reused": 4275,
+          "events": 221797,
+          "direction": 70911
+        },
+        "pricing_counts": {
+          "live_pivot_event/steepest_edge/phase1": 10460,
+          "driver_entry/steepest_edge/phase1": 10466,
+          "from_last_pivot/steepest_edge/phase1": 10395,
+          "common_dse_weight/steepest_edge/phase0": 1082,
+          "staged_pivot_event/steepest_edge/phase1": 5,
+          "live_pivot_event/devex/phase0": 1,
+          "finite_reused/devex/phase0": 1,
+          "completed/devex/phase0": 1,
+          "finite_reused/steepest_edge/phase1": 10395,
+          "from_last_pivot/devex/phase1": 58948,
+          "completed/steepest_edge/phase1": 10465,
+          "common_dse_weight/steepest_edge/phase1": 10465,
+          "completed/steepest_edge/phase0": 1082,
+          "driver_entry/devex/phase1": 59324,
+          "from_last_pivot/devex/phase0": 1,
+          "live_pivot_event/steepest_edge/phase0": 1082,
+          "live_pivot_event/devex/phase1": 59316,
+          "row_reused/steepest_edge/phase1": 43,
+          "finite_reused/steepest_edge/phase0": 1076,
+          "finite_reused/devex/phase1": 58947,
+          "staged_pivot_event/devex/phase1": 9,
+          "row_reused/devex/phase1": 4232,
+          "from_last_pivot/steepest_edge/phase0": 1076,
+          "common_entry/steepest_edge/phase0": 1083,
+          "completed/devex/phase1": 59325
+        },
+        "switches": [
+          {
+            "from": "steepest_edge",
+            "iteration": 11547,
+            "reason": "steepest-edge weight disagrees with basis solve",
+            "staged": false,
+            "to": "devex",
+            "phase_generation": 1,
+            "during_weight_update": false
+          },
+          {
+            "from": "steepest_edge",
+            "iteration": 70872,
+            "reason": "steepest-edge weight disagrees with basis solve",
+            "staged": false,
+            "to": "devex",
+            "phase_generation": 0,
+            "during_weight_update": false
+          }
+        ]
+      }
+    },
+    "forrest_tomlin-normalized/dantzig/reference-audit": {
+      "report_sha256": "e71e3e993295eb88bf47e9c364452fee1303a7fabb3c73fd2f8b848dccf734d4",
+      "comparison": {
+        "final_valid": true
+      }
+    },
+    "forrest_tomlin-normalized/dantzig/shadow": {
+      "report_sha256": "ba7dffbef77196619ae2eb227bcacfc2bf0e34ffc23fd070a41080c6d23120cb",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "ba7dffbef77196619ae2eb227bcacfc2bf0e34ffc23fd070a41080c6d23120cb",
+        "exact_trace": true,
+        "exact_modes": true,
+        "exact_switches": true,
+        "trace_sha256": "f50f7143c7c9b04d6a7042b48e375c0f3410001df5cc0b11c65f4d206d24d755",
+        "counts": {
+          "sample_primal_changed_at_leaving": 15,
+          "from_last_pivot": 310601,
+          "common_entry": 1043,
+          "finite_reused": 310601,
+          "finite": 1250651,
+          "row": 554591,
+          "sample_primal_same": 139,
+          "driver_entry": 311616,
+          "row_reused": 120461,
+          "events": 1182654,
+          "direction": 313047
+        },
+        "pricing_counts": {
+          "finite_reused/dantzig/phase1": 309564,
+          "live_pivot_event/dantzig/phase1": 311482,
+          "from_last_pivot/dantzig/phase0": 1037,
+          "completed/dantzig/phase0": 1043,
+          "row_reused/dantzig/phase1": 120461,
+          "finite_reused/dantzig/phase0": 1037,
+          "live_pivot_event/dantzig/phase0": 1043,
+          "staged_pivot_event/dantzig/phase1": 134,
+          "from_last_pivot/dantzig/phase1": 309564,
+          "driver_entry/dantzig/phase1": 311616,
+          "live_pivot_event/dantzig/phase2": 3,
+          "completed/dantzig/phase1": 311616,
+          "common_entry/dantzig/phase0": 1043
+        },
+        "switches": []
+      }
+    },
+    "forrest_tomlin-normalized/steepest_edge/reference-audit": {
+      "report_sha256": "e49ad8a84f2b547dcc956bed0f442c545f6eea9b33e0c1d6addb798a34da4914",
+      "comparison": {
+        "final_valid": true
+      }
+    },
+    "forrest_tomlin-normalized/steepest_edge/shadow": {
+      "report_sha256": "c146415b74f5fe40bb52408ad48a6cf361e29682eb75458a0652fae79cba1c7e",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "c146415b74f5fe40bb52408ad48a6cf361e29682eb75458a0652fae79cba1c7e",
+        "exact_trace": true,
+        "exact_modes": true,
+        "exact_switches": true,
+        "trace_sha256": "b3ec0cc7cb5cc5ca4a7de3a1516e00dc2891ed81d994716c92dada9fc3175a35",
+        "counts": {
+          "sample_primal_changed_at_leaving": 9,
+          "from_last_pivot": 70523,
+          "common_entry": 70982,
+          "common_dse_weight": 12196,
+          "finite_reused": 70523,
+          "finite": 296135,
+          "row": 83570,
+          "sample_primal_same": 27,
+          "row_reused": 6207,
+          "events": 226161,
+          "direction": 71070
+        },
+        "pricing_counts": {
+          "live_pivot_event/steepest_edge/phase1": 11113,
+          "from_last_pivot/steepest_edge/phase1": 11044,
+          "common_dse_weight/steepest_edge/phase0": 1081,
+          "live_pivot_event/steepest_edge/phase2": 2,
+          "staged_pivot_event/steepest_edge/phase1": 2,
+          "common_entry/steepest_edge/phase1": 11116,
+          "finite_reused/steepest_edge/phase1": 11044,
+          "from_last_pivot/devex/phase1": 58404,
+          "completed/steepest_edge/phase1": 11115,
+          "common_dse_weight/steepest_edge/phase1": 11115,
+          "completed/steepest_edge/phase0": 1081,
+          "common_entry/devex/phase1": 58785,
+          "live_pivot_event/steepest_edge/phase0": 1081,
+          "live_pivot_event/devex/phase1": 58765,
+          "row_reused/steepest_edge/phase1": 102,
+          "finite_reused/steepest_edge/phase0": 1075,
+          "finite_reused/devex/phase1": 58404,
+          "staged_pivot_event/devex/phase1": 21,
+          "row_reused/devex/phase1": 6105,
+          "from_last_pivot/steepest_edge/phase0": 1075,
+          "common_entry/steepest_edge/phase0": 1081,
+          "completed/devex/phase1": 58786
+        },
+        "switches": [
+          {
+            "from": "steepest_edge",
+            "iteration": 12196,
+            "reason": "steepest-edge weight disagrees with basis solve",
+            "staged": false,
+            "to": "devex",
+            "phase_generation": 1,
+            "during_weight_update": false
+          }
+        ]
+      }
+    },
+    "suhl_suhl-direct/dantzig/reference-audit": {
+      "report_sha256": "d781832ff8e47bd8bd24de9d8be4a6df1a4083dda02576bc45a605df8c6eade3",
+      "comparison": {
+        "final_valid": true
+      }
+    },
+    "suhl_suhl-direct/dantzig/shadow": {
+      "report_sha256": "3b4ad25f919878ddd6d985fca8984bdbb080c51ea3c5fd6faee674070f51d63c",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "3b4ad25f919878ddd6d985fca8984bdbb080c51ea3c5fd6faee674070f51d63c",
+        "exact_trace": true,
+        "exact_modes": true,
+        "exact_switches": true,
+        "trace_sha256": "c2c701e075a58809eb0b4a8a9182b1ee0d37265ebae256cd2033b365cf78bdfb",
+        "counts": {
+          "sample_primal_changed_at_leaving": 16,
+          "from_last_pivot": 259736,
+          "common_entry": 1042,
+          "finite_reused": 259736,
+          "finite": 1045835,
+          "row": 425963,
+          "sample_primal_same": 112,
+          "driver_entry": 260410,
+          "row_reused": 81816,
+          "events": 951237,
+          "direction": 261805
+        },
+        "pricing_counts": {
+          "finite_reused/dantzig/phase1": 258700,
+          "live_pivot_event/dantzig/phase1": 260302,
+          "from_last_pivot/dantzig/phase0": 1036,
+          "completed/dantzig/phase0": 1042,
+          "row_reused/dantzig/phase1": 81816,
+          "finite_reused/dantzig/phase0": 1036,
+          "live_pivot_event/dantzig/phase0": 1042,
+          "staged_pivot_event/dantzig/phase1": 108,
+          "from_last_pivot/dantzig/phase1": 258700,
+          "driver_entry/dantzig/phase1": 260410,
+          "live_pivot_event/dantzig/phase2": 15,
+          "completed/dantzig/phase1": 260410,
+          "common_entry/dantzig/phase0": 1042
+        },
+        "switches": []
+      }
+    },
+    "suhl_suhl-direct/steepest_edge/reference-audit": {
+      "report_sha256": "f0f7ee4d96c646040b1d44b334879bdcd77db9b8d7be094129c756878660c026",
+      "comparison": {
+        "final_valid": true
+      }
+    },
+    "suhl_suhl-direct/steepest_edge/shadow": {
+      "report_sha256": "7e448af5c17491f6e3c9e4132e3be37f49da73bd8dfafbe51e4e995395cd3eb5",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "7e448af5c17491f6e3c9e4132e3be37f49da73bd8dfafbe51e4e995395cd3eb5",
+        "exact_trace": true,
+        "exact_modes": true,
+        "exact_switches": true,
+        "trace_sha256": "d88b08f0b83c9f6b08e62b7b1df3959e6754e4fed13bf5d341e2ac59929e319c",
+        "counts": {
+          "sample_primal_changed_at_leaving": 2,
+          "from_last_pivot": 70828,
+          "common_entry": 1079,
+          "common_dse_weight": 10312,
+          "finite_reused": 70826,
+          "finite": 295522,
+          "row": 80514,
+          "sample_primal_same": 34,
+          "driver_entry": 70220,
+          "row_reused": 4498,
+          "events": 223879,
+          "direction": 71451
+        },
+        "pricing_counts": {
+          "live_pivot_event/steepest_edge/phase1": 9226,
+          "driver_entry/steepest_edge/phase1": 9234,
+          "from_last_pivot/steepest_edge/phase1": 9169,
+          "common_dse_weight/steepest_edge/phase0": 1079,
+          "staged_pivot_event/steepest_edge/phase1": 7,
+          "finite_reused/steepest_edge/phase1": 9169,
+          "from_last_pivot/devex/phase1": 60586,
+          "completed/steepest_edge/phase1": 9233,
+          "live_pivot_event/devex/phase2": 2,
+          "common_dse_weight/steepest_edge/phase1": 9233,
+          "completed/steepest_edge/phase0": 1079,
+          "driver_entry/devex/phase1": 60986,
+          "live_pivot_event/steepest_edge/phase0": 1079,
+          "live_pivot_event/devex/phase1": 60961,
+          "row_reused/steepest_edge/phase1": 36,
+          "finite_reused/steepest_edge/phase0": 1073,
+          "finite_reused/devex/phase1": 60584,
+          "staged_pivot_event/devex/phase1": 26,
+          "row_reused/devex/phase1": 4462,
+          "from_last_pivot/steepest_edge/phase0": 1073,
+          "common_entry/steepest_edge/phase0": 1079,
+          "completed/devex/phase1": 60987
+        },
+        "switches": [
+          {
+            "from": "steepest_edge",
+            "iteration": 10312,
+            "reason": "steepest-edge weight disagrees with basis solve",
+            "staged": false,
+            "to": "devex",
+            "phase_generation": 1,
+            "during_weight_update": false
+          }
+        ]
+      }
+    },
+    "suhl_suhl-normalized/dantzig/reference-audit": {
+      "report_sha256": "d74f4b5408944e3a594c0c016169bcc8f176460c80325db0c4a3bafe9261875d",
+      "comparison": {
+        "final_valid": true
+      }
+    },
+    "suhl_suhl-normalized/dantzig/shadow": {
+      "report_sha256": "68f38f13c0b76001723bdb9925328ed5b9347da4cf3981e8fc616ecfd43b190b",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "68f38f13c0b76001723bdb9925328ed5b9347da4cf3981e8fc616ecfd43b190b",
+        "exact_trace": true,
+        "exact_modes": true,
+        "exact_switches": true,
+        "trace_sha256": "2c330b18a33ce0effcd2adb9b52569a79bdb12bda80bdb01ec9c15b9447d7b26",
+        "counts": {
+          "sample_primal_changed_at_leaving": 12,
+          "from_last_pivot": 276173,
+          "common_entry": 1043,
+          "finite_reused": 276173,
+          "finite": 1112010,
+          "row": 490543,
+          "sample_primal_same": 123,
+          "driver_entry": 276956,
+          "row_reused": 105772,
+          "events": 1049198,
+          "direction": 278458
+        },
+        "pricing_counts": {
+          "finite_reused/dantzig/phase1": 275136,
+          "live_pivot_event/dantzig/phase1": 276831,
+          "from_last_pivot/dantzig/phase0": 1037,
+          "completed/dantzig/phase0": 1043,
+          "row_reused/dantzig/phase1": 105772,
+          "finite_reused/dantzig/phase0": 1037,
+          "live_pivot_event/dantzig/phase0": 1043,
+          "staged_pivot_event/dantzig/phase1": 125,
+          "from_last_pivot/dantzig/phase1": 275136,
+          "driver_entry/dantzig/phase1": 276956,
+          "live_pivot_event/dantzig/phase2": 2,
+          "completed/dantzig/phase1": 276956,
+          "common_entry/dantzig/phase0": 1043
+        },
+        "switches": []
+      }
+    },
+    "suhl_suhl-normalized/steepest_edge/reference-audit": {
+      "report_sha256": "210746c049ad891ad257b9d5363895d8b1f5169b533517dad079d282adf81d25",
+      "comparison": {
+        "final_valid": true
+      }
+    },
+    "suhl_suhl-normalized/steepest_edge/shadow": {
+      "report_sha256": "09a5f4a8b384a3c34765f624f7d21ad0dae00505b5760eafa7f5b7195775d69f",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "09a5f4a8b384a3c34765f624f7d21ad0dae00505b5760eafa7f5b7195775d69f",
+        "exact_trace": true,
+        "exact_modes": true,
+        "exact_switches": true,
+        "trace_sha256": "6827321dd6c7ff7600429e3c88568f31057e91e0f029546696d1105af4e78880",
+        "counts": {
+          "sample_primal_changed_at_leaving": 8,
+          "from_last_pivot": 70722,
+          "common_entry": 71174,
+          "common_dse_weight": 20972,
+          "finite_reused": 70721,
+          "finite": 305679,
+          "row": 86367,
+          "sample_primal_same": 28,
+          "row_reused": 7503,
+          "events": 229429,
+          "direction": 71303
+        },
+        "pricing_counts": {
+          "live_pivot_event/steepest_edge/phase1": 19895,
+          "from_last_pivot/steepest_edge/phase1": 19772,
+          "common_dse_weight/steepest_edge/phase0": 1076,
+          "live_pivot_event/steepest_edge/phase2": 3,
+          "staged_pivot_event/steepest_edge/phase1": 1,
+          "common_entry/steepest_edge/phase1": 19897,
+          "finite_reused/steepest_edge/phase1": 19772,
+          "from_last_pivot/devex/phase1": 49880,
+          "completed/steepest_edge/phase1": 19896,
+          "common_dse_weight/steepest_edge/phase1": 19896,
+          "completed/steepest_edge/phase0": 1076,
+          "common_entry/devex/phase1": 50201,
+          "live_pivot_event/steepest_edge/phase0": 1076,
+          "live_pivot_event/devex/phase1": 50189,
+          "row_reused/steepest_edge/phase1": 841,
+          "finite_reused/steepest_edge/phase0": 1070,
+          "finite_reused/devex/phase1": 49879,
+          "staged_pivot_event/devex/phase1": 13,
+          "row_reused/devex/phase1": 6662,
+          "from_last_pivot/steepest_edge/phase0": 1070,
+          "common_entry/steepest_edge/phase0": 1076,
+          "completed/devex/phase1": 50202
+        },
+        "switches": [
+          {
+            "from": "steepest_edge",
+            "iteration": 20972,
+            "reason": "steepest-edge weight disagrees with basis solve",
+            "staged": false,
+            "to": "devex",
+            "phase_generation": 1,
+            "during_weight_update": false
+          }
+        ]
+      }
+    },
+    "bartels_golub-direct/dantzig/reference-audit": {
+      "report_sha256": "d4493347ca4f9ae8d71b4ca2a106f19707c878b6e2404bf3bd5618fe874935f3",
+      "comparison": {
+        "final_valid": true
+      }
+    },
+    "bartels_golub-direct/dantzig/shadow": {
+      "report_sha256": "98d5bde3c8b5415fbc7ba5ab22ba5176ec95acda7d181a5c763eac5438213ed1",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "98d5bde3c8b5415fbc7ba5ab22ba5176ec95acda7d181a5c763eac5438213ed1",
+        "exact_trace": true,
+        "exact_modes": true,
+        "exact_switches": true,
+        "trace_sha256": "0189b8be6d7fa4cfad54eb00a90801504d5afbc10b2506cd7d03bf4a483b2930",
+        "counts": {
+          "sample_primal_changed_at_leaving": 10,
+          "from_last_pivot": 279906,
+          "common_entry": 1042,
+          "finite_reused": 279905,
+          "finite": 1127110,
+          "row": 470856,
+          "sample_primal_same": 128,
+          "driver_entry": 280730,
+          "row_reused": 93963,
+          "events": 1037120,
+          "direction": 282250
+        },
+        "pricing_counts": {
+          "finite_reused/dantzig/phase1": 278869,
+          "live_pivot_event/dantzig/phase1": 280582,
+          "from_last_pivot/dantzig/phase0": 1036,
+          "completed/dantzig/phase0": 1042,
+          "row_reused/dantzig/phase1": 93963,
+          "finite_reused/dantzig/phase0": 1036,
+          "live_pivot_event/dantzig/phase0": 1042,
+          "staged_pivot_event/dantzig/phase1": 149,
+          "from_last_pivot/dantzig/phase1": 278870,
+          "driver_entry/dantzig/phase1": 280730,
+          "live_pivot_event/dantzig/phase2": 6,
+          "completed/dantzig/phase1": 280731,
+          "common_entry/dantzig/phase0": 1042
+        },
+        "switches": []
+      }
+    },
+    "bartels_golub-direct/steepest_edge/reference-audit": {
+      "report_sha256": "4a65697ca995eeeec233cbf9773827465ce32de3de361a2c4b034c8704cff1ab",
+      "comparison": {
+        "final_valid": true
+      }
+    },
+    "bartels_golub-direct/steepest_edge/shadow": {
+      "report_sha256": "cbb5cb8bef83b2005ef6c4499b2fedf05cf2053d13daacce9d507d79df790420",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "cbb5cb8bef83b2005ef6c4499b2fedf05cf2053d13daacce9d507d79df790420",
+        "exact_trace": true,
+        "exact_modes": true,
+        "exact_switches": true,
+        "trace_sha256": "bdb3e97335fa33929e068dcbad02ad1c51b9a98aab7227a985cf57f216dfc7d7",
+        "counts": {
+          "sample_primal_changed_at_leaving": 4,
+          "from_last_pivot": 65381,
+          "common_entry": 1082,
+          "common_dse_weight": 21525,
+          "finite_reused": 65381,
+          "finite": 284711,
+          "row": 74836,
+          "sample_primal_same": 30,
+          "driver_entry": 64710,
+          "row_reused": 4509,
+          "events": 206875,
+          "direction": 65799
+        },
+        "pricing_counts": {
+          "live_pivot_event/steepest_edge/phase1": 20443,
+          "driver_entry/steepest_edge/phase1": 20444,
+          "from_last_pivot/steepest_edge/phase1": 20316,
+          "common_dse_weight/steepest_edge/phase0": 1082,
+          "finite_reused/steepest_edge/phase1": 20316,
+          "from_last_pivot/devex/phase1": 43989,
+          "completed/steepest_edge/phase1": 20443,
+          "live_pivot_event/devex/phase2": 6,
+          "common_dse_weight/steepest_edge/phase1": 20443,
+          "completed/steepest_edge/phase0": 1082,
+          "driver_entry/devex/phase1": 44266,
+          "live_pivot_event/steepest_edge/phase0": 1082,
+          "live_pivot_event/devex/phase1": 44264,
+          "row_reused/steepest_edge/phase1": 464,
+          "finite_reused/steepest_edge/phase0": 1076,
+          "finite_reused/devex/phase1": 43989,
+          "staged_pivot_event/devex/phase1": 3,
+          "row_reused/devex/phase1": 4045,
+          "from_last_pivot/steepest_edge/phase0": 1076,
+          "common_entry/steepest_edge/phase0": 1082,
+          "completed/devex/phase1": 44267
+        },
+        "switches": [
+          {
+            "from": "steepest_edge",
+            "iteration": 21525,
+            "reason": "steepest-edge weight disagrees with basis solve",
+            "staged": false,
+            "to": "devex",
+            "phase_generation": 1,
+            "during_weight_update": false
+          }
+        ]
+      }
+    },
+    "bartels_golub-normalized/dantzig/reference-audit": {
+      "report_sha256": "54c15bdf8f1e70801319ab48b2920008e682bbf62f6e1007ab00d09948a41d3d",
+      "comparison": {
+        "final_valid": true
+      }
+    },
+    "bartels_golub-normalized/dantzig/shadow": {
+      "report_sha256": "e27e397b16d6a57407ff63a2f076589218fb8c4ff1fc1742ea054b37f83ffb11",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "e27e397b16d6a57407ff63a2f076589218fb8c4ff1fc1742ea054b37f83ffb11",
+        "exact_trace": true,
+        "exact_modes": true,
+        "exact_switches": true,
+        "trace_sha256": "dbfb60f3afa26125095d4398e2bb7f46f6251c26b3ac0b59712842cda6db7b1d",
+        "counts": {
+          "sample_primal_changed_at_leaving": 9,
+          "from_last_pivot": 276115,
+          "common_entry": 1043,
+          "finite_reused": 276115,
+          "finite": 1111719,
+          "row": 475864,
+          "sample_primal_same": 126,
+          "driver_entry": 276874,
+          "row_reused": 98536,
+          "events": 1034246,
+          "direction": 278285
+        },
+        "pricing_counts": {
+          "finite_reused/dantzig/phase1": 275078,
+          "live_pivot_event/dantzig/phase1": 276783,
+          "from_last_pivot/dantzig/phase0": 1037,
+          "completed/dantzig/phase0": 1043,
+          "row_reused/dantzig/phase1": 98536,
+          "finite_reused/dantzig/phase0": 1037,
+          "live_pivot_event/dantzig/phase0": 1043,
+          "staged_pivot_event/dantzig/phase1": 92,
+          "from_last_pivot/dantzig/phase1": 275078,
+          "driver_entry/dantzig/phase1": 276874,
+          "live_pivot_event/dantzig/phase2": 35,
+          "completed/dantzig/phase1": 276875,
+          "common_entry/dantzig/phase0": 1043
+        },
+        "switches": []
+      }
+    },
+    "bartels_golub-normalized/steepest_edge/reference-audit": {
+      "report_sha256": "499dc17a2d83ece0fd98186d45e0463f8c407a3ef81d3158baf60a3c104500b5",
+      "comparison": {
+        "final_valid": true
+      }
+    },
+    "bartels_golub-normalized/steepest_edge/shadow": {
+      "report_sha256": "79ac89c979eaec54f804dde9ab351f54b381d6c158b95de490dd1998db70d00f",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "79ac89c979eaec54f804dde9ab351f54b381d6c158b95de490dd1998db70d00f",
+        "exact_trace": true,
+        "exact_modes": true,
+        "exact_switches": true,
+        "trace_sha256": "8b8d4788387a72e537e5d1a09274f7beee87cb55bdfe397bf3e032a69a453a08",
+        "counts": {
+          "sample_primal_changed_at_leaving": 5,
+          "from_last_pivot": 70351,
+          "common_entry": 70829,
+          "common_dse_weight": 15514,
+          "finite_reused": 70350,
+          "finite": 298837,
+          "row": 85105,
+          "sample_primal_same": 31,
+          "row_reused": 7034,
+          "events": 227506,
+          "direction": 70978
+        },
+        "pricing_counts": {
+          "live_pivot_event/steepest_edge/phase1": 14433,
+          "from_last_pivot/steepest_edge/phase1": 14343,
+          "common_dse_weight/steepest_edge/phase0": 1081,
+          "common_entry/steepest_edge/phase1": 14434,
+          "finite_reused/steepest_edge/phase1": 14343,
+          "from_last_pivot/devex/phase1": 54933,
+          "completed/steepest_edge/phase1": 14433,
+          "common_dse_weight/steepest_edge/phase1": 14433,
+          "completed/steepest_edge/phase0": 1081,
+          "common_entry/devex/phase1": 55314,
+          "live_pivot_event/steepest_edge/phase0": 1081,
+          "live_pivot_event/devex/phase1": 55274,
+          "row_reused/steepest_edge/phase1": 93,
+          "finite_reused/steepest_edge/phase0": 1075,
+          "finite_reused/devex/phase1": 54932,
+          "staged_pivot_event/devex/phase1": 41,
+          "row_reused/devex/phase1": 6941,
+          "from_last_pivot/steepest_edge/phase0": 1075,
+          "common_entry/steepest_edge/phase0": 1081,
+          "completed/devex/phase1": 55315
+        },
+        "switches": [
+          {
+            "from": "steepest_edge",
+            "iteration": 15514,
+            "reason": "steepest-edge weight disagrees with basis solve",
+            "staged": false,
+            "to": "devex",
+            "phase_generation": 1,
+            "during_weight_update": false
+          }
+        ]
+      }
+    },
+    "huangfu_hall-production/dantzig/reference.1": {
+      "report_sha256": "13cdc074993d8ab3c45029b1b1cf3689692a1499dc77da1d724c1e1e9c116d0d",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "13cdc074993d8ab3c45029b1b1cf3689692a1499dc77da1d724c1e1e9c116d0d"
+      }
+    },
+    "huangfu_hall-production/dantzig/candidate.1": {
+      "report_sha256": "0ba74a70097e61562f7da95bfeb4b27d54a69a7e2ea3b48c9de4934b17058f9f",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "0ba74a70097e61562f7da95bfeb4b27d54a69a7e2ea3b48c9de4934b17058f9f"
+      }
+    },
+    "huangfu_hall-production/steepest_edge/reference.1": {
+      "report_sha256": "13cb3bdffc90d07c6fb8dc11a228919dd37e61656523b91ae0ba5623e7c01edb",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "13cb3bdffc90d07c6fb8dc11a228919dd37e61656523b91ae0ba5623e7c01edb"
+      }
+    },
+    "huangfu_hall-production/steepest_edge/candidate.1": {
+      "report_sha256": "d477f0380f66f761ad4e3cacec54cb902d014bcc5edad31aee1479b45229451d",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "d477f0380f66f761ad4e3cacec54cb902d014bcc5edad31aee1479b45229451d"
+      }
+    },
+    "forrest_tomlin-production/dantzig/reference.1": {
+      "report_sha256": "0d8e42aa8854d607b4172d1ddf2dcefc339a7c978c56f173433a78e5d7b5142a",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "0d8e42aa8854d607b4172d1ddf2dcefc339a7c978c56f173433a78e5d7b5142a"
+      }
+    },
+    "forrest_tomlin-production/dantzig/candidate.1": {
+      "report_sha256": "87c0fa2b611b4c198aaf52f89bfe1098751003580fd79e0780eb262a48101acc",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "87c0fa2b611b4c198aaf52f89bfe1098751003580fd79e0780eb262a48101acc"
+      }
+    },
+    "forrest_tomlin-production/steepest_edge/reference.1": {
+      "report_sha256": "a0d58f06fb94f6db9bb1b6d3dfb4e480f02fdfae62add9ba1ad69a489d56e406",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "a0d58f06fb94f6db9bb1b6d3dfb4e480f02fdfae62add9ba1ad69a489d56e406"
+      }
+    },
+    "forrest_tomlin-production/steepest_edge/candidate.1": {
+      "report_sha256": "b02cfedfaf501cffa3f4b689dc7dd0cf4b3ad9a859f3547af6355fa363814278",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "b02cfedfaf501cffa3f4b689dc7dd0cf4b3ad9a859f3547af6355fa363814278"
+      }
+    },
+    "suhl_suhl-production/dantzig/reference.1": {
+      "report_sha256": "c33697866a7b4089c83e7d91fedd481341e303aec245a71a60198d0ff577e5ec",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "c33697866a7b4089c83e7d91fedd481341e303aec245a71a60198d0ff577e5ec"
+      }
+    },
+    "suhl_suhl-production/dantzig/candidate.1": {
+      "report_sha256": "753294a859216bdb6b24e95e9909ff08319db87cc30a49824d2f107d692c0faf",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "753294a859216bdb6b24e95e9909ff08319db87cc30a49824d2f107d692c0faf"
+      }
+    },
+    "suhl_suhl-production/steepest_edge/reference.1": {
+      "report_sha256": "4f821c2b4cdeea4dde9cc0b115c6d3e61c081fd3ab1caaad720e16e44f2ff2ff",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "4f821c2b4cdeea4dde9cc0b115c6d3e61c081fd3ab1caaad720e16e44f2ff2ff"
+      }
+    },
+    "suhl_suhl-production/steepest_edge/candidate.1": {
+      "report_sha256": "6f44ed86cef876e3b46337e1295dcffa34cb0a49cc08efbba69bc0bffd658e8b",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "6f44ed86cef876e3b46337e1295dcffa34cb0a49cc08efbba69bc0bffd658e8b"
+      }
+    },
+    "bartels_golub-production/dantzig/reference.1": {
+      "report_sha256": "840b7dce3801ad58b994425fb6b6c9953c49ebfea4f983b3b65a0cd3b3f4466c",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "840b7dce3801ad58b994425fb6b6c9953c49ebfea4f983b3b65a0cd3b3f4466c"
+      }
+    },
+    "bartels_golub-production/dantzig/candidate.1": {
+      "report_sha256": "cb997692df304b244dff758a7cdf4ce89a1b8a4a6f994494a42d7fb6de8fc34a",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "cb997692df304b244dff758a7cdf4ce89a1b8a4a6f994494a42d7fb6de8fc34a"
+      }
+    },
+    "bartels_golub-production/steepest_edge/reference.1": {
+      "report_sha256": "5abdb916a05836b39f0c3854b9929c49d26a030a795d91c664de69571d6fd1e5",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "5abdb916a05836b39f0c3854b9929c49d26a030a795d91c664de69571d6fd1e5"
+      }
+    },
+    "bartels_golub-production/steepest_edge/candidate.1": {
+      "report_sha256": "d757f842d491cbc7e4f78536a4229f17d4959ff80fadff40d424ae8324ace812",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "d757f842d491cbc7e4f78536a4229f17d4959ff80fadff40d424ae8324ace812"
+      }
+    },
+    "pfi-production/dantzig/reference.1": {
+      "report_sha256": "8a3eff76abffb8f3e8ee058b3fb16a55175bb009268bef00dfc15016afba3524",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "8a3eff76abffb8f3e8ee058b3fb16a55175bb009268bef00dfc15016afba3524"
+      }
+    },
+    "pfi-production/dantzig/candidate.1": {
+      "report_sha256": "bced67a2101f2e519c17207c79cd8f66dcf7bbc62e585368dd86eba1a8227d0d",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "bced67a2101f2e519c17207c79cd8f66dcf7bbc62e585368dd86eba1a8227d0d"
+      }
+    },
+    "pfi-production/steepest_edge/reference.1": {
+      "report_sha256": "db42e5498680df3c94c89f4d660e4ac946bc5dce70181592e122e94eddbe7233",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "db42e5498680df3c94c89f4d660e4ac946bc5dce70181592e122e94eddbe7233"
+      }
+    },
+    "pfi-production/steepest_edge/candidate.1": {
+      "report_sha256": "6a92477677b95bc158272685ec58e78befdb3396227e4e0706648f0aec1556e3",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "6a92477677b95bc158272685ec58e78befdb3396227e4e0706648f0aec1556e3"
+      }
+    },
+    "forrest_tomlin-direct/dantzig/reference.1": {
+      "report_sha256": "a38dd48a9ed6ffe81250c830c74459632bc38d2fae124ba0b6e0fc396001c719",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "a38dd48a9ed6ffe81250c830c74459632bc38d2fae124ba0b6e0fc396001c719"
+      }
+    },
+    "forrest_tomlin-direct/dantzig/candidate.1": {
+      "report_sha256": "d4871f4d97f5ea3b64e6b062f25b3cc8ed0351b2f84de46564bb3e7c8d189d8c",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "d4871f4d97f5ea3b64e6b062f25b3cc8ed0351b2f84de46564bb3e7c8d189d8c"
+      }
+    },
+    "forrest_tomlin-direct/steepest_edge/reference.1": {
+      "report_sha256": "4abdd9a5fdad2d5acd129d19695c450d5e533aae6ab2bfd04d77e77d2093ad85",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "4abdd9a5fdad2d5acd129d19695c450d5e533aae6ab2bfd04d77e77d2093ad85"
+      }
+    },
+    "forrest_tomlin-direct/steepest_edge/candidate.1": {
+      "report_sha256": "fb1e7087b3cd44c518f56bfd123744a3d18222eabcaa2c0671c07c463d813f7f",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "fb1e7087b3cd44c518f56bfd123744a3d18222eabcaa2c0671c07c463d813f7f"
+      }
+    },
+    "forrest_tomlin-normalized/dantzig/reference.1": {
+      "report_sha256": "be0951659848c07ad549a40b2230bf7a53d3f25d220fb3ac78d5711c85864a06",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "be0951659848c07ad549a40b2230bf7a53d3f25d220fb3ac78d5711c85864a06"
+      }
+    },
+    "forrest_tomlin-normalized/dantzig/candidate.1": {
+      "report_sha256": "46aa82ffc42e47724566ab018654a7a3e1d01f36c02ab396c01339290267956f",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "46aa82ffc42e47724566ab018654a7a3e1d01f36c02ab396c01339290267956f"
+      }
+    },
+    "forrest_tomlin-normalized/steepest_edge/reference.1": {
+      "report_sha256": "f69f15d43fc66333e5fb6202db964c341d00323dcc5132a1821411fcc9c26906",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "f69f15d43fc66333e5fb6202db964c341d00323dcc5132a1821411fcc9c26906"
+      }
+    },
+    "forrest_tomlin-normalized/steepest_edge/candidate.1": {
+      "report_sha256": "7933f36110749df0b61272187bf8e776cc9873400ac14538aab37bea1eed3d62",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "7933f36110749df0b61272187bf8e776cc9873400ac14538aab37bea1eed3d62"
+      }
+    },
+    "suhl_suhl-direct/dantzig/reference.1": {
+      "report_sha256": "2a34f9cd2bb1477092e58e1c702c8e9de16784dc76a5da64ab2449920705aa20",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "2a34f9cd2bb1477092e58e1c702c8e9de16784dc76a5da64ab2449920705aa20"
+      }
+    },
+    "suhl_suhl-direct/dantzig/candidate.1": {
+      "report_sha256": "c1969202425196ae5e48e30c0aa664701a48fc27fabab3d6aa50f765bbd2484c",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "c1969202425196ae5e48e30c0aa664701a48fc27fabab3d6aa50f765bbd2484c"
+      }
+    },
+    "suhl_suhl-direct/steepest_edge/reference.1": {
+      "report_sha256": "a4429b3e5a905395792626f69c93fe16bbfe59a62451503dbdd3ed4e4c25ee56",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "a4429b3e5a905395792626f69c93fe16bbfe59a62451503dbdd3ed4e4c25ee56"
+      }
+    },
+    "suhl_suhl-direct/steepest_edge/candidate.1": {
+      "report_sha256": "e45afc4456b91203bf9200129e7643733336fc0f15cb5c65a1bc52af68e05d99",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "e45afc4456b91203bf9200129e7643733336fc0f15cb5c65a1bc52af68e05d99"
+      }
+    },
+    "suhl_suhl-normalized/dantzig/reference.1": {
+      "report_sha256": "1ede785b6628ca75427a79504ff88051c476ffe10fbeb074dd2e408b9729c56c",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "1ede785b6628ca75427a79504ff88051c476ffe10fbeb074dd2e408b9729c56c"
+      }
+    },
+    "suhl_suhl-normalized/dantzig/candidate.1": {
+      "report_sha256": "eb823020acff4f4ed2028690e516f8f19a407e0872ec4fd1dca39bf1c059c30c",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "eb823020acff4f4ed2028690e516f8f19a407e0872ec4fd1dca39bf1c059c30c"
+      }
+    },
+    "suhl_suhl-normalized/steepest_edge/reference.1": {
+      "report_sha256": "661ae775fd80d56724c49bef6dfcda840290ea7b06dd86f5badf862817588d68",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "661ae775fd80d56724c49bef6dfcda840290ea7b06dd86f5badf862817588d68"
+      }
+    },
+    "suhl_suhl-normalized/steepest_edge/candidate.1": {
+      "report_sha256": "4bd84d6f4d286d8ff76e944bf551d032268143e90ce01812d58fd5c15585dd3b",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "4bd84d6f4d286d8ff76e944bf551d032268143e90ce01812d58fd5c15585dd3b"
+      }
+    },
+    "bartels_golub-direct/dantzig/reference.1": {
+      "report_sha256": "685f7049f0faab47b5805d52747332335720ed7412db9e8a4ff6f7f3a5703506",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "685f7049f0faab47b5805d52747332335720ed7412db9e8a4ff6f7f3a5703506"
+      }
+    },
+    "bartels_golub-direct/dantzig/candidate.1": {
+      "report_sha256": "661e3ea7dd8a341f254e22344d41451db27e0a1323a202901c7a87c6787fa068",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "661e3ea7dd8a341f254e22344d41451db27e0a1323a202901c7a87c6787fa068"
+      }
+    },
+    "bartels_golub-direct/steepest_edge/reference.1": {
+      "report_sha256": "f76f9681812fb47bdafe215af52171c3dcc23a0e19ed47143eca8006a19adecb",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "f76f9681812fb47bdafe215af52171c3dcc23a0e19ed47143eca8006a19adecb"
+      }
+    },
+    "bartels_golub-direct/steepest_edge/candidate.1": {
+      "report_sha256": "0bff4fbcbbeaa8b8bceaaf0de0bccd2eb33fc760f9a3e2b10c61e1b213edb3ef",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "0bff4fbcbbeaa8b8bceaaf0de0bccd2eb33fc760f9a3e2b10c61e1b213edb3ef"
+      }
+    },
+    "bartels_golub-normalized/dantzig/reference.1": {
+      "report_sha256": "c48c8382f27acda65fd07c6fff892c5823bd07cbe236a6094e152ff6b7c9d445",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "c48c8382f27acda65fd07c6fff892c5823bd07cbe236a6094e152ff6b7c9d445"
+      }
+    },
+    "bartels_golub-normalized/dantzig/candidate.1": {
+      "report_sha256": "e29158c4aefb7d0a3950dded787f102f62917618d46b13bf89a70ee56520d0c9",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "e29158c4aefb7d0a3950dded787f102f62917618d46b13bf89a70ee56520d0c9"
+      }
+    },
+    "bartels_golub-normalized/steepest_edge/reference.1": {
+      "report_sha256": "bcd4a6fb05a6d7fa1cec4be7be5bf105cabf48d193a76cd8042eaeca94e40055",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "bcd4a6fb05a6d7fa1cec4be7be5bf105cabf48d193a76cd8042eaeca94e40055"
+      }
+    },
+    "bartels_golub-normalized/steepest_edge/candidate.1": {
+      "report_sha256": "612d30ccef1cbaf7e5c776b4afe286ea10afe766d797b3953253f88ab6811d2d",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "612d30ccef1cbaf7e5c776b4afe286ea10afe766d797b3953253f88ab6811d2d"
+      }
+    },
+    "bartels_golub-normalized/steepest_edge/candidate.2": {
+      "report_sha256": "0588588bdddce82d3e3d4dc0812959c0b77a3af9b9e28375d1cb10b571523198",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "0588588bdddce82d3e3d4dc0812959c0b77a3af9b9e28375d1cb10b571523198"
+      }
+    },
+    "bartels_golub-normalized/steepest_edge/reference.2": {
+      "report_sha256": "e5cd5b45e839321e5b1272b10bb24a937b55d740c761690d7e17e4d390fffd8b",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "e5cd5b45e839321e5b1272b10bb24a937b55d740c761690d7e17e4d390fffd8b"
+      }
+    },
+    "bartels_golub-normalized/dantzig/candidate.2": {
+      "report_sha256": "a6390a36ba934a7952a7c31e889b3ced82249a7c23ded9b75eb96022d9e7e148",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "a6390a36ba934a7952a7c31e889b3ced82249a7c23ded9b75eb96022d9e7e148"
+      }
+    },
+    "bartels_golub-normalized/dantzig/reference.2": {
+      "report_sha256": "c8c9ba16304c8ebb87e5f8625cc421a0c191175aba6d1c0e2915ae9f17c1d53b",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "c8c9ba16304c8ebb87e5f8625cc421a0c191175aba6d1c0e2915ae9f17c1d53b"
+      }
+    },
+    "bartels_golub-direct/steepest_edge/candidate.2": {
+      "report_sha256": "17a4058e24369c10b6bcad2673b71e5de27df7df6cb000ba97d341b0160ee212",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "17a4058e24369c10b6bcad2673b71e5de27df7df6cb000ba97d341b0160ee212"
+      }
+    },
+    "bartels_golub-direct/steepest_edge/reference.2": {
+      "report_sha256": "e9bcc470a74412571db70db6378fbe689ecda23d97c8a8546354c0807baca02d",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "e9bcc470a74412571db70db6378fbe689ecda23d97c8a8546354c0807baca02d"
+      }
+    },
+    "bartels_golub-direct/dantzig/candidate.2": {
+      "report_sha256": "10f44c85f977ae474c8626edac76a2ae17b622a970e949a75913ecc76a84a370",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "10f44c85f977ae474c8626edac76a2ae17b622a970e949a75913ecc76a84a370"
+      }
+    },
+    "bartels_golub-direct/dantzig/reference.2": {
+      "report_sha256": "10d4b9ab06eee6fd58479bb47dc40a30b05006c37c46e6ee532ece2fdfe19a27",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "10d4b9ab06eee6fd58479bb47dc40a30b05006c37c46e6ee532ece2fdfe19a27"
+      }
+    },
+    "suhl_suhl-normalized/steepest_edge/candidate.2": {
+      "report_sha256": "9adc2a1a6c3165468e5f805277b6eb731aa95fc50f09125da392e663696795fe",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "9adc2a1a6c3165468e5f805277b6eb731aa95fc50f09125da392e663696795fe"
+      }
+    },
+    "suhl_suhl-normalized/steepest_edge/reference.2": {
+      "report_sha256": "b42c570fc5279e9ca8c1ca077f74c3a3afff36b37f16dc4a71975417f907e0ea",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "b42c570fc5279e9ca8c1ca077f74c3a3afff36b37f16dc4a71975417f907e0ea"
+      }
+    },
+    "suhl_suhl-normalized/dantzig/candidate.2": {
+      "report_sha256": "cc3369046b4b5d83424cd80d487d2516e6f3b54debfaa1b70edcc3914d99a971",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "cc3369046b4b5d83424cd80d487d2516e6f3b54debfaa1b70edcc3914d99a971"
+      }
+    },
+    "suhl_suhl-normalized/dantzig/reference.2": {
+      "report_sha256": "503948e425d5aa8c4cbc90096cc2c9d29f283b6e1da3e7f19e3161cdf2a68d8d",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "503948e425d5aa8c4cbc90096cc2c9d29f283b6e1da3e7f19e3161cdf2a68d8d"
+      }
+    },
+    "suhl_suhl-direct/steepest_edge/candidate.2": {
+      "report_sha256": "04dec72a0f255c1e4bde9a5fa6e7a659c4c57d3bacf18dd20b904d3fc1815798",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "04dec72a0f255c1e4bde9a5fa6e7a659c4c57d3bacf18dd20b904d3fc1815798"
+      }
+    },
+    "suhl_suhl-direct/steepest_edge/reference.2": {
+      "report_sha256": "30f525e6c90a5fed8c52a0ae9608deeba0d312d3ed674dbef83c960161a071f8",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "30f525e6c90a5fed8c52a0ae9608deeba0d312d3ed674dbef83c960161a071f8"
+      }
+    },
+    "suhl_suhl-direct/dantzig/candidate.2": {
+      "report_sha256": "d27a729a06beef39625194536ace3589f7a45a6dd6e282417d6988a144b00c6f",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "d27a729a06beef39625194536ace3589f7a45a6dd6e282417d6988a144b00c6f"
+      }
+    },
+    "suhl_suhl-direct/dantzig/reference.2": {
+      "report_sha256": "f8bc28612632d959964f74a35a83d5be56dd95030b44514918ef8c9f0b63d3a7",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "f8bc28612632d959964f74a35a83d5be56dd95030b44514918ef8c9f0b63d3a7"
+      }
+    },
+    "forrest_tomlin-normalized/steepest_edge/candidate.2": {
+      "report_sha256": "863448f8b2f3b57e43f4238fd9479c7f849b85dbbc2e5f1479193791469de4ba",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "863448f8b2f3b57e43f4238fd9479c7f849b85dbbc2e5f1479193791469de4ba"
+      }
+    },
+    "forrest_tomlin-normalized/steepest_edge/reference.2": {
+      "report_sha256": "deed0e1f3be4452ea62b7ae9a016e398e95efa386098ff209ce350d9dc804071",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "deed0e1f3be4452ea62b7ae9a016e398e95efa386098ff209ce350d9dc804071"
+      }
+    },
+    "forrest_tomlin-normalized/dantzig/candidate.2": {
+      "report_sha256": "3af867b9f7f89cda48f6f41794a5cb8efd396f969d80b205a135b8923ee8a944",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "3af867b9f7f89cda48f6f41794a5cb8efd396f969d80b205a135b8923ee8a944"
+      }
+    },
+    "forrest_tomlin-normalized/dantzig/reference.2": {
+      "report_sha256": "2cc96918abb358c8eca3a31615d7d9034243a567de92771b36ebfce084f0b3b2",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "2cc96918abb358c8eca3a31615d7d9034243a567de92771b36ebfce084f0b3b2"
+      }
+    },
+    "forrest_tomlin-direct/steepest_edge/candidate.2": {
+      "report_sha256": "534ed87c8461f1b942d7ea836e48c7aceb94c90163872b8fc674ee2359696818",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "534ed87c8461f1b942d7ea836e48c7aceb94c90163872b8fc674ee2359696818"
+      }
+    },
+    "forrest_tomlin-direct/steepest_edge/reference.2": {
+      "report_sha256": "b6de78007cba5d2db9fc8884d920cf74a22431f9543f30a5dfbaf006835ab82d",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "b6de78007cba5d2db9fc8884d920cf74a22431f9543f30a5dfbaf006835ab82d"
+      }
+    },
+    "forrest_tomlin-direct/dantzig/candidate.2": {
+      "report_sha256": "b9739b9c282d028dd72177e4478a442dfc75d09fadb7bce961d89b2de7e1bcbf",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "b9739b9c282d028dd72177e4478a442dfc75d09fadb7bce961d89b2de7e1bcbf"
+      }
+    },
+    "forrest_tomlin-direct/dantzig/reference.2": {
+      "report_sha256": "bd2edc87ff96256ccbc77e078551b51b238717143ff46e5f7fd71052e49def39",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "bd2edc87ff96256ccbc77e078551b51b238717143ff46e5f7fd71052e49def39"
+      }
+    },
+    "pfi-production/steepest_edge/candidate.2": {
+      "report_sha256": "46de9169333f2c22672d8726cfea16cb10f14158cb8eb624c0e9b2b73dd5f60d",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "46de9169333f2c22672d8726cfea16cb10f14158cb8eb624c0e9b2b73dd5f60d"
+      }
+    },
+    "pfi-production/steepest_edge/reference.2": {
+      "report_sha256": "0e137b9258ecc689aa8dd405f08bb7db91f9101cb1273a77700cd3e74913ce5a",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "0e137b9258ecc689aa8dd405f08bb7db91f9101cb1273a77700cd3e74913ce5a"
+      }
+    },
+    "pfi-production/dantzig/candidate.2": {
+      "report_sha256": "90a1f264365e3d15ca806b88c1813b6d1e597dd43c8dbd9d9fb74af83a08ddba",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "90a1f264365e3d15ca806b88c1813b6d1e597dd43c8dbd9d9fb74af83a08ddba"
+      }
+    },
+    "pfi-production/dantzig/reference.2": {
+      "report_sha256": "8f605979a2f8f1c5591ccc55331f6c47ef91d1d8f5ba24383d5ffe0aa65a4745",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "8f605979a2f8f1c5591ccc55331f6c47ef91d1d8f5ba24383d5ffe0aa65a4745"
+      }
+    },
+    "bartels_golub-production/steepest_edge/candidate.2": {
+      "report_sha256": "9b572602a6d661d259d48cae65fb71e03dff0eaa9646ff6ead7067f2c4fee935",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "9b572602a6d661d259d48cae65fb71e03dff0eaa9646ff6ead7067f2c4fee935"
+      }
+    },
+    "bartels_golub-production/steepest_edge/reference.2": {
+      "report_sha256": "04bdcace8b7395a6ad9edff3612cc4518e073a409fab21cd83b467e4104ec2ae",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "04bdcace8b7395a6ad9edff3612cc4518e073a409fab21cd83b467e4104ec2ae"
+      }
+    },
+    "bartels_golub-production/dantzig/candidate.2": {
+      "report_sha256": "749c743bde4fa5f798b393ffda007f6d02e21f394203bcd138b9eda55bdc875d",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "749c743bde4fa5f798b393ffda007f6d02e21f394203bcd138b9eda55bdc875d"
+      }
+    },
+    "bartels_golub-production/dantzig/reference.2": {
+      "report_sha256": "5296c9eed5e28caeb0f2d6cfa6a4161959be2aef71e973ed85ab4ee8f167b94c",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "5296c9eed5e28caeb0f2d6cfa6a4161959be2aef71e973ed85ab4ee8f167b94c"
+      }
+    },
+    "suhl_suhl-production/steepest_edge/candidate.2": {
+      "report_sha256": "9842ae8b1b53eefafc3cc77c5276a8e02c9fe3c6e95edec7638f0eca639ae822",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "9842ae8b1b53eefafc3cc77c5276a8e02c9fe3c6e95edec7638f0eca639ae822"
+      }
+    },
+    "suhl_suhl-production/steepest_edge/reference.2": {
+      "report_sha256": "49f829a3df0f20c82a9f063ff8b612e745595159e775c0d2efa982126e6861e9",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "49f829a3df0f20c82a9f063ff8b612e745595159e775c0d2efa982126e6861e9"
+      }
+    },
+    "suhl_suhl-production/dantzig/candidate.2": {
+      "report_sha256": "153f3b9935f16efe6bd56b7b49326f85b0ddb1590b605cb347bc5d2abfa36109",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "153f3b9935f16efe6bd56b7b49326f85b0ddb1590b605cb347bc5d2abfa36109"
+      }
+    },
+    "suhl_suhl-production/dantzig/reference.2": {
+      "report_sha256": "f23d0af97b84fbc711be4c3ba268a93a1fff4c814482cea91a8438842e4f59da",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "f23d0af97b84fbc711be4c3ba268a93a1fff4c814482cea91a8438842e4f59da"
+      }
+    },
+    "forrest_tomlin-production/steepest_edge/candidate.2": {
+      "report_sha256": "f1789708e3b12fead47503ffdaa2050348379cca3c0177ccc972a72005c77b5d",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "f1789708e3b12fead47503ffdaa2050348379cca3c0177ccc972a72005c77b5d"
+      }
+    },
+    "forrest_tomlin-production/steepest_edge/reference.2": {
+      "report_sha256": "a92e77ec5baf4d0ea9e517b65e1f1bf92ba1cab4e638aae11703e5c58e0f48c1",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "a92e77ec5baf4d0ea9e517b65e1f1bf92ba1cab4e638aae11703e5c58e0f48c1"
+      }
+    },
+    "forrest_tomlin-production/dantzig/candidate.2": {
+      "report_sha256": "27b0a7714b51c5e1be40e287cd1940f20343b5c22784ca5d29fb33b5fa4da30c",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "27b0a7714b51c5e1be40e287cd1940f20343b5c22784ca5d29fb33b5fa4da30c"
+      }
+    },
+    "forrest_tomlin-production/dantzig/reference.2": {
+      "report_sha256": "9f2b3cdd7e8ae254c6b4c7d0ccb592356ae129b5ee6aef01be3784bb95a16f5f",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "9f2b3cdd7e8ae254c6b4c7d0ccb592356ae129b5ee6aef01be3784bb95a16f5f"
+      }
+    },
+    "huangfu_hall-production/steepest_edge/candidate.2": {
+      "report_sha256": "ef07db21dcdfcfc4d5f0a63b9059facd551e48efaf2296891a005eaf38b71814",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "ef07db21dcdfcfc4d5f0a63b9059facd551e48efaf2296891a005eaf38b71814"
+      }
+    },
+    "huangfu_hall-production/steepest_edge/reference.2": {
+      "report_sha256": "e72405e260a5763fa82503b41f34af1335e40bca90261b13347955f0e47a21dd",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "e72405e260a5763fa82503b41f34af1335e40bca90261b13347955f0e47a21dd"
+      }
+    },
+    "huangfu_hall-production/dantzig/candidate.2": {
+      "report_sha256": "05462e03dc75dc2a7f90994879b7889bdd1d1353deaffce572476f0bab931215",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "05462e03dc75dc2a7f90994879b7889bdd1d1353deaffce572476f0bab931215"
+      }
+    },
+    "huangfu_hall-production/dantzig/reference.2": {
+      "report_sha256": "ed7998aa2348faa3f8adda5ffb20938e6bcc62d8f587c46688052d8543834a11",
+      "comparison": {
+        "exact_endpoint": true,
+        "report_sha256": "ed7998aa2348faa3f8adda5ffb20938e6bcc62d8f587c46688052d8543834a11"
+      }
+    },
+    "huangfu_hall-production/dantzig/timing": {
+      "ratio_of_means_percent": -6.412442881604941,
+      "mean_paired_percent": -6.412564130301741,
+      "deltas": [
+        -6.47387080617804,
+        -6.351257454425441
+      ]
+    },
+    "huangfu_hall-production/steepest_edge/timing": {
+      "ratio_of_means_percent": -6.736113212471306,
+      "mean_paired_percent": -6.736167742269034,
+      "deltas": [
+        -6.665898871225895,
+        -6.806436613312172
+      ]
+    },
+    "forrest_tomlin-production/dantzig/timing": {
+      "ratio_of_means_percent": -4.470815544918105,
+      "mean_paired_percent": -4.471178739693771,
+      "deltas": [
+        -4.765536633944678,
+        -4.1768208454428635
+      ]
+    },
+    "forrest_tomlin-production/steepest_edge/timing": {
+      "ratio_of_means_percent": -4.248386916358882,
+      "mean_paired_percent": -4.248306748390573,
+      "deltas": [
+        -4.380880927971564,
+        -4.115732568809582
+      ]
+    },
+    "suhl_suhl-production/dantzig/timing": {
+      "ratio_of_means_percent": -4.423919314371771,
+      "mean_paired_percent": -4.414512345300098,
+      "deltas": [
+        -5.532158484073591,
+        -3.2968662065266052
+      ]
+    },
+    "suhl_suhl-production/steepest_edge/timing": {
+      "ratio_of_means_percent": -4.714944492537532,
+      "mean_paired_percent": -4.714165760072014,
+      "deltas": [
+        -4.375862632911587,
+        -5.0524688872324415
+      ]
+    },
+    "bartels_golub-production/dantzig/timing": {
+      "ratio_of_means_percent": -3.9690875088236988,
+      "mean_paired_percent": -3.969179187183786,
+      "deltas": [
+        -4.315685273056225,
+        -3.6226731013113467
+      ]
+    },
+    "bartels_golub-production/steepest_edge/timing": {
+      "ratio_of_means_percent": -3.1323259603269538,
+      "mean_paired_percent": -3.131762068434446,
+      "deltas": [
+        -3.2530882165554997,
+        -3.0104359203133924
+      ]
+    },
+    "pfi-production/dantzig/timing": {
+      "ratio_of_means_percent": -4.45096181762522,
+      "mean_paired_percent": -4.450116470479642,
+      "deltas": [
+        -4.213112834697485,
+        -4.6871201062617995
+      ]
+    },
+    "pfi-production/steepest_edge/timing": {
+      "ratio_of_means_percent": -4.575961656313876,
+      "mean_paired_percent": -4.5768534710876105,
+      "deltas": [
+        -5.5273903027341476,
+        -3.626316639441074
+      ]
+    },
+    "forrest_tomlin-direct/dantzig/timing": {
+      "ratio_of_means_percent": -1.1141934347463578,
+      "mean_paired_percent": -1.1700508046834979,
+      "deltas": [
+        -4.310151297910236,
+        1.9700496885432406
+      ]
+    },
+    "forrest_tomlin-direct/steepest_edge/timing": {
+      "ratio_of_means_percent": -3.77241349550268,
+      "mean_paired_percent": -3.7644183480695537,
+      "deltas": [
+        -3.544296598475871,
+        -3.984540097663236
+      ]
+    },
+    "forrest_tomlin-normalized/dantzig/timing": {
+      "ratio_of_means_percent": -0.778857776570463,
+      "mean_paired_percent": -0.6298186188047117,
+      "deltas": [
+        4.080004254440506,
+        -5.339641492049929
+      ]
+    },
+    "forrest_tomlin-normalized/steepest_edge/timing": {
+      "ratio_of_means_percent": -3.4548689185264436,
+      "mean_paired_percent": -3.389964598215306,
+      "deltas": [
+        -4.349953498827242,
+        -2.4299756976033704
+      ]
+    },
+    "suhl_suhl-direct/dantzig/timing": {
+      "ratio_of_means_percent": -0.6552884121656222,
+      "mean_paired_percent": -0.5276645077481326,
+      "deltas": [
+        -4.056019066737083,
+        3.0006900512408174
+      ]
+    },
+    "suhl_suhl-direct/steepest_edge/timing": {
+      "ratio_of_means_percent": -7.572680369497253,
+      "mean_paired_percent": -7.570107639741098,
+      "deltas": [
+        -6.877555258729839,
+        -8.262660020752355
+      ]
+    },
+    "suhl_suhl-normalized/dantzig/timing": {
+      "ratio_of_means_percent": -5.288858561159138,
+      "mean_paired_percent": -5.293925057052379,
+      "deltas": [
+        -4.266605478601604,
+        -6.321244635503154
+      ]
+    },
+    "suhl_suhl-normalized/steepest_edge/timing": {
+      "ratio_of_means_percent": -7.7641024527615565,
+      "mean_paired_percent": -7.594213077682821,
+      "deltas": [
+        -15.961632990208985,
+        0.773206834843343
+      ]
+    },
+    "bartels_golub-direct/dantzig/timing": {
+      "ratio_of_means_percent": -4.435490336474867,
+      "mean_paired_percent": -4.512796489870741,
+      "deltas": [
+        -1.03968685224618,
+        -7.985906127495301
+      ]
+    },
+    "bartels_golub-direct/steepest_edge/timing": {
+      "ratio_of_means_percent": -0.8493464506559745,
+      "mean_paired_percent": -0.9022212465725654,
+      "deltas": [
+        -0.12024363276812444,
+        -1.6841988603770064
+      ]
+    },
+    "bartels_golub-normalized/dantzig/timing": {
+      "ratio_of_means_percent": -8.874298763181521,
+      "mean_paired_percent": -8.721494608654467,
+      "deltas": [
+        -12.515589504365554,
+        -4.927399712943381
+      ]
+    },
+    "bartels_golub-normalized/steepest_edge/timing": {
+      "ratio_of_means_percent": -4.9919076177803445,
+      "mean_paired_percent": -4.974930083222767,
+      "deltas": [
+        -6.853094081198541,
+        -3.0967660852469936
+      ]
+    }
+  },
+  "coverage": [
+    {
+      "profile": "huangfu_hall-production",
+      "pricing": "dantzig",
+      "observed": true,
+      "completed_dantzig": 276498,
+      "completed_dse": 0,
+      "completed_devex": 0,
+      "dse_to_devex_live": 0,
+      "dse_to_devex_staged_attempts": 0,
+      "row_reused": 126295,
+      "row_original": 529824,
+      "avoided_finite": 824871,
+      "original_full_finite": 1104958,
+      "common_dse_weight": 0,
+      "ftran_guards": 277720
+    },
+    {
+      "profile": "huangfu_hall-production",
+      "pricing": "steepest_edge",
+      "observed": true,
+      "completed_dantzig": 0,
+      "completed_dse": 16978,
+      "completed_devex": 54506,
+      "dse_to_devex_live": 1,
+      "dse_to_devex_staged_attempts": 0,
+      "row_reused": 11007,
+      "row_original": 93511,
+      "avoided_finite": 212458,
+      "original_full_finite": 284846,
+      "common_dse_weight": 16978,
+      "ftran_guards": 71696
+    },
+    {
+      "profile": "forrest_tomlin-production",
+      "pricing": "dantzig",
+      "observed": true,
+      "completed_dantzig": 303034,
+      "completed_dse": 0,
+      "completed_devex": 0,
+      "dse_to_devex_live": 0,
+      "dse_to_devex_staged_attempts": 0,
+      "row_reused": 111419,
+      "row_original": 526730,
+      "avoided_finite": 904115,
+      "original_full_finite": 1211103,
+      "common_dse_weight": 0,
+      "ftran_guards": 303368
+    },
+    {
+      "profile": "forrest_tomlin-production",
+      "pricing": "steepest_edge",
+      "observed": true,
+      "completed_dantzig": 0,
+      "completed_dse": 12394,
+      "completed_devex": 59695,
+      "dse_to_devex_live": 1,
+      "dse_to_devex_staged_attempts": 0,
+      "row_reused": 11575,
+      "row_original": 95359,
+      "avoided_finite": 214239,
+      "original_full_finite": 287270,
+      "common_dse_weight": 12394,
+      "ftran_guards": 72147
+    },
+    {
+      "profile": "suhl_suhl-production",
+      "pricing": "dantzig",
+      "observed": true,
+      "completed_dantzig": 270144,
+      "completed_dse": 0,
+      "completed_devex": 0,
+      "dse_to_devex_live": 0,
+      "dse_to_devex_staged_attempts": 0,
+      "row_reused": 90282,
+      "row_original": 451094,
+      "avoided_finite": 805948,
+      "original_full_finite": 1079543,
+      "common_dse_weight": 0,
+      "ftran_guards": 270308
+    },
+    {
+      "profile": "suhl_suhl-production",
+      "pricing": "steepest_edge",
+      "observed": true,
+      "completed_dantzig": 0,
+      "completed_dse": 21949,
+      "completed_devex": 46935,
+      "dse_to_devex_live": 1,
+      "dse_to_devex_staged_attempts": 0,
+      "row_reused": 12587,
+      "row_original": 94191,
+      "avoided_finite": 204673,
+      "original_full_finite": 274468,
+      "common_dse_weight": 21949,
+      "ftran_guards": 68940
+    },
+    {
+      "profile": "bartels_golub-production",
+      "pricing": "dantzig",
+      "observed": true,
+      "completed_dantzig": 285751,
+      "completed_dse": 0,
+      "completed_devex": 0,
+      "dse_to_devex_live": 0,
+      "dse_to_devex_staged_attempts": 0,
+      "row_reused": 91926,
+      "row_original": 470015,
+      "avoided_finite": 852568,
+      "original_full_finite": 1141971,
+      "common_dse_weight": 0,
+      "ftran_guards": 285919
+    },
+    {
+      "profile": "bartels_golub-production",
+      "pricing": "steepest_edge",
+      "observed": true,
+      "completed_dantzig": 0,
+      "completed_dse": 13081,
+      "completed_devex": 60886,
+      "dse_to_devex_live": 1,
+      "dse_to_devex_staged_attempts": 0,
+      "row_reused": 10808,
+      "row_original": 95702,
+      "avoided_finite": 219847,
+      "original_full_finite": 294790,
+      "common_dse_weight": 13081,
+      "ftran_guards": 74161
+    },
+    {
+      "profile": "pfi-production",
+      "pricing": "dantzig",
+      "observed": true,
+      "completed_dantzig": 272818,
+      "completed_dse": 0,
+      "completed_devex": 0,
+      "dse_to_devex_live": 0,
+      "dse_to_devex_staged_attempts": 0,
+      "row_reused": 88449,
+      "row_original": 450210,
+      "avoided_finite": 813917,
+      "original_full_finite": 1090251,
+      "common_dse_weight": 0,
+      "ftran_guards": 274500
+    },
+    {
+      "profile": "pfi-production",
+      "pricing": "steepest_edge",
+      "observed": true,
+      "completed_dantzig": 0,
+      "completed_dse": 26976,
+      "completed_devex": 42195,
+      "dse_to_devex_live": 1,
+      "dse_to_devex_staged_attempts": 0,
+      "row_reused": 12247,
+      "row_original": 93784,
+      "avoided_finite": 205543,
+      "original_full_finite": 275630,
+      "common_dse_weight": 26976,
+      "ftran_guards": 69362
+    },
+    {
+      "profile": "forrest_tomlin-direct",
+      "pricing": "dantzig",
+      "observed": true,
+      "completed_dantzig": 293939,
+      "completed_dse": 0,
+      "completed_devex": 0,
+      "dse_to_devex_live": 0,
+      "dse_to_devex_staged_attempts": 0,
+      "row_reused": 102062,
+      "row_original": 498805,
+      "avoided_finite": 876963,
+      "original_full_finite": 1174756,
+      "common_dse_weight": 0,
+      "ftran_guards": 294260
+    },
+    {
+      "profile": "forrest_tomlin-direct",
+      "pricing": "steepest_edge",
+      "observed": true,
+      "completed_dantzig": 0,
+      "completed_dse": 11547,
+      "completed_devex": 59326,
+      "dse_to_devex_live": 2,
+      "dse_to_devex_staged_attempts": 0,
+      "row_reused": 4275,
+      "row_original": 79514,
+      "avoided_finite": 210629,
+      "original_full_finite": 282424,
+      "common_dse_weight": 11547,
+      "ftran_guards": 70911
+    },
+    {
+      "profile": "forrest_tomlin-normalized",
+      "pricing": "dantzig",
+      "observed": true,
+      "completed_dantzig": 312659,
+      "completed_dse": 0,
+      "completed_devex": 0,
+      "dse_to_devex_live": 0,
+      "dse_to_devex_staged_attempts": 0,
+      "row_reused": 120461,
+      "row_original": 554591,
+      "avoided_finite": 932818,
+      "original_full_finite": 1249608,
+      "common_dse_weight": 0,
+      "ftran_guards": 313047
+    },
+    {
+      "profile": "forrest_tomlin-normalized",
+      "pricing": "steepest_edge",
+      "observed": true,
+      "completed_dantzig": 0,
+      "completed_dse": 12196,
+      "completed_devex": 58786,
+      "dse_to_devex_live": 1,
+      "dse_to_devex_staged_attempts": 0,
+      "row_reused": 6207,
+      "row_original": 83570,
+      "avoided_finite": 141046,
+      "original_full_finite": 212957,
+      "common_dse_weight": 12196,
+      "ftran_guards": 71070
+    },
+    {
+      "profile": "suhl_suhl-direct",
+      "pricing": "dantzig",
+      "observed": true,
+      "completed_dantzig": 261452,
+      "completed_dse": 0,
+      "completed_devex": 0,
+      "dse_to_devex_live": 0,
+      "dse_to_devex_staged_attempts": 0,
+      "row_reused": 81816,
+      "row_original": 425963,
+      "avoided_finite": 779882,
+      "original_full_finite": 1044793,
+      "common_dse_weight": 0,
+      "ftran_guards": 261805
+    },
+    {
+      "profile": "suhl_suhl-direct",
+      "pricing": "steepest_edge",
+      "observed": true,
+      "completed_dantzig": 0,
+      "completed_dse": 10312,
+      "completed_devex": 60987,
+      "dse_to_devex_live": 1,
+      "dse_to_devex_staged_attempts": 0,
+      "row_reused": 4498,
+      "row_original": 80514,
+      "avoided_finite": 211874,
+      "original_full_finite": 284131,
+      "common_dse_weight": 10312,
+      "ftran_guards": 71451
+    },
+    {
+      "profile": "suhl_suhl-normalized",
+      "pricing": "dantzig",
+      "observed": true,
+      "completed_dantzig": 277999,
+      "completed_dse": 0,
+      "completed_devex": 0,
+      "dse_to_devex_live": 0,
+      "dse_to_devex_staged_attempts": 0,
+      "row_reused": 105772,
+      "row_original": 490543,
+      "avoided_finite": 829302,
+      "original_full_finite": 1110967,
+      "common_dse_weight": 0,
+      "ftran_guards": 278458
+    },
+    {
+      "profile": "suhl_suhl-normalized",
+      "pricing": "steepest_edge",
+      "observed": true,
+      "completed_dantzig": 0,
+      "completed_dse": 20972,
+      "completed_devex": 50202,
+      "dse_to_devex_live": 1,
+      "dse_to_devex_staged_attempts": 0,
+      "row_reused": 7503,
+      "row_original": 86367,
+      "avoided_finite": 141443,
+      "original_full_finite": 213533,
+      "common_dse_weight": 20972,
+      "ftran_guards": 71303
+    },
+    {
+      "profile": "bartels_golub-direct",
+      "pricing": "dantzig",
+      "observed": true,
+      "completed_dantzig": 281773,
+      "completed_dse": 0,
+      "completed_devex": 0,
+      "dse_to_devex_live": 0,
+      "dse_to_devex_staged_attempts": 0,
+      "row_reused": 93963,
+      "row_original": 470856,
+      "avoided_finite": 840541,
+      "original_full_finite": 1126068,
+      "common_dse_weight": 0,
+      "ftran_guards": 282250
+    },
+    {
+      "profile": "bartels_golub-direct",
+      "pricing": "steepest_edge",
+      "observed": true,
+      "completed_dantzig": 0,
+      "completed_dse": 21525,
+      "completed_devex": 44267,
+      "dse_to_devex_live": 1,
+      "dse_to_devex_staged_attempts": 0,
+      "row_reused": 4509,
+      "row_original": 74836,
+      "avoided_finite": 195472,
+      "original_full_finite": 262104,
+      "common_dse_weight": 21525,
+      "ftran_guards": 65799
+    },
+    {
+      "profile": "bartels_golub-normalized",
+      "pricing": "dantzig",
+      "observed": true,
+      "completed_dantzig": 277918,
+      "completed_dse": 0,
+      "completed_devex": 0,
+      "dse_to_devex_live": 0,
+      "dse_to_devex_staged_attempts": 0,
+      "row_reused": 98536,
+      "row_original": 475864,
+      "avoided_finite": 829104,
+      "original_full_finite": 1110676,
+      "common_dse_weight": 0,
+      "ftran_guards": 278285
+    },
+    {
+      "profile": "bartels_golub-normalized",
+      "pricing": "steepest_edge",
+      "observed": true,
+      "completed_dantzig": 0,
+      "completed_dse": 15514,
+      "completed_devex": 55315,
+      "dse_to_devex_live": 1,
+      "dse_to_devex_staged_attempts": 0,
+      "row_reused": 7034,
+      "row_original": 85105,
+      "avoided_finite": 140701,
+      "original_full_finite": 212494,
+      "common_dse_weight": 15514,
+      "ftran_guards": 70978
+    }
+  ],
+  "skipped": [],
+  "unresolved": [],
+  "delivery_verification": {
+    "checked_utc": "2026-11-09T06:46:21.603111+00:00",
+    "manifests": {
+      "sources.json": 90
+    },
+    "production_hashes": 71,
+    "original_hashes": 76,
+    "processes": 143,
+    "process_exit_zero": 143,
+    "expected_original_red_exit_one": 0,
+    "unit_pass_assertions": 1672,
+    "comparisons": 132,
+    "benchmarks": 88,
+    "audits": 44,
+    "all_optimal_original_feasible": true,
+    "exact_benchmark_endpoint_own_audit": true,
+    "independent_comparisons": true,
+    "reverse_second_repeat": true,
+    "no_process_overlap": true,
+    "no_skips": true,
+    "own_lock_free": true,
+    "runner_exit_zero_confirmed": true
+  },
+  "delivery_artifacts_sha256": {
+    "interpretation.md": "8a0b9fbddc6b9049976196a6f8290cc9278a48a503c3b51cce5fdb2bad9b9894",
+    "summary.csv": "501d4e337dd0b597f8ccde6f9c9a02b8deb000185ca87173618a00d412338552",
+    "pairs.csv": "dfc196bf2198b526e04287145abf7770459dc8efe73d8f1c4caf05e33cae04dd",
+    "coverage.csv": "b1680b679587902acbe8b0e54b178c3af951911aa2b75b1a2e7e9bca51ea7780",
+    "skipped.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+  }
+}

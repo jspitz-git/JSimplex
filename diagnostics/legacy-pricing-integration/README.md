@@ -1,0 +1,13 @@
+# Integrace přebírání duálních kontrol pro pevné pricingy
+
+Integruje již úplně změřeného kandidáta: Devex, Dantzig a steepest_edge (DSE) v legacy/native Float64 duální smyčce. DSE smí pokračovat v přebírání po skutečném přechodu na Devex. DSE s Dantzig fallbackem, automatický pricing, nepodporované callbacky, observéry, aliasy, precision, policies a backendy ponechávají původní kontroly. Žádná tolerance ani numerický výraz se nemění.
+
+Pět produkčních správců je v masteru; šest přímých režimů používá stejný společný gate přes stávající `_dual_check_factor_supported`. Přímý backend zůstává explicitně diagnostický. Udržované přímé regrese jsou v `diagnostics/basis-direct-lu/reproduce/check-reuse.jl`. Žádná obnova Devex rámce z neúspěšného experimentu se neintegruje.
+
+Cílená validace: `python3 diagnostics/legacy-pricing-integration/run-locked.py julia --startup-file=no --compiled-modules=existing --project=. diagnostics/legacy-pricing-integration/targeted.jl`. Driver dědí všechny suite lock FD, zahrnuje nové pricingy, původní Devex reuse, konečnost vah, mod011 small-pivot recovery, small-pivot price, pivot retry/atomicity a malé reference/candidate LP. Reference gate a afiro/sc50a fixtures jsou vlastněné kopie v tomto adresáři.
+
+Měření před integrací má 44 plných auditů a 88 benchmarků na runtime.mps, všech 11 režimů × Dantzig/DSE × dvě obrácená opakování. Všechny benchmarky a audity OPTIMAL s původní feasibility, přesná shoda referenčních a kandidátních event/guard/end výsledků. Každé převzetí se v auditu přepočítalo. [Úplný výklad](results/measured-interpretation.md), [páry](results/measured-pairs.csv), [pokrytí](results/measured-coverage.csv), [historické ověření](results/measured-final-verification.json).
+
+Historické měření vychází z ca265583 a jeho uloženého snapshotu; source piny popisují tuto revizi, nikoli nově integrovaný master. Úplný reprodukční experiment je zveřejněn v experimentální větvi perf/basis-direct-lu. Kopie reportů zde nejsou novým měřením. Dvě opakování na jediném vstupu neprokazují univerzální zrychlení; u některých přímých režimů se znaménko mění. Produkční správci mají oba páry příznivé.
+
+Práce a paměť: rozšíření dvou pricingových podmínek a skalární helper nevytvářejí stav, kopie, plné průchody ani basis solves. `_weight_pricing` se v helperu čte jednou, jako ve změřeném kandidátu. Přebírání odstraňuje pouze opakované kontroly při zachování jejich platnosti; nevynechává původní kontrolu před změnou ani kontrolu mimo ověřenou způsobilost. Symetrická diagnostická instrumentace byla mimo produkci. Nebyla zjištěna nepotřebná přidaná práce ani retained memory.

@@ -1603,17 +1603,25 @@ _readonly_dual_stop(::_StopCallback{_SolveDeadline}) = true
 _readonly_dual_stop(stop::_StopCallback{<:_BasisBudgetStop}) =
     _readonly_dual_stop(stop.callback.stop)
 
+# The actual pricing may change after a DSE weight check. Its Devex recovery
+# preserves the weighted finite-state predicate; Dantzig fallback does not.
+function _dual_check_pricing_supported(ws)
+    selected = ws.options.pricing
+    active = _weight_pricing(ws,:dual)
+    return active == selected || (selected == :steepest_edge && active == :devex)
+end
+
 # Only these solver-owned factors leave the checked workspace arrays alone
-# during replace_column!. Restrict reuse to the audited legacy Devex policy.
+# during replace_column!. Restrict reuse to the audited fixed legacy pricing.
 function _can_reuse_dual_checks(ws, stop)
     return _dual_check_factor_supported(ws.factorization) && _readonly_dual_stop(stop) &&
         isnothing(ws.progress.diagnostics) && ws.options.simplex_strategy == :legacy &&
-        ws.options.algorithm == :dual && ws.options.pricing == :devex &&
+        ws.options.algorithm == :dual && ws.options.pricing in (:devex, :dantzig, :steepest_edge) &&
         ws.options.basis_refactorization == :native && !ws.options.partial_pricing &&
         !ws.options.presolve && ws.options.native_pivot_policy == :default &&
         ws.progress.numerical_policy === _LEGACY_DUAL_CHECK_POLICY &&
         isnothing(ws.scratch.hypersparse) && isnothing(ws.scratch.pricing) &&
-        !ws.scratch.refactorization.timing_enabled && _weight_pricing(ws,:dual) == :devex
+        !ws.scratch.refactorization.timing_enabled && _dual_check_pricing_supported(ws)
 end
 
 function _can_reuse_corrected_row(ws, stop, tableau_row, rho)
