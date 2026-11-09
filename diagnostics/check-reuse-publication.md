@@ -1,0 +1,15 @@
+# Publikace přebírání kontrol a experimentu Devex
+
+Větev `perf/basis-direct-lu` navazuje fast-forward na master `3dc0bcda`. Obsahuje opravu odmítnutého malého pivotu mod011 (`fb4225de`), společné přebírání pro produkční správce (`00068f59`), hook přímých režimů (`ca265583`) a rozšíření na pevný Dantzig/DSE (`3dc0bcda`). V masteru je samotná produkční změna; přímé faktory zůstávají diagnostický opt-in.
+
+Pět produkčních a všech šest přímých režimů používá jediný `_can_reuse_dual_checks`. Povolen je fixed Devex, Dantzig a DSE včetně skutečného DSE→Devex. Automatický pricing, DSE s Dantzig fallbackem, nepodporované precision/callbacky/observers/backendy/aliasy zachovávají původní úplné kontroly. Přímý faktor smí přebírat pouze když skutečně publikovaný backend nemá fallback a splňuje požadovanou normalizaci. Safeguards/tolerance/precision se nemění.
+
+Cílené přímé regrese: `diagnostics/basis-direct-lu/reproduce/check-reuse.jl direct` a `normalized`, výsledky v `basis-direct-lu/results/pricing-check-integration/`. Samostatný launcher se spouští pod zámky produkčního integračního driveru, žádné souběžné solves. Testy všech pricingů ověřují refaktorizaci, fallback, ztrátu a obnovu způsobilosti i původní invalid-state guards.
+
+Kompletní měření Dantzig/DSE je v [legacy-pricing-check-reuse](legacy-pricing-check-reuse/results/interpretation.md): 44 auditů, 88 benchmarků, 22 kombinací a dva páry s obráceným pořadím. Původní změřený zdroj byl ca265583 plus process-local kandidát; toto není nové měření integrovaného commitu. Master integrace byla následně ověřena 927 cílenými assertions včetně 40 malých reference/candidate solves. Celá přibližně tříhodinová testovací sada nebyla v této integraci spuštěna podle uživatelova rozhodnutí.
+
+[Devex quality reset](devex-quality-reset/results/interpretation.md) je samostatný experiment, nikoli produkční optimalizace. Jeho active rameno zhoršilo počet iterací a celý solve pro HH i FT v obou opakováních. Kód obnovy se instaluje pouze process-local v jeho workeru; není zapojen do src ani přímého backendu. Zveřejněny jsou původní zdrojový snapshot, harness, raw TOML/log/process/comparison, piny a český výklad včetně neúspěšného výsledku. Pasivní sledování zůstává pouze experimentální.
+
+Artefakty obou sérií byly zkopírovány byte-identicky, s výjimkou nepublikovaných lokálních suite.lock a __pycache__. Absolutní cesty v původních manifestech popisují hostitele měření; historické source hashes nelze porovnávat s novým integrovaným masterem. Při samostatné reprodukci použít uložený snapshot a přemapovat původní kořen cest na checkout, zachovat obsah podle SHA; started markers se nesmějí obcházet pro tiché opakování solve. Výsledky nejsou tvrzením o nulové režii, retained memory ani univerzálním speedupu.
+
+Konečná cílená validace přímých režimů: direct 430/430 a normalized 430/430 assertions, oba procesy exit0. Zdroj společného gate je byte-identický s masterem3dc0bcda. [Ověření](basis-direct-lu/results/pricing-check-integration/verification.json).

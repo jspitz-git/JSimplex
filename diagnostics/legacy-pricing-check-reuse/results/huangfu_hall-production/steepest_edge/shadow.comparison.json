@@ -1,0 +1,55 @@
+{
+  "exact_endpoint": true,
+  "report_sha256": "2f06c3168a028323e5ddebed976bc266a324f5d7ac1bf4a7343135280044eca9",
+  "exact_trace": true,
+  "exact_modes": true,
+  "exact_switches": true,
+  "trace_sha256": "7ca65e45beb945c142356b1ea6be3c169507210ed296f458a529125383ff02f4",
+  "counts": {
+    "sample_primal_changed_at_leaving": 4,
+    "from_last_pivot": 71037,
+    "common_entry": 1100,
+    "common_dse_weight": 16978,
+    "finite_reused": 71037,
+    "finite": 302924,
+    "row": 93511,
+    "sample_primal_same": 32,
+    "driver_entry": 70384,
+    "row_reused": 11007,
+    "events": 237363,
+    "direction": 71696
+  },
+  "pricing_counts": {
+    "live_pivot_event/steepest_edge/phase1": 15878,
+    "driver_entry/steepest_edge/phase1": 15879,
+    "from_last_pivot/steepest_edge/phase1": 15779,
+    "common_dse_weight/steepest_edge/phase0": 1100,
+    "finite_reused/steepest_edge/phase1": 15779,
+    "from_last_pivot/devex/phase1": 54164,
+    "completed/steepest_edge/phase1": 15878,
+    "common_dse_weight/steepest_edge/phase1": 15878,
+    "completed/steepest_edge/phase0": 1100,
+    "driver_entry/devex/phase1": 54505,
+    "live_pivot_event/steepest_edge/phase0": 1100,
+    "live_pivot_event/devex/phase1": 54504,
+    "row_reused/steepest_edge/phase1": 719,
+    "finite_reused/steepest_edge/phase0": 1094,
+    "finite_reused/devex/phase1": 54164,
+    "staged_pivot_event/devex/phase1": 2,
+    "row_reused/devex/phase1": 10288,
+    "from_last_pivot/steepest_edge/phase0": 1094,
+    "common_entry/steepest_edge/phase0": 1100,
+    "completed/devex/phase1": 54506
+  },
+  "switches": [
+    {
+      "from": "steepest_edge",
+      "iteration": 16978,
+      "reason": "steepest-edge weight disagrees with basis solve",
+      "staged": false,
+      "to": "devex",
+      "phase_generation": 1,
+      "during_weight_update": false
+    }
+  ]
+}

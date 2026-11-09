@@ -1,0 +1,368 @@
+struct MOIScalarEvaluation{T<:Real}
+    columns::Vector{Int}
+    coefficients::Vector{T}
+    constant::T
+end
+
+struct MOIColumnData{T<:Real}
+    index_map::MOI.Utilities.IndexMap
+    lower::Vector{Bound{T}}
+    upper::Vector{Bound{T}}
+    domains::Vector{VariableDomain}
+    names::Vector{String}
+    evaluations::Vector{MOIScalarEvaluation{T}}
+    error::Union{Nothing,String}
+end
+
+struct MOITranslation{T<:Real}
+    problem::Union{Nothing,LinearProblem{T}}
+    index_map::MOI.Utilities.IndexMap
+    evaluations::Vector{MOIScalarEvaluation{T}}
+    error::Union{Nothing,String}
+end
+
+function _moi_set_bound(value::T, side::Symbol) where {T}
+    isnan(value) && throw(ArgumentError("MOI set bounds cannot be NaN"))
+    if isinf(value)
+        if (side === :lower && value < zero(T)) ||
+           (side === :upper && value > zero(T))
+            return _unbounded_bound(T)
+        end
+        throw(ArgumentError("MOI $side set bounds cannot have this infinity"))
+    end
+    return Bound(value)
+end
+
+_moi_set_bounds(set::MOI.GreaterThan{T}) where {T} =
+    (_moi_set_bound(set.lower, :lower), _unbounded_bound(T))
+_moi_set_bounds(set::MOI.LessThan{T}) where {T} =
+    (_unbounded_bound(T), _moi_set_bound(set.upper, :upper))
+function _moi_set_bounds(set::MOI.EqualTo{T}) where {T}
+    bound = _moi_set_bound(set.value, :equal)
+    return bound, bound
+end
+_moi_set_bounds(set::MOI.Interval{T}) where {T} =
+    (_moi_set_bound(set.lower, :lower), _moi_set_bound(set.upper, :upper))
+
+function _intersect_moi_lower(left::Bound{T}, right::Bound{T}) where {T}
+    !isfinite(left) && return right
+    !isfinite(right) && return left
+    return Bound(max(bound_value(left), bound_value(right)))
+end
+
+function _intersect_moi_upper(left::Bound{T}, right::Bound{T}) where {T}
+    !isfinite(left) && return right
+    !isfinite(right) && return left
+    return Bound(min(bound_value(left), bound_value(right)))
+end
+
+function _intersect_moi_bounds!(
+    lower::Vector{Bound{T}},
+    upper::Vector{Bound{T}},
+    column::Int,
+    constraint_lower::Bound{T},
+    constraint_upper::Bound{T},
+    error::Union{Nothing,String},
+) where {T}
+    lower[column] = _intersect_moi_lower(lower[column], constraint_lower)
+    upper[column] = _intersect_moi_upper(upper[column], constraint_upper)
+    if isnothing(error) && isfinite(lower[column]) && isfinite(upper[column]) &&
+       bound_value(lower[column]) > bound_value(upper[column])
+        return "column lower bound exceeds column upper bound for variable $column"
+    end
+    return error
+end
+
+function _apply_moi_variable_constraint!(
+    lower::Vector{Bound{T}},
+    upper::Vector{Bound{T}},
+    domains::Vector{VariableDomain},
+    column::Int,
+    set::_MOINumericSet{T},
+    error::Union{Nothing,String},
+) where {T}
+    constraint_lower, constraint_upper = _moi_set_bounds(set)
+    return _intersect_moi_bounds!(
+        lower,
+        upper,
+        column,
+        constraint_lower,
+        constraint_upper,
+        error,
+    )
+end
+
+function _apply_moi_variable_constraint!(
+    lower::Vector{Bound{T}},
+    upper::Vector{Bound{T}},
+    domains::Vector{VariableDomain},
+    column::Int,
+    ::MOI.ZeroOne,
+    error::Union{Nothing,String},
+) where {T}
+    domains[column] = BINARY
+    return _intersect_moi_bounds!(
+        lower,
+        upper,
+        column,
+        Bound(zero(T)),
+        Bound(one(T)),
+        error,
+    )
+end
+
+function _apply_moi_variable_constraint!(
+    lower::Vector{Bound{T}},
+    upper::Vector{Bound{T}},
+    domains::Vector{VariableDomain},
+    column::Int,
+    ::MOI.Integer,
+    error::Union{Nothing,String},
+) where {T}
+    domains[column] == CONTINUOUS && (domains[column] = INTEGER)
+    return error
+end
+
+_moi_variable_set_types(::Type{T}) where {T} = (
+    MOI.GreaterThan{T},
+    MOI.LessThan{T},
+    MOI.EqualTo{T},
+    MOI.Interval{T},
+    MOI.Integer,
+    MOI.ZeroOne,
+)
+
+function _collect_moi_columns(optimizer::Optimizer{T}, source)::MOIColumnData{T} where {T}
+    source_variables = MOI.get(source, MOI.ListOfVariableIndices())
+    index_map = MOI.Utilities.IndexMap()
+    lower = fill(_unbounded_bound(T), length(source_variables))
+    upper = fill(_unbounded_bound(T), length(source_variables))
+    domains = fill(CONTINUOUS, length(source_variables))
+    names = String[]
+    evaluations = MOIScalarEvaluation{T}[]
+    error = nothing
+
+    for (column, source_variable) in enumerate(source_variables)
+        index_map[source_variable] = MOI.VariableIndex(column)
+        push!(names, MOI.get(source, MOI.VariableName(), source_variable))
+    end
+
+    for set_type in _moi_variable_set_types(T)
+        source_indices = MOI.get(
+            source,
+            MOI.ListOfConstraintIndices{MOI.VariableIndex,set_type}(),
+        )
+        for source_index in source_indices
+            source_variable = MOI.get(source, MOI.ConstraintFunction(), source_index)
+            column = index_map[source_variable].value
+            index_map[source_index] = MOI.ConstraintIndex{MOI.VariableIndex,set_type}(
+                column,
+            )
+            push!(evaluations, MOIScalarEvaluation(Int[column], T[one(T)], zero(T)))
+            set = MOI.get(source, MOI.ConstraintSet(), source_index)
+            error = try
+                _apply_moi_variable_constraint!(
+                    lower,
+                    upper,
+                    domains,
+                    column,
+                    set,
+                    error,
+                )
+            catch exception
+                exception isa ArgumentError || rethrow()
+                isnothing(error) ? sprint(showerror, exception) : error
+            end
+        end
+    end
+
+    return MOIColumnData(index_map, lower, upper, domains, names, evaluations, error)
+end
+
+function _check_moi_constraint_support(optimizer::Optimizer, source)
+    for (function_type, set_type) in MOI.get(source, MOI.ListOfConstraintTypesPresent())
+        MOI.supports_constraint(optimizer, function_type, set_type) && continue
+        throw(MOI.UnsupportedConstraint{function_type,set_type}())
+    end
+    return
+end
+
+function _moi_affine_evaluation(
+    index_map::MOI.Utilities.IndexMap,
+    function_::MOI.ScalarAffineFunction{T},
+) where {T}
+    columns = Vector{Int}(undef, length(function_.terms))
+    coefficients = Vector{T}(undef, length(function_.terms))
+    for (index, term) in enumerate(function_.terms)
+        columns[index] = index_map[term.variable].value
+        coefficients[index] = term.coefficient
+    end
+    return MOIScalarEvaluation(columns, coefficients, function_.constant)
+end
+
+_moi_add(left::T, right::T) where {T} = left + right
+_moi_subtract(left::T, right::T) where {T} = left - right
+
+function _moi_add(left::BigFloat, right::BigFloat)
+    return setprecision(BigFloat, max(precision(left), precision(right))) do
+        left + right
+    end
+end
+
+function _moi_subtract(left::BigFloat, right::BigFloat)
+    return setprecision(BigFloat, max(precision(left), precision(right))) do
+        left - right
+    end
+end
+
+function _moi_shift_bound(bound::Bound{T}, constant::T) where {T}
+    isfinite(bound) || return bound
+    return Bound(_moi_subtract(bound_value(bound), constant))
+end
+
+function _moi_affine_bounds(set, constant)
+    try
+        isfinite(constant) || throw(ArgumentError("MOI affine function constant must be finite"))
+        lower, upper = _moi_set_bounds(set)
+        return _moi_shift_bound(lower, constant), _moi_shift_bound(upper, constant), nothing
+    catch exception
+        exception isa ArgumentError || rethrow()
+        return nothing, nothing, sprint(showerror, exception)
+    end
+end
+
+function _moi_objective(
+    optimizer::Optimizer{T},
+    source,
+    index_map::MOI.Utilities.IndexMap,
+    column_count::Int,
+) where {T}
+    sense = MOI.get(source, MOI.ObjectiveSense())
+    sense == MOI.FEASIBILITY_SENSE && return zeros(T, column_count), zero(T), MIN_SENSE
+
+    function_type = MOI.get(source, MOI.ObjectiveFunctionType())
+    attribute = MOI.ObjectiveFunction{function_type}()
+    MOI.supports(optimizer, attribute) || throw(MOI.UnsupportedAttribute(attribute))
+    function_ = MOI.get(source, attribute)
+    objective = zeros(T, column_count)
+    assigned = falses(column_count)
+
+    if function_type == MOI.VariableIndex
+        objective[index_map[function_].value] = one(T)
+        constant = zero(T)
+    elseif function_type == MOI.ScalarAffineFunction{T}
+        for term in function_.terms
+            column = index_map[term.variable].value
+            if assigned[column]
+                objective[column] = _moi_add(objective[column], term.coefficient)
+            else
+                objective[column] = term.coefficient
+                assigned[column] = true
+            end
+        end
+        constant = function_.constant
+    else
+        throw(MOI.UnsupportedAttribute(attribute))
+    end
+
+    objective_sense = sense == MOI.MIN_SENSE ? MIN_SENSE : MAX_SENSE
+    return objective, constant, objective_sense
+end
+
+function _translate_moi_model(optimizer::Optimizer{T}, source)::MOITranslation{T} where {T}
+    _check_moi_constraint_support(optimizer, source)
+    columns = _collect_moi_columns(optimizer, source)
+    evaluations = columns.evaluations
+    !isnothing(columns.error) &&
+        return MOITranslation{T}(nothing, columns.index_map, evaluations, columns.error)
+
+    row_indices = Int[]
+    column_indices = Int[]
+    coefficients = T[]
+    row_lower = Bound{T}[]
+    row_upper = Bound{T}[]
+    row_names = String[]
+    function_type = MOI.ScalarAffineFunction{T}
+    # Remember each column's last triplet position. A position preceding the
+    # current row means its next coefficient starts a new entry. This avoids a
+    # per-row dictionary or clearing column-sized scratch after every row.
+    positions = Int[]
+
+    for set_type in (MOI.GreaterThan{T}, MOI.LessThan{T}, MOI.EqualTo{T}, MOI.Interval{T})
+        source_indices = MOI.get(
+            source,
+            MOI.ListOfConstraintIndices{MOI.ScalarAffineFunction{T},set_type}(),
+        )
+        for source_index in source_indices
+            function_ = MOI.get(source, MOI.ConstraintFunction(), source_index)
+            set = MOI.get(source, MOI.ConstraintSet(), source_index)
+            row = length(row_lower) + 1
+            evaluation = _moi_affine_evaluation(columns.index_map, function_)
+            columns.index_map[source_index] = MOI.ConstraintIndex{function_type,set_type}(
+                length(evaluations) + 1,
+            )
+            push!(evaluations, evaluation)
+
+            if isempty(positions) && !isempty(evaluation.columns)
+                resize!(positions, length(columns.lower))
+                fill!(positions, 0)
+            end
+            row_start = length(coefficients) + 1
+            for (column, coefficient) in zip(evaluation.columns, evaluation.coefficients)
+                position = positions[column]
+                if position < row_start
+                    push!(row_indices, row)
+                    push!(column_indices, column)
+                    push!(coefficients, coefficient)
+                    positions[column] = length(coefficients)
+                else
+                    coefficients[position] = _moi_add(coefficients[position], coefficient)
+                end
+            end
+
+            lower, upper, bounds_error = _moi_affine_bounds(set, evaluation.constant)
+            !isnothing(bounds_error) && return MOITranslation{T}(
+                nothing,
+                columns.index_map,
+                evaluations,
+                bounds_error,
+            )
+            push!(row_lower, lower)
+            push!(row_upper, upper)
+            push!(row_names, MOI.get(source, MOI.ConstraintName(), source_index))
+        end
+    end
+
+    objective, objective_constant, objective_sense = _moi_objective(
+        optimizer,
+        source,
+        columns.index_map,
+        length(columns.lower),
+    )
+    A = sparse(row_indices, column_indices, coefficients, length(row_lower), length(columns.lower))
+    problem = try
+        LinearProblem{T}(
+            A,
+            objective,
+            objective_constant,
+            objective_sense,
+            row_lower,
+            row_upper,
+            columns.lower,
+            columns.upper,
+            columns.domains,
+            MOI.get(source, MOI.Name()),
+            row_names,
+            columns.names,
+        )
+    catch exception
+        exception isa ArgumentError || rethrow()
+        return MOITranslation{T}(
+            nothing,
+            columns.index_map,
+            evaluations,
+            sprint(showerror, exception),
+        )
+    end
+    return MOITranslation{T}(problem, columns.index_map, evaluations, nothing)
+end

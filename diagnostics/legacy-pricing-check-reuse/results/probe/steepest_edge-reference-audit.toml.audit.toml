@@ -1,0 +1,163 @@
+switches = []
+sha256 = "e27192596b0ed9ecbff1e7e208f9a8f45e943b30ff50db3fa96d67a48be84620"
+
+[pricing_counts]
+"live_pivot_event/steepest_edge/phase1" = 9
+"completed/steepest_edge/phase1" = 9
+"common_dse_weight/steepest_edge/phase1" = 9
+"completed/steepest_edge/phase0" = 11
+"common_entry/steepest_edge/phase1" = 9
+"common_dse_weight/steepest_edge/phase0" = 11
+"common_entry/steepest_edge/phase0" = 11
+"live_pivot_event/steepest_edge/phase0" = 11
+
+[[modes]]
+dimension = 27
+site = "initial"
+unit_upper = false
+mode = "production"
+[[modes]]
+dimension = 27
+site = "refactor"
+unit_upper = false
+mode = "production"
+
+[sampled_transitions."row: row -> row"]
+rowval_different = 0
+rho_pairs = 1
+row_different = 1
+nzval_max_elements = 0
+rho_max_elements = 2
+colptr_pairs = 1
+row_max_elements = 1
+nzval_pairs = 1
+rowval_max_elements = 0
+basis_max_elements = 1
+rowval_pairs = 1
+colptr_max_elements = 0
+colptr_different = 0
+nzval_different = 0
+basis_different = 1
+rho_different = 1
+basis_pairs = 1
+row_pairs = 1
+
+[sampled_transitions."finite: _dual_iteration_entry! -> update_dual_pricing_weights!"]
+pricing_weights_max_elements = 4
+reduced_costs_pairs = 2
+primal_pairs = 2
+primal_max_elements = 23
+costs_different = 0
+pricing_weights_different = 2
+costs_max_elements = 0
+pricing_weights_pairs = 2
+primal_different = 2
+reduced_costs_different = 2
+reduced_costs_max_elements = 1
+costs_pairs = 2
+
+[sampled_transitions."finite: _dual_after_iteration! -> _dual_optimize!"]
+pricing_weights_max_elements = 0
+reduced_costs_pairs = 1
+primal_pairs = 1
+primal_max_elements = 0
+costs_different = 0
+pricing_weights_different = 0
+costs_max_elements = 0
+pricing_weights_pairs = 1
+primal_different = 0
+reduced_costs_different = 0
+reduced_costs_max_elements = 0
+costs_pairs = 1
+
+[sampled_transitions."direction: direction -> direction"]
+rhs_pairs = 1
+pivot_different = 0
+direction_different = 1
+pivot_pairs = 1
+direction_max_elements = 8
+basis_max_elements = 1
+rhs_different = 1
+pivot_max_elements = 0
+rhs_max_elements = 8
+direction_pairs = 1
+basis_different = 1
+basis_pairs = 1
+
+[sampled_transitions."finite: other -> _make_dual_feasible!"]
+pricing_weights_max_elements = 0
+reduced_costs_pairs = 1
+primal_pairs = 1
+primal_max_elements = 0
+costs_different = 0
+pricing_weights_different = 0
+costs_max_elements = 0
+pricing_weights_pairs = 1
+primal_different = 0
+reduced_costs_different = 0
+reduced_costs_max_elements = 0
+costs_pairs = 1
+
+[sampled_transitions."finite: update_dual_pricing_weights! -> update_dual_pricing_weights!"]
+pricing_weights_max_elements = 0
+reduced_costs_pairs = 2
+primal_pairs = 2
+primal_max_elements = 0
+costs_different = 0
+pricing_weights_different = 0
+costs_max_elements = 0
+pricing_weights_pairs = 2
+primal_different = 0
+reduced_costs_different = 0
+reduced_costs_max_elements = 0
+costs_pairs = 2
+
+[sampled_transitions."finite: other -> other"]
+pricing_weights_max_elements = 0
+reduced_costs_pairs = 1
+primal_pairs = 1
+primal_max_elements = 0
+costs_different = 0
+pricing_weights_different = 0
+costs_max_elements = 0
+pricing_weights_pairs = 1
+primal_different = 0
+reduced_costs_different = 0
+reduced_costs_max_elements = 0
+costs_pairs = 1
+
+[sampled_transitions."finite: update_dual_pricing_weights! -> _dual_after_iteration!"]
+pricing_weights_max_elements = 0
+reduced_costs_pairs = 1
+primal_pairs = 1
+primal_max_elements = 0
+costs_different = 0
+pricing_weights_different = 0
+costs_max_elements = 0
+pricing_weights_pairs = 1
+primal_different = 0
+reduced_costs_different = 0
+reduced_costs_max_elements = 0
+costs_pairs = 1
+
+[sampled_transitions."finite: _dual_optimize! -> _dual_iteration_entry!"]
+pricing_weights_max_elements = 0
+reduced_costs_pairs = 2
+primal_pairs = 2
+primal_max_elements = 0
+costs_different = 0
+pricing_weights_different = 0
+costs_max_elements = 0
+pricing_weights_pairs = 2
+primal_different = 0
+reduced_costs_different = 0
+reduced_costs_max_elements = 0
+costs_pairs = 2
+
+[counts]
+row = 20
+common_entry = 20
+common_dse_weight = 20
+direction = 20
+finite = 107
+events = 65

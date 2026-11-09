@@ -1,0 +1,69 @@
+{
+  "exact_endpoint": true,
+  "report_sha256": "42934ea3225102eaa3c8fe7881e7b479c7acd189550512e0946c25c59398ba11",
+  "exact_trace": true,
+  "exact_modes": true,
+  "exact_switches": true,
+  "trace_sha256": "e022e68fd7fb0f614cae3f6a7dd3c5fd47226be5ed2f328dd4ab9ca68a0c0909",
+  "counts": {
+    "sample_primal_changed_at_leaving": 4,
+    "from_last_pivot": 70420,
+    "common_entry": 1083,
+    "common_dse_weight": 11547,
+    "finite_reused": 70419,
+    "finite": 295054,
+    "row": 79514,
+    "sample_primal_same": 32,
+    "driver_entry": 69790,
+    "row_reused": 4275,
+    "events": 221797,
+    "direction": 70911
+  },
+  "pricing_counts": {
+    "live_pivot_event/steepest_edge/phase1": 10460,
+    "driver_entry/steepest_edge/phase1": 10466,
+    "from_last_pivot/steepest_edge/phase1": 10395,
+    "common_dse_weight/steepest_edge/phase0": 1082,
+    "staged_pivot_event/steepest_edge/phase1": 5,
+    "live_pivot_event/devex/phase0": 1,
+    "finite_reused/devex/phase0": 1,
+    "completed/devex/phase0": 1,
+    "finite_reused/steepest_edge/phase1": 10395,
+    "from_last_pivot/devex/phase1": 58948,
+    "completed/steepest_edge/phase1": 10465,
+    "common_dse_weight/steepest_edge/phase1": 10465,
+    "completed/steepest_edge/phase0": 1082,
+    "driver_entry/devex/phase1": 59324,
+    "from_last_pivot/devex/phase0": 1,
+    "live_pivot_event/steepest_edge/phase0": 1082,
+    "live_pivot_event/devex/phase1": 59316,
+    "row_reused/steepest_edge/phase1": 43,
+    "finite_reused/steepest_edge/phase0": 1076,
+    "finite_reused/devex/phase1": 58947,
+    "staged_pivot_event/devex/phase1": 9,
+    "row_reused/devex/phase1": 4232,
+    "from_last_pivot/steepest_edge/phase0": 1076,
+    "common_entry/steepest_edge/phase0": 1083,
+    "completed/devex/phase1": 59325
+  },
+  "switches": [
+    {
+      "from": "steepest_edge",
+      "iteration": 11547,
+      "reason": "steepest-edge weight disagrees with basis solve",
+      "staged": false,
+      "to": "devex",
+      "phase_generation": 1,
+      "during_weight_update": false
+    },
+    {
+      "from": "steepest_edge",
+      "iteration": 70872,
+      "reason": "steepest-edge weight disagrees with basis solve",
+      "staged": false,
+      "to": "devex",
+      "phase_generation": 0,
+      "during_weight_update": false
+    }
+  ]
+}

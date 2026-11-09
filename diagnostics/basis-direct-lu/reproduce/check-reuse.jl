@@ -6,9 +6,9 @@ const normalize = only(ARGS) == "normalized"
 JS._install_trial_direct!(; normalize)
 
 @testset "Published direct basis authorizes only the verified dual checks" begin
-    for manager in (:forrest_tomlin, :suhl_suhl, :bartels_golub)
+    for manager in (:forrest_tomlin, :suhl_suhl, :bartels_golub), pricing in (:devex, :dantzig, :steepest_edge)
         lp = LinearProblem(sparse([1.0 0.0; 0.0 1.0]), [1.0, 10.0]; row_lower=[1.0, -Inf])
-        options = SolverOptions(algorithm=:dual, pricing=:devex, basis_update=manager,
+        options = SolverOptions(algorithm=:dual, pricing=pricing, basis_update=manager,
             simplex_strategy=:legacy, presolve=false, refactorization_interval=1)
         ws = JS.initialize_workspace(lp, options)
         f = ws.factorization
@@ -40,12 +40,16 @@ JS._install_trial_direct!(; normalize)
         @test JS._dual_optimize!(ws, stop).status == OPTIMAL
         @test ws.refactorizations > 0 && eligible()
         diag = JS.SimplexDiagnostics(; observer=(event, w) ->
-            event == :pivot_completed && (w.pricing_weights[1] = 0.0))
+            event == :pivot_completed && (pricing == :dantzig ? (w.costs[1] = NaN) : (w.pricing_weights[1] = 0.0)))
         # Test the post-pivot check before a scheduled rebuild recomputes weights.
-        observed_options = SolverOptions(algorithm=:dual, pricing=:devex, basis_update=manager,
+        observed_options = SolverOptions(algorithm=:dual, pricing=pricing, basis_update=manager,
             simplex_strategy=:legacy, presolve=false, refactorization_interval=160)
         observed = JS.initialize_workspace(lp, observed_options; progress=JS.SimplexProgressContext(lp; diagnostics=diag))
         @test !JS._can_reuse_dual_checks(observed, stop)
         @test JS.dual_iteration!(observed, stop).status == NUMERICAL_ERROR
     end
 end
+
+# The shared fixed-pricing regressions also execute with the actual installed
+# direct backend, including both DSE recovery failure paths.
+include(joinpath(@__DIR__, "../../../test/dual_fixed_pricing_check_reuse_tests.jl"))
