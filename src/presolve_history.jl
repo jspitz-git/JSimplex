@@ -96,7 +96,7 @@ end
 function price(g,j,y)
  idx=searchsortedfirst(g.column_ids,j);@assert idx<=length(g.column_ids) && g.column_ids[idx]==j
  c=g.columns[idx];v=c.cost
- for k in c.first:c.last;v-=g.values[k]*y[g.rows[k]];end
+ for k in c.first:c.last;v=JS._PostsolveLift.price_step(v,g.values[k],y[g.rows[k]]);end
  v
 end
 function proof_activity(g,p,x,o)

@@ -52,7 +52,7 @@ end
     end
 end
 
-@testset "Strict modes and unsupported types retain exact propagation" begin
+@testset "Strict modes and rational types retain exact propagation" begin
     for T in (Float32, Float64, BigFloat, Rational{BigInt})
         p = LinearProblem(sparse(reshape(T[3,1],1,2)), zeros(T,2);
             row_upper=T[1], column_lower=T[0,0])
@@ -63,7 +63,8 @@ end
             @test !isfinite(strict.problem.column_upper[1])
         end
         if T === BigFloat
-            @test !isfinite(JSimplex.propagate_row_bounds(p).problem.column_upper[1])
+            hi=bound_value(JSimplex.propagate_row_bounds(p).problem.column_upper[1])
+            @test Rational{BigInt}(prevfloat(hi))<1//3<=Rational{BigInt}(hi)
         end
         # Zero tolerance must carry strict mode through the entire dispatcher.
         a = JSimplex._presolve_for_solve(p, zero(T))

@@ -54,15 +54,25 @@ function metadata(p::JS.LinearProblem{T},next,pass::Int) where T
  end
  Metadata{T}(step,ss,ee)
 end
+@inline price_step(value,coefficient,multiplier)=value-coefficient*multiplier
+# Even subtracting zero rounds an older BigFloat accumulator to the active
+# precision. Preserve it until an actual contribution is encountered. Nonfinite
+# coefficients must still reach the ordinary arithmetic/rejection path.
+@inline price_step(value::BigFloat,coefficient::BigFloat,multiplier::BigFloat)=
+ iszero(multiplier) && isfinite(coefficient) ? value : value-coefficient*multiplier
 function price(col,y;except=0)
  v=col.cost
  for k in eachindex(col.rows)
   row=col.rows[k];row==except && continue
-  v-=col.values[k]*y[row]
+  v=price_step(v,col.values[k],y[row])
  end
  v
 end
 at(value,b,tol)=isfinite(b) && abs(value-JS.bound_value(b))<=tol
+# A higher-precision stored endpoint/tolerance must not be rounded by an
+# intermediate subtraction before deciding whether this bound side is usable.
+at(value::BigFloat,b::JS.Bound{BigFloat},tol::BigFloat)=
+ JS._primal_interval_at_bound(value,value,b,tol)
 function state_from_price(old,value,lo,hi,price,options)
  old==JS.BASIC && return old
  desired=price>options.dual_tolerance ? JS.AT_LOWER : price < -options.dual_tolerance ? JS.AT_UPPER : old

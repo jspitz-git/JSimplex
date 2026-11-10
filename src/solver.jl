@@ -546,7 +546,7 @@ function _solve_diagnosed(problem::LinearProblem{T}, diagnostics;
     # Even a continuous input gets its own arrays before future transforms can
     # mutate the working model. Keep this original-space LP for certification.
     continuous_problem = JSimplex.relax_integrality(problem)
-    history = typed_options.presolve && T in (Float32,Float64) &&
+    history = typed_options.presolve && T in (Float32,Float64,BigFloat) &&
         continuous_problem.objective_sense == MIN_SENSE && typed_options.primal_tolerance > zero(T) ?
         _PostsolveHistory(T) : nothing
     presolved = if typed_options.presolve

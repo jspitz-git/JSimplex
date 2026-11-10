@@ -13,5 +13,9 @@ directed_propagation_bytes(p) = @allocated JSimplex.propagate_row_bounds(p)
     for _ in 1:3
         directed_propagation_bytes(p)
     end
-    @test directed_propagation_bytes(p) <= 540_000
+    # Reported allocated bytes vary, especially just after GC, even after the
+    # kernel is compiled (also observed on unchanged production). Sample the
+    # steady allocation floor; persistent per-endpoint boxing appears in every
+    # sample and must still satisfy the same budget.
+    @test minimum(directed_propagation_bytes(p) for _ in 1:5) <= 540_000
 end

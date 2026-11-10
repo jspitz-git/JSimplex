@@ -78,15 +78,19 @@ basic variables at original bounds for nonbasic variables held at bounds
 inferred during presolve. These exchanges are not counted as simplex iterations.
 As a postsolve reconstruction, they can recover an optimal original basis even
 when `iteration_limit=0`.
-For native `Float32` and `Float64` minimization with positive primal tolerance,
+For `Float32`, `Float64`, and `BigFloat` minimization with positive primal tolerance,
 postsolve also reuses the certified reduced dual values to restore a basis
 through singleton rows, equality eliminations, and recorded bound propagation.
 This history belongs to one solve; inconclusive restoration falls back to the
-ordinary basis restoration and original-model cleanup. Presolve can activate
+ordinary basis restoration and original-model cleanup. For `Float32`/`Float64`, presolve can activate
 inequalities with independently checked exact certificates before applying the
 existing equality reductions. Neither path replaces original-model certification.
 Native objective-coefficient transformations may use checked rounding; objective
 constants and the strict infeasibility proof retain exact transformations.
+Directed bound propagation also supports `BigFloat`: exact implications are
+rounded outward at the active working precision, preserving mixed-precision
+inputs and caching the actual stored bounds. This does not raise solve precision
+or relax tolerances; original-model certification can still be inconclusive.
 If the reduced solve cannot certify its result, JSimplex restarts simplex on
 the original LP. With `verbose=true`, this
 restart logs the first status and reason. Progress iteration counts and final
@@ -1112,12 +1116,14 @@ when its cost and every incident row permit that direction.
 Multi-term rows propagate implied column bounds and rows implied by column
 bounds are removed. Presolve repeats its reductions until a round makes no
 change, with a limit of 12 rounds.
-Transformed finite values must be exactly representable in the model's scalar
-type, except objective coefficients created by singleton equality aggregation
-for `Float32` and `Float64`. Those coefficients may be rounded when the
-relative error is at most eight machine epsilons. Projected bounds and the
-objective constant still require exact representation; `BigFloat` and rational
-models retain the exact rule. Sparse equality aggregation
+Transformed finite values generally must be exactly representable in the model's
+scalar type. With positive primal tolerance, propagated column bounds can be
+rounded outward for `Float32`, `Float64`, and `BigFloat`; exact-only propagation
+remains available. For `Float32`/`Float64`, eligible objective-coefficient
+transformations may also round with relative error at most eight machine epsilons.
+Equality-projected bounds and the objective constant still require exact
+representation; `BigFloat` objective transformations and rational models retain
+the exact rule. Sparse equality aggregation
 considers rows with at most eight terms and permits at most ten estimated
 coefficient updates per pivot, 200,000 updates and 50,000 pivots per pass.
 General rational row elimination is limited to 256 rows, 10,000 nonzeros,

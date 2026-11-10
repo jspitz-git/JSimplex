@@ -9,12 +9,38 @@ and an invocation-local cache for unchanged dependent-row reductions.
 
 New objective-constant rounding, actual-fill and cheap-first are excluded.
 The original fill estimate, aggregation work limits, solver tolerances and
-original-model certification remain in place. The new dual/basis restoration
-and inequality activation apply to native Float32/Float64 minimization with
-positive primal tolerance. Unsupported conditions retain the existing paths;
+original-model certification remain in place. Dual/basis restoration applies
+to Float32/Float64 and BigFloat minimization with positive primal tolerance.
+Inequality activation and checked objective-coefficient rounding remain limited
+to Float32/Float64. Unsupported conditions retain the existing paths;
 inconclusive basis restoration falls back to ordinary original-model cleanup.
 
-## Validation
+BigFloat directed propagation rounds the exact rational implication outward at
+the current working precision, using a single MPFR quotient conversion. Stored
+input precision is preserved; the bound cache contains the exact image of the
+newly stored endpoint. The conversion uses explicit rounding without changing
+the caller's precision or rounding context. Exact-only propagation remains
+available and is retained for zero primal tolerance. BigFloat bound-side hints
+use the existing interval predicate to avoid rounding away tolerance violations.
+Original-model feasibility, optimality and objective checks remain unchanged:
+solving higher-precision data at lower precision can still be inconclusive.
+The performance figures below describe the earlier Float64 integration, not a
+BigFloat speedup.
+
+## BigFloat extension validation
+
+The extension passed 10,750 assertions in 16 focused files on Julia 1.13.0,
+including directed endpoints at 32/64/128/256 bits, mixed stored precisions,
+singleton/equality/propagation restoration, conservative rejection, and the
+existing Float32/Float64 regressions. Only the targeted suite was run. Small
+sparse/dense operation checks quantify additional history work and memory; no
+BigFloat whole-solver speedup has been established. The regressions are included
+in the regular test suite: [directed bounds](../test/presolve_bigfloat_bounds_tests.jl)
+and [dual/basis restoration](../test/presolve_bigfloat_postsolve_tests.jl).
+The subsequent fast0507 benchmark was cancelled by request before any complete
+measurement finished; it provides no whole-solver performance conclusion.
+
+## Earlier Float64 integration validation
 
 The committed source/test bytes were checked against the verified integration:
 

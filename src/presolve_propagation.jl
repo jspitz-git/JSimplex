@@ -70,6 +70,31 @@ end
     return value, stored
 end
 
+# BigFloat(Rational) rounds numerator and denominator separately. In particular,
+# with mixed input/working precisions its error need not fit one adjacent value.
+# MPFR rounds the exact quotient once, at the current working precision; the
+# bridge retains its rational owner for the duration of the read-only call.
+function _propagation_bound(::Type{BigFloat}, candidate::ExactValue, upper::Bool,
+                            directed::Bool)
+    if !directed
+        value = _represent_exact(BigFloat, candidate)
+        return isnothing(value) ? nothing : (value, candidate)
+    end
+    value = BigFloat(; precision=precision(BigFloat))
+    quotient = Base.GMP.MPQ._MPQ(candidate)
+    mode = upper ? Base.MPFR.MPFRRoundUp : Base.MPFR.MPFRRoundDown
+    ccall((:mpfr_set_q, Base.MPFR.libmpfr), Cint,
+          (Ref{BigFloat}, Base.GMP.MPQ.mpq_t, Base.MPFR.MPFRRoundingMode),
+          value, quotient, mode)
+    isfinite(value) || return nothing
+    ((iszero(value) && iszero(candidate)) ||
+     (isone(value) && isone(candidate)) ||
+     (value == -1 && candidate == -1)) && return (value, candidate)
+    stored = _exact_rational(value)
+    (upper ? stored >= candidate : stored <= candidate) || return nothing
+    return value, stored == candidate ? candidate : stored
+end
+
 function propagate_row_bounds(problem::LinearProblem{T}; directed_bounds::Bool=true) where {T}
     return _propagate_row_bounds(problem, trues(size(problem.A, 1)); directed_bounds)
 end
@@ -81,8 +106,8 @@ function _propagate_row_bounds(problem::LinearProblem{T}, rows_to_visit::BitVect
     length(rows_to_visit) == m && length(changed_columns) == n ||
         throw(ArgumentError("propagation worklist dimensions do not match the model"))
     any(rows_to_visit) || return identity_presolve(problem)
-    directed = directed_bounds && (T === Float32 || T === Float64) &&
-        rounding(T) == RoundNearest && !get_zero_subnormals()
+    directed = directed_bounds && (T === BigFloat ||
+        ((T === Float32 || T === Float64) && rounding(T) == RoundNearest && !get_zero_subnormals()))
     active = copy(rows_to_visit)
     expand_active = !all(active)
     entries = _row_entries(problem.A)
