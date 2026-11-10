@@ -36,7 +36,12 @@ struct SimplexProgressContext{T<:Real,D}
     refactorization_offset::Int
     diagnostics::D
     numerical_policy::NumericalPolicy{T}
+    witness_problem::Union{Nothing,LinearProblem{T}}
 end
+# Existing callers (including precision/auxiliary conversions) do not capture
+# witnesses. Only the matching reduced model opts in through the solver.
+SimplexProgressContext{T,D}(start,objective,constant,scaling,iterations,refactors,diagnostics,policy) where {T,D} =
+    SimplexProgressContext{T,D}(start,objective,constant,scaling,iterations,refactors,diagnostics,policy,nothing)
 
 struct _PivotQualityBuffers{T,W}
     rhs::Vector{T}
@@ -166,7 +171,8 @@ end
 function SimplexProgressContext(problem::LinearProblem{T}; start_ns::UInt64=time_ns(),
                                 scaling::Scaling{T}=identity_scaling(problem),
                                 iteration_offset::Int=0, refactorization_offset::Int=0, diagnostics=nothing,
-                                numerical_policy::NumericalPolicy{T}=NumericalPolicy(T)) where {T}
+                                numerical_policy::NumericalPolicy{T}=NumericalPolicy(T),
+                                witness_problem::Union{Nothing,LinearProblem{T}}=nothing) where {T}
     return SimplexProgressContext{T,typeof(diagnostics)}(
         start_ns,
         copy(problem.objective),
@@ -176,6 +182,7 @@ function SimplexProgressContext(problem::LinearProblem{T}; start_ns::UInt64=time
         refactorization_offset,
         diagnostics,
         numerical_policy,
+        witness_problem,
     )
 end
 

@@ -37,22 +37,58 @@ function _propagation_failure(problem::LinearProblem, row::Int, keep::BitVector,
         count(value -> !iszero(value), problem.A[rows, :].nzval))
 end
 
-function propagate_row_bounds(problem::LinearProblem{T}) where {T}
-    return _propagate_row_bounds(problem, trues(size(problem.A, 1)))
+# Return both the stored endpoint and its exact value. The latter is also the
+# activity cache entry: retaining the unrounded candidate would strengthen a
+# subsequent implication beyond the bounds actually stored in the model.
+# Inline to keep the optional pair scalarized instead of boxing each endpoint.
+@inline function _propagation_bound(::Type{T}, candidate::ExactValue, upper::Bool,
+                             directed::Bool) where {T}
+    if !directed
+        value = _represent_exact(T, candidate)
+        return isnothing(value) ? nothing : (value, candidate)
+    end
+    value = try
+        T(candidate)
+    catch exception
+        exception isa InexactError || exception isa OverflowError ||
+            exception isa DomainError || rethrow()
+        return nothing
+    end
+    isfinite(value) || return nothing
+    # Common exact endpoints avoid a new BigInt rational altogether.
+    ((iszero(value) && iszero(candidate)) ||
+     (isone(value) && isone(candidate)) ||
+     (value == -1 && candidate == -1)) && return (value, candidate)
+    stored = _exact_rational(value)
+    stored == candidate && return (value, candidate)
+    if upper ? stored < candidate : stored > candidate
+        value = upper ? nextfloat(value) : prevfloat(value)
+        isfinite(value) || return nothing
+        stored = _exact_rational(value)
+    end
+    (upper ? stored >= candidate : stored <= candidate) || return nothing
+    return value, stored
+end
+
+function propagate_row_bounds(problem::LinearProblem{T}; directed_bounds::Bool=true) where {T}
+    return _propagate_row_bounds(problem, trues(size(problem.A, 1)); directed_bounds)
 end
 
 function _propagate_row_bounds(problem::LinearProblem{T}, rows_to_visit::BitVector,
-                               changed_columns::BitVector=falses(size(problem.A, 2))) where {T}
+                               changed_columns::BitVector=falses(size(problem.A, 2));
+                               directed_bounds::Bool=true, history=nothing) where {T}
     m, n = size(problem.A)
     length(rows_to_visit) == m && length(changed_columns) == n ||
         throw(ArgumentError("propagation worklist dimensions do not match the model"))
     any(rows_to_visit) || return identity_presolve(problem)
+    directed = directed_bounds && (T === Float32 || T === Float64) &&
+        rounding(T) == RoundNearest && !get_zero_subnormals()
     active = copy(rows_to_visit)
     expand_active = !all(active)
     entries = _row_entries(problem.A)
     lower, upper = problem.column_lower, problem.column_upper
-    # Convert a finite bound only when an active row needs it. Accepted exact
-    # tightenings update the cache below, so later rows see the current bounds.
+    # Convert a finite bound only when an active row needs it. Accepted
+    # tightenings cache the stored endpoint, so later rows see current bounds.
     exact_lower = Vector{ExactEndpoint}(nothing, n)
     exact_upper = Vector{ExactEndpoint}(nothing, n)
     coefficients = ExactValue[]
@@ -206,13 +242,18 @@ function _propagate_row_bounds(problem::LinearProblem{T}, rows_to_visit::BitVect
                         "implies incompatible column bounds")
                 end
                 # A non-improving exact bound cannot tighten, regardless of working precision.
-                value = !isnothing(exact_lower[column]) && candidate_lower <= exact_lower[column] ? nothing :
-                    _represent_exact(T, candidate_lower)
-                if !isnothing(value) &&
-                   (!isfinite(lower[column]) || value > bound_value(lower[column]))
+                converted = !isnothing(exact_lower[column]) && candidate_lower <= exact_lower[column] ? nothing :
+                    _propagation_bound(T, candidate_lower, false, directed)
+                if !isnothing(converted) &&
+                   (!isfinite(lower[column]) || converted[1] > bound_value(lower[column]))
+                    value, stored = converted
                     lower === problem.column_lower && (lower = copy(lower))
+                    if !isnothing(history)
+                        _PropagationHistory.record!(history,problem,row,columns,lower,upper,
+                            position,column,lower[column],value,false)
+                    end
                     lower[column] = Bound(value)
-                    exact_lower[column] = candidate_lower
+                    exact_lower[column] = stored
                     changed_columns[column] = true
                     expand_active &&
                         _mark_incident_rows!(active, problem.A, column, row + 1)
@@ -224,13 +265,18 @@ function _propagate_row_bounds(problem::LinearProblem{T}, rows_to_visit::BitVect
                     return _propagation_failure(problem, row, keep,
                         "implies incompatible column bounds")
                 end
-                value = !isnothing(exact_upper[column]) && candidate_upper >= exact_upper[column] ? nothing :
-                    _represent_exact(T, candidate_upper)
-                if !isnothing(value) &&
-                   (!isfinite(upper[column]) || value < bound_value(upper[column]))
+                converted = !isnothing(exact_upper[column]) && candidate_upper >= exact_upper[column] ? nothing :
+                    _propagation_bound(T, candidate_upper, true, directed)
+                if !isnothing(converted) &&
+                   (!isfinite(upper[column]) || converted[1] < bound_value(upper[column]))
+                    value, stored = converted
                     upper === problem.column_upper && (upper = copy(upper))
+                    if !isnothing(history)
+                        _PropagationHistory.record!(history,problem,row,columns,lower,upper,
+                            position,column,upper[column],value,true)
+                    end
                     upper[column] = Bound(value)
-                    exact_upper[column] = candidate_upper
+                    exact_upper[column] = stored
                     changed_columns[column] = true
                     expand_active &&
                         _mark_incident_rows!(active, problem.A, column, row + 1)

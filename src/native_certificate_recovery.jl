@@ -40,9 +40,9 @@ end
 # The terminal certificate is stricter than incremental pricing: basic reduced
 # costs must also vanish. Correct a failed native witness without changing the
 # basis, working costs, primal point, or the certificate's absolute tolerances.
-_try_native_certificate_recovery(workspace, primal, dual, stop) = false
+_try_native_certificate_recovery(workspace, primal, dual, stop; witness=nothing) = false
 function _try_native_certificate_recovery(workspace::SimplexWorkspace{T},
-                                           primal::Vector{T}, dual::Vector{T}, stop) where {T<:Union{Float32,Float64}}
+                                           primal::Vector{T}, dual::Vector{T}, stop; witness=nothing) where {T<:Union{Float32,Float64}}
     policy = workspace.progress.numerical_policy
     # The checked solve already used its refinement budget in the witness path.
     (policy.solve_refinement || policy.max_refinements == 0 || stop()) && return false
@@ -65,6 +65,7 @@ function _try_native_certificate_recovery(workspace::SimplexWorkspace{T},
     # acceptance; neither a small relative residual nor cached prices suffice.
     _original_witness_certified(workspace.problem, workspace.options,
         workspace.basis, primal, trial) && !stop() || return false
+    isnothing(witness) || (witness[] = trial)
     _simplex_event!(workspace, :certificate_corrected)
     return true
 end

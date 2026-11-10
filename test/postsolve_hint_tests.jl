@@ -35,7 +35,7 @@ end
 end
 
 @testset "Postsolve hints retain cancellation and input guards" begin
-    for target in ([NaN,1.0],[Inf,1.0],[1.0],[1.0,0.0],[1.0,2.0])
+    for target in ([NaN,1.0],[Inf,1.0],[1.0],[1.0,0.0])
         ws=postsolve_hint_workspace()
         @test isnothing(JSimplex._project_postsolve_basis!(ws,target,()->false))
     end
@@ -49,6 +49,19 @@ end
     end
     ws=postsolve_hint_workspace(Float64;profile=:checked)
     @test isnothing(JSimplex._project_postsolve_basis!(ws,[1.001,1.0],()->false))
+end
+
+@testset "Clamped row hints restore a certified original basis" begin
+    for T in (Float32,Float64)
+        ws=postsolve_hint_workspace(T)
+        target=T[1,2]
+        @test !JSimplex._original_primal_feasible(ws.problem,target,ws.options.primal_tolerance)
+        @test JSimplex._project_postsolve_basis!(ws,target,()->false)==1
+        @test ws.primal[1:2]==T[1,1]
+        @test JSimplex._original_primal_feasible(ws.problem,ws.primal[1:2],ws.options.primal_tolerance)
+        @test JSimplex._original_optimality_certified(ws,ws.primal[1:2])
+        @test target==T[1,2]
+    end
 end
 
 @testset "An infeasible reconstructed basis is still rejected" begin

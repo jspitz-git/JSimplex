@@ -78,6 +78,15 @@ basic variables at original bounds for nonbasic variables held at bounds
 inferred during presolve. These exchanges are not counted as simplex iterations.
 As a postsolve reconstruction, they can recover an optimal original basis even
 when `iteration_limit=0`.
+For native `Float32` and `Float64` minimization with positive primal tolerance,
+postsolve also reuses the certified reduced dual values to restore a basis
+through singleton rows, equality eliminations, and recorded bound propagation.
+This history belongs to one solve; inconclusive restoration falls back to the
+ordinary basis restoration and original-model cleanup. Presolve can activate
+inequalities with independently checked exact certificates before applying the
+existing equality reductions. Neither path replaces original-model certification.
+Native objective-coefficient transformations may use checked rounding; objective
+constants and the strict infeasibility proof retain exact transformations.
 If the reduced solve cannot certify its result, JSimplex restarts simplex on
 the original LP. With `verbose=true`, this
 restart logs the first status and reason. Progress iteration counts and final

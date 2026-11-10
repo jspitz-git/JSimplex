@@ -221,18 +221,22 @@ function _compose_presolve(original::PresolveResult, next::PresolveResult)
         original.original_column_count)
 end
 
-function presolve_problem(problem::LinearProblem{T}) where {T}
+function presolve_problem(problem::LinearProblem{T}; directed_bounds::Bool=true,
+                          history=nothing, rounded_costs::Bool=false, strict_objective::Bool=false) where {T}
     # Individual passes retain their small tuple results. The complete history
     # has runtime length, so accumulate it without changing the result's type.
+    rounded_costs = rounded_costs && !strict_objective
     steps = PostsolveStep{T}[]
     current = problem
     propagation_trace = PropagationTrace{T}()
+    dependent_cache = _DependentRowsCache{T}()
     last_relevant_pass = _PRESOLVE_PASS_COUNT
     for _ in 1:12
         last_changed_pass = 0
         for index in 1:_PRESOLVE_PASS_COUNT
             index > last_relevant_pass && break
-            next = _dispatch_presolve_pass!(current, steps, propagation_trace, index)
+            next = _dispatch_presolve_pass!(current, steps, propagation_trace, index, directed_bounds,
+                history, rounded_costs, dependent_cache, strict_objective)
             next isa PresolveFailure && return next
             current, changed = next
             if changed

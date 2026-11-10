@@ -2357,13 +2357,16 @@ function _original_witness_certified(problem::LinearProblem{T}, options::SolverO
                                          uncertain_rows, active_bounds, active_bounds)
 end
 
-function _original_optimality_certified(workspace::SimplexWorkspace{T}, primal::Vector{T}) where T
+function _original_optimality_certified(workspace::SimplexWorkspace{T}, primal::Vector{T}; witness=nothing) where T
     dual = _original_dual_witness(workspace)
     isnothing(dual) && return false
-    _original_witness_certified(workspace.problem, workspace.options,
-        workspace.basis, primal, dual) && return true
+    if _original_witness_certified(workspace.problem, workspace.options,
+        workspace.basis, primal, dual)
+        isnothing(witness) || (witness[] = dual)
+        return true
+    end
     return _try_native_certificate_recovery(workspace, primal, dual,
-        _basis_solve_stop(workspace, nothing))
+        _basis_solve_stop(workspace, nothing); witness)
 end
 
 function _internal_solution(workspace::SimplexWorkspace{T}, status::TerminationStatus,
@@ -2390,7 +2393,9 @@ function _internal_solution(workspace::SimplexWorkspace{T}, status::TerminationS
         isfinite(objective) || return _internal_solution(workspace, _numerical_failure())
         corrected_primal = true
     end
-    if status == OPTIMAL && !_original_optimality_certified(workspace, primal)
+    witness = workspace.progress.witness_problem === workspace.problem ?
+        Ref{Union{Nothing,Vector{T}}}(nothing) : nothing
+    if status == OPTIMAL && !_original_optimality_certified(workspace, primal;witness)
         return _internal_solution(workspace, NUMERICAL_ERROR,
                                   "original-objective optimality certificate is inconclusive")
     end
@@ -2399,7 +2404,7 @@ function _internal_solution(workspace::SimplexWorkspace{T}, status::TerminationS
     end
     basis = status == OPTIMAL ? Basis(workspace.basis.basic_indices, workspace.basis.states) : nothing
     return DualRunResult{T}(status, objective, primal, workspace.iterations,
-                            workspace.refactorizations, message, basis)
+                            workspace.refactorizations, message, basis, isnothing(witness) ? nothing : witness[])
 end
 
 _internal_solution(workspace::SimplexWorkspace{T}, terminal::DualTermination) where {T} =

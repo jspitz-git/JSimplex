@@ -28,12 +28,10 @@ function _project_equality_bound(::Type{T}, rhs::ExactValue,
     return isnothing(projected) ? nothing : Bound(projected)
 end
 
-function _singleton_objective_value(::Type{T}, value::ExactValue) where {T<:Real}
-    represented = _represent_exact(T, value)
-    !isnothing(represented) && return represented
-    # Only singleton objective updates may be rounded; bounds and the
-    # objective constant still use _represent_exact.
-    (T === Float32 || T === Float64) || return nothing
+_singleton_objective_value(::Type{T}, value::ExactValue) where {T<:Real} =
+    _represent_exact(T, value)
+
+function _singleton_objective_value(::Type{T}, value::ExactValue) where {T<:Union{Float32,Float64}}
     rounded = try
         T(value)
     catch exception
@@ -42,12 +40,28 @@ function _singleton_objective_value(::Type{T}, value::ExactValue) where {T<:Real
         return nothing
     end
     isfinite(rounded) || return nothing
-    error = abs(value - _exact_rational(rounded))
+    if (iszero(rounded) && iszero(value)) || (isone(rounded) && isone(value)) ||
+       (rounded == -1 && value == -1)
+        return rounded
+    end
+    represented = _exact_rational(rounded)
+    represented == value && return rounded
+    error = abs(value - represented)
     limit = abs(value) * _exact_rational(8 * eps(T))
     return error <= limit ? rounded : nothing
 end
 
-function aggregate_singleton_equalities(problem::LinearProblem{T}) where {T}
+_allow_rounded_presolve_costs(::Type{T}, requested::Bool) where {T} =
+    requested && (T === Float32 || T === Float64) &&
+    rounding(T) == RoundNearest && !get_zero_subnormals()
+
+# The pass checks the floating-point environment once before staging costs.
+_presolve_cost_value(::Type{T}, value::ExactValue, rounded_costs::Bool) where {T} =
+    rounded_costs ? _singleton_objective_value(T, value) : _represent_exact(T, value)
+
+function aggregate_singleton_equalities(problem::LinearProblem{T};
+                                        rounded_costs::Bool=true) where {T}
+    rounded_costs = _allow_rounded_presolve_costs(T, rounded_costs)
     A = problem.A
     m, n = size(A)
     entries = _row_entries(A)
@@ -121,7 +135,7 @@ function aggregate_singleton_equalities(problem::LinearProblem{T}) where {T}
                             old_cost - product
                 end
                 if isnothing(_represent_exact(T, new_cost))
-                    if isnothing(_singleton_objective_value(T, new_cost))
+                    if !rounded_costs || isnothing(_singleton_objective_value(T, new_cost))
                         valid = false
                         break
                     end
@@ -160,7 +174,7 @@ function aggregate_singleton_equalities(problem::LinearProblem{T}) where {T}
 
     objective = copy(problem.objective)
     for (column, value) in objective_updates
-        objective[column] = something(_singleton_objective_value(T, value))
+        objective[column] = something(_presolve_cost_value(T, value, rounded_costs))
     end
     columns = findall(.!removed)
     rows = collect(1:m)
@@ -332,7 +346,8 @@ function _equality_implies_column_bounds(problem::LinearProblem, row_terms,
     return lower_implied && upper_implied
 end
 
-function aggregate_sparse_equalities(problem::LinearProblem{T}) where {T}
+function aggregate_sparse_equalities(problem::LinearProblem{T}; rounded_costs::Bool=false) where {T}
+    rounded_costs = _allow_rounded_presolve_costs(T, rounded_costs)
     A = problem.A
     m, n = size(A)
     entries = _row_entries(A)
@@ -421,7 +436,7 @@ function aggregate_sparse_equalities(problem::LinearProblem{T}) where {T}
                             Rational{BigInt}(numerator(old_cost) - numerator(product), denominator(old_cost)) :
                             old_cost - product
                 end
-                if isnothing(_represent_exact(T, updated))
+                if isnothing(_presolve_cost_value(T, updated, rounded_costs))
                     valid = false
                     break
                 end
@@ -551,7 +566,7 @@ function aggregate_sparse_equalities(problem::LinearProblem{T}) where {T}
     end
     objective = copy(problem.objective)
     for (column, exact) in objective_updates
-        objective[column] = something(_represent_exact(T, exact))
+        objective[column] = something(_presolve_cost_value(T, exact, rounded_costs))
     end
     reduced = LinearProblem{T}(
         sparse(coordinates_row, coordinates_column, values, length(rows), length(columns)),

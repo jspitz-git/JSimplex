@@ -11,7 +11,11 @@ struct DualRunResult{T<:Real}
     refactorizations::Int
     message::String
     basis::Union{Nothing,Basis}
+    dual::Union{Nothing,Vector{T}}
 end
+
+DualRunResult{T}(status, objective_value, primal, iterations, refactorizations, message, basis) where {T<:Real} =
+    DualRunResult{T}(status, objective_value, primal, iterations, refactorizations, message, basis, nothing)
 
 DualRunResult{T}(status, objective_value, primal, iterations, refactorizations, message) where {T<:Real} =
     DualRunResult{T}(status, objective_value, primal, iterations, refactorizations, message, nothing)
@@ -66,7 +70,7 @@ feasibility_mode(primal_ok::Bool,dual_ok::Bool)::Symbol =
 function _install_driver_policy!(ws,policy;start_ns::UInt64=ws.progress.start_ns)
     p = ws.progress
     ws.progress = typeof(p)(start_ns,p.objective,p.objective_constant,p.scaling,
-        p.iteration_offset,p.refactorization_offset,p.diagnostics,policy)
+        p.iteration_offset,p.refactorization_offset,p.diagnostics,policy,p.witness_problem)
     return nothing
 end
 

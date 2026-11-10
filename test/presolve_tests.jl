@@ -312,7 +312,7 @@ end
     @test size(JSimplex.propagate_row_bounds(redundant).problem.A) == (0, 2)
 
     inexact = LinearProblem(sparse([3.0 1.0]), [1.0, 1.0]; row_upper=[1.0])
-    @test !isfinite(JSimplex.propagate_row_bounds(inexact).problem.column_upper[1])
+    @test !isfinite(JSimplex.propagate_row_bounds(inexact; directed_bounds=false).problem.column_upper[1])
 end
 
 @testset "Presolve repeats bound propagation and structural passes" begin

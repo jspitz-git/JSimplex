@@ -15,19 +15,34 @@ function _presolve_tolerance_model(problem::LinearProblem{T}, tolerance::T) wher
         fill(CONTINUOUS, 2n+m), problem.name, problem.row_names, String[])
 end
 
+function _presolve_base_for_solve(problem::LinearProblem{T}, tolerance::T;
+                             stop_requested=()->false, verbose::Bool=false,
+                             history=nothing, rounded_costs::Bool=false) where {T}
+    return _history_transaction(history) do
+        result = presolve_problem(problem; directed_bounds=tolerance > zero(T),history,rounded_costs)
+        (!(result isa PresolveFailure) || result.status != INFEASIBLE || iszero(tolerance)) &&
+            return result
+        stop_requested() && return identity_presolve(problem)
+        # A contradiction in a reduced row has different units after elimination.
+        # Recheck only infeasibility on the tolerance envelope of ORIGINAL bounds.
+        # This model is never optimized and its reductions never reach postsolve.
+        proof = _presolve_tolerance_model(problem, tolerance)
+        stop_requested() && return identity_presolve(problem)
+        verified = presolve_problem(proof; directed_bounds=false,strict_objective=true)
+        verified isa PresolveFailure && verified.status == INFEASIBLE && return result
+        verbose && @info "Presolve infeasibility is inconclusive at primal tolerance; retaining original LP"
+        return identity_presolve(problem)
+    end
+end
+
 function _presolve_for_solve(problem::LinearProblem{T}, tolerance::T;
-                             stop_requested=()->false, verbose::Bool=false) where {T}
-    result = presolve_problem(problem)
-    (!(result isa PresolveFailure) || result.status != INFEASIBLE || iszero(tolerance)) &&
-        return result
-    stop_requested() && return identity_presolve(problem)
-    # A contradiction in a reduced row has different units after elimination.
-    # Recheck only infeasibility on the tolerance envelope of ORIGINAL bounds.
-    # This model is never optimized and its reductions never reach postsolve.
-    proof = _presolve_tolerance_model(problem, tolerance)
-    stop_requested() && return identity_presolve(problem)
-    verified = presolve_problem(proof)
-    verified isa PresolveFailure && verified.status == INFEASIBLE && return result
-    verbose && @info "Presolve infeasibility is inconclusive at primal tolerance; retaining original LP"
-    return identity_presolve(problem)
+                             stop_requested=()->false, verbose::Bool=false,
+                             history=nothing) where T
+    rounded_costs = T in (Float32,Float64) && tolerance > zero(T)
+    # A callback may signal only once. Preserve that request across the base
+    # presolve, its infeasibility proof, and the optional inequality pass.
+    stopped = Ref(false)
+    poll() = stopped[] || (stopped[] = stop_requested())
+    base = _presolve_base_for_solve(problem,tolerance;stop_requested=poll,verbose,history,rounded_costs)
+    return _augment_inequalities(base,problem,tolerance,history,poll,verbose;rounded_costs)
 end

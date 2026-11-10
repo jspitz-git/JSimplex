@@ -29,7 +29,8 @@ function _doubleton_row_positions(A::SparseMatrixCSC)
     return positions
 end
 
-function substitute_free_doubleton(problem::LinearProblem{T}) where {T}
+function substitute_free_doubleton(problem::LinearProblem{T}; rounded_costs::Bool=false) where {T}
+    rounded_costs = _allow_rounded_presolve_costs(T, rounded_costs)
     m, n = size(problem.A)
     positions = _doubleton_row_positions(problem.A)
     for equality_row in 1:m
@@ -112,7 +113,7 @@ function substitute_free_doubleton(problem::LinearProblem{T}) where {T}
                     end
                 end
             end
-            new_cost = _represent_exact(T, cost_exact)
+            new_cost = _presolve_cost_value(T, cost_exact, rounded_costs)
             new_constant = _represent_exact(T, constant_exact)
             (isnothing(new_cost) || isnothing(new_constant)) && continue
 

@@ -153,8 +153,14 @@ function _project_postsolve_basis!(workspace::SimplexWorkspace{T}, target::Vecto
 
     states = Vector{VariableState}(undef, row_count + column_count)
     for index in eachindex(states)
+        hint_value = target_values[index]
+        if native_hint && !target_feasible && index > column_count
+            lower, upper = workspace.lower[index], workspace.upper[index]
+            isfinite(lower) && (hint_value = max(hint_value, bound_value(lower)))
+            isfinite(upper) && (hint_value = min(hint_value, bound_value(upper)))
+        end
         states[index] = _projection_bound_state(workspace.lower[index],
-            workspace.upper[index], target_values[index], options.primal_tolerance)
+            workspace.upper[index], hint_value, options.primal_tolerance)
     end
     displaced = Int[]
     for column in 1:column_count
@@ -540,10 +546,13 @@ function _solve_diagnosed(problem::LinearProblem{T}, diagnostics;
     # Even a continuous input gets its own arrays before future transforms can
     # mutate the working model. Keep this original-space LP for certification.
     continuous_problem = JSimplex.relax_integrality(problem)
+    history = typed_options.presolve && T in (Float32,Float64) &&
+        continuous_problem.objective_sense == MIN_SENSE && typed_options.primal_tolerance > zero(T) ?
+        _PostsolveHistory(T) : nothing
     presolved = if typed_options.presolve
         typed_options.verbose && @info "Starting presolve"
         _presolve_for_solve(continuous_problem, typed_options.primal_tolerance;
-            stop_requested=()->time_limit_reached(context), verbose=typed_options.verbose)
+            stop_requested=()->time_limit_reached(context), verbose=typed_options.verbose, history)
     else
         identity_presolve(continuous_problem)
     end
@@ -570,7 +579,8 @@ function _solve_diagnosed(problem::LinearProblem{T}, diagnostics;
     # The core converts expected internal numerical failures and preserves
     # callback exception provenance. Do not add a broader catch at this layer.
     progress = SimplexProgressContext(presolved.problem; start_ns=context.start_ns, scaling,
-                                      diagnostics, numerical_policy=policy)
+        diagnostics, numerical_policy=policy,
+        witness_problem=isnothing(history) || isempty(presolved.postsolve_stack) ? nothing : working_problem)
     algorithm = typed_options.algorithm == :dual ? _solve_continuous_dual : _solve_continuous_primal
     run = algorithm(
         working_problem,
@@ -581,6 +591,7 @@ function _solve_diagnosed(problem::LinearProblem{T}, diagnostics;
     reduced = !isempty(presolved.postsolve_stack)
     retried_original = false
     if reduced && run.status in (INFEASIBLE, UNBOUNDED, NUMERICAL_ERROR)
+        _restore_history_mark!(history,0)
         run = _retry_original(continuous_problem, typed_options, context, run)
         retried_original = true
     end
@@ -589,8 +600,9 @@ function _solve_diagnosed(problem::LinearProblem{T}, diagnostics;
                              iterations=run.iterations, refactorizations=run.refactorizations)
     end
 
-    primal = retried_original ? run.primal :
-             postsolve_primal(presolved, unscale_primal(scaling, run.primal))
+    basis_hint, primal = retried_original ? (run.basis,run.primal) :
+        _postsolve_with_dual(history,presolved,scaling,run,typed_options)
+    _restore_history_mark!(history,0)
     # A scaled certificate uses working-unit tolerances. Even without presolve
     # reductions, unscaling can expose an original-row violation. Reuse the
     # original certificate on the fast path; only failed points need cleanup.
@@ -600,7 +612,7 @@ function _solve_diagnosed(problem::LinearProblem{T}, diagnostics;
         if isnothing(run.basis)
             run = _retry_original(continuous_problem, typed_options, context, run)
         else
-            basis = reduced ? restore_basis(presolved, run.basis) : run.basis
+            basis = reduced ? basis_hint : run.basis
             run = _cleanup_or_retry_original(continuous_problem, basis,
                 typed_options, context, run.iterations, run.refactorizations;
                 target_primal=primal)
