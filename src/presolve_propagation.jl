@@ -29,6 +29,13 @@ function _cached_bound_rational!(cache::Vector{ExactEndpoint}, bounds, column::I
     return value
 end
 
+_other_activity(total::_SmallExact.E, unbounded::Int,
+                term::Union{Nothing,_SmallExact.E}, activity_zero=nothing) =
+    _SmallExact.other(total, unbounded, term, activity_zero)
+
+_cached_bound_rational!(cache::Vector{Union{Nothing,_SmallExact.E}}, bounds, column::Int) =
+    _SmallExact.cached(cache, bounds, column)
+
 function _propagation_failure(problem::LinearProblem, row::Int, keep::BitVector,
                               message::String)
     rows = findall(keep)
@@ -95,6 +102,14 @@ function _propagation_bound(::Type{BigFloat}, candidate::ExactValue, upper::Bool
     return value, stored == candidate ? candidate : stored
 end
 
+# Widen only at the endpoint boundary. The original directed/exact conversion
+# verifies the stored endpoint before it is returned to the activity cache.
+@inline function _propagation_bound(::Type{T}, candidate::_SmallExact.E, upper::Bool,
+                                    directed::Bool) where {T}
+    result = _propagation_bound(T, _SmallExact.wide(candidate), upper, directed)
+    return isnothing(result) ? nothing : (result[1], _SmallExact.E(result[2]))
+end
+
 function propagate_row_bounds(problem::LinearProblem{T}; directed_bounds::Bool=true) where {T}
     return _propagate_row_bounds(problem, trues(size(problem.A, 1)); directed_bounds)
 end
@@ -102,6 +117,25 @@ end
 function _propagate_row_bounds(problem::LinearProblem{T}, rows_to_visit::BitVector,
                                changed_columns::BitVector=falses(size(problem.A, 2));
                                directed_bounds::Bool=true, history=nothing) where {T}
+    arithmetic = _propagation_arithmetic(T)
+    return _propagate_row_bounds_kernel(problem, rows_to_visit, changed_columns, arithmetic;
+                                       directed_bounds, history)
+end
+
+# Dispatch once per propagation pass. Unsupported arithmetic environments retain
+# the original exact rational path and all endpoint conversion guards.
+@inline _propagation_arithmetic(::Type{T}) where {T} =
+    ((T === Float32 || T === Float64) && rounding(T) == RoundNearest &&
+     !get_zero_subnormals()) ? _SmallExact.E : ExactValue
+
+@inline _propagation_exact(::Type{ExactValue}, value) = _exact_rational(value)
+@inline _propagation_exact(::Type{_SmallExact.E}, value) = _SmallExact.E(value)
+@inline _propagation_form(::Type{ExactValue}, n, d) = Rational{BigInt}(n, d)
+@inline _propagation_form(::Type{_SmallExact.E}, n, d) = _SmallExact.form(n, d)
+
+function _propagate_row_bounds_kernel(problem::LinearProblem{T}, rows_to_visit::BitVector,
+                                     changed_columns::BitVector, ::Type{AR};
+                                     directed_bounds::Bool=true, history=nothing) where {T,AR}
     m, n = size(problem.A)
     length(rows_to_visit) == m && length(changed_columns) == n ||
         throw(ArgumentError("propagation worklist dimensions do not match the model"))
@@ -110,14 +144,14 @@ function _propagate_row_bounds(problem::LinearProblem{T}, rows_to_visit::BitVect
         ((T === Float32 || T === Float64) && rounding(T) == RoundNearest && !get_zero_subnormals()))
     active = copy(rows_to_visit)
     expand_active = !all(active)
-    entries = _row_entries(problem.A)
+    entries = _PresolveWork.rows(problem.A)
     lower, upper = problem.column_lower, problem.column_upper
     # Convert a finite bound only when an active row needs it. Accepted
     # tightenings cache the stored endpoint, so later rows see current bounds.
-    exact_lower = Vector{ExactEndpoint}(nothing, n)
-    exact_upper = Vector{ExactEndpoint}(nothing, n)
-    coefficients = ExactValue[]
-    min_terms, max_terms = ExactEndpoint[], ExactEndpoint[]
+    exact_lower = Vector{Union{Nothing,AR}}(nothing, n)
+    exact_upper = Vector{Union{Nothing,AR}}(nothing, n)
+    coefficients = AR[]
+    min_terms, max_terms = Union{Nothing,AR}[], Union{Nothing,AR}[]
     keep = trues(m)
     # Exact activity arithmetic replaces values; initialize a shared zero lazily.
     activity_zero = nothing
@@ -128,11 +162,11 @@ function _propagate_row_bounds(problem::LinearProblem{T}, rows_to_visit::BitVect
         resize!(coefficients, length(columns))
         resize!(min_terms, length(columns))
         resize!(max_terms, length(columns))
-        isnothing(activity_zero) && (activity_zero = zero(ExactValue))
+        isnothing(activity_zero) && (activity_zero = zero(AR))
         min_sum, max_sum = activity_zero, activity_zero
         min_unbounded, max_unbounded = 0, 0
         for (position, (column, stored)) in enumerate(columns)
-            coefficient = _exact_rational(stored)
+            coefficient = _propagation_exact(AR, stored)
             coefficients[position] = coefficient
             unit_coefficient = isone(coefficient)
             negative_unit_coefficient = coefficient == -1
@@ -157,9 +191,9 @@ function _propagate_row_bounds(problem::LinearProblem{T}, rows_to_visit::BitVect
                 if iszero(min_sum)
                     min_sum = min_term
                 elseif denominator(min_sum) == denominator(min_term)
-                    summed_numerator = numerator(min_sum) + numerator(min_term)
+                    summed_numerator = _SmallExact.add(numerator(min_sum), numerator(min_term))
                     min_sum = iszero(summed_numerator) ? activity_zero :
-                        Rational{BigInt}(summed_numerator, denominator(min_sum))
+                        _propagation_form(AR, summed_numerator, denominator(min_sum))
                 else
                     min_sum += min_term
                 end
@@ -173,9 +207,9 @@ function _propagate_row_bounds(problem::LinearProblem{T}, rows_to_visit::BitVect
                     # Matching operands can share the already computed immutable sum.
                     max_sum = min_sum
                 elseif denominator(max_sum) == denominator(max_term)
-                    summed_numerator = numerator(max_sum) + numerator(max_term)
+                    summed_numerator = _SmallExact.add(numerator(max_sum), numerator(max_term))
                     max_sum = iszero(summed_numerator) ? activity_zero :
-                        Rational{BigInt}(summed_numerator, denominator(max_sum))
+                        _propagation_form(AR, summed_numerator, denominator(max_sum))
                 else
                     max_sum += max_term
                 end
@@ -185,10 +219,10 @@ function _propagate_row_bounds(problem::LinearProblem{T}, rows_to_visit::BitVect
         has_row_lower, has_row_upper = isfinite(stored_lower), isfinite(stored_upper)
         # Flags distinguish unbounded sides; zero endpoints reuse the activity seed.
         row_lower = has_row_lower && !iszero(bound_value(stored_lower)) ?
-            _exact_rational(bound_value(stored_lower)) : (activity_zero::ExactValue)
+            _propagation_exact(AR, bound_value(stored_lower)) : (activity_zero::AR)
         # Equal stored bounds share their exact conversion, including mixed precision.
         row_upper = has_row_upper && !iszero(bound_value(stored_upper)) ?
-            (stored_lower == stored_upper ? row_lower : _exact_rational(bound_value(stored_upper))) : (activity_zero::ExactValue)
+            (stored_lower == stored_upper ? row_lower : _propagation_exact(AR, bound_value(stored_upper))) : (activity_zero::AR)
         if (has_row_upper && min_unbounded == 0 && min_sum > row_upper) ||
            (has_row_lower && max_unbounded == 0 && max_sum < row_lower)
             return _propagation_failure(problem, row, keep,
@@ -209,55 +243,55 @@ function _propagate_row_bounds(problem::LinearProblem{T}, rows_to_visit::BitVect
                 _other_activity(min_sum, min_unbounded, min_terms[position], activity_zero)
             other_max = !has_row_lower ? nothing :
                 _other_activity(max_sum, max_unbounded, max_terms[position], activity_zero)
-            candidate_lower::ExactEndpoint = nothing
-            candidate_upper::ExactEndpoint = nothing
+            candidate_lower::Union{Nothing,AR} = nothing
+            candidate_upper::Union{Nothing,AR} = nothing
             if coefficient > 0
                 if has_row_lower && !isnothing(other_max)
                     difference = iszero(other_max) ? row_lower :
                                  iszero(row_lower) ? -other_max :
-                                 row_lower == other_max ? (activity_zero::ExactValue) :
+                                 row_lower == other_max ? (activity_zero::AR) :
                                  denominator(row_lower) == denominator(other_max) ?
-                                 Rational{BigInt}(numerator(row_lower) - numerator(other_max), denominator(row_lower)) :
+                                 _propagation_form(AR, _SmallExact.sub(numerator(row_lower), numerator(other_max)), denominator(row_lower)) :
                                  row_lower - other_max
                     candidate_lower = isone(coefficient) || iszero(difference) ? difference :
                                       denominator(difference) == denominator(coefficient) ?
-                                      Rational{BigInt}(numerator(difference), numerator(coefficient)) : difference / coefficient
+                                      _propagation_form(AR, numerator(difference), numerator(coefficient)) : difference / coefficient
                 end
                 if has_row_upper && !isnothing(other_min)
                     difference = iszero(other_min) ? row_upper :
                                  iszero(row_upper) ? -other_min :
-                                 row_upper == other_min ? (activity_zero::ExactValue) :
+                                 row_upper == other_min ? (activity_zero::AR) :
                                  denominator(row_upper) == denominator(other_min) ?
-                                 Rational{BigInt}(numerator(row_upper) - numerator(other_min), denominator(row_upper)) :
+                                 _propagation_form(AR, _SmallExact.sub(numerator(row_upper), numerator(other_min)), denominator(row_upper)) :
                                  row_upper - other_min
                     candidate_upper = isone(coefficient) || iszero(difference) ? difference :
                                       denominator(difference) == denominator(coefficient) ?
-                                      Rational{BigInt}(numerator(difference), numerator(coefficient)) : difference / coefficient
+                                      _propagation_form(AR, numerator(difference), numerator(coefficient)) : difference / coefficient
                 end
             else
                 if has_row_upper && !isnothing(other_min)
                     difference = iszero(other_min) ? row_upper :
                                  iszero(row_upper) ? -other_min :
-                                 row_upper == other_min ? (activity_zero::ExactValue) :
+                                 row_upper == other_min ? (activity_zero::AR) :
                                  denominator(row_upper) == denominator(other_min) ?
-                                 Rational{BigInt}(numerator(row_upper) - numerator(other_min), denominator(row_upper)) :
+                                 _propagation_form(AR, _SmallExact.sub(numerator(row_upper), numerator(other_min)), denominator(row_upper)) :
                                  row_upper - other_min
                     candidate_lower = iszero(difference) ? difference :
                                       coefficient == -1 ? -difference :
                                       denominator(difference) == denominator(coefficient) ?
-                                      Rational{BigInt}(numerator(difference), numerator(coefficient)) : difference / coefficient
+                                      _propagation_form(AR, numerator(difference), numerator(coefficient)) : difference / coefficient
                 end
                 if has_row_lower && !isnothing(other_max)
                     difference = iszero(other_max) ? row_lower :
                                  iszero(row_lower) ? -other_max :
-                                 row_lower == other_max ? (activity_zero::ExactValue) :
+                                 row_lower == other_max ? (activity_zero::AR) :
                                  denominator(row_lower) == denominator(other_max) ?
-                                 Rational{BigInt}(numerator(row_lower) - numerator(other_max), denominator(row_lower)) :
+                                 _propagation_form(AR, _SmallExact.sub(numerator(row_lower), numerator(other_max)), denominator(row_lower)) :
                                  row_lower - other_max
                     candidate_upper = iszero(difference) ? difference :
                                       coefficient == -1 ? -difference :
                                       denominator(difference) == denominator(coefficient) ?
-                                      Rational{BigInt}(numerator(difference), numerator(coefficient)) : difference / coefficient
+                                      _propagation_form(AR, numerator(difference), numerator(coefficient)) : difference / coefficient
                 end
             end
             if !isnothing(candidate_lower)

@@ -6,19 +6,38 @@ struct PresolveFailure
     nonzeros::Int
 end
 
+# Private readonly map storage, used only at attested constant construction sites.
+struct _PresolveConstantVector{T} <: AbstractVector{T}
+    value::T
+    n::Int
+    function _PresolveConstantVector{T}(value,n::Int) where T
+        n>=0 || throw(ArgumentError("negative constant vector length"))
+        new{T}(value,n)
+    end
+end
+Base.size(v::_PresolveConstantVector)=(v.n,)
+Base.IndexStyle(::Type{<:_PresolveConstantVector})=IndexLinear()
+@inline function Base.getindex(v::_PresolveConstantVector,i::Int)
+    @boundscheck checkbounds(v,i)
+    v.value
+end
+function Base.copy(v::_PresolveConstantVector{T}) where T
+    out=Vector{T}(undef,v.n);fill!(out,v.value)
+end
+Base.similar(v::_PresolveConstantVector,::Type{T},dims::Dims) where T=Array{T}(undef,dims)
+
 struct PresolveMap{T<:Real} <: AbstractPostsolveStep
     rows::Vector{Int}
-    columns::Vector{Int}
-    removed_values::Vector{Union{Nothing,T}}
-    removed_states::Vector{VariableState}
+    columns::Union{Vector{Int},UnitRange{Int}}
+    removed_values::Union{Vector{Union{Nothing,T}},_PresolveConstantVector{Union{Nothing,T}}}
+    removed_states::Union{Vector{VariableState},_PresolveConstantVector{VariableState}}
     original_row_count::Int
 end
 
 _exact_rational(value::Real) = Rational{BigInt}(value)
-_exact_rational(value::BigFloat) =
-    setprecision(BigFloat, max(precision(value), precision(BigFloat))) do
-        Rational{BigInt}(value)
-    end
+_exact_rational(value::BigFloat) = _PresolveWork.exact(value)
+_exact_rational(value::Float64) = _PresolveWork.exact(value)
+_exact_rational(value::Float32) = _PresolveWork.exact(value)
 
 # Accept a floating reduction only if its new stored value is the exact result
 # of arithmetic on the stored inputs. This avoids changing an LP certificate by
@@ -186,7 +205,7 @@ function _presolve_basic(problem::LinearProblem{T}; selections=nothing) where {T
     length(columns) == column_count && length(rows) == row_count &&
         return identity_presolve(problem)
 
-    reduced = LinearProblem{T}(
+    reduced = _presolve_model(Val(3571),
         A[rows, columns], problem.objective[columns], constant,
         problem.objective_sense, lower[rows], upper[rows],
         problem.column_lower[columns], problem.column_upper[columns],
@@ -198,13 +217,26 @@ function _presolve_basic(problem::LinearProblem{T}; selections=nothing) where {T
     return PresolveResult(reduced, (step,), column_count)
 end
 
-function postsolve_primal(step::PresolveMap{T}, primal::Vector{T}) where {T}
-    restored = Vector{T}(undef, length(step.removed_values))
+function postsolve_primal(step::PresolveMap{T},primal::Vector{T}) where T
+    _postsolve_map_fields(step.removed_values,step.columns,primal)
+end
+
+@noinline function _postsolve_map_fields(removed_values,columns,primal::Vector{T}) where {T}
+    restored = Vector{T}(undef, length(removed_values))
     for column in eachindex(restored)
-        value = step.removed_values[column]
+        value = removed_values[column]
         isnothing(value) || (restored[column] = value)
     end
-    restored[step.columns] .= primal
+    if columns isa Vector{Int} && length(columns) == length(primal)
+        # Scalar checked scatter avoids constructing/validating a gather view.
+        # Keep bounds checks, order and duplicate-index last-write semantics.
+        for (reduced,original) in enumerate(columns)
+            restored[original] = primal[reduced]
+        end
+    else
+        # Preserve broadcast expansion and dimension errors for unusual callers.
+        restored[columns] .= primal
+    end
     return restored
 end
 
@@ -252,23 +284,37 @@ function presolve_problem(problem::LinearProblem{T}; directed_bounds::Bool=true,
     return PresolveResult(current, steps, size(problem.A, 2))
 end
 
-function restore_basis(step::PresolveMap, basis::Basis)
-    original_columns = length(step.removed_values)
-    reduced_columns = length(step.columns)
-    states = Vector{VariableState}(undef, original_columns + step.original_row_count)
-    states[1:original_columns] .= step.removed_states
+function restore_basis(step::PresolveMap,basis::Basis)
+    _restore_map_fields(step.rows,step.columns,step.removed_states,length(step.removed_values),step.original_row_count,basis)
+end
+
+@noinline function _restore_map_fields(rows,columns,removed_states,original_columns::Int,original_row_count::Int,basis::Basis)
+    reduced_columns = length(columns)
+    states = Vector{VariableState}(undef, original_columns + original_row_count)
+    states[1:original_columns] .= removed_states
     states[original_columns + 1:end] .= BASIC
-    for (reduced, original) in enumerate(step.columns)
+    for (reduced, original) in enumerate(columns)
         states[original] = basis.states[reduced]
     end
-    for (reduced, original) in enumerate(step.rows)
+    for (reduced, original) in enumerate(rows)
         states[original_columns + original] = basis.states[reduced_columns + reduced]
     end
-    basic_indices = collect(original_columns + 1:original_columns + step.original_row_count)
+    basic_indices = collect(original_columns + 1:original_columns + original_row_count)
     for (reduced_row, index) in enumerate(basis.basic_indices)
-        original_row = step.rows[reduced_row]
-        basic_indices[original_row] = index <= reduced_columns ? step.columns[index] :
-                                      original_columns + step.rows[index - reduced_columns]
+        original_row = rows[reduced_row]
+        basic_indices[original_row] = index <= reduced_columns ? columns[index] :
+                                      original_columns + rows[index - reduced_columns]
     end
     return Basis(basic_indices, states, Val(:owned))
+end
+
+# Called only where every column is retained and all removed-value slots are absent.
+function _presolve_row_map(::Type{T},rows,n,m) where T
+    if T in (Float32,Float64,BigFloat)
+        return PresolveMap{T}(rows,1:n,
+            _PresolveConstantVector{Union{Nothing,T}}(nothing,n),
+            _PresolveConstantVector{VariableState}(FREE_NONBASIC,n),m)
+    end
+    return PresolveMap{T}(rows,collect(1:n),Vector{Union{Nothing,T}}(nothing,n),
+        fill(FREE_NONBASIC,n),m)
 end

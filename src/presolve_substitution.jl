@@ -172,7 +172,7 @@ function substitute_free_doubleton(problem::LinearProblem{T}; rounded_costs::Boo
             dropzeros!(reduced_A)
             objective = copy(problem.objective)
             objective[retained] = new_cost
-            reduced = LinearProblem{T}(
+            reduced = _presolve_model(Val(3571),
                 reduced_A, objective[columns], new_constant, problem.objective_sense,
                 row_lower[rows], row_upper[rows], problem.column_lower[columns],
                 problem.column_upper[columns], problem.variable_domains[columns],

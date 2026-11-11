@@ -80,7 +80,7 @@ end
 
 function reduce_parallel_rows(problem::LinearProblem{T}) where {T}
     m, n = size(problem.A)
-    entries = _row_entries(problem.A)
+    entries = _PresolveWork.rows(problem.A)
     keep = trues(m)
     groups = Dict{Vector{Int},Union{Int,ParallelSignatureGroups}}()
     intervals = nothing
@@ -218,7 +218,8 @@ function reduce_dependent_rows(problem::LinearProblem{T}) where {T}
     # Exact rational elimination is deliberately bounded on large models.
     (m > 256 || count(value -> !iszero(value), problem.A.nzval) > 10000) &&
         return identity_presolve(problem)
-    entries = _row_entries(problem.A)
+    ledger = _PresolveRepeat.current()
+    entries = _PresolveWork.rows(problem.A)
     pivots = Dict{Int,Tuple{Dict{Int,ExactValue},Dict{Int,ExactValue}}}()
     keep = trues(m)
     work = 0
@@ -252,8 +253,15 @@ function reduce_dependent_rows(problem::LinearProblem{T}) where {T}
             end
             basis_row, basis_combination = pivots[pivot]
             scale = coefficients[pivot]
-            work += length(basis_row) + length(basis_combination)
-            work > 200000 && return _row_result(problem, findall(keep))
+            charge = length(basis_row) + length(basis_combination)
+            if isnothing(ledger)
+                work += charge
+                work > 200000 && return _row_result(problem,findall(keep))
+            else
+                _PresolveRepeat.dependent_can_charge(ledger,charge) || return _row_result(problem,findall(keep))
+                _PresolveRepeat.charge_dependent!(ledger,charge)
+                work += charge
+            end
             _subtract_scaled!(coefficients, basis_row, scale)
             _subtract_scaled!(combination, basis_combination, scale)
         end

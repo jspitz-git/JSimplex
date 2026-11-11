@@ -50,7 +50,7 @@ function _row_result(problem::LinearProblem{T}, rows::Vector{Int};
     # A row slice also discards spare CSC storage; keep that behavior when needed.
     copy_matrix = all_rows && length(problem.A.rowval) == nnz(problem.A) &&
                   length(problem.A.nzval) == nnz(problem.A)
-    reduced = LinearProblem{T}(
+    reduced = _presolve_model(Val(((!copy_matrix ? 1 : 0) | (!all_rows ? (1<<4 | 1<<5) : 0) | (!all_rows && !isempty(problem.row_names) ? 1<<10 : 0))),
         copy_matrix ? problem.A : problem.A[rows, :],
         problem.objective, problem.objective_constant, problem.objective_sense,
         all_rows ? problem.row_lower : problem.row_lower[rows],
@@ -59,8 +59,7 @@ function _row_result(problem::LinearProblem{T}, rows::Vector{Int};
         all_rows || isempty(problem.row_names) ? problem.row_names : problem.row_names[rows],
         problem.column_names,
     )
-    step = PresolveMap{T}(rows, collect(1:n),
-        Vector{Union{Nothing,T}}(nothing, n), fill(FREE_NONBASIC, n), m)
+    step = _presolve_row_map(T,rows,n,m)
     return PresolveResult(reduced, (step,), n)
 end
 

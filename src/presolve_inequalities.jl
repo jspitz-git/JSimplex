@@ -30,15 +30,19 @@ function _stage_inequality_reductions(problem::LinearProblem{T}, certificates;
     return (;problem=current,metadata,steps,accepted)
 end
 
-function _augment_inequalities(base, problem::LinearProblem{T}, tolerance,
+function _augment_inequalities_once(base, problem::LinearProblem{T}, tolerance,
                                history, stop_requested, verbose; rounded_costs::Bool) where T
     base isa PresolveFailure && return base
-    problem.objective_sense == MIN_SENSE && T in (Float32,Float64) &&
+    (problem.objective_sense == MIN_SENSE && T in (Float32,Float64) &&
         tolerance > zero(T) && is_continuous(problem) &&
-        rounding(T) == RoundNearest && !get_zero_subnormals() || return base
+        rounding(T) == RoundNearest && !get_zero_subnormals() ||
+        (T === BigFloat && problem.objective_sense == MIN_SENSE &&
+         tolerance > zero(T) && is_continuous(problem) &&
+         rounding(BigFloat) == RoundNearest)) || return base
     stop_requested() && return base
     root = base.problem
-    certificates, _ = _InequalityProofs.infer(root;stop_requested)
+    certificates, _ = _PresolveRepeat.infer_shared(root,
+        _PresolveRepeat.current()::_PresolveRepeat.Ledger, stop_requested)
     isempty(certificates) && return base
     capture = !isnothing(history)
     staged = _stage_inequality_reductions(root,certificates;rounded_costs,capture,stop_requested)
@@ -73,5 +77,26 @@ function _augment_inequalities(base, problem::LinearProblem{T}, tolerance,
     catch
         _restore_history_mark!(history,mark)
         rethrow()
+    end
+end
+
+# Repeat only while certified activation removes columns. All passes and retry
+# staging share the original total work caps, with at most three useful rounds.
+function _augment_inequalities(base, problem::LinearProblem{T}, tolerance,
+                               history, stop_requested, verbose; rounded_costs::Bool) where T
+    base isa PresolveFailure && return base
+    active = _PresolveRepeat.current()
+    budget = isnothing(active) ? _PresolveRepeat.Ledger() : active
+    return _PresolveRepeat.with_budget(budget) do
+        for _ in 1:3
+            stop_requested() && break
+            before = base
+            base = _augment_inequalities_once(base,problem,tolerance,history,
+                stop_requested,verbose;rounded_costs)
+            base === before && break
+            base isa PresolveFailure && break
+            size(base.problem.A,2) < size(before.problem.A,2) || break
+        end
+        base
     end
 end

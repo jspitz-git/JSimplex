@@ -102,9 +102,24 @@ struct LinearProblem{T<:Real}
         row_names::Vector{String}, column_names::Vector{String},
     ) where {T<:Real}
         _supported_value_type(T) || throw(ArgumentError("unsupported model value type $T"))
-        problem = new{T}(copy(A), copy(objective), objective_constant, objective_sense,
-            copy(row_lower), copy(row_upper), copy(column_lower), copy(column_upper),
-            copy(variable_domains), name, copy(row_names), copy(column_names))
+        return LinearProblem{T}(copy(A),copy(objective),objective_constant,objective_sense,
+            copy(row_lower),copy(row_upper),copy(column_lower),copy(column_upper),
+            copy(variable_domains),name,copy(row_names),copy(column_names),Val(:presolve_owned))
+    end
+
+    # Internal transfer of attested fresh arrays; validation and binary clamp remain.
+    function LinearProblem{T}(
+        A::SparseMatrixCSC{T,Int}, objective::Vector{T},
+        objective_constant::T, objective_sense::ObjectiveSense,
+        row_lower::Vector{Bound{T}}, row_upper::Vector{Bound{T}},
+        column_lower::Vector{Bound{T}}, column_upper::Vector{Bound{T}},
+        variable_domains::Vector{VariableDomain}, name::String,
+        row_names::Vector{String}, column_names::Vector{String}, ::Val{:presolve_owned},
+    ) where {T<:Real}
+        _supported_value_type(T) || throw(ArgumentError("unsupported model value type $T"))
+        problem = new{T}(A, objective, objective_constant, objective_sense,
+            row_lower, row_upper, column_lower, column_upper,
+            variable_domains, name, row_names, column_names)
         error = _validation_error(problem)
         isnothing(error) || throw(ArgumentError(error))
         for index in eachindex(problem.variable_domains)
@@ -293,3 +308,18 @@ Return whether every variable has domain `CONTINUOUS`, including an empty model.
 Integer, binary, and semi domains return `false` even when their bounds fix them.
 """
 is_continuous(problem::LinearProblem) = all(==(CONTINUOUS), problem.variable_domains)
+
+# Bits identify fresh, independently owned arrays at audited presolve construction sites.
+# Borrowed arrays retain the public constructor's shallow-container copy semantics.
+function _presolve_model(::Val{Mask},args...) where Mask
+    T=eltype(args[1])
+    T in (Float32,Float64,BigFloat) || return LinearProblem{T}(args...)
+    fields=ntuple(Val(12)) do i
+        if i in (1,2,5,6,7,8,9,11,12) && Mask & (1<<(i-1))==0
+            copy(args[i])
+        else
+            args[i]
+        end
+    end
+    return LinearProblem{T}(fields...,Val(:presolve_owned))
+end

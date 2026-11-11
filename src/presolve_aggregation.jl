@@ -64,7 +64,7 @@ function aggregate_singleton_equalities(problem::LinearProblem{T};
     rounded_costs = _allow_rounded_presolve_costs(T, rounded_costs)
     A = problem.A
     m, n = size(A)
-    entries = _row_entries(A)
+    entries = _PresolveWork.rows(A)
     removed = falses(n)
     row_lower, row_upper = problem.row_lower, problem.row_upper
     objective_updates = Dict{Int,ExactValue}()
@@ -178,7 +178,7 @@ function aggregate_singleton_equalities(problem::LinearProblem{T};
     end
     columns = findall(.!removed)
     rows = collect(1:m)
-    reduced = LinearProblem{T}(
+    reduced = _presolve_model(Val(2547),
         A[:, columns], objective[columns],
         something(_represent_exact(T, constant_exact)), problem.objective_sense,
         row_lower, row_upper, problem.column_lower[columns],
@@ -347,10 +347,12 @@ function _equality_implies_column_bounds(problem::LinearProblem, row_terms,
 end
 
 function aggregate_sparse_equalities(problem::LinearProblem{T}; rounded_costs::Bool=false) where {T}
+    ledger = _PresolveRepeat.current()
+    !isnothing(ledger) && !_PresolveRepeat.sparse_available(ledger) && return identity_presolve(problem)
     rounded_costs = _allow_rounded_presolve_costs(T, rounded_costs)
     A = problem.A
     m, n = size(A)
-    entries = _row_entries(A)
+    entries = _PresolveWork.entries(problem,rounded_costs)
     removed_rows, removed_columns = falses(m), falses(n)
     modified_rows, blocked_pivots = falses(m), falses(n)
     row_lower, row_upper = problem.row_lower, problem.row_upper
@@ -366,6 +368,7 @@ function aggregate_sparse_equalities(problem::LinearProblem{T}; rounded_costs::B
     coefficient_changes = nothing
 
     for row in 1:m
+        !isnothing(ledger) && ledger.sparse_records >= 50_000 && break
         # A row changed by an earlier substitution cannot supply an independent
         # equality for this batch.
         modified_rows[row] && continue
@@ -375,6 +378,8 @@ function aggregate_sparse_equalities(problem::LinearProblem{T}; rounded_costs::B
         isfinite(lower) && isfinite(upper) &&
             bound_value(lower) == bound_value(upper) || continue
         any(entry -> removed_columns[entry[1]], terms) && continue
+        isempty(records) && _PresolveWork.rejected(problem,row,terms) && continue
+        attempted = false
         rhs = bound_value(lower)
         rhs_exact = _exact_rational(rhs)
 
@@ -383,7 +388,8 @@ function aggregate_sparse_equalities(problem::LinearProblem{T}; rounded_costs::B
             column_degree = A.colptr[column + 1] - A.colptr[column]
             column_degree >= 2 || continue
             fill_estimate = (length(terms) - 1) * (column_degree - 1)
-            fill_estimate <= 10 && estimated_updates + fill_estimate <= 200_000 || continue
+            fill_estimate <= 10 && (isnothing(ledger) ? estimated_updates + fill_estimate <= 200_000 : _PresolveRepeat.sparse_can_charge(ledger,fill_estimate)) || continue
+            attempted = true
             pivot = _exact_rational(coefficient)
             implied = _equality_implies_column_bounds(problem, terms, column,
                                                        pivot, rhs_exact)
@@ -528,9 +534,11 @@ function aggregate_sparse_equalities(problem::LinearProblem{T}; rounded_costs::B
             push!(records, SparseEqualityRecord{T}(row, column, rhs, coefficient,
                 [(other, value) for (other, value) in terms if other != column], implied))
             estimated_updates += fill_estimate
+            isnothing(ledger) || _PresolveRepeat.charge_sparse!(ledger,fill_estimate)
             break
         end
-        length(records) >= 50_000 && break
+        attempted && isempty(records) && _PresolveWork.remember!(problem,row,terms)
+        (isnothing(ledger) ? length(records) >= 50_000 : ledger.sparse_records >= 50_000) && break
     end
     isempty(records) && return identity_presolve(problem)
 
@@ -568,7 +576,7 @@ function aggregate_sparse_equalities(problem::LinearProblem{T}; rounded_costs::B
     for (column, exact) in objective_updates
         objective[column] = something(_presolve_cost_value(T, exact, rounded_costs))
     end
-    reduced = LinearProblem{T}(
+    reduced = _presolve_model(Val(3571),
         sparse(coordinates_row, coordinates_column, values, length(rows), length(columns)),
         objective[columns], something(_represent_exact(T, constant_exact)),
         problem.objective_sense, row_lower[rows], row_upper[rows],

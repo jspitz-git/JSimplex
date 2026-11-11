@@ -138,6 +138,7 @@ function _run_basis_terminal!(ws::SimplexWorkspace{T},budget::SimplexRunBudget,
     history = UInt[]
     rounds = 0
     last_progress = ws.iterations
+    last_numerical_failure = ""
     fresh = false
     try
         if !(policy.feasibility_recovery || force_feasibility)
@@ -191,16 +192,21 @@ function _run_basis_terminal!(ws::SimplexWorkspace{T},budget::SimplexRunBudget,
                 return terminal
             end
             if !isnothing(terminal) && terminal.status == NUMERICAL_ERROR
+                last_numerical_failure = terminal.message
                 _simplex_event!(ws,:feasibility_recovery)
             end
             # A successful method still needs a verified recomputation before
             # accepting its feasibility. Repeated phase/basis states are bounded,
             # even when a method reports optimality without completing a step.
-            if ws.iterations > last_progress
+            # A failed method may have completed pivots before losing its
+            # numerical invariant. Those iterations do not buy fresh retries.
+            if ws.iterations > last_progress &&
+               (isnothing(terminal) || terminal.status == OPTIMAL)
                 rounds = 0
                 empty!(history)
-                last_progress = ws.iterations
+                last_numerical_failure = ""
             end
+            last_progress = ws.iterations
             signature = _driver_signature(ws,mode)
             if rounds >= min(2,policy.max_recovery_rounds) || signature in history
                 # Permit one final verified check after a successful method.
@@ -210,7 +216,11 @@ function _run_basis_terminal!(ws::SimplexWorkspace{T},budget::SimplexRunBudget,
                     return terminal
                 end
                 guarded() && return DualTermination(TIME_LIMIT,"time limit reached during feasibility recovery")
-                return DualTermination(NUMERICAL_ERROR,"bounded feasibility recovery exhausted")
+                message = isempty(last_numerical_failure) ?
+                    "bounded feasibility recovery exhausted" :
+                    string("bounded feasibility recovery exhausted; last numerical failure: ",
+                           last_numerical_failure)
+                return DualTermination(NUMERICAL_ERROR,message)
             end
             push!(history,signature)
             rounds += 1

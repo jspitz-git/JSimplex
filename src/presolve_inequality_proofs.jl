@@ -136,7 +136,7 @@ function activate(p::JS.LinearProblem{T}, certs) where T
         r = c.row
         lo[r] = up[r] = c.side == :lower ? lo[r] : up[r]
     end
-    return JS.LinearProblem{T}(p.A, p.objective, p.objective_constant, p.objective_sense,
+    return JS._presolve_model(Val(48),p.A, p.objective, p.objective_constant, p.objective_sense,
         lo, up, p.column_lower, p.column_upper, p.variable_domains, p.name,
         p.row_names, p.column_names)
 end
@@ -346,7 +346,7 @@ function infer(p; work_limit=1_000_000, rounds=8, expand_limit=5000,
         end
     end
     if has_singleton
-        rows = JS._row_entries(p.A)
+        rows = JS._PresolveWork.rows(p.A)
         stop_requested() && return Certificate[], stats
         cl = fill!(Vector{Endpoint}(undef, n), nothing)
         cu = copy(cl)

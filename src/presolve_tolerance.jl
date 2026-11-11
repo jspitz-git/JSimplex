@@ -7,7 +7,7 @@ function _presolve_tolerance_model(problem::LinearProblem{T}, tolerance::T) wher
     error_lower = isfinite(negative) ? Bound(negative) : _unbounded_bound(T)
     error_upper = Bound(tolerance)
     matrix = hcat(problem.A, problem.A, spdiagm(0=>ones(T, m)))
-    return LinearProblem{T}(
+    return _presolve_model(Val(2499),
         matrix, zeros(T, 2n+m), zero(T), MIN_SENSE,
         problem.row_lower, problem.row_upper,
         vcat(problem.column_lower, fill(error_lower, n+m)),
@@ -35,7 +35,7 @@ function _presolve_base_for_solve(problem::LinearProblem{T}, tolerance::T;
     end
 end
 
-function _presolve_for_solve(problem::LinearProblem{T}, tolerance::T;
+function _presolve_for_solve_cached_body(problem::LinearProblem{T}, tolerance::T;
                              stop_requested=()->false, verbose::Bool=false,
                              history=nothing) where T
     rounded_costs = T in (Float32,Float64) && tolerance > zero(T)
@@ -45,4 +45,11 @@ function _presolve_for_solve(problem::LinearProblem{T}, tolerance::T;
     poll() = stopped[] || (stopped[] = stop_requested())
     base = _presolve_base_for_solve(problem,tolerance;stop_requested=poll,verbose,history,rounded_costs)
     return _augment_inequalities(base,problem,tolerance,history,poll,verbose;rounded_costs)
+end
+
+function _presolve_for_solve(problem::LinearProblem{T},tolerance::T;
+                             stop_requested=()->false,verbose::Bool=false,history=nothing) where T
+    return _PresolveWork.with_session(T) do
+        _presolve_for_solve_cached_body(problem,tolerance;stop_requested,verbose,history)
+    end
 end

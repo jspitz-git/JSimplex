@@ -21,6 +21,27 @@ function _joint_primal_activity(rows, row, primal::Vector{T}) where T
     return total+correction
 end
 
+function _residual_projection_parts(rows, row, primal::Vector{T}) where T
+    total = correction = zero(T)
+    for k in nzrange(rows, row)
+        a, x = rows.nzval[k], primal[rows.rowval[k]]
+        product = a*x
+        error = fma(a, x, -product)
+        next = total+product
+        part = next-total
+        correction += (total-(next-part))+(product-part)+error
+        total = next
+    end
+    return total,correction
+end
+
+function _residual_projection_difference(target::T,total::T,correction::T,offset::T) where T
+    isfinite(target) || return target
+    s = target-total
+    part = s-target
+    error = (target-(s-part))+(-total-part)
+    return s+((error-correction)+offset)
+end
 function _try_joint_primal_point_recovery!(workspace::SimplexWorkspace{T}, stop,
                                           prediction::Union{Nothing,Vector{T}}=nothing) where {T<:Union{Float32,Float64}}
     workspace.options.algorithm == :primal &&
@@ -88,14 +109,13 @@ function _try_joint_primal_point_recovery!(workspace::SimplexWorkspace{T}, stop,
         activity = columns+row
         ml = working ? workspace.lower[activity] : workspace.problem.row_lower[row]
         mh = working ? workspace.upper[activity] : workspace.problem.row_upper[row]
-        lo, hi = _joint_primal_interval(ml, mh, tolerance)
-        # Eliminate a basic row activity by retaining its admissible interval.
-        # A nonbasic activity is a singleton and may never be resynchronized.
+        # Both intervals have the same tolerance. Intersect their unexpanded
+        # bases first, then apply tolerance only after subtracting the activity.
         activity_lo = basic[activity] ? lower[activity] : anchor[activity]
         activity_hi = basic[activity] ? upper[activity] : anchor[activity]
-        lo = max(lo, last(_primal_difference_bounds(activity_lo, tolerance)))
-        hi = min(hi, first(_primal_sum_bounds(activity_hi, tolerance)))
-        lo <= hi || return false
+        lo = max(isfinite(ml) ? bound_value(ml) : T(-Inf), activity_lo)
+        hi = min(isfinite(mh) ? bound_value(mh) : T(Inf), activity_hi)
+        _residual_projection_difference(hi,lo,zero(T),T(2)*tolerance) >= zero(T) || return false
         row_lower[row], row_upper[row] = lo, hi
         scale = zero(T)
         for k in nzrange(rows,row)
@@ -124,23 +144,24 @@ function _try_joint_primal_point_recovery!(workspace::SimplexWorkspace{T}, stop,
             end
             for row in axes(rows,2)
                 row % 256 == 0 && stop() && return false
-                value = _joint_primal_activity(rows,row,workspace.primal)
-                isfinite(value) || return false
-                lo, hi = row_lower[row], row_upper[row]
-                margin = min(T(8)*eps(T)*max(tolerance,abs(clamp(value,lo,hi))),
-                    tolerance/T(4), (hi-lo)/T(4))
-                target = clamp(value,lo+margin,hi-margin)
-                # Immutable rows are checked by the full certificate, even if
-                # their current value cannot reach the stricter interior target.
-                (target == value || iszero(scales[row])) && continue
-                # Redistribute corrections lost when a coordinate reaches a bound.
-                # Every clipped pass fixes at least one coordinate in this direction.
-                sense = sign(target-value)
+                iszero(scales[row]) && continue
+                # Keep the original degree+1 redistribution cap and eight sweeps.
                 for pass in 1:length(nzrange(rows,row))+1
                     stop() && return false
-                    residual = target-_joint_primal_activity(rows,row,workspace.primal)
+                    total, compensation = _residual_projection_parts(rows,row,workspace.primal)
+                    all(isfinite,(total,compensation)) || return false
+                    lo = _residual_projection_difference(row_lower[row],total,compensation,-tolerance)
+                    hi = _residual_projection_difference(row_upper[row],total,compensation,tolerance)
+                    all(isfinite,(lo,hi)) && lo <= hi || return false
+                    distance = max(lo,-hi,zero(T))
+                    iszero(distance) && break
+                    # An interior target is chosen in residual units; the full
+                    # band, not this interior target, decides when to stop.
+                    margin = min(T(8)*eps(T)*max(tolerance,abs(total+compensation)),
+                        tolerance/T(4), (hi-lo)/T(4))
+                    residual = lo > zero(T) ? min(lo+margin,hi) : max(hi-margin,lo)
                     isfinite(residual) || return false
-                    sign(residual) == sense || break
+                    sense = sign(residual)
                     norm = zero(T)
                     for k in nzrange(rows,row)
                         k % 256 == 0 && stop() && return false
@@ -157,6 +178,7 @@ function _try_joint_primal_point_recovery!(workspace::SimplexWorkspace{T}, stop,
                     multiplier = (residual/scales[row])/norm
                     isfinite(multiplier) || return false
                     clipped = false
+                    progressed = false
                     for k in nzrange(rows,row)
                         k % 256 == 0 && stop() && return false
                         index = rows.rowval[k]
@@ -164,20 +186,30 @@ function _try_joint_primal_point_recovery!(workspace::SimplexWorkspace{T}, stop,
                         coefficient = rows.nzval[k]/scales[row]
                         direction = sense*sign(coefficient)
                         iszero(direction) && continue
-                        movable = direction > zero(T) ? workspace.primal[index] < upper[index] : workspace.primal[index] > lower[index]
+                        current = workspace.primal[index]
+                        movable = direction > zero(T) ? current < upper[index] : current > lower[index]
                         movable || continue
-                        value = workspace.primal[index]+multiplier*coefficient
+                        value = current+multiplier*coefficient
                         isfinite(value) || return false
-                        # A sub-ulp correction must not round back to the same point.
-                        # The full certificate decides whether the representable move
-                        # also respects every other row and the original tolerance.
-                        value = direction > zero(T) ? nextfloat(value) : prevfloat(value)
+                        # Only supply the smallest representable move if rounding
+                        # erased the proposed correction. Coarse moves may still
+                        # be rejected below if they overshoot the full band.
+                        value == current && (value = direction > zero(T) ? nextfloat(value) : prevfloat(value))
                         projected = clamp(value,lower[index],upper[index])
                         isfinite(projected) || return false
+                        movement = projected-current
+                        remaining_lo = fma(-rows.nzval[k],movement,lo)
+                        remaining_hi = fma(-rows.nzval[k],movement,hi)
+                        all(isfinite,(remaining_lo,remaining_hi)) || return false
+                        remaining_distance = max(remaining_lo,-remaining_hi,zero(T))
+                        remaining_distance < distance || continue
                         clipped |= value != projected
+                        progressed = true
                         workspace.primal[index] = projected
+                        lo, hi, distance = remaining_lo, remaining_hi, remaining_distance
+                        iszero(distance) && break
                     end
-                    clipped || break
+                    (iszero(distance) || !progressed || !clipped) && break
                 end
             end
             for row in axes(rows,2)
