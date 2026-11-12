@@ -316,9 +316,19 @@ for `SolverOptions(Float64)`. Floating types use these keyword defaults:
 | `basis_update` | `:pfi` | Basis update: `:pfi`, `:forrest_tomlin`, `:bartels_golub`, `:suhl_suhl`, or `:huangfu_hall` |
 | `basis_refactorization` | `:native` | Full factorization: `:native` or `:markowitz` |
 | `scaling` | `:auto` | `:auto`, `:on`, or `:off` row and column scaling |
-| `presolve` | `true` | Apply all presolve reductions before simplex; `false` solves the original LP directly |
+| `presolve` | `true` | Apply base presolve and requested optional passes before simplex; `false` solves the original LP directly |
+| `presolve_row_sparsification` | `false` | Optionally sparsify rows before simplex |
+| `presolve_column_merging` | `false` | Optionally merge proportional columns before simplex |
+| `presolve_column_dominance` | `false` | Optionally run specialized proportional-column capacity dominance |
 | `partial_pricing` | `false` | Explicitly enable candidate pools independently of the simplex strategy |
 | `simplex_strategy` | `:legacy` | Fixed policies or opt-in `:adaptive` progress heuristics; both use the same default numerical kernel |
+
+The three optional presolve flags are independent Boolean options, also available
+as MOI raw optimizer attributes. They require `Float32`, `Float64`, or `BigFloat`;
+enabling one for another scalar type throws `ArgumentError`. `presolve=false`
+bypasses all presolve passes while preserving the optional flag values. See
+[optional presolve](docs/optional-presolve.md) for reduction rules, work budgets
+and original-model recovery.
 
 Both strategies use the same native numerical safeguards, including bounded
 candidate retries, residual correction in the model's floating type, and

@@ -36,7 +36,8 @@ end
                   pricing=:steepest_edge, basis_update=:pfi,
                   basis_refactorization=:native, scaling=:auto,
                   presolve=true, simplex_strategy=:legacy, partial_pricing=false,
-                  native_pivot_policy=:default)
+                  native_pivot_policy=:default, presolve_row_sparsification=false,
+                  presolve_column_merging=false, presolve_column_dominance=false)
     SolverOptions(; kwargs...)  # Float64 defaults
     SolverOptions(T, options::SolverOptions)
 
@@ -98,6 +99,11 @@ with a finite update ceiling and conservative growth after reliable cycles.
 dense trailing core (`:markowitz`).
 `presolve=true` applies presolve before scaling and simplex. Set it to `false`
 to solve the original LP directly; postsolve cleanup is then unnecessary.
+`presolve_row_sparsification`, `presolve_column_merging`, and
+`presolve_column_dominance` independently enable optional row sparsification,
+proportional column merging, and specialized proportional-column capacity
+dominance. All default to `false` and require `Float32`, `Float64`, or `BigFloat`.
+`presolve=false` bypasses these passes while preserving their option values.
 `scaling=:auto` applies reversible row and column scaling to floating models
 and leaves rational models unchanged. `:off` disables scaling; `:on` enables it
 for floating models and is invalid for rational models. Scaling uses powers of
@@ -146,11 +152,17 @@ struct SolverOptions{T<:Real,M,R}
     simplex_strategy::Symbol
     partial_pricing::Bool
     native_pivot_policy::Symbol
+    presolve_row_sparsification::Bool
+    presolve_column_merging::Bool
+    presolve_column_dominance::Bool
 end
 
-# Preserve the original positional constructor's default policy.
+# Preserve both previous positional constructors and their default optional passes.
 SolverOptions{T,M,R}(primal_tolerance, dual_tolerance, zero_tolerance, iteration_limit, time_limit, refactorization_interval, verbose, log_level, algorithm, pricing, basis_update, basis_refactorization, scaling, presolve, simplex_strategy, partial_pricing) where {T,M,R} =
     SolverOptions{T,M,R}(primal_tolerance, dual_tolerance, zero_tolerance, iteration_limit, time_limit, refactorization_interval, verbose, log_level, algorithm, pricing, basis_update, basis_refactorization, scaling, presolve, simplex_strategy, partial_pricing, :default)
+
+SolverOptions{T,M,R}(primal_tolerance, dual_tolerance, zero_tolerance, iteration_limit, time_limit, refactorization_interval, verbose, log_level, algorithm, pricing, basis_update, basis_refactorization, scaling, presolve, simplex_strategy, partial_pricing, native_pivot_policy) where {T,M,R} =
+    SolverOptions{T,M,R}(primal_tolerance, dual_tolerance, zero_tolerance, iteration_limit, time_limit, refactorization_interval, verbose, log_level, algorithm, pricing, basis_update, basis_refactorization, scaling, presolve, simplex_strategy, partial_pricing, native_pivot_policy, false, false, false)
 
 SolverOptions(; kwargs...) = SolverOptions(Float64; kwargs...)
 
@@ -168,10 +180,13 @@ Base.@constprop :aggressive function SolverOptions(::Type{T};
     basis_refactorization::Symbol=:native, scaling::Symbol=:auto,
     presolve::Bool=true, simplex_strategy::Symbol=:legacy, partial_pricing::Bool=false,
     native_pivot_policy::Symbol=:default,
+    presolve_row_sparsification::Bool=false, presolve_column_merging::Bool=false,
+    presolve_column_dominance::Bool=false,
 ) where {T}
     arguments = (primal_tolerance, dual_tolerance, zero_tolerance, iteration_limit,
                  time_limit, refactorization_interval, verbose, log_level,
-                 algorithm, pricing, scaling, presolve, simplex_strategy, partial_pricing, native_pivot_policy)
+                 algorithm, pricing, scaling, presolve, simplex_strategy, partial_pricing, native_pivot_policy,
+                 presolve_row_sparsification, presolve_column_merging, presolve_column_dominance)
     if basis_update === :pfi
         return _validated_refactorization(T, Val(:pfi), basis_refactorization, arguments...)
     elseif basis_update === :forrest_tomlin
@@ -204,12 +219,25 @@ function _validate_huangfu_hall(::Type{T}, ::Val{R}) where {T,R}
     return nothing
 end
 
+function _validate_optional_presolve(::Type{T}, row_sparsification::Bool,
+                                     column_merging::Bool, column_dominance::Bool) where {T}
+    (row_sparsification || column_merging || column_dominance) &&
+        !(T in (Float32, Float64, BigFloat)) && throw(ArgumentError(
+        "optional presolve passes require Float32, Float64, or BigFloat"))
+    return nothing
+end
+
 function _validated_options(::Type{T}, ::Val{M}, ::Val{R}, primal_tolerance, dual_tolerance,
                             zero_tolerance, iteration_limit, time_limit,
                             refactorization_interval, verbose, log_level, algorithm,
                             pricing, scaling, presolve, simplex_strategy, partial_pricing,
-                            native_pivot_policy::Symbol=:default) where {T,M,R}
+                            native_pivot_policy::Symbol=:default,
+                            presolve_row_sparsification::Bool=false,
+                            presolve_column_merging::Bool=false,
+                            presolve_column_dominance::Bool=false) where {T,M,R}
     _supported_value_type(T) || throw(ArgumentError("unsupported solver value type $T"))
+    _validate_optional_presolve(T, presolve_row_sparsification, presolve_column_merging,
+                               presolve_column_dominance)
     native_pivot_policy in (:default, :threshold_one) ||
         throw(ArgumentError("native_pivot_policy must be :default or :threshold_one"))
     native_pivot_policy === :threshold_one &&
@@ -252,7 +280,8 @@ function _validated_options(::Type{T}, ::Val{M}, ::Val{R}, primal_tolerance, dua
         throw(ArgumentError("simplex_strategy must be :legacy or :adaptive"))
     return SolverOptions{T,M,R}(tolerances..., Int(iteration_limit), converted_time_limit,
                               Int(refactorization_interval), verbose, log_level,
-                              algorithm, pricing, M, R, scaling, presolve, simplex_strategy, partial_pricing, native_pivot_policy)
+                              algorithm, pricing, M, R, scaling, presolve, simplex_strategy, partial_pricing, native_pivot_policy,
+                              presolve_row_sparsification, presolve_column_merging, presolve_column_dominance)
 end
 
 SolverOptions(::Type{T}, options::SolverOptions{S,M,R}) where {T,S,M,R} =
@@ -260,7 +289,8 @@ SolverOptions(::Type{T}, options::SolverOptions{S,M,R}) where {T,S,M,R} =
                        options.zero_tolerance, options.iteration_limit,
                        options.time_limit, options.refactorization_interval,
                        options.verbose, options.log_level, options.algorithm,
-                       options.pricing, options.scaling, options.presolve, options.simplex_strategy, options.partial_pricing, options.native_pivot_policy)
+                       options.pricing, options.scaling, options.presolve, options.simplex_strategy, options.partial_pricing, options.native_pivot_policy,
+                       options.presolve_row_sparsification, options.presolve_column_merging, options.presolve_column_dominance)
 
 """
     SolveStatistics(; iterations=0, elapsed_seconds=0.0, refactorizations=0)

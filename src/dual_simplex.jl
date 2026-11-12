@@ -2370,7 +2370,8 @@ function _original_optimality_certified(workspace::SimplexWorkspace{T}, primal::
 end
 
 function _internal_solution(workspace::SimplexWorkspace{T}, status::TerminationStatus,
-                            message::String) where {T}
+                            message::String;
+                            capture_witness::Union{Nothing,Bool}=nothing) where {T}
     _simplex_event!(workspace, status == OPTIMAL ? :certification :
                               status == NUMERICAL_ERROR ? :certification_failed : :checkpoint)
     primal = status == OPTIMAL ? workspace.primal[1:size(workspace.problem.A, 2)] : nothing
@@ -2393,7 +2394,8 @@ function _internal_solution(workspace::SimplexWorkspace{T}, status::TerminationS
         isfinite(objective) || return _internal_solution(workspace, _numerical_failure())
         corrected_primal = true
     end
-    witness = workspace.progress.witness_problem === workspace.problem ?
+    witness = (isnothing(capture_witness) ?
+        workspace.progress.witness_problem === workspace.problem : capture_witness) ?
         Ref{Union{Nothing,Vector{T}}}(nothing) : nothing
     if status == OPTIMAL && !_original_optimality_certified(workspace, primal;witness)
         return _internal_solution(workspace, NUMERICAL_ERROR,

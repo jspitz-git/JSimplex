@@ -436,7 +436,8 @@ function _remaining_options(options::SolverOptions{T,M,R}; iterations::Int,
         options.primal_tolerance, options.dual_tolerance, options.zero_tolerance,
         max(0, options.iteration_limit - iterations), time_limit,
         options.refactorization_interval, options.verbose, options.log_level,
-        algorithm, options.pricing, options.scaling, options.presolve, options.simplex_strategy, options.partial_pricing, options.native_pivot_policy)
+        algorithm, options.pricing, options.scaling, options.presolve, options.simplex_strategy, options.partial_pricing, options.native_pivot_policy,
+        options.presolve_row_sparsification, options.presolve_column_merging, options.presolve_column_dominance)
 end
 
 function _retry_original(problem::LinearProblem{T}, options::SolverOptions{T},
@@ -630,8 +631,10 @@ function _solve_diagnosed(problem::LinearProblem{T}, diagnostics;
         _PostsolveHistory(T) : nothing
     presolved = if typed_options.presolve
         typed_options.verbose && @info "Starting presolve"
-        _presolve_for_solve(continuous_problem, typed_options.primal_tolerance;
+        base = _presolve_for_solve(continuous_problem, typed_options.primal_tolerance;
             stop_requested=()->time_limit_reached(context), verbose=typed_options.verbose, history)
+        _with_optional_presolve(base,history,typed_options;
+            stop_requested=()->time_limit_reached(context),verbose=typed_options.verbose)
     else
         identity_presolve(continuous_problem)
     end
@@ -659,7 +662,7 @@ function _solve_diagnosed(problem::LinearProblem{T}, diagnostics;
     # callback exception provenance. Do not add a broader catch at this layer.
     progress = SimplexProgressContext(presolved.problem; start_ns=context.start_ns, scaling,
         diagnostics, numerical_policy=policy,
-        witness_problem=isnothing(history) || isempty(presolved.postsolve_stack) ? nothing : working_problem)
+        witness_problem=(isnothing(history) && !(presolved isa _OptionalPresolveResult)) || isempty(presolved.postsolve_stack) ? nothing : working_problem)
     algorithm = typed_options.algorithm == :dual ? _solve_continuous_dual : _solve_continuous_primal
     run = algorithm(
         working_problem,
@@ -671,6 +674,7 @@ function _solve_diagnosed(problem::LinearProblem{T}, diagnostics;
     retried_original = false
     if reduced && run.status in (INFEASIBLE, UNBOUNDED, NUMERICAL_ERROR)
         _restore_history_mark!(history,0)
+        _release_optional_presolve!(presolved)
         run = _retry_original(continuous_problem, typed_options, context, run)
         retried_original = true
     end
@@ -688,10 +692,12 @@ function _solve_diagnosed(problem::LinearProblem{T}, diagnostics;
     original_feasible = (retried_original || !reduced) &&
         _original_primal_feasible(continuous_problem, primal, typed_options.primal_tolerance)
     if !retried_original && (reduced || !original_feasible)
-        if isnothing(run.basis)
+        basis = reduced ? basis_hint : run.basis
+        if isnothing(basis)
+            # Optional reconstruction can explicitly decline its hint. Never
+            # feed an unchecked/partial basis to cleanup or publish that point.
             run = _retry_original(continuous_problem, typed_options, context, run)
         else
-            basis = reduced ? basis_hint : run.basis
             run = _cleanup_or_retry_original(continuous_problem, basis,
                 typed_options, context, run.iterations, run.refactorizations;
                 target_primal=primal)

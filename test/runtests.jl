@@ -2,6 +2,12 @@ using JSimplex
 using Test
 
 @testset "JSimplex" begin
+    include("optional_presolve_options_tests.jl")
+    include("optional_primal_witness_tests.jl")
+    include("optional_presolve_integration_tests.jl")
+    include("optional_presolve_composition_tests.jl")
+    include("optional_presolve_recovery_tests.jl")
+    include("optional_presolve_dominance_tests.jl")
     include("native_nonzero_coupled_reconstruction_tests.jl")
     include("primal_ratio_overflow_tests.jl")
     include("postsolve_feasibility_pivot_tests.jl")

@@ -14,6 +14,9 @@ mutable struct Optimizer{T<:Real} <: MOI.AbstractOptimizer
     presolve::Bool
     simplex_strategy::Symbol
     partial_pricing::Bool
+    presolve_row_sparsification::Bool
+    presolve_column_merging::Bool
+    presolve_column_dominance::Bool
     silent::Bool
     relax_integrality::Bool
     solution::Union{Nothing,Solution{T}}
@@ -40,6 +43,9 @@ function Optimizer{T}() where {T<:Real}
         options.presolve,
         options.simplex_strategy,
         options.partial_pricing,
+        options.presolve_row_sparsification,
+        options.presolve_column_merging,
+        options.presolve_column_dominance,
         false,
         false,
         nothing,

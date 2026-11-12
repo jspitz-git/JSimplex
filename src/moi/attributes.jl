@@ -13,6 +13,9 @@ const _RAW_OPTIMIZER_ATTRIBUTES = (
     "basis_refactorization",
     "scaling",
     "presolve",
+    "presolve_row_sparsification",
+    "presolve_column_merging",
+    "presolve_column_dominance",
     "simplex_strategy",
     "partial_pricing",
 )
@@ -34,6 +37,9 @@ function _solver_options(optimizer::Optimizer{T})::SolverOptions{T} where {T}
         basis_refactorization=optimizer.basis_refactorization,
         scaling=optimizer.scaling,
         presolve=optimizer.presolve,
+        presolve_row_sparsification=optimizer.presolve_row_sparsification,
+        presolve_column_merging=optimizer.presolve_column_merging,
+        presolve_column_dominance=optimizer.presolve_column_dominance,
         simplex_strategy=optimizer.simplex_strategy,
         partial_pricing=optimizer.partial_pricing,
     )
@@ -54,6 +60,9 @@ function _set_solver_options!(
     basis_refactorization=optimizer.basis_refactorization,
     scaling=optimizer.scaling,
     presolve=optimizer.presolve,
+    presolve_row_sparsification=optimizer.presolve_row_sparsification,
+    presolve_column_merging=optimizer.presolve_column_merging,
+    presolve_column_dominance=optimizer.presolve_column_dominance,
     simplex_strategy=optimizer.simplex_strategy,
     partial_pricing=optimizer.partial_pricing,
 ) where {T}
@@ -73,6 +82,9 @@ function _set_solver_options!(
         basis_refactorization,
         scaling,
         presolve,
+        presolve_row_sparsification,
+        presolve_column_merging,
+        presolve_column_dominance,
         simplex_strategy,
         partial_pricing,
     )
@@ -89,6 +101,9 @@ function _set_solver_options!(
     optimizer.basis_refactorization = options.basis_refactorization
     optimizer.scaling = options.scaling
     optimizer.presolve = options.presolve
+    optimizer.presolve_row_sparsification = options.presolve_row_sparsification
+    optimizer.presolve_column_merging = options.presolve_column_merging
+    optimizer.presolve_column_dominance = options.presolve_column_dominance
     optimizer.simplex_strategy = options.simplex_strategy
     optimizer.partial_pricing = options.partial_pricing
     _clear_result!(optimizer)
@@ -159,6 +174,12 @@ function MOI.get(optimizer::Optimizer, attr::MOI.RawOptimizerAttribute)
         return optimizer.scaling
     elseif attr.name == "presolve"
         return optimizer.presolve
+    elseif attr.name == "presolve_row_sparsification"
+        return optimizer.presolve_row_sparsification
+    elseif attr.name == "presolve_column_merging"
+        return optimizer.presolve_column_merging
+    elseif attr.name == "presolve_column_dominance"
+        return optimizer.presolve_column_dominance
     elseif attr.name == "partial_pricing"
         return optimizer.partial_pricing
     elseif attr.name == "simplex_strategy"
@@ -210,6 +231,15 @@ function MOI.set(
     elseif attr.name == "presolve"
         value isa Bool || throw(ArgumentError("presolve must be a Bool"))
         return _set_solver_options!(optimizer; presolve=value)
+    elseif attr.name == "presolve_row_sparsification"
+        value isa Bool || throw(ArgumentError("presolve_row_sparsification must be a Bool"))
+        return _set_solver_options!(optimizer; presolve_row_sparsification=value)
+    elseif attr.name == "presolve_column_merging"
+        value isa Bool || throw(ArgumentError("presolve_column_merging must be a Bool"))
+        return _set_solver_options!(optimizer; presolve_column_merging=value)
+    elseif attr.name == "presolve_column_dominance"
+        value isa Bool || throw(ArgumentError("presolve_column_dominance must be a Bool"))
+        return _set_solver_options!(optimizer; presolve_column_dominance=value)
     elseif attr.name == "partial_pricing"
         value isa Bool || throw(ArgumentError("partial_pricing must be a Bool"))
         return _set_solver_options!(optimizer; partial_pricing=value)

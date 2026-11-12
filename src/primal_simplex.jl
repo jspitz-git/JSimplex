@@ -1482,12 +1482,28 @@ function _solve_continuous_primal(problem::LinearProblem{T}, options::SolverOpti
             terminal.status == OPTIMAL || return _recover_original_failure(original,
                 _internal_solution(workspace,terminal),stop_requested)
         end
-        run = _internal_solution(workspace, OPTIMAL, "optimal solution found")
+        capture_phase_two_witness = artificial_count > 0 && options.presolve &&
+            (options.presolve_row_sparsification || options.presolve_column_merging ||
+             options.presolve_column_dominance) && progress.witness_problem === problem
+        # Only phase II has restored the original structural costs. Its existing
+        # certificate can supply the row dual without another basis solve; the
+        # mapped original model still has to certify that candidate below.
+        run = _internal_solution(workspace, OPTIMAL, "optimal solution found";
+            capture_witness=capture_phase_two_witness ? true : nothing)
         if run.status == OPTIMAL && artificial_count > 0
             basis = _primal_original_basis(workspace, column_count, artificial_count)
+            primal = run.primal[1:size(problem.A, 2)]
+            dual = capture_phase_two_witness ? run.dual : nothing
+            if !isnothing(dual) &&
+               (isnothing(basis) || !_original_primal_feasible(problem, primal, options.primal_tolerance) ||
+                !_original_witness_certified(problem, options, basis, primal, dual))
+                # An auxiliary certificate is only a hint for optional postsolve.
+                # Missing original evidence keeps the existing certified retry.
+                dual = nothing
+            end
             return DualRunResult{T}(run.status, run.objective_value,
-                                    run.primal[1:size(problem.A, 2)],
-                                    run.iterations, run.refactorizations, run.message, basis)
+                                    primal, run.iterations, run.refactorizations,
+                                    run.message, basis, dual)
         end
         return _recover_original_failure(original,run,stop_requested)
     catch exception

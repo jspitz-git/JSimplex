@@ -89,10 +89,13 @@ end
 
 function _copy_precision_options(::Type{S},o::SolverOptions{T,M,R}) where {S,T,M,R}
     M === :huangfu_hall && _validate_huangfu_hall(S, Val(R))
+    _validate_optional_presolve(S, o.presolve_row_sparsification, o.presolve_column_merging,
+                               o.presolve_column_dominance)
     return SolverOptions{S,M,R}(_copy_precision_scalar(S,o.primal_tolerance),
         _copy_precision_scalar(S,o.dual_tolerance),_copy_precision_scalar(S,o.zero_tolerance),
         o.iteration_limit,o.time_limit,o.refactorization_interval,o.verbose,o.log_level,
-        o.algorithm,o.pricing,o.basis_update,o.basis_refactorization,o.scaling,o.presolve,o.simplex_strategy,o.partial_pricing,o.native_pivot_policy)
+        o.algorithm,o.pricing,o.basis_update,o.basis_refactorization,o.scaling,o.presolve,o.simplex_strategy,o.partial_pricing,o.native_pivot_policy,
+        o.presolve_row_sparsification,o.presolve_column_merging,o.presolve_column_dominance)
 end
 
 function _copy_precision_problem(::Type{S},p) where S
