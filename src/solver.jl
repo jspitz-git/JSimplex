@@ -122,19 +122,32 @@ function _try_postsolve_feasibility_pivot!(workspace::SimplexWorkspace{T}, stop)
         primal_infeasibility(workspace) <= original_options.primal_tolerance
 end
 
+include("postsolve_basis_recovery.jl")
+
+# Historical callers only receive certified construction success. They do not
+# opt into partial-basis retention or the new recovery phase.
 function _project_postsolve_basis!(workspace::SimplexWorkspace{T}, target::Vector{T},
-                                   stop_requested; repair_feasibility::Bool=false)::Union{Nothing,Int} where {T}
+                                   stop_requested; repair_feasibility::Bool=false)::Union{Nothing,Int} where T
+    result=_construct_postsolve_basis!(workspace,target,stop_requested;
+        repair_feasibility,retain_partial=false)
+    return result.state==_POSTSOLVE_ACCEPTED ? result.exchanges : nothing
+end
+
+function _construct_postsolve_basis!(workspace::SimplexWorkspace{T}, target::Vector{T},
+                                   stop_requested; repair_feasibility::Bool=false, retain_partial::Bool=true) where {T}
+    exchanges = 0
+    stop_requested() && return _PostsolveBasisResult(_POSTSOLVE_STOPPED, exchanges)
     problem, options = workspace.problem, workspace.options
     A = problem.A
     row_count, column_count = size(A)
-    length(target) == column_count && all(isfinite, target) || return nothing
+    length(target) == column_count && all(isfinite, target) || return _PostsolveBasisResult(_POSTSOLVE_REJECTED, exchanges)
     target_feasible = _original_primal_feasible(problem, target, options.primal_tolerance)
     # Unscaling can amplify a tolerated working-point error. The native path
     # uses this point only to select exchanges, then reconstructs and certifies
     # the resulting original-model basis before cleanup may optimize it.
     native_hint = T <: Union{Float32,Float64} &&
                   _native_primal_kernel(workspace.progress.numerical_policy)
-    (target_feasible || native_hint) || return nothing
+    (target_feasible || native_hint) || return _PostsolveBasisResult(_POSTSOLVE_REJECTED, exchanges)
     if native_hint && !target_feasible
         # Unscaling may amplify a tolerated column-bound error. Use a private
         # box projection only as a basis-construction hint: trying to make an
@@ -149,7 +162,7 @@ function _project_postsolve_basis!(workspace::SimplexWorkspace{T}, target::Vecto
         target_feasible = _original_primal_feasible(problem, target, options.primal_tolerance)
     end
     target_values = vcat(target, A * target)
-    all(isfinite, target_values) || return nothing
+    all(isfinite, target_values) || return _PostsolveBasisResult(_POSTSOLVE_REJECTED, exchanges)
 
     states = Vector{VariableState}(undef, row_count + column_count)
     for index in eachindex(states)
@@ -168,13 +181,26 @@ function _project_postsolve_basis!(workspace::SimplexWorkspace{T}, target::Vecto
         abs(workspace.primal[column] - target[column]) > options.primal_tolerance &&
             push!(displaced, column)
     end
-    isempty(displaced) && return target_feasible ? 0 : nothing
+    partial_allowed = retain_partial && native_hint && !target_feasible &&
+        _postsolve_partial_allowed(workspace)
+    if isempty(displaced)
+        # A feasible hint can differ in basic coordinates. It does not certify
+        # the reconstructed basis when no nonbasic column requests an exchange.
+        feasible = target_feasible && _finite_workspace(workspace) &&
+            primal_infeasibility(workspace)<=options.primal_tolerance &&
+            _original_primal_feasible(problem,workspace.primal[1:column_count],
+                                     options.primal_tolerance)
+        feasible && return _PostsolveBasisResult(_POSTSOLVE_ACCEPTED,0)
+        return partial_allowed ?
+            _postsolve_partial_result(workspace,exchanges,stop_requested) :
+            _PostsolveBasisResult(_POSTSOLVE_REJECTED,exchanges)
+    end
 
     for entering in displaced
-        stop_requested() && return nothing
+        stop_requested() && return _PostsolveBasisResult(_POSTSOLVE_STOPPED, exchanges)
         rhs = _pipeline_column_rhs!(workspace,entering)
         direction = _pipeline_basis_solve!(workspace.scratch.row_solution,workspace,rhs;prepare_update=true)
-        all(isfinite, direction) || return nothing
+        all(isfinite, direction) || return _PostsolveBasisResult(_POSTSOLVE_REJECTED, exchanges)
         leaving_row = 0
         largest_pivot = options.zero_tolerance
         # Prefer a tight original row containing this column. Its basis slot
@@ -201,13 +227,17 @@ function _project_postsolve_basis!(workspace::SimplexWorkspace{T}, target::Vecto
                 end
             end
         end
-        leaving_row == 0 && return nothing
+        if leaving_row == 0
+            partial_allowed && continue  # A hint is not a required numerical pivot.
+            return _PostsolveBasisResult(_POSTSOLVE_REJECTED, exchanges)
+        end
         leaving = workspace.basis.basic_indices[leaving_row]
         replace_column!(workspace.factorization, direction, leaving_row;
                         zero_tolerance=options.zero_tolerance)
         workspace.basis.basic_indices[leaving_row] = entering
         workspace.basis.states[entering] = BASIC
         workspace.basis.states[leaving] = states[leaving]
+        exchanges += 1
         if length(workspace.factorization.updates) >= options.refactorization_interval
             refactorize!(workspace.factorization, basis_matrix(workspace))
             workspace.refactorizations += 1
@@ -215,33 +245,39 @@ function _project_postsolve_basis!(workspace::SimplexWorkspace{T}, target::Vecto
             fill!(workspace.scratch.steepest_valid, false)
         end
     end
-    stop_requested() && return nothing
+    stop_requested() && return _PostsolveBasisResult(_POSTSOLVE_STOPPED, exchanges)
     recompute!(workspace; refactorize=true, caller_guard=stop_requested)
-    _finite_workspace(workspace) || return nothing
+    _finite_workspace(workspace) || return _PostsolveBasisResult(_POSTSOLVE_REJECTED, exchanges)
     projected = workspace.primal[1:column_count]
     if primal_infeasibility(workspace) > options.primal_tolerance ||
        !_original_primal_feasible(problem, projected, options.primal_tolerance)
         # Projection can find the right basis while native reconstruction loses
         # feasibility to rounding. Repair it before discarding the exchanges and
         # restarting auxiliary optimization from the old, infeasible basis.
-        native_hint || return nothing
+        native_hint || return _PostsolveBasisResult(_POSTSOLVE_REJECTED, exchanges)
         reconstructed = _try_native_cleanup_recompute!(workspace, stop_requested)
         if !(reconstructed && _finite_workspace(workspace) &&
              primal_infeasibility(workspace) <= options.primal_tolerance)
-            repair_feasibility &&
-                _try_postsolve_feasibility_pivot!(workspace, stop_requested) || return nothing
+            if !(repair_feasibility &&
+                 _try_postsolve_feasibility_pivot!(workspace, stop_requested))
+                return partial_allowed ?
+                    _postsolve_partial_result(workspace,exchanges,stop_requested) : _PostsolveBasisResult(_POSTSOLVE_REJECTED, exchanges)
+            end
         end
         copyto!(projected, 1, workspace.primal, 1, column_count)
-        _original_primal_feasible(problem, projected, options.primal_tolerance) || return nothing
+        if !_original_primal_feasible(problem, projected, options.primal_tolerance)
+            return partial_allowed ?
+                _postsolve_partial_result(workspace,exchanges,stop_requested) : _PostsolveBasisResult(_POSTSOLVE_REJECTED, exchanges)
+        end
     end
     # A valid original-model basis may land elsewhere on a degenerate face.
     # Legacy cleanup optimizes its original costs; coordinate identity with
     # the supplied target is neither a feasibility nor an optimality test.
     if !_native_primal_kernel(workspace.progress.numerical_policy)
         all(index -> abs(projected[index] - target[index]) <= options.primal_tolerance,
-            eachindex(target)) || return nothing
+            eachindex(target)) || return _PostsolveBasisResult(_POSTSOLVE_REJECTED, exchanges)
     end
-    return length(displaced)
+    return _PostsolveBasisResult(_POSTSOLVE_ACCEPTED, exchanges)
 end
 
 function _cleanup_primal_feasible!(workspace::SimplexWorkspace, stop_requested)
@@ -293,20 +329,63 @@ function cleanup_original(problem::LinearProblem{T}, restored_basis::Basis,
         projected = false
         preserve_primal = false
         if !isnothing(target_primal)
-            exchanges = try
-                _project_postsolve_basis!(workspace, target_primal, stop_requested;
+            construction = try
+                _construct_postsolve_basis!(workspace, target_primal, stop_requested;
                     repair_feasibility=true)
             catch exception
                 exception === stop_requested.exception && rethrow()
                 _is_numerical_exception(exception) || rethrow()
-                nothing
+                _PostsolveBasisResult(_POSTSOLVE_REJECTED,0)
             end
-            stop_requested() &&
+            (construction.state==_POSTSOLVE_STOPPED || stop_requested()) &&
                 return _internal_solution(workspace, TIME_LIMIT, "time limit reached")
-            if isnothing(exchanges)
+            if construction.state==_POSTSOLVE_PARTIAL
+                # Exactly one attempt. It owns all numerical data; failure
+                # leaves this partial workspace untouched except work counters.
+                # Restoring the inherited basis below retains that spent work.
+                completed = try
+                    _complete_postsolve_basis!(workspace,stop_requested)
+                catch exception
+                    exception === stop_requested.exception && rethrow()
+                    _is_numerical_exception(exception) || rethrow()
+                    _phase_result(workspace,NUMERICAL_ERROR,sprint(showerror,exception))
+                end
+                stop_requested() &&
+                    return _internal_solution(workspace,TIME_LIMIT,"time limit reached")
+                completed.status in (TIME_LIMIT,ITERATION_LIMIT) && return completed
+                installed = false
+                if completed.status==OPTIMAL
+                    installed = try
+                        _install_postsolve_basis!(workspace,completed,stop_requested)
+                    catch exception
+                        exception === stop_requested.exception && rethrow()
+                        _is_numerical_exception(exception) || rethrow()
+                        false
+                    end
+                end
+                stop_requested() &&
+                    return _internal_solution(workspace,TIME_LIMIT,"time limit reached")
+                if !installed && options.verbose
+                    try
+                        reason=completed.status==OPTIMAL ?
+                            "original basis reconstruction rejected" : completed.message
+                        @info string("Discarding partial postsolve basis after ",
+                            completed.status, ": ",reason,
+                            "; completed iterations=",workspace.iterations)
+                    catch exception
+                        stop_requested.exception=exception
+                        rethrow()
+                    end
+                end
+                construction = _PostsolveBasisResult(
+                    installed ? _POSTSOLVE_ACCEPTED : _POSTSOLVE_REJECTED,
+                    construction.exchanges)
+            end
+            if construction.state!=_POSTSOLVE_ACCEPTED
                 workspace.basis = Basis(restored_basis.basic_indices, restored_basis.states)
                 recompute!(workspace; refactorize=true, caller_guard=stop_requested)
             else
+                exchanges=construction.exchanges
                 projected = exchanges > 0
                 preserve_primal = _native_primal_kernel(workspace.progress.numerical_policy) &&
                     !workspace.progress.numerical_policy.feasibility_recovery &&

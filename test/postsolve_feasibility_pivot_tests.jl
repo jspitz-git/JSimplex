@@ -18,7 +18,7 @@ function postsolve_single_violation_fixture(T=Float64; manager=:huangfu_hall,
     return p,o,b,(side==:lower ? T[0,delta,1] : T[delta,0,1])
 end
 
-@testset "Insufficient postsolve repair retains the restored-basis fallback" begin
+@testset "Insufficient optional repair retains a partial basis or the original fallback" begin
     # Fixing x=-1 through y makes z=1 exceed its upper bound 1/2. A second
     # pivot through w could fix z, but this optional repair owns only one pivot.
     p=LinearProblem(sparse([1.0 1 0 0 0; 0 1 1 1 0; 0 0 0 0 1]),[0.0,0,0,0,1];
@@ -40,8 +40,12 @@ end
     @test ws.costs===costs
     @test ws.options===o
     starts=Vector{Int}[]
+    original=Bool[]
     diag=JSimplex.SimplexDiagnostics(;observer=(event,state)->begin
-        event==:phase_dual && push!(starts,copy(state.basis.basic_indices))
+        if event==:phase_dual
+            push!(starts,copy(state.basis.basic_indices))
+            push!(original,state.problem===p)
+        end
     end)
     r=JSimplex.cleanup_original(p,b,o,JSimplex.SolveContext(time_ns(),Inf,diag),0,0;
                                target_primal=target)
@@ -49,8 +53,20 @@ end
     @test r.objective_value==1.0
     @test length(starts)>=2
     @test starts[1]==[1,3,5]
-    @test starts[2]==b.basic_indices
+    # Legacy native now completes the retained partial basis in an owned
+    # zero-objective model. A successful completion need not restore b.
+    @test original==[true,false]
+    @test starts[2]!=b.basic_indices
     @test r.iterations>=1
+    @test JSimplex._original_primal_feasible(p,r.primal,o.primal_tolerance)
+    # Outside the verified recovery scope the inherited-basis fallback remains.
+    empty!(starts);empty!(original)
+    adaptive=SolverOptions(algorithm=:primal,simplex_strategy=:adaptive,
+        verbose=false,presolve=false,scaling=:off)
+    r=JSimplex.cleanup_original(p,b,adaptive,JSimplex.SolveContext(time_ns(),Inf,diag),0,0;
+        target_primal=target)
+    @test r.status==OPTIMAL && r.objective_value==1.0
+    @test original==[true,true] && starts[2]==b.basic_indices
 end
 
 @testset "Postsolve repairs one violation without discarding projected columns" begin
