@@ -147,6 +147,8 @@ function _construct_postsolve_basis!(workspace::SimplexWorkspace{T}, target::Vec
     # the resulting original-model basis before cleanup may optimize it.
     native_hint = T <: Union{Float32,Float64} &&
                   _native_primal_kernel(workspace.progress.numerical_policy)
+    probe_hint = native_hint || (T===BigFloat &&
+        _native_primal_kernel(workspace.progress.numerical_policy) && _primal_nearest_rounding(T))
     (target_feasible || native_hint) || return _PostsolveBasisResult(_POSTSOLVE_REJECTED, exchanges)
     if native_hint && !target_feasible
         # Unscaling may amplify a tolerated column-bound error. Use a private
@@ -229,6 +231,16 @@ function _construct_postsolve_basis!(workspace::SimplexWorkspace{T}, target::Vec
         end
         if leaving_row == 0
             partial_allowed && continue  # A hint is not a required numerical pivot.
+            return _PostsolveBasisResult(_POSTSOLVE_REJECTED, exchanges)
+        end
+        # Projection is a numerical pivot too. A tiny component of an otherwise
+        # large direction can be factor-update error, even above zero_tolerance.
+        # Reuse the primal sensitivity check before publishing the exchange;
+        # a rejected hint can leave the useful partial basis for completion.
+        if probe_hint && !_legacy_primal_direction_pivot_ok!(workspace, entering,
+                leaving_row, direction, stop_requested)
+            stop_requested() && return _PostsolveBasisResult(_POSTSOLVE_STOPPED, exchanges)
+            partial_allowed && continue
             return _PostsolveBasisResult(_POSTSOLVE_REJECTED, exchanges)
         end
         leaving = workspace.basis.basic_indices[leaving_row]

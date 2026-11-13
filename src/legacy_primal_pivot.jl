@@ -141,3 +141,45 @@ function _legacy_primal_direction_pivot_ok!(workspace::SimplexWorkspace{T}, ente
     all(isfinite, buffers.correction) || return false
     return abs(buffers.correction[leaving_row]) <= relative * abs(pivot)
 end
+
+# The BigFloat guard evaluates the residual with the existing stored-precision
+# quality evaluator. The factor and correction solve keep working precision;
+# a hardware-only compensated accumulator must not stand in for this check.
+function _legacy_primal_direction_pivot_ok!(workspace::SimplexWorkspace{BigFloat}, entering::Int,
+                                            leaving_row::Int, column::Vector{BigFloat}, stop)
+    _primal_nearest_rounding(BigFloat) || return false
+    pivot=column[leaving_row]
+    relative=sqrt(eps(one(BigFloat)))
+    # A workspace may outlive its original ambient precision. Only the probe
+    # shortcut accounts for the older policy; acceptance remains at the
+    # current, potentially stricter relative bound below.
+    probe_bits=min(precision(BigFloat),precision(workspace.progress.numerical_policy.solve_tolerance))
+    probe_relative=probe_bits<precision(BigFloat) ? sqrt(BigFloat(2)^(1-probe_bits)) : relative
+    largest=first(column)
+    for value in column
+        ccall((:mpfr_cmpabs,Base.MPFR.libmpfr),Cint,
+            (Ref{BigFloat},Ref{BigFloat}),value,largest)>0 && (largest=value)
+    end
+    abs(pivot)>probe_relative*_primal_direction_magnitude(largest) && return true
+    stop() && return false
+    # This optional projection check must not retain wide residual objects in
+    # the iteration cache. Only weak candidates allocate invocation-local work.
+    rhs=_pivot_column!(Vector{BigFloat}(undef,length(column)),workspace,entering)
+    scratch=SolveQualityScratch(BigFloat,length(column))
+    correction=similar(column)
+    B=_basis_matrix!(workspace)
+    quality=solve_quality!(scratch,B,column,rhs,workspace.progress.numerical_policy)
+    quality.finite || return false
+    _simplex_event!(workspace,:correction_attempt)
+    try
+        _timed_simplex(workspace,:ftran) do
+            _ordinary_forward_solve!(correction,workspace.factorization,scratch.residual)
+        end
+    catch exception
+        _is_numerical_exception(exception) || rethrow()
+        return false
+    end
+    stop() && return false
+    all(isfinite,correction) || return false
+    return abs(correction[leaving_row])<=relative*abs(pivot)
+end
