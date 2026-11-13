@@ -337,7 +337,20 @@ function cleanup_original(problem::LinearProblem{T}, restored_basis::Basis,
         workspace.refactorizations = prior_refactorizations
         stop_requested() && return _internal_solution(workspace, TIME_LIMIT, "time limit reached")
         workspace.basis = Basis(restored_basis.basic_indices, restored_basis.states)
-        recompute!(workspace; refactorize=true, caller_guard=stop_requested)
+        try
+            recompute!(workspace; refactorize=true, caller_guard=stop_requested)
+        catch exception
+            exception === stop_requested.exception && rethrow()
+            _is_numerical_exception(exception) || rethrow()
+            isnothing(target_primal) && rethrow()
+            repaired=_repair_postsolve_hint(workspace,target_primal,stop_requested)
+            stop_requested() && return _internal_solution(workspace,TIME_LIMIT,"time limit reached")
+            isnothing(repaired) && rethrow()
+            workspace=repaired
+            # Any later rejection rolls back to the verified replacement,
+            # never to the hint whose factorization has already failed.
+            restored_basis=Basis(workspace.basis.basic_indices,workspace.basis.states)
+        end
         projected = false
         preserve_primal = false
         if !isnothing(target_primal)

@@ -14,6 +14,7 @@ const SIMPLEX_EVENT_REASONS = (
     :primal_projection_attempt, :primal_point_projected,
     :certification, :certification_failed, :certificate_corrected, :repair, :checkpoint, :restore_checkpoint,
     :feasibility_recovery, :precision_boost, :lp_refinement,
+    :postsolve_hint_attempt, :postsolve_hint_repaired,
     :phase_lp_refinement, :lp_correction_certification,
     :phase_crash, :crash_pivot, :crash_accepted, :crash_fallback,
     :crash_rejected_quality, :crash_rejected_fill, :artificial_removed,

@@ -43,6 +43,126 @@ function _postsolve_partial_allowed(ws::SimplexWorkspace{T}) where T
         !policy.lp_refinement && !_is_staged_workspace(ws)
 end
 
+# A singular provisional hint is not a certificate that the original LP is
+# singular. Unsupported arithmetic/backends retain the historical failure path.
+_repair_postsolve_hint(owner,target,stop) = nothing
+
+"""Bounded, private replacement of weak columns in a failed postsolve hint.
+
+The unchecked LU only selects proposals; it is never installed in the live
+factorization. Acceptance requires the manager's normal refactorization and
+the unchanged primal/dual solve-quality checks. This does not certify a point
+or the objective: construction, cleanup and original certification follow.
+On failure/exception only completed-work counters are inherited by the owner.
+"""
+function _repair_postsolve_hint(owner::SimplexWorkspace{Float64},target,stop)
+    _postsolve_partial_allowed(owner) && owner.options.basis_refactorization==:native &&
+        _original_bounds_active(owner) || return nothing
+    length(target)==size(owner.problem.A,2) && all(isfinite,target) || return nothing
+    guard=_guard_stop_callback(stop)
+    guard() && return nothing
+    owner.iterations<owner.options.iteration_limit || return nothing
+    trial=nothing
+    try
+        trial=_initialize_workspace_state(owner.problem,owner.options;progress=owner.progress)
+        trial.iterations=owner.iterations
+        trial.refactorizations=owner.refactorizations
+        trial.basis=Basis(owner.basis.basic_indices,owner.basis.states)
+        indices=trial.basis.basic_indices
+        states=trial.basis.states
+        m,n=size(owner.problem.A)
+        values=vcat(target,owner.problem.A*target)
+        all(isfinite,values) || return nothing
+        selected=falses(n+m)
+        selected[indices].=true
+        factor_ready=false
+        for attempt in 1:owner.progress.numerical_policy.max_pivot_candidates
+            guard() && return nothing
+            _simplex_event!(trial,:postsolve_hint_attempt)
+            B=_basis_matrix!(trial)
+            f=lu(B;check=false)
+            guard() && return nothing
+            U=f.U
+            weak=Int[]
+            # A scale-relative proposal heuristic, never an acceptance tolerance.
+            for column in 1:m
+                magnitude=0.0
+                for k in nzrange(U,column)
+                    magnitude=max(magnitude,abs(U.nzval[k]))
+                end
+                abs(U[column,column])<=sqrt(eps(Float64))*magnitude && push!(weak,column)
+            end
+            if isempty(weak)
+                factor_ready || return nothing
+                # Roundoff in a now usable basis can still need the existing
+                # terminal native reconstruction. No new refinement budget.
+                _try_native_cleanup_recompute!(trial,guard) || return nothing
+                guard() && return nothing
+                _finite_workspace(trial) && _recomputed_basis_reliable(trial) || return nothing
+                guard() && return nothing
+                _simplex_event!(trial,:postsolve_hint_repaired)
+                guard() && return nothing
+                return trial
+            end
+            rows=f.p
+            slots=f.q[weak]
+            removed=indices[slots]
+            selected[removed].=false
+            cursor=1
+            for (slot,k) in zip(slots,weak)
+                row=rows[k]
+                if selected[n+row]
+                    while cursor<=m && selected[n+cursor]
+                        cursor+=1
+                    end
+                    cursor<=m || return nothing
+                    row=cursor
+                end
+                indices[slot]=n+row
+                selected[n+row]=true
+            end
+            for index in removed
+                selected[index] && continue
+                lower,upper=trial.lower[index],trial.upper[index]
+                states[index]=if isfinite(lower) && isfinite(upper)
+                    abs(values[index]-bound_value(lower))<=abs(values[index]-bound_value(upper)) ? AT_LOWER : AT_UPPER
+                elseif isfinite(lower)
+                    AT_LOWER
+                elseif isfinite(upper)
+                    AT_UPPER
+                else
+                    FREE_NONBASIC
+                end
+            end
+            for slot in slots
+                states[indices[slot]]=BASIC
+            end
+            factor_ready=false
+            guard() && return nothing
+            try
+                recompute!(trial;refactorize=true,caller_guard=guard)
+                factor_ready=true
+                guard() && return nothing
+                if _finite_workspace(trial) && _recomputed_basis_reliable(trial)
+                    guard() && return nothing
+                    _simplex_event!(trial,:postsolve_hint_repaired)
+                    guard() && return nothing
+                    return trial
+                end
+            catch exception
+                exception === guard.exception && rethrow()
+                _is_numerical_exception(exception) || rethrow()
+            end
+        end
+        return nothing
+    finally
+        if !isnothing(trial)
+            owner.iterations=max(owner.iterations,trial.iterations)
+            owner.refactorizations=max(owner.refactorizations,trial.refactorizations)
+        end
+    end
+end
+
 function _postsolve_partial_result(ws,exchanges,stop)
     stop() && return _PostsolveBasisResult(_POSTSOLVE_STOPPED,exchanges)
     state=_postsolve_partial_allowed(ws) && _finite_workspace(ws) &&
