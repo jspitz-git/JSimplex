@@ -1045,8 +1045,10 @@ function _infeasibility_bound_allowance(workspace::SimplexWorkspace{T}, index::I
     return T <: AbstractFloat ? nextfloat(allowance) : allowance
 end
 
+include("infeasibility_witness.jl")
+
 _infeasibility_certified(workspace::SimplexWorkspace{T}, rho::Vector{T}, below::Bool) where {T<:AbstractFloat} =
-    _floating_infeasibility_certified(workspace,rho,below)
+    first(_certified_infeasibility_witness(workspace,rho,below))
 
 function _infeasibility_certified(workspace::SimplexWorkspace{T},
                                   rho::Vector{T}, below::Bool) where {T<:Rational}
@@ -1111,21 +1113,23 @@ function _infeasibility_certified(workspace::SimplexWorkspace{Rational{BigInt}},
 end
 
 function _floating_infeasibility_certified(workspace::SimplexWorkspace{T},
-                                          rho::Vector{T}, below::Bool) where {T<:AbstractFloat}
+                                          rho::Vector{T}, below::Bool,
+                                          ::Val{Tight}=Val(false)) where {T<:AbstractFloat,Tight}
     # Every feasible working vector satisfies [A -I] * x == 0. A row
     # combination must stay positive over the tolerance envelope of the bounds.
     # This does not rely on the computed basic primal values.
     A = workspace.problem.A
     column_count = size(A, 2)
     orientation = below ? one(T) : -one(T)
+    tight = Tight && _tight_certificate_bounds(T)
     minimum_value = zero(T)
     for index in eachindex(workspace.lower)
         coefficient_lower = coefficient_upper = zero(T)
         if index <= column_count
             for position in A.colptr[index]:(A.colptr[index + 1] - 1)
-                coefficient_lower, coefficient_upper = _add_product_bounds(
+                coefficient_lower, coefficient_upper = _certificate_add_product_bounds(
                     coefficient_lower, coefficient_upper,
-                    orientation * rho[A.rowval[position]], A.nzval[position],
+                    orientation * rho[A.rowval[position]], A.nzval[position], tight,
                 )
             end
         else
@@ -1161,7 +1165,8 @@ function _floating_infeasibility_certified(workspace::SimplexWorkspace{T},
 end
 
 function _floating_infeasibility_certified(workspace::SimplexWorkspace{BigFloat},
-                                          rho::Vector{BigFloat}, below::Bool)
+                                          rho::Vector{BigFloat}, below::Bool,
+                                          ::Val{Tight}=Val(false)) where Tight
     T = BigFloat
     # Every feasible working vector satisfies [A -I] * x == 0. A row
     # combination must stay positive over the tolerance envelope of the bounds.
@@ -1169,18 +1174,22 @@ function _floating_infeasibility_certified(workspace::SimplexWorkspace{BigFloat}
     A = workspace.problem.A
     column_count = size(A, 2)
     orientation = below ? one(T) : -one(T)
+    oriented = Tight ? (below ? rho : map(_witness_negate,rho)) : rho
+    tight = Tight && _tight_certificate_bounds(T)
     minimum_value = zero(T)
     for index in eachindex(workspace.lower)
         coefficient_lower = coefficient_upper = zero(T)
         if index <= column_count
             for position in A.colptr[index]:(A.colptr[index + 1] - 1)
-                coefficient_lower, coefficient_upper = _add_product_bounds(
+                coefficient_lower, coefficient_upper = _certificate_add_product_bounds(
                     coefficient_lower, coefficient_upper,
-                    orientation * rho[A.rowval[position]], A.nzval[position],
+                    Tight ? oriented[A.rowval[position]] : orientation*rho[A.rowval[position]],
+                    A.nzval[position], tight,
                 )
             end
         else
-            coefficient_lower = coefficient_upper = -orientation * rho[index - column_count]
+            coefficient_lower = coefficient_upper = Tight ?
+                _witness_negate(oriented[index-column_count]) : -orientation*rho[index-column_count]
         end
         isfinite(coefficient_lower) && isfinite(coefficient_upper) || return false
         iszero(coefficient_lower) && iszero(coefficient_upper) && continue
@@ -2612,11 +2621,12 @@ function _recession_row_bounds(A::SparseMatrixCSC{T,Int}, structural::Vector{T},
                                 ::Val{false}) where {T<:AbstractFloat}
     lower = zeros(T, size(A, 1))
     upper = zeros(T, size(A, 1))
+    tight = _tight_certificate_bounds(T)
     for column in axes(A, 2)
         for position in A.colptr[column]:(A.colptr[column + 1] - 1)
             row = A.rowval[position]
-            lower[row], upper[row] = _add_product_bounds(
-                lower[row], upper[row], A.nzval[position], structural[column],
+            lower[row], upper[row] = _certificate_add_product_bounds(
+                lower[row], upper[row], A.nzval[position], structural[column], tight,
             )
         end
     end

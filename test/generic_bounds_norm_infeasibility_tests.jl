@@ -561,11 +561,31 @@ function intact(v,s)
 end
 outputs(v,z)=v.scope in (:init,:solve) ? (z,v.w.pricing_weights,v.w.scratch.steepest_valid,v.w.scratch.steepest_initialized,v.w.basis.basic_indices,v.w.basis.states,v.w.primal) : z
 aliaspattern(q)=Bool[q[i]===q[j] for i in eachindex(q),j in eachindex(q)]
+# A tighter certificate may resolve an old inconclusive result. Validate the
+# actual returned witness against exact stored coefficients, not the old bool.
+function exact_certificate(w,rho,below)
+ q(x)=J._exact_rational(x);A=w.problem.A;m,n=size(A)
+ coefficients=fill(big(0)//big(1),m+n);sign=below ? 1 : -1
+ for j in 1:n,k in nzrange(A,j);coefficients[j]+=sign*q(rho[A.rowval[k]])*q(A.nzval[k]);end
+ for i in 1:m;coefficients[n+i]=-sign*q(rho[i]);end
+ result=big(0)//big(1)
+ for i in eachindex(coefficients)
+  c=coefficients[i];iszero(c)&&continue
+  bound=c>0 ? w.lower[i] : w.upper[i];isfinite(bound)||return false
+  result+=c*q(J.bound_value(bound))-abs(c)*q(J._infeasibility_bound_allowance(w,i))
+ end
+ result>0
+end
 function checkpair(a,b,arm)
  reset!(a);reset!(b);sa=snapshot(a);sb=snapshot(b);ctx=(precision(BigFloat),rounding(BigFloat))
  x=capture(()->whole(Val(:original),a));y=capture(()->whole(Val(arm),b))
  @test x[1]===y[1]
- @test x[1]===:value ? same(outputs(a,x[2]),outputs(b,y[2])) : same(x,y)
+ if a.scope===:cert && x==(:value,false) && y==(:value,true)
+  accepted,witness,_=J._certified_infeasibility_witness(b.w,b.rho,b.below)
+  @test accepted && exact_certificate(b.w,witness,b.below)
+ else
+  @test x[1]===:value ? same(outputs(a,x[2]),outputs(b,y[2])) : same(x,y)
+ end
  @test intact(a,sa)&&intact(b,sb)
  @test ctx==(precision(BigFloat),rounding(BigFloat))
  if x[1]===:value&&a.scope===:init;@test aliaspattern(a.w.pricing_weights)==aliaspattern(b.w.pricing_weights);end
@@ -692,8 +712,8 @@ function extra_correctness(::Type{T}) where T
      v.w.problem.A[1,1]=one(T);v.w.problem.A[2,1]=-one(T)
      v.w.lower[1]=J._unbounded_bound(T);v.w.upper[1]=J.Bound(T(2))
     end
-    # Exact coefficient0 is enclosed by a strict sign-straddling interval;
-    # the unbounded side must remain inconclusive before any penalty relaxation.
+    # The historical reference remains inconclusive. A tighter candidate may
+    # resolve exact cancellation; checkpair then requires an exact witness.
     @test a.rho[1]*a.w.problem.A[1,1]+a.rho[2]*a.w.problem.A[2,1]==0
     @test checkpair(a,b,:C)==(:value,false)
    end

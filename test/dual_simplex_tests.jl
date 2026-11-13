@@ -718,12 +718,20 @@ end
         auxiliary.primal[1:2] .= direction
         @test JSimplex._recession_direction_status(workspace, auxiliary) == status
     end
-    overflow = LinearProblem(sparse([1.0e308 -1.0e308]), [-1.0, 0.0];
-                             row_lower=[0.0], row_upper=[0.0])
-    workspace = JSimplex.initialize_workspace(overflow, SolverOptions())
-    auxiliary = JSimplex._auxiliary_workspace(workspace)
-    auxiliary.primal[1:2] .= [1.0, 1.0]
-    @test JSimplex._recession_direction_status(workspace, auxiliary) != :certified
+    # Large finite products can cancel exactly without overflowing. A tight
+    # enclosure may certify that ray; actual product overflow stays invalid.
+    for T in (Float32,Float64)
+        large = T === Float32 ? T(1.0e38) : T(1.0e308)
+        problem = LinearProblem(sparse(reshape(T[large,-large],1,2)),T[-1,0];
+                                row_lower=T[0],row_upper=T[0])
+        workspace = JSimplex.initialize_workspace(problem,SolverOptions(T))
+        auxiliary = JSimplex._auxiliary_workspace(workspace)
+        auxiliary.primal[1:2] .= one(T)
+        @test sum(Rational{BigInt}(problem.A[1,j])*Rational{BigInt}(auxiliary.primal[j]) for j in 1:2) == 0
+        @test JSimplex._recession_direction_status(workspace,auxiliary) == :certified
+        auxiliary.primal[1:2] .= T(4)
+        @test JSimplex._recession_direction_status(workspace,auxiliary) == :invalid
+    end
 end
 
 @testset "Phase I stops before either refactorization" begin
