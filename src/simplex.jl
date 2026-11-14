@@ -153,6 +153,7 @@ mutable struct SimplexScratch{T<:Real}
     # A private final LP-refinement probe hands its corrected witness to diagnostics.
     lp_dual_witness::Union{Nothing,Vector{T}}
     primal_point_buffers::Union{Nothing,_PrimalPointBuffers{T}}
+    dual_row::Union{Nothing,_DualRowContext{T}}
 end
 
 function SimplexScratch(::Type{T}, row_count::Int, variable_count::Int) where {T<:Real}
@@ -164,7 +165,7 @@ function SimplexScratch(::Type{T}, row_count::Int, variable_count::Int) where {T
         zeros(T, variable_count), falses(variable_count), false,
         candidates, Int[], T[], T[], Int[], nothing, nothing, false, Int[], Int[], 0, 0, nothing,
         :none, zero(T), false, false, false, :limit, RefactorizationState(T), nothing, nothing, nothing, nothing, nothing, zero(T), zero(T), nothing, true, true, nothing,
-        BasisCheckpoint{T}[], UInt(0), Tuple{Int,Int}[], UInt(0), false, false, nothing, nothing,
+        BasisCheckpoint{T}[], UInt(0), Tuple{Int,Int}[], UInt(0), false, false, nothing, nothing, nothing,
     )
 end
 

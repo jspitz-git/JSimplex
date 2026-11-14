@@ -22,7 +22,7 @@ function _phase_options(o::SolverOptions{T,M,R},algorithm::Symbol) where {T,M,R}
         o.iteration_limit,o.time_limit,o.refactorization_interval,o.verbose,o.log_level,
         algorithm,o.pricing,o.basis_update,o.basis_refactorization,o.scaling,o.presolve,
         o.simplex_strategy,o.partial_pricing,o.native_pivot_policy,
-        o.presolve_row_sparsification,o.presolve_column_merging,o.presolve_column_dominance)
+        o.presolve_row_sparsification,o.presolve_column_merging,o.presolve_column_dominance, o.dual_row_adapter)
 end
 
 function _phase_inherit_work!(destination,source)

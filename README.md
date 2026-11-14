@@ -167,7 +167,7 @@ wall-clock limit. The stable JSimplex raw optimizer attribute names are
 `relax_integrality`, `iteration_limit`, `time_limit`, `primal_tolerance`, `dual_tolerance`,
 `zero_tolerance`, `refactorization_interval`, `verbose`, `algorithm`,
 `pricing`, `basis_update`, `basis_refactorization`, `scaling`, `presolve`, and
-`simplex_strategy`, and `partial_pricing`.
+`simplex_strategy`, `partial_pricing`, and `dual_row_adapter`.
 `set_optimizer_attribute(model, "time_limit", seconds)` sets the same limit as
 `set_time_limit_sec`. The raw attribute uses nonnegative seconds and `Inf` to
 disable the deadline; `MOI.TimeLimitSec()` reports a disabled limit as `nothing`.
@@ -320,8 +320,12 @@ for `SolverOptions(Float64)`. Floating types use these keyword defaults:
 | `presolve_row_sparsification` | `false` | Optionally sparsify rows before simplex |
 | `presolve_column_merging` | `false` | Optionally merge proportional columns before simplex |
 | `presolve_column_dominance` | `false` | Optionally run specialized proportional-column capacity dominance |
+| `dual_row_adapter` | `false` | Opt into exact-zero support/fused row pricing for native Float32/64 legacy dual simplex; retains all checks and tolerances, uses O(rows + columns) scratch, falls back outside supported conditions |
 | `partial_pricing` | `false` | Explicitly enable candidate pools independently of the simplex strategy |
 | `simplex_strategy` | `:legacy` | Fixed policies or opt-in `:adaptive` progress heuristics; both use the same default numerical kernel |
+
+See [dual row adapter](docs/dual-row-adapter.md) for supported modes, unchanged
+checks and scratch-memory costs of `dual_row_adapter`.
 
 The three optional presolve flags are independent Boolean options, also available
 as MOI raw optimizer attributes. They require `Float32`, `Float64`, or `BigFloat`;

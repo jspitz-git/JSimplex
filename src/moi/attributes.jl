@@ -17,6 +17,7 @@ const _RAW_OPTIMIZER_ATTRIBUTES = (
     "presolve_column_merging",
     "presolve_column_dominance",
     "simplex_strategy",
+    "dual_row_adapter",
     "partial_pricing",
 )
 
@@ -41,6 +42,7 @@ function _solver_options(optimizer::Optimizer{T})::SolverOptions{T} where {T}
         presolve_column_merging=optimizer.presolve_column_merging,
         presolve_column_dominance=optimizer.presolve_column_dominance,
         simplex_strategy=optimizer.simplex_strategy,
+        dual_row_adapter=optimizer.dual_row_adapter,
         partial_pricing=optimizer.partial_pricing,
     )
 end
@@ -64,6 +66,7 @@ function _set_solver_options!(
     presolve_column_merging=optimizer.presolve_column_merging,
     presolve_column_dominance=optimizer.presolve_column_dominance,
     simplex_strategy=optimizer.simplex_strategy,
+    dual_row_adapter=optimizer.dual_row_adapter,
     partial_pricing=optimizer.partial_pricing,
 ) where {T}
     options = SolverOptions(
@@ -86,6 +89,7 @@ function _set_solver_options!(
         presolve_column_merging,
         presolve_column_dominance,
         simplex_strategy,
+        dual_row_adapter,
         partial_pricing,
     )
     optimizer.primal_tolerance = options.primal_tolerance
@@ -105,6 +109,7 @@ function _set_solver_options!(
     optimizer.presolve_column_merging = options.presolve_column_merging
     optimizer.presolve_column_dominance = options.presolve_column_dominance
     optimizer.simplex_strategy = options.simplex_strategy
+    optimizer.dual_row_adapter = options.dual_row_adapter
     optimizer.partial_pricing = options.partial_pricing
     _clear_result!(optimizer)
     return
@@ -180,6 +185,8 @@ function MOI.get(optimizer::Optimizer, attr::MOI.RawOptimizerAttribute)
         return optimizer.presolve_column_merging
     elseif attr.name == "presolve_column_dominance"
         return optimizer.presolve_column_dominance
+    elseif attr.name == "dual_row_adapter"
+        return optimizer.dual_row_adapter
     elseif attr.name == "partial_pricing"
         return optimizer.partial_pricing
     elseif attr.name == "simplex_strategy"
@@ -240,6 +247,9 @@ function MOI.set(
     elseif attr.name == "presolve_column_dominance"
         value isa Bool || throw(ArgumentError("presolve_column_dominance must be a Bool"))
         return _set_solver_options!(optimizer; presolve_column_dominance=value)
+    elseif attr.name == "dual_row_adapter"
+        value isa Bool || throw(ArgumentError("dual_row_adapter must be a Bool"))
+        return _set_solver_options!(optimizer; dual_row_adapter=value)
     elseif attr.name == "partial_pricing"
         value isa Bool || throw(ArgumentError("partial_pricing must be a Bool"))
         return _set_solver_options!(optimizer; partial_pricing=value)

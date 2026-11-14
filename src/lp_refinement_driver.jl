@@ -56,7 +56,7 @@ function _lp_auxiliary_options(o::SolverOptions{T,M,R},budget) where {T,M,R}
         max(0,budget.iteration_limit-budget.iterations),budget.time_limit_seconds,
         o.refactorization_interval,o.verbose,o.log_level,o.algorithm,o.pricing,
         o.basis_update,o.basis_refactorization,:off,false,o.simplex_strategy,o.partial_pricing,o.native_pivot_policy,
-        o.presolve_row_sparsification,o.presolve_column_merging,o.presolve_column_dominance)
+        o.presolve_row_sparsification,o.presolve_column_merging,o.presolve_column_dominance,o.dual_row_adapter)
 end
 
 function _lp_memory_estimate(ws::SimplexWorkspace{T},bits) where T

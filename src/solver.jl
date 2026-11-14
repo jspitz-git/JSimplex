@@ -462,7 +462,7 @@ function _remaining_options(options::SolverOptions{T,M,R}; iterations::Int,
         max(0, options.iteration_limit - iterations), time_limit,
         options.refactorization_interval, options.verbose, options.log_level,
         algorithm, options.pricing, options.scaling, options.presolve, options.simplex_strategy, options.partial_pricing, options.native_pivot_policy,
-        options.presolve_row_sparsification, options.presolve_column_merging, options.presolve_column_dominance)
+        options.presolve_row_sparsification, options.presolve_column_merging, options.presolve_column_dominance, options.dual_row_adapter)
 end
 
 function _retry_original(problem::LinearProblem{T}, options::SolverOptions{T},

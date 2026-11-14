@@ -16,6 +16,7 @@ mutable struct Optimizer{T<:Real} <: MOI.AbstractOptimizer
     partial_pricing::Bool
     presolve_row_sparsification::Bool
     presolve_column_merging::Bool
+    dual_row_adapter::Bool
     presolve_column_dominance::Bool
     silent::Bool
     relax_integrality::Bool
@@ -45,6 +46,7 @@ function Optimizer{T}() where {T<:Real}
         options.partial_pricing,
         options.presolve_row_sparsification,
         options.presolve_column_merging,
+        options.dual_row_adapter,
         options.presolve_column_dominance,
         false,
         false,

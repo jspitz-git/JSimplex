@@ -335,14 +335,18 @@ _dual_ratio_tolerance(coefficient,tolerance::T) where T =
 _dual_ratio_tolerance(coefficient::BigFloat,tolerance::BigFloat) =
     coefficient < 0 ? -tolerance : tolerance
 
-function dual_ratio_test(workspace::SimplexWorkspace{T}, tableau_row::Vector{T},
-                         orientation::T=one(T))::Int where {T}
+dual_ratio_test(workspace::SimplexWorkspace{T}, tableau_row::Vector{T},
+                orientation::T=one(T)) where {T} =
+    _dual_ratio_test_indices(workspace, tableau_row, orientation, eachindex(tableau_row))
+
+function _dual_ratio_test_indices(workspace::SimplexWorkspace{T}, tableau_row::Vector{T},
+                         orientation::T, indices)::Int where {T}
     candidates = workspace.scratch.candidates
     empty!(candidates)
     maximum_step = _unbounded_bound(T)
     tolerance = workspace.options.dual_tolerance
     cutoff = workspace.progress.numerical_policy.pivot_validation ? zero(T) : _dual_pivot_cutoff(T)
-    for index in eachindex(tableau_row)
+    for index in indices
         coefficient = orientation * tableau_row[index]
         _dual_pivot_eligible(workspace, index, coefficient, cutoff) || continue
         push!(candidates, index)
@@ -481,33 +485,38 @@ end
 # Traverse dual breakpoints until the remaining primal violation fits in the
 # entering variable's range. Earlier boxed variables may cross to their other
 # bound without changing the basis.
-function _bound_flipping_ratio_test(workspace::SimplexWorkspace{T}, tableau_row::Vector{T},
-                                    orientation::T, violation::T) where {T}
+_bound_flipping_ratio_test(workspace::SimplexWorkspace{T}, tableau_row::Vector{T},
+                           orientation::T, violation::T) where {T} =
+    _bound_flipping_ratio_test_indices(workspace, tableau_row, orientation, violation,
+                                       eachindex(tableau_row))
+
+function _bound_flipping_ratio_test_indices(workspace::SimplexWorkspace{T}, tableau_row::Vector{T},
+                                    orientation::T, violation::T, indices) where {T}
     flips = workspace.scratch.flips
     empty!(flips)
     cutoff = workspace.progress.numerical_policy.pivot_validation ? zero(T) : _dual_pivot_cutoff(T)
     # A boxed variable matters only when it can move in this tableau row.
     # Otherwise keep the linear Harris pass and its stronger pivot choice.
     has_boxed = false
-    for index in eachindex(workspace.basis.states)
+    for index in indices
         if isfinite(workspace.lower[index]) && isfinite(workspace.upper[index]) &&
            _dual_pivot_eligible(workspace, index, orientation * tableau_row[index], cutoff)
             has_boxed = true
             break
         end
     end
-    has_boxed || return dual_ratio_test(workspace, tableau_row, orientation), flips, false
+    has_boxed || return _dual_ratio_test_indices(workspace, tableau_row, orientation, indices), flips, false
 
     candidates = workspace.scratch.candidates
     empty!(candidates)
     steps = workspace.scratch.ratio_steps
     length(steps) < length(tableau_row) && resize!(steps, length(tableau_row))
-    for index in eachindex(tableau_row)
+    for index in indices
         coefficient = orientation * tableau_row[index]
         _dual_pivot_eligible(workspace, index, coefficient, cutoff) || continue
         step = workspace.reduced_costs[index] / coefficient
         if !isfinite(step) || step < zero(T)
-            return dual_ratio_test(workspace, tableau_row, orientation), flips, false
+            return _dual_ratio_test_indices(workspace, tableau_row, orientation, indices), flips, false
         end
         steps[index] = step
         push!(candidates, index)
@@ -539,7 +548,7 @@ function _bound_flipping_ratio_test(workspace::SimplexWorkspace{T}, tableau_row:
         gain = abs(tableau_row[index]) * width
         if !isfinite(width) || !isfinite(gain)
             empty!(flips)
-            return dual_ratio_test(workspace, tableau_row, orientation), flips, false
+            return _dual_ratio_test_indices(workspace, tableau_row, orientation, indices), flips, false
         end
         if remaining <= gain + workspace.options.primal_tolerance
             index in workspace.scratch.rejected_entering && return -1, flips, false
@@ -1645,6 +1654,7 @@ function _dual_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_request
                           basis_refreshed::Bool=false,
                           perturb_degenerate::Bool=true;
                           force_full_pricing::Bool=false) where {T}
+    row_context = _dual_row_context(workspace, stop_requested)
     _simplex_event!(workspace, :pricing)
     leaving_row = _timed_simplex(workspace, :pricing) do
         dual_edge_selection(workspace;force_full=force_full_pricing)
@@ -1672,25 +1682,23 @@ function _dual_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_request
         policy.solve_refinement && !quality.reliable && throw(_UnreliableBasisSolve())
     end
     tableau_row = workspace.scratch.tableau_row
-    _timed_simplex(workspace, :pricing) do
-        price!(tableau_row, workspace, rho)
-    end
+    _timed_dual_row_price!(row_context, workspace, tableau_row, rho, leaving_row)
     all(isfinite, rho) && all(isfinite, tableau_row) || return _numerical_failure()
     # A fresh LU can also have an inaccurate transpose solve. Its row must
     # pass the same check before it participates in the ratio test.
     if _is_exact(T) === Val(false)
-        row_residual_ratio = _dual_row_residual_ratio(workspace, rho, leaving_row)
+        row_residual_ratio = _dual_row_residual!(row_context, workspace, rho, leaving_row)
         row_failed = row_residual_ratio > one(T)
         if row_failed
             reuse_row = _can_reuse_corrected_row(workspace, stop_requested, tableau_row, rho)
             if _try_native_dual_correction!(workspace, rho, leaving_row, leaving_row,
                                             stop_requested; transposed=true)
-                price!(tableau_row, workspace, rho)
+                _dual_row_price!(row_context, workspace, tableau_row, rho, leaving_row)
                 all(isfinite, tableau_row) || return _numerical_failure()
                 if reuse_row
                     row_failed = false
                 else
-                    row_residual_ratio = _dual_row_residual_ratio(workspace, rho, leaving_row)
+                    row_residual_ratio = _dual_row_residual!(row_context, workspace, rho, leaving_row)
                     row_failed = row_residual_ratio > one(T)
                 end
             end
@@ -1736,9 +1744,7 @@ function _dual_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_request
         end
     end
     orientation = below ? -one(T) : one(T)
-    entering_index, flips, exhausted = _configured_dual_ratio_test(
-        workspace, tableau_row, orientation, abs(delta),
-    )
+    entering_index, flips, exhausted = _dual_row_ratio!(row_context, workspace, tableau_row, orientation, abs(delta))
     workspace.scratch.selected_entering = entering_index
     if entering_index == -1
         if workspace.progress.numerical_policy.stable_ratio && !exhausted
