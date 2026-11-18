@@ -21,6 +21,7 @@ using Test
     include("postsolve_bigfloat_sensitivity_tests.jl")
     include("postsolve_hint_precision_tests.jl")
     include("infeasibility_witness_tests.jl")
+    include("primal_infeasibility_sweep_tests.jl")
     include("native_quality_finite_tests.jl")
     include("generic_quality_devex_tests.jl")
     include("numeric_tests.jl")

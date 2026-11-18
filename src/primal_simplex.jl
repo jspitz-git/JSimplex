@@ -1235,6 +1235,11 @@ end
 _primal_infeasibility_certified(workspace::SimplexWorkspace{T}, dual::Vector{T}) where T =
     _infeasibility_certified(workspace, dual, false)
 
+# Phase-I multipliers may violate many independent unbounded-column signs.
+# Repair a whole private proposal, without weakening the final certificate.
+_primal_infeasibility_certified(workspace::SimplexWorkspace{T}, dual::Vector{T}) where {T<:Union{Float32,Float64,BigFloat}} =
+    first(_certified_infeasibility_witness(workspace, dual, false; sweep=true))
+
 function _primal_phase_one_matrix(A::SparseMatrixCSC{T,Int}, artificial_rows::Vector{Int},
                                   artificial_signs::Vector{T}) where {T}
     row_count, column_count = size(A)
