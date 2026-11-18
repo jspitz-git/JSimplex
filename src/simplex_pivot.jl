@@ -79,6 +79,7 @@ end
 
 # Explicit fields keep array element types concrete in this inner-loop copy.
 function _copy_pivot_state!(destination,source)
+    _invalidate_dual_infeasibility!(destination)
     _copy_pricing_state!(destination,source)
     _copy_pricing_pool!(destination,source)
     _copy_sparse_pricing_cache!(destination,source)

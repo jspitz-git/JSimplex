@@ -295,6 +295,10 @@ function _dual_pricing_score(violation,weight,weighted,::Val{S}) where S
 end
 
 function _dual_edge_selection(workspace::SimplexWorkspace{T},scoring::Val{S})::Int where {T,S}
+    if S !== :scaled
+        cache = _current_dual_infeasibility!(workspace)
+        isnothing(cache) || return _cached_dual_edge_selection(workspace, cache, scoring)
+    end
     leaving_row = -1
     scored = 0
     best_score = S === :scaled ? _primal_dantzig_score(one(T)) : zero(S)
@@ -782,6 +786,7 @@ function _apply_bound_flips!(workspace::SimplexWorkspace{T}, flips::Vector{Int},
     for (row, index) in enumerate(workspace.basis.basic_indices)
         isfinite(workspace.primal[index] - basic_change[row]) || return false
     end
+    cache = _current_dual_infeasibility!(workspace)
     for index in flips
         state = workspace.basis.states[index]
         workspace.basis.states[index] = state == AT_LOWER ? AT_UPPER : AT_LOWER
@@ -789,7 +794,9 @@ function _apply_bound_flips!(workspace::SimplexWorkspace{T}, flips::Vector{Int},
             bound_value(workspace.upper[index]) : bound_value(workspace.lower[index])
     end
     for (row, index) in enumerate(workspace.basis.basic_indices)
+        old_value = workspace.primal[index]
         workspace.primal[index] -= basic_change[row]
+        _dual_infeasibility_changed!(cache, workspace, row, index, old_value)
     end
     if !isnothing(workspace.progress.diagnostics)
         for _ in flips
@@ -901,8 +908,11 @@ end
 
 function update_primals!(workspace::SimplexWorkspace{T}, tableau_column::Vector{T},
                         entering_index::Int, leaving_row::Int, primal_step::T)::Nothing where {T}
+    cache = _current_dual_infeasibility!(workspace)
     for (row, index) in enumerate(workspace.basis.basic_indices)
+        old_value = workspace.primal[index]
         workspace.primal[index] -= primal_step * tableau_column[row]
+        _dual_infeasibility_changed!(cache, workspace, row, index, old_value)
     end
     workspace.primal[entering_index] += primal_step
     return nothing
@@ -1983,6 +1993,7 @@ function _dual_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_request
     workspace.basis.states[leaving_index] = below ? AT_LOWER : AT_UPPER
     _advance_pricing_basis!(workspace)
     workspace.primal[leaving_index] = bound_value(bound)
+    _dual_infeasibility_pivot!(workspace, leaving_row)
     # Count the completed pivot even when its subsequent refactorization times out.
     _note_refactor_step!(workspace,dual_step)
     workspace.scratch.last_primal_step = primal_step
@@ -2462,6 +2473,16 @@ _can_reuse_dual_entry_validation(ws::SimplexWorkspace, stop::_StopCallback{<:_Ba
 
 function _dual_optimize!(workspace::SimplexWorkspace{T}, stop_requested;
                          perturb_degenerate::Bool=true)::DualTermination where {T}
+    previous_scope = _begin_dual_infeasibility!(workspace, stop_requested)
+    try
+        return _dual_optimize_loop!(workspace, stop_requested; perturb_degenerate)
+    finally
+        _end_dual_infeasibility!(workspace, previous_scope)
+    end
+end
+
+function _dual_optimize_loop!(workspace::SimplexWorkspace{T}, stop_requested;
+                             perturb_degenerate::Bool=true)::DualTermination where {T}
     previous_step_checked = false
     while true
         stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")

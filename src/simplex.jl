@@ -99,6 +99,18 @@ function _primal_point_native_scratch!(buffers::_PrimalPointBuffers{T}) where T
     return scratch
 end
 
+# Complete logical-row membership; scores always use the current pricing weights.
+# This state belongs only to its workspace and never owns a factor or model.
+mutable struct _DualInfeasibilityState{T<:Real}
+    values::Vector{T}
+    rows::Vector{Int}
+    positions::Vector{Int}
+    count::Int
+    valid::Bool
+    fingerprint::NTuple{5,UInt}
+    tolerance::T
+end
+
 mutable struct SimplexScratch{T<:Real}
     basic_mask::BitVector
     row_rhs::Vector{T}
@@ -154,6 +166,8 @@ mutable struct SimplexScratch{T<:Real}
     lp_dual_witness::Union{Nothing,Vector{T}}
     primal_point_buffers::Union{Nothing,_PrimalPointBuffers{T}}
     dual_row::Union{Nothing,_DualRowContext{T}}
+    dual_infeasibility::Union{Nothing,_DualInfeasibilityState{T}}
+    dual_infeasibility_active::Bool
 end
 
 function SimplexScratch(::Type{T}, row_count::Int, variable_count::Int) where {T<:Real}
@@ -166,6 +180,7 @@ function SimplexScratch(::Type{T}, row_count::Int, variable_count::Int) where {T
         candidates, Int[], T[], T[], Int[], nothing, nothing, false, Int[], Int[], 0, 0, nothing,
         :none, zero(T), false, false, false, :limit, RefactorizationState(T), nothing, nothing, nothing, nothing, nothing, zero(T), zero(T), nothing, true, true, nothing,
         BasisCheckpoint{T}[], UInt(0), Tuple{Int,Int}[], UInt(0), false, false, nothing, nothing, nothing,
+        nothing, false,
     )
 end
 
@@ -419,6 +434,7 @@ end
 
 function recompute!(workspace::SimplexWorkspace{T}; refactorize::Bool=false,
                     caller_guard=nothing, diagnostic_reason::Symbol=:refactor_other) where {T}
+    _invalidate_dual_infeasibility!(workspace)
     _validate_basis(workspace)
     _invalidate_pricing_pool!(workspace)
     if refactorize
